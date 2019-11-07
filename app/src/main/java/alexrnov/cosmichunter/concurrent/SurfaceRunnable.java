@@ -1,14 +1,15 @@
 package alexrnov.cosmichunter.concurrent;
 
+import android.opengl.GLSurfaceView;
 import android.util.Log;
 
 import alexrnov.cosmichunter.SurfaceView;
 
 public class SurfaceRunnable implements Runnable {
 
-  private SurfaceView surfaceView;
+  private GLSurfaceView surfaceView;
 
-  public SurfaceRunnable(SurfaceView surfaceView) {
+  public SurfaceRunnable(GLSurfaceView surfaceView) {
     this.surfaceView = surfaceView;
   }
 

@@ -20,6 +20,7 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 public class GameActivity extends AppCompatActivity {
+  private OGLView oglView;
   private SurfaceView surfaceView;
   private SurfaceExecutor executor = new SurfaceExecutor();
   // флаг нужен для того, чтобы при возврате к приложению,
@@ -48,6 +49,13 @@ public class GameActivity extends AppCompatActivity {
 
     surfaceView = new SurfaceView(this);
     setContentView(surfaceView);
+
+    //setContentView(R.layout.activity_gl);
+    Log.v("P","init1");
+    //setContentView(R.layout.activity_level);
+    Log.v("P", "init2");
+    //oglView = (OGLView) findViewById(R.id.oglView);
+
   }
 
   private boolean detectOpenGLES30() {
@@ -61,14 +69,20 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onResume() {
+    Log.v("P", "onResume()");
     super.onResume();
+    Log.v("P", "init3");
+
     if (createThreads) {
       SurfaceRunnable sr = new SurfaceRunnable(surfaceView);
+      //SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
     }
+
+    Log.v("P", "init4");
     //surfaceView.onResume();
   }
 
@@ -82,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
+    Log.v("P", "onStart()");
     super.onStart();
     checkMusicForStartGameActivity(this);
 
