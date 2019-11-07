@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#246F09</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="radioButtonBaseSolid">#C0C0C0</color>
+    <color name="radioButtonSelectText">#FFFFFF</color>
+    <color name="radioButtonPressText">#696969</color>
+    <color name="radioButtonNonSelectText">#696969</color>
+    <color name="radioButtonPressSolid">#FFC87E</color>
+    <color name="radioButtonPressBorder">#C77F15</color>
+
+    <color name="buttonDefaultStartEnd">#FFC87E</color>
+    <color name="buttonDefaultCenter">#C06E11</color>
+    <color name="buttonPressSolidStartEnd">#FFCC8F</color>
+    <color name="buttonPressSolidCenter">#D27913</color>
+
+    <color name="backButtonSolidStartEnd">#FFB291</color>
+    <color name="backButtonSolidCenter">#FF6B47</color>
+    <color name="backButtonPressSolidStartEnd">#FFB899</color>
+    <color name="backButtonPressSolidCenter">#FF7755</color>
+
+    <color name="noActivityButtonSolidStartEnd">#BFBFBF</color>
+    <color name="noActivityButtonSolidCenter">#636363</color>
+    <color name="noActivityButtonPressSolidStartEnd">#C7C7C7</color>
+    <color name="noActivityButtonPressSolidCenter">#6F6F6F</color>
+</resources>

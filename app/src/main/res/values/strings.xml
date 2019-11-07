@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Application61</string>
+
+    <string name="default_language">russian</string>
+    <string name="default_vibration">on</string>
+    <string name="default_music">on</string>
+    <string name="default_sound">on</string>
+
+    <string name="start_game">Начать игру</string>
+    <string name="select_level">Выбрать уровень</string>
+    <string name="settings_button">Настройки</string>
+    <string name="exit">Выход</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="settings_vibration">Вибрация</string>
+    <string name="settings_portrait_orientation">книжная</string>
+    <string name="settings_album_orientation">альбомная</string>
+
+    <string name="settings_language">Язык интерфейса</string>
+    <string name="settings_russian">русский</string>
+    <string name="settings_english">english</string>
+    <string name="back">Назад</string>
+
+    <string name="sound">Весь звук</string>
+    <string name="music">Музыка</string>
+    <string name="on">вкл.</string>
+    <string name="off">откл.</string>
+
+    <string name="level1">Уровень 1</string>
+    <string name="level2">Уровень 2</string>
+    <string name="level3">Уровень 3</string>
+    <string name="level4">Уровень 4</string>
+    <string name="level5">Уровень 5</string>
+
+    <string name="pause">ПАУЗА</string>
+    <string name="dialog_text">Выйти в главное меню?</string>
+    <string name="back_to_menu">ВЫЙТИ</string>
+    <string name="cancel">ОТМЕНА</string>
+</resources>
