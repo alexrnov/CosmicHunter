@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
     //setContentView(surfaceView);
     */
     // выводить рендер OpenGL в отдельном компоненте
-    setContentView(R.layout.activity_gl);
+    setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
   }
 

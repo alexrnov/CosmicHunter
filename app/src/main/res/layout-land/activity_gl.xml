@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,29 +8,30 @@
     android:orientation="vertical"
     android:background="@drawable/background">
 
-    <alexrnov.cosmichunter.OGLView
-        android:id="@+id/oglView"
-        android:layout_width="700dp"
-        android:layout_height="match_parent"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="107dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/oglView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="447dp"
-        android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/oglView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <alexrnov.cosmichunter.OGLView
+            android:id="@+id/oglView"
+            android:layout_width="500sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>
