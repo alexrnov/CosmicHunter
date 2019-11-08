@@ -47,15 +47,14 @@ public class GameActivity extends AppCompatActivity {
       ab.hide(); //скрыть заголовок приложения
     }
 
-    surfaceView = new SurfaceView(this);
-    setContentView(surfaceView);
-
-    //setContentView(R.layout.activity_gl);
+    //surfaceView = new SurfaceView(this);
+    //setContentView(surfaceView);
+    Log.v("P", "init0");
+    setContentView(R.layout.activity_gl2);
     Log.v("P","init1");
     //setContentView(R.layout.activity_level);
     Log.v("P", "init2");
-    //oglView = (OGLView) findViewById(R.id.oglView);
-
+    oglView = (OGLView) findViewById(R.id.oglView);
   }
 
   private boolean detectOpenGLES30() {
@@ -73,9 +72,10 @@ public class GameActivity extends AppCompatActivity {
     super.onResume();
     Log.v("P", "init3");
 
+
     if (createThreads) {
-      SurfaceRunnable sr = new SurfaceRunnable(surfaceView);
-      //SurfaceRunnable sr = new SurfaceRunnable(oglView);
+      //SurfaceRunnable sr = new SurfaceRunnable(surfaceView);
+      SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
