@@ -21,7 +21,7 @@ import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView;
-  private SurfaceView surfaceView;
+  // private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   // флаг нужен для того, чтобы при возврате к приложению,
   // потоки не создавались два раза, так как из-за того, что
@@ -36,25 +36,19 @@ public class GameActivity extends AppCompatActivity {
     Log.v("P", "invoke onCreate()");
     super.onCreate(savedInstanceState);
     this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    if (detectOpenGLES30()) {
-      System.out.println("OpenGL ES 3.0 поддерживается на данном устройстве");
-    } else {
-      System.out.println("OpenGL ES 3.0 не поддерживается на данном устройстве");
-    }
+    if (detectOpenGLES30()) Log.v("P", "OpenGL ES 3.0 поддерживается на данном устройстве");
+    else Log.v("P", "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
     ActionBar ab = getSupportActionBar();
-    if (ab != null) {
-      ab.hide(); //скрыть заголовок приложения
-    }
-
+    if (ab != null) ab.hide(); //скрыть заголовок приложения
+    /*
+    // используется в случае полноэкранного режима
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
-    Log.v("P", "init0");
-    setContentView(R.layout.activity_gl2);
-    Log.v("P","init1");
-    //setContentView(R.layout.activity_level);
-    Log.v("P", "init2");
-    oglView = (OGLView) findViewById(R.id.oglView);
+    */
+    // выводить рендер OpenGL в отдельном компоненте
+    setContentView(R.layout.activity_gl);
+    oglView = findViewById(R.id.oglView);
   }
 
   private boolean detectOpenGLES30() {
@@ -70,24 +64,20 @@ public class GameActivity extends AppCompatActivity {
   protected void onResume() {
     Log.v("P", "onResume()");
     super.onResume();
-    Log.v("P", "init3");
-
-
     if (createThreads) {
-      //SurfaceRunnable sr = new SurfaceRunnable(surfaceView);
+      //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
     }
-
-    Log.v("P", "init4");
     //surfaceView.onResume();
   }
 
   @Override
   protected void onPause() {
+    Log.v("P", "invoke onPause()");
     super.onPause();
     createThreads = true;
     executor.interrupt();
@@ -96,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
-    Log.v("P", "onStart()");
+    Log.v("P", "invoke onStart()");
     super.onStart();
     checkMusicForStartGameActivity(this);
 
@@ -109,15 +99,15 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStop() {
-    super.onStop();
     Log.v("P", "invoke onStop()");
+    super.onStop();
     checkMusicForStopGameActivity();
     spotFlagOpenDialogWindow(true);
     executor.interrupt();
   }
 
 
-  /* вызов метода не гарантирован*/
+  /* вызов метода не гарантирован */
   @Override
   protected void onDestroy() {
     Log.v("P", "invoke onDestroy()");
