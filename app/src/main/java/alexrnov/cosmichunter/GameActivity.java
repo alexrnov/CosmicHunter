@@ -10,6 +10,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
@@ -39,6 +42,10 @@ public class GameActivity extends AppCompatActivity {
     if (detectOpenGLES30()) Log.v("P", "OpenGL ES 3.0 поддерживается на данном устройстве");
     else Log.v("P", "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
+
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
     ActionBar ab = getSupportActionBar();
     if (ab != null) ab.hide(); //скрыть заголовок приложения
     /*
@@ -49,6 +56,9 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
+    Log.v("P", "Thread game activity = " + Thread.currentThread().getName());
+    //TextView tw = findViewById(R.id.textView3);
+    //Log.v("P", tw.toString());
   }
 
   private boolean detectOpenGLES30() {
