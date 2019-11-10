@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
@@ -24,6 +25,7 @@ import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView;
+  private Button buttonGL;
   // private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   // флаг нужен для того, чтобы при возврате к приложению,
@@ -56,9 +58,9 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
-    Log.v("P", "Thread game activity = " + Thread.currentThread().getName());
-    //TextView tw = findViewById(R.id.textView3);
-    //Log.v("P", tw.toString());
+    TextView tw = findViewById(R.id.textView3);
+    Log.v("P", tw.getText().toString());
+
   }
 
   private boolean detectOpenGLES30() {
