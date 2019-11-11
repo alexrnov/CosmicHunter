@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ConfigurationInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -44,7 +46,19 @@ public class GameActivity extends AppCompatActivity {
     if (detectOpenGLES30()) Log.v("P", "OpenGL ES 3.0 поддерживается на данном устройстве");
     else Log.v("P", "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
-
+    /*
+    // hide the status bar
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+      Log.v("P", "VERSION < 16");
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    } else { // Android 4.1 и выше
+      Log.v("P", "VERSION >= 16");
+      View decorView = getWindow().getDecorView();
+      int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+      decorView.setSystemUiVisibility(uiOptions);
+    }
+    */
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -124,7 +138,6 @@ public class GameActivity extends AppCompatActivity {
   protected void onDestroy() {
     Log.v("P", "invoke onDestroy()");
     super.onDestroy();
-
   }
 
   @Override
