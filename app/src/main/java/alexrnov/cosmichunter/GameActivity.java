@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class GameActivity extends AppCompatActivity {
   // порядке onResume(), onStop(), onResume(), что приводит к
   // лишнему циклу создания-установки потоков.
   private boolean createThreads = true;
+  private Handler handler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,8 @@ public class GameActivity extends AppCompatActivity {
     oglView = findViewById(R.id.oglView);
     TextView tw = findViewById(R.id.points);
     Log.v("P", tw.getText().toString());
-    Handler handler = new ViewHandler(Looper.getMainLooper());
+    // определяет объект handler, присоединенный к потоку пользовательского интерфейса
+    handler = new ViewHandler(Looper.getMainLooper());
   }
 
   private boolean detectOpenGLES30() {
@@ -156,5 +159,10 @@ public class GameActivity extends AppCompatActivity {
       startActivity(new Intent(this, DialogActivity.class));
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  public void handleState(String s) {
+    Message completeMessage = handler.obtainMessage(1, s);
+    completeMessage.sendToTarget();
   }
 }

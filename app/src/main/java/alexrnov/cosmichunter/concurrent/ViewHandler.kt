@@ -6,7 +6,17 @@ import android.os.Message
 import android.util.Log
 
 class ViewHandler(looper: Looper): Handler(looper) {
+
+  /*
+   * система Android вызывает этот метод, когда получает новое сообщение
+   * для потока, которым управляет. Все объекты Handler для определенного
+   * потока получают одно и то же сообщение.
+   */
   override fun handleMessage(inputMessage: Message) {
+    // получение значения из входящего сообщения
     Log.v("P", "handleMessage")
+    val s: String = inputMessage.obj as String
+    val v: Int = inputMessage.what as Int
+    Log.v("P", "s = $s, v = $v")
   }
 }
