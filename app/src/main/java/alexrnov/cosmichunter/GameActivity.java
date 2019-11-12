@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ConfigurationInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
+import alexrnov.cosmichunter.concurrent.ViewHandler;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartGameActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopGameActivity;
@@ -52,7 +55,8 @@ public class GameActivity extends AppCompatActivity {
       Log.v("P", "VERSION < 16");
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    } else { // Android 4.1 и выше
+    } else { // Android 4.1 и выше. Не работает так как надо, на смартфоне sony (android 5), status bar не скрывается,
+      //а на samsung планшете (android 7 status bar скрывается с запозданием)
       Log.v("P", "VERSION >= 16");
       View decorView = getWindow().getDecorView();
       int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -72,9 +76,9 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
-    TextView tw = findViewById(R.id.textView3);
+    TextView tw = findViewById(R.id.points);
     Log.v("P", tw.getText().toString());
-
+    Handler handler = new ViewHandler(Looper.getMainLooper());
   }
 
   private boolean detectOpenGLES30() {
