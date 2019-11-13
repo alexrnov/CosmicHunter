@@ -4,8 +4,9 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
+import android.widget.TextView
 
-class ViewHandler(looper: Looper): Handler(looper) {
+class ViewHandler(looper: Looper, val textView: TextView): Handler(looper) {
 
   /*
    * система Android вызывает этот метод, когда получает новое сообщение
@@ -18,5 +19,6 @@ class ViewHandler(looper: Looper): Handler(looper) {
     val s: String = inputMessage.obj as String
     val v: Int = inputMessage.what as Int
     Log.v("P", "s = $s, v = $v")
+    textView.text = s
   }
 }

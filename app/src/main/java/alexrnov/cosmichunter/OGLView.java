@@ -4,13 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
-public class OGLView extends GLSurfaceView  implements GestureDetector.OnGestureListener,
+public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
   private SceneRenderer renderer;
@@ -51,7 +53,6 @@ public class OGLView extends GLSurfaceView  implements GestureDetector.OnGesture
     coordinatesOpenGL = new CoordinatesOpenGL();
   }
 
-
   @SuppressLint("ClickableViewAccessibility")
   @Override
   public boolean onTouchEvent(MotionEvent e) {
@@ -62,7 +63,6 @@ public class OGLView extends GLSurfaceView  implements GestureDetector.OnGesture
 
     return super.onTouchEvent(e);
   }
-
 
   @Override
   public boolean onDown(MotionEvent event) {
@@ -134,5 +134,9 @@ public class OGLView extends GLSurfaceView  implements GestureDetector.OnGesture
 
   public SceneRenderer getRenderer() {
     return renderer;
+  }
+
+  public void setGameActivity(GameActivity gameActivity) {
+    renderer.setGameActivity(gameActivity);
   }
 }

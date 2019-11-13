@@ -81,7 +81,8 @@ public class GameActivity extends AppCompatActivity {
     TextView tw = findViewById(R.id.points);
     Log.v("P", tw.getText().toString());
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper());
+    handler = new ViewHandler(Looper.getMainLooper(), tw);
+    oglView.setGameActivity(this);
   }
 
   private boolean detectOpenGLES30() {
