@@ -78,10 +78,11 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
-    TextView points = findViewById(R.id.points);
+    TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
+    TextView message = findViewById(R.id.message);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper(), points, rockets);
+    handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message);
     oglView.setGameActivity(this);
   }
 

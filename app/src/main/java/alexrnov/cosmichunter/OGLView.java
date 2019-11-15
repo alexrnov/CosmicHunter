@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -56,11 +54,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   @SuppressLint("ClickableViewAccessibility")
   @Override
   public boolean onTouchEvent(MotionEvent e) {
-
-    if (mDetector.onTouchEvent(e)) {
-      return true;
-    }
-
+    if (mDetector.onTouchEvent(e)) return true;
     return super.onTouchEvent(e);
   }
 
@@ -135,6 +129,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   public SceneRenderer getRenderer() {
     return renderer;
   }
+
 
   public void setGameActivity(GameActivity gameActivity) {
     renderer.setGameActivity(gameActivity);

@@ -5,10 +5,14 @@ import android.os.Looper
 import android.os.Message
 import android.widget.TextView
 
-const val POINTS_CODE = 0
+const val HITS_CODE = 0
 const val ROCKETS_CODE = 1
+const val MESSAGE_CODE = 2
 
-class ViewHandler(looper: Looper, val points: TextView, val rockets: TextView):
+class ViewHandler(looper: Looper,
+                  private val hits: TextView,
+                  private val rockets: TextView,
+                  private val message: TextView):
         Handler(looper) {
   /*
    * система Android вызывает этот метод, когда получает новое сообщение
@@ -19,8 +23,9 @@ class ViewHandler(looper: Looper, val points: TextView, val rockets: TextView):
     // получение значения из входящего сообщения
     val text: String = inputMessage.obj as String
     when (inputMessage.what) {
-      POINTS_CODE -> points.text = text
+      HITS_CODE -> hits.text = text
       ROCKETS_CODE -> rockets.text = text
+      MESSAGE_CODE -> message.text = text
     }
   }
 }
