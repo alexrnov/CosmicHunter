@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="3sp"
-        android:text="00:00"
+        android:text="100"
         android:textColor="@android:color/holo_green_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -40,11 +40,22 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3sp"
-        android:text="TextView"
+        android:layout_marginTop="8dp"
         android:textColor="@android:color/holo_green_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3sp"
+        android:layout_marginEnd="5sp"
+        android:textColor="@android:color/holo_green_light"
+        android:text="00:00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rockets" />
 
 </android.support.constraint.ConstraintLayout>

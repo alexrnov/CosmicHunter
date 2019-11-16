@@ -81,8 +81,9 @@ public class GameActivity extends AppCompatActivity {
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
+    TextView time = findViewById(R.id.time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message);
+    handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
     oglView.setGameActivity(this);
   }
 
