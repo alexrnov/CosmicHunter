@@ -135,10 +135,10 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStop() {
-    Log.v("P", "invoke onStop()");
+    Log.v("P", "GAME_ACTIVITY: invoke onStop()");
     super.onStop();
     checkMusicForStopGameActivity();
-    spotFlagOpenDialogWindow(true);
+    //spotFlagOpenDialogWindow(true);
     executor.interrupt();
   }
 

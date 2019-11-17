@@ -240,7 +240,6 @@ public class Initialization extends Application {
    */
   public static void spotOrientationScreen(AppCompatActivity activity) {
     String currentVibration = sp.getString("vibration", defaultVibration);
-    Log.v("P", "currentVibration = " + currentVibration);
     /*
     if (currentOrientation.equalsIgnoreCase("portrait")) {
       activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
