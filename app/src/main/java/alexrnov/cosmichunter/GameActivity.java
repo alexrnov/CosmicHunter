@@ -42,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
   // лишнему циклу создания-установки потоков.
   private boolean createThreads = true;
   private Handler handler;
+  private Handler handler2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,16 @@ public class GameActivity extends AppCompatActivity {
     TextView time = findViewById(R.id.time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
-    oglView.setGameActivity(this);
+    oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRenderer
+
+
+    handler2 = new Handler(Looper.getMainLooper()) {
+
+      @Override
+      public void handleMessage(Message inputMessage) {
+
+      }
+    };
   }
 
   private boolean detectOpenGLES30() {

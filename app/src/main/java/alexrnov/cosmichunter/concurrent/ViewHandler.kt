@@ -16,6 +16,7 @@ class ViewHandler(
         private val rockets: TextView,
         private val message: TextView,
         private val time: TextView): Handler(looper) {
+
   /*
    * система Android вызывает этот метод, когда получает новое сообщение
    * для потока, которым управляет. Все объекты Handler для определенного
