@@ -162,6 +162,7 @@ public class GameActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
+
   @Override
   public void onSaveInstanceState(Bundle savedInstanceState) {
     Log.i(TAG, className + "onSaveInstanceState()");
