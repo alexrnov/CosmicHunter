@@ -86,6 +86,7 @@ public class Explosion {
     samplerLink = GLES30.glGetUniformLocation(programObject, "s_texture");
 
     textureID = loadTextureFromAsset(context, textureFile);
+
     Log.v(TAG, this.getClass().getSimpleName() + ".class: " +
             "lastTimeExplosionLink: " + lastTimeExplosionLink + "; centerPositionLink: " +
             centerPositionLink + "; sizeSpriteLink: " + sizeSpriteLink + "; colorLink: " +

@@ -17,7 +17,7 @@ import static java.io.File.separator;
  * методы для управления проигрыванием фоновой музыки в приложении.
  */
 public class Initialization extends Application {
-  public static final String TAG = "P";
+  public static final String TAG = "Application";
   public static SharedPreferences sp;
   private static final String MAIN_ACTIVITY = "main_activity";
   private static final String OTHER_ACTIVITY = "other_activity";

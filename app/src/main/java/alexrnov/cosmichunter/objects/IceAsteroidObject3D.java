@@ -86,6 +86,7 @@ public class IceAsteroidObject3D extends Object3D implements Asteroid {
     lightPositionLink = GLES30.glGetUniformLocation(programObject,
             "u_lightPosition");
     alphaLink = GLES30.glGetUniformLocation(programObject, "u_alpha");
+
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
             mvMatrixLink + "; s_texture id: " + samplerLink +
@@ -94,7 +95,6 @@ public class IceAsteroidObject3D extends Object3D implements Asteroid {
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; u_lightPosition id: " + lightPositionLink + "; u_alpha: " + alphaLink
             + "; textureID: " + textureID);
-
     createVertexBuffers();
   }
 

@@ -3,9 +3,10 @@ package alexrnov.cosmichunter.utils.gl30;
 import android.opengl.GLES30;
 import android.util.Log;
 
+import static alexrnov.cosmichunter.Initialization.TAG;
+
 public class ErrorGL {
 
-  private static final String TAG = "ErrorGL";
   /**
    * Utility method for debugging OpenGL calls. Provide the name of the call
    * just after making it:
@@ -20,7 +21,7 @@ public class ErrorGL {
   public static void checkGlError(String glOperation) {
     int error;
     while ((error = GLES30.glGetError()) != GLES30.GL_NO_ERROR) {
-      Log.e("P", glOperation + ": glError " + error);
+      Log.e(TAG, glOperation + ": glError " + error);
       throw new RuntimeException(glOperation + ": glError " + error);
     }
   }

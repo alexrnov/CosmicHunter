@@ -166,7 +166,7 @@ public class LinkedProgram {
     return programId;
   }
 
-  //Компилировать шейдер
+  // компилировать шейдер
   private int loadShader(int type, String shaderSrc) {
     int shader;
 

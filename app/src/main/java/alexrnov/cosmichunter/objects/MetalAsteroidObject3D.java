@@ -83,6 +83,7 @@ public class MetalAsteroidObject3D extends Object3D implements Asteroid {
             "u_diffuseLight.intensity");
     lightPositionLink = GLES30.glGetUniformLocation(programObject,
             "u_lightPosition");
+
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
             mvMatrixLink + "; s_texture id: " + samplerLink +
@@ -90,7 +91,6 @@ public class MetalAsteroidObject3D extends Object3D implements Asteroid {
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; u_lightPosition id: " + lightPositionLink + "; textureID: " + textureID);
-
     createVertexBuffers();
   }
 

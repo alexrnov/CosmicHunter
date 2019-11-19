@@ -39,6 +39,7 @@ public class BackgroundObject3D extends Object3D {
     //получить местоположение семплера
     samplerLink = GLES30.glGetUniformLocation(programObject, "s_texture");
     textureID = Texture.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
     createVertexBuffers();

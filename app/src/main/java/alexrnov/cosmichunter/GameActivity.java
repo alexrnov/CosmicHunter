@@ -29,6 +29,7 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStopGameActivity
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
+import static alexrnov.cosmichunter.Initialization.TAG;
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView;
   private Button buttonGL;
@@ -43,14 +44,15 @@ public class GameActivity extends AppCompatActivity {
   private boolean createThreads = true;
   private Handler handler;
   private Handler handler2;
+  private String className = this.getClass().getSimpleName() + ".class: ";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Log.v("P", "invoke onCreate()");
+    Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    if (detectOpenGLES30()) Log.v("P", "OpenGL ES 3.0 поддерживается на данном устройстве");
-    else Log.v("P", "OpenGL ES 3.0 не поддерживается на данном устройстве");
+    if (detectOpenGLES30()) Log.v(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
+    else Log.v(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
     /*
     // hide the status bar
@@ -108,22 +110,22 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onResume() {
-    Log.v("P", "onResume()");
+    Log.i(TAG, className + "onResume()");
     super.onResume();
-    if (createThreads) {
+    //if (createThreads) {
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
-    }
+    //}
     //surfaceView.onResume();
   }
 
   @Override
   protected void onPause() {
-    Log.v("P", "invoke onPause()");
+    Log.i(TAG, className + "onPause()");
     super.onPause();
     createThreads = true;
     executor.interrupt();
@@ -132,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
-    Log.v("P", "invoke onStart()");
+    Log.i(TAG, className + "onStart()");
     super.onStart();
     checkMusicForStartGameActivity(this);
 
@@ -145,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStop() {
-    Log.v("P", "GAME_ACTIVITY: invoke onStop()");
+    Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopGameActivity();
     //spotFlagOpenDialogWindow(true);
@@ -156,13 +158,13 @@ public class GameActivity extends AppCompatActivity {
   /* вызов метода не гарантирован */
   @Override
   protected void onDestroy() {
-    Log.v("P", "invoke onDestroy()");
+    Log.i(TAG, className + "onDestroy()");
     super.onDestroy();
   }
 
   @Override
   public void onSaveInstanceState(Bundle savedInstanceState) {
-    Log.v("P", "invoke onSaveInstanceState()");
+    Log.i(TAG, className + "onSaveInstanceState()");
     super.onSaveInstanceState(savedInstanceState);
   }
 

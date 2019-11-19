@@ -76,12 +76,14 @@ public class RocketObject3D extends Object3D {
     lightPositionLink = GLES30.glGetUniformLocation(this.programObject,
             "u_lightPosition");
 
+
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; u_mvMatrix id: " + mvMatrixLink + "; s_texture id: " +
             samplerLink + "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; u_lightPosition id: " + lightPositionLink + "; textureID: " + textureID);
+
     createVertexBuffers();
   }
 

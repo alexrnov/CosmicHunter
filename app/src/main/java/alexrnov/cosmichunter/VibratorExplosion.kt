@@ -20,7 +20,7 @@ class VibratorExplosion(context: Context, var time: Long = 50) {
   init {
     val defaultValue: String = context.resources.getString(R.string.default_vibration)
     val currentVibration = sp.getString("vibration", defaultValue)
-    Log.v(TAG, "${this.javaClass.simpleName}: vibration = $currentVibration")
+    Log.i(TAG, "${this.javaClass.simpleName + ".class"}: vibration = $currentVibration")
 
     if (currentVibration == defaultValue) { // если вибрация включена
       // если текущая версия - 26 (VERSION_CODES.O) или более поздняя
