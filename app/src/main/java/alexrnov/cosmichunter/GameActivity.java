@@ -33,7 +33,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView;
   private Button buttonGL;
-  // private SurfaceView surfaceView; // используется в случае полноэкранного режима
+  //private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   // флаг нужен для того, чтобы при возврате к приложению,
   // потоки не создавались два раза, так как из-за того, что
@@ -73,11 +73,13 @@ public class GameActivity extends AppCompatActivity {
 
     ActionBar ab = getSupportActionBar();
     if (ab != null) ab.hide(); //скрыть заголовок приложения
-    /*
+
+
     // используется в случае полноэкранного режима
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
-    */
+
+
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
@@ -88,7 +90,6 @@ public class GameActivity extends AppCompatActivity {
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRenderer
-
 
     handler2 = new Handler(Looper.getMainLooper()) {
 
@@ -140,6 +141,7 @@ public class GameActivity extends AppCompatActivity {
 
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (dialogWasOpen) {
+      Log.i(TAG, "startActivity");
       createThreads = false;
       startActivity(new Intent(this, DialogActivity.class));
     }
