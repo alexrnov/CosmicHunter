@@ -50,7 +50,9 @@ public class GameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
-    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    // ориентация экрана определяется в файле манифеста, а не в коде -
+    // это позволяет избежать повторной перезагрузки активити
+    //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     if (detectOpenGLES30()) Log.v(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
     else Log.v(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
@@ -61,24 +63,24 @@ public class GameActivity extends AppCompatActivity {
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     } else { // Android 4.1 и выше. Не работает так как надо, на смартфоне sony (android 5), status bar не скрывается,
-      //а на samsung планшете (android 7 status bar скрывается с запозданием)
+      // а на samsung планшете (android 7 status bar скрывается с запозданием)
       Log.v("P", "VERSION >= 16");
       View decorView = getWindow().getDecorView();
       int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
       decorView.setSystemUiVisibility(uiOptions);
     }
     */
+    // скрыть строку статуса
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+    //скрыть заголовок приложения
     ActionBar ab = getSupportActionBar();
-    if (ab != null) ab.hide(); //скрыть заголовок приложения
-
+    if (ab != null) ab.hide();
 
     // используется в случае полноэкранного режима
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
-
 
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML

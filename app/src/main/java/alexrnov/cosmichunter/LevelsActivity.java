@@ -14,13 +14,15 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 
 public class LevelsActivity extends AppCompatActivity {
 
-  private String className = this.getClass().getSimpleName();
+  private String className = this.getClass().getSimpleName() + ".class: ";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
-    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    // ориентация экрана определяется в файле манифеста, а не в коде -
+    // это позволяет избежать повторной перезагрузки активити
+    //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_level);
   }
 

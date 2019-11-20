@@ -2,38 +2,55 @@ package alexrnov.cosmichunter;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
+import static alexrnov.cosmichunter.Initialization.TAG;
 
 public class MainActivity extends AppCompatActivity {
+
+  private String className = this.getClass().getSimpleName() + ".class: ";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) { //состояние "создано"
+    Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
-    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    //requestWindowFeature(Window.FEATURE_NO_TITLE);
+    //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    //скрыть заголовок приложения
+    //ActionBar ab = getSupportActionBar();
+    //if (ab != null) ab.hide();
+    // ориентация экрана определяется в файле манифеста, а не в коде -
+    // это позволяет избежать повторной перезагрузки активити
+    //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_main);
   }
 
   @Override
   protected void onStart() { //состояние "запущено"
+    Log.i(TAG, className + "onStart()");
     super.onStart();
     checkMusicForStartMainActivity(this);
   }
 
   @Override
   protected void onStop() { //состояние "остановлено"
+    Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopMainActivity();
   }
 
   @Override
   protected void onPause() {
+    Log.i(TAG, className + "onPause()");
     super.onPause();
   }
 
