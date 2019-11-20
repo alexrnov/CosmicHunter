@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     //скрыть заголовок приложения
     //ActionBar ab = getSupportActionBar();
     //if (ab != null) ab.hide();
-    // ориентация экрана определяется в файле манифеста, а не в коде -
-    // это позволяет избежать повторной перезагрузки активити
-    //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_main);
   }
 

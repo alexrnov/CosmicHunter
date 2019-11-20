@@ -51,7 +51,9 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     // ориентация экрана определяется в файле манифеста, а не в коде -
-    // это позволяет избежать повторной перезагрузки активити
+    // это позволяет избежать повторной перезагрузки активити.Кроме того,
+    // не нужно создавать лэйаут для портретной ориентации, поскольку
+    // в начале будет загружаться именно он
     //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     if (detectOpenGLES30()) Log.v(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
     else Log.v(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
@@ -85,13 +87,15 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
+    oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRenderer
+
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
     TextView time = findViewById(R.id.time);
+    bringViewsToFront(hits, rockets, message, time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
-    oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRenderer
 
     handler2 = new Handler(Looper.getMainLooper()) {
 
@@ -184,5 +188,19 @@ public class GameActivity extends AppCompatActivity {
   public void handleState(int state, String s) {
     Message completeMessage = handler.obtainMessage(state, s);
     completeMessage.sendToTarget();
+  }
+
+  /*
+  * Перемещает элементы интерфейса на передний план - чтобы они были
+  * размещены перед слоем openGL. Вообще эти элементы и так размещаются
+  * впереди, поскольку в xml-файле они объявляются после слоя openGL,
+  * но здесь эти элементы перемещаются на передний план программно для
+  * дополнительной подстраховки
+  */
+  private void bringViewsToFront(View... views) {
+    for (View view: views) {
+      view.bringToFront();
+      view.requestLayout(); // чтобы работало на Android 4.1.1
+    }
   }
 }

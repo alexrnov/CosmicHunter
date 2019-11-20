@@ -25,9 +25,6 @@ public class SettingsActivity extends AppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // ориентация экрана определяется в файле манифеста, а не в коде -
-    // это позволяет избежать повторной перезагрузки активити
-    //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_settings);
     defineViewRadioButtons();
     addListeners();
