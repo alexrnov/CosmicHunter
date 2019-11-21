@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
      */
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (!dialogWasOpen) {
-      Log.i(TAG, "threads start");
+      Log.i(TAG, className + "threads run");
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
