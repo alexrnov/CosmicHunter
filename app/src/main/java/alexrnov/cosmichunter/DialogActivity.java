@@ -57,10 +57,12 @@ public class DialogActivity extends Activity {
     super.onDestroy();
   }
 
+  /* нажатие на кнопку "назад", чтобы скрыть диалог */
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     Log.i(TAG, className + "onKeyDown()");
     spotFlagOpenDialogWindow(false);
+    //finish();
     return super.onKeyDown(keyCode, event);
   }
 }

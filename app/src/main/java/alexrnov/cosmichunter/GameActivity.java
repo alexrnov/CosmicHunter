@@ -112,19 +112,23 @@ public class GameActivity extends AppCompatActivity {
      * Проверка нужна для того, чтобы при возврате к приложению, когда открыто
      * диалоговое окно, не происходил лишний цикл создания-остановки потоков,
      * поскольку методы жизненного цикла GameActivity будут вызываться в следующем
-     * порядке onResume(), onStop(), onResume()
+     * порядке onResume(), onStop(), onResume(). При этом, даже если потоки не запускаются,
+     * реализация openGL все-равно сделает один кадр, поэтому при возвращении к
+     * приложению, объекты будут немного смещаться
      */
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (!dialogWasOpen) {
       Log.i(TAG, className + "threads run");
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
-      executor.execute(sr);
+      executor.execute(sr); // загрузить рендером четыре ядра
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
     }
-    //surfaceView.onResume();
+    // используется в различных примерах, но эффект от этого метода не определил
+    //surfaceView.onResume(); // полноэкранный режим
+    //oglView.onResume(); // рендер в  компонент
   }
 
   @Override
@@ -132,7 +136,9 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onPause()");
     super.onPause();
     executor.interrupt();
-    //surfaceView.onPause();
+    // используется в различных примерах, но эффект от этого метода не определил
+    //surfaceView.onPause(); // полноэкранный режим
+    //oglView.onPause(); // рендер в компонент
   }
 
   @Override
@@ -152,10 +158,8 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopGameActivity();
-    //spotFlagOpenDialogWindow(true);
     //executor.interrupt();
   }
-
 
   /* вызов метода не гарантирован */
   @Override
@@ -164,7 +168,6 @@ public class GameActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
-
   @Override
   public void onSaveInstanceState(Bundle savedInstanceState) {
     Log.i(TAG, className + "onSaveInstanceState()");
@@ -172,7 +175,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
+  public boolean onKeyDown(int keyCode, KeyEvent event) { // нажатие на кнопку "назад"
     Log.i(TAG, className + "onKeyDown()");
     if (keyCode == 0x00000004) { //KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       startActivity(new Intent(this, DialogActivity.class));
