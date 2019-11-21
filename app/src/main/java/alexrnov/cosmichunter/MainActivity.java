@@ -32,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onStart() { //состояние "запущено"
+  protected void onStart() { // состояние "запущено"
     Log.i(TAG, className + "onStart()");
     super.onStart();
     checkMusicForStartMainActivity(this);
   }
 
   @Override
-  protected void onStop() { //состояние "остановлено"
+  protected void onStop() { // состояние "остановлено"
     Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopMainActivity();

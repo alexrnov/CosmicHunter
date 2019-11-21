@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
+/**
+ * Используется при полноэкранном режиме
+ */
 public class SurfaceView extends GLSurfaceView
         implements GestureDetector.OnGestureListener,
           GestureDetector.OnDoubleTapListener {

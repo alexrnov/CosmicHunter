@@ -3,9 +3,7 @@ package alexrnov.cosmichunter;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ConfigurationInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
@@ -31,17 +28,9 @@ import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 public class GameActivity extends AppCompatActivity {
-  private OGLView oglView;
-  private Button buttonGL;
+  private OGLView oglView; // используется в случае вывода рендера в отдельный компонент интерфейса
   //private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
-  // флаг нужен для того, чтобы при возврате к приложению,
-  // потоки не создавались два раза, так как из-за того, что
-  // после возврата к приложению, выдается диалоговое окно,
-  // методы жизненного цикла вызываются в следующем
-  // порядке onResume(), onStop(), onResume(), что приводит к
-  // лишнему циклу создания-установки потоков.
-  private boolean createThreads = true;
   private Handler handler;
   private Handler handler2;
   private String className = this.getClass().getSimpleName() + ".class: ";
@@ -119,14 +108,22 @@ public class GameActivity extends AppCompatActivity {
   protected void onResume() {
     Log.i(TAG, className + "onResume()");
     super.onResume();
-    //if (createThreads) {
+    /*
+     * Проверка нужна для того, чтобы при возврате к приложению, когда открыто
+     * диалоговое окно, не происходил лишний цикл создания-остановки потоков,
+     * поскольку методы жизненного цикла GameActivity будут вызываться в следующем
+     * порядке onResume(), onStop(), onResume()
+     */
+    boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
+    if (!dialogWasOpen) {
+      Log.i(TAG, "threads start");
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
-    //}
+    }
     //surfaceView.onResume();
   }
 
@@ -134,7 +131,6 @@ public class GameActivity extends AppCompatActivity {
   protected void onPause() {
     Log.i(TAG, className + "onPause()");
     super.onPause();
-    createThreads = true;
     executor.interrupt();
     //surfaceView.onPause();
   }
@@ -147,8 +143,6 @@ public class GameActivity extends AppCompatActivity {
 
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (dialogWasOpen) {
-      Log.i(TAG, "startActivity");
-      createThreads = false;
       startActivity(new Intent(this, DialogActivity.class));
     }
   }
@@ -159,7 +153,7 @@ public class GameActivity extends AppCompatActivity {
     super.onStop();
     checkMusicForStopGameActivity();
     //spotFlagOpenDialogWindow(true);
-    executor.interrupt();
+    //executor.interrupt();
   }
 
 
@@ -179,8 +173,10 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
+    Log.i(TAG, className + "onKeyDown()");
     if (keyCode == 0x00000004) { //KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       startActivity(new Intent(this, DialogActivity.class));
+      spotFlagOpenDialogWindow(true);
     }
     return super.onKeyDown(keyCode, event);
   }

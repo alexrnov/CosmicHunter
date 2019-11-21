@@ -5,11 +5,17 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
+import static alexrnov.cosmichunter.Initialization.TAG;
+
+/**
+ * Используется при выводе рендера openGL в отдельный компонент интерфейса
+ */
 public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 

@@ -3,6 +3,8 @@ package alexrnov.cosmichunter.concurrent;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 
+import static alexrnov.cosmichunter.Initialization.TAG;
+
 public class SurfaceRunnable implements Runnable {
 
   private GLSurfaceView surfaceView;
@@ -14,7 +16,7 @@ public class SurfaceRunnable implements Runnable {
   @Override
   public void run() {
     while(true) {
-      //Log.v("P", "run = " + Thread.currentThread().getName());
+      //Log.i(TAG, "run = " + Thread.currentThread().getName());
       surfaceView.requestRender();
       if (Thread.currentThread().isInterrupted()) {
         Log.v("P", "Thread stop = " + Thread.currentThread().getName());
