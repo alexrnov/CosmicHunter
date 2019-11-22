@@ -17,6 +17,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
 import alexrnov.cosmichunter.concurrent.ViewHandler;
@@ -34,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
   private Handler handler;
   private Handler handler2;
   private String className = this.getClass().getSimpleName() + ".class: ";
+  private Timer timer;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +129,16 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
       executor.execute(sr);
+
+      timer = new Timer(true);
+      timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+          Log.i(TAG, "run()");
+        }
+      }, 0, 1000);
     }
+
     // используется в различных примерах, но эффект от этого метода не определил
     //surfaceView.onResume(); // полноэкранный режим
     //oglView.onResume(); // рендер в  компонент
@@ -136,6 +149,7 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onPause()");
     super.onPause();
     executor.interrupt();
+    timer.cancel();
     // используется в различных примерах, но эффект от этого метода не определил
     //surfaceView.onPause(); // полноэкранный режим
     //oglView.onPause(); // рендер в компонент
