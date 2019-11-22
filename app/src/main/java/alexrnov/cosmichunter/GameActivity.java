@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
   private Handler handler2;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
+  private int time = 600;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -130,13 +131,15 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
-      timer = new Timer(true);
+      timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
-          Log.i(TAG, "run()");
+          time--;
+          int v = time / 60;
+          Log.i(TAG, "time = " + time + ", v = " + v + ", v2 = " + time % 60);
         }
-      }, 0, 1000);
+      }, 0, 100);
     }
 
     // используется в различных примерах, но эффект от этого метода не определил
