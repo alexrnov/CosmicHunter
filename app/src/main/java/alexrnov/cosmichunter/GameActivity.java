@@ -135,11 +135,12 @@ public class GameActivity extends AppCompatActivity {
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
+          int min = time / 60;
+          int sec = time % 60;
+          Log.i(TAG, "time = " + time + ", min = " + min + ", sec = " + sec);
           time--;
-          int v = time / 60;
-          Log.i(TAG, "time = " + time + ", v = " + v + ", v2 = " + time % 60);
         }
-      }, 0, 100);
+      }, 0, 1000);
     }
 
     // используется в различных примерах, но эффект от этого метода не определил
