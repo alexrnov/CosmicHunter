@@ -137,7 +137,12 @@ public class GameActivity extends AppCompatActivity {
         public void run() {
           int min = time / 60;
           int sec = time % 60;
-          Log.i(TAG, "time = " + time + ", min = " + min + ", sec = " + sec);
+          // вместо String.format() используется тернарный оператор (в целях производительности)
+          String minS = ((min < 10) ? "0" : "") + min;
+          String secS = ((sec < 10) ? "0" : "") + sec;
+          //String minS = String.format("%02d", min);
+          //String secS = String.format("%02d", sec);
+          Log.i(TAG, minS + ":" + secS);
           time--;
         }
       }, 0, 1000);
