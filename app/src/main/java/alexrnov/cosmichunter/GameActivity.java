@@ -86,16 +86,16 @@ public class GameActivity extends AppCompatActivity {
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
-    TextView time = findViewById(R.id.time);
+    final TextView time = findViewById(R.id.time);
     bringViewsToFront(hits, rockets, message, time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
     handler2 = new Handler(Looper.getMainLooper()) {
-
       @Override
       public void handleMessage(Message inputMessage) {
-
+        String text = (String) inputMessage.obj;
+        time.setText(text);
       }
     };
   }
@@ -144,6 +144,7 @@ public class GameActivity extends AppCompatActivity {
           //String secS = String.format("%02d", sec);
           Log.i(TAG, minS + ":" + secS);
           time--;
+          handleState2(1, minS + ":" + secS);
         }
       }, 0, 1000);
     }
@@ -209,6 +210,11 @@ public class GameActivity extends AppCompatActivity {
 
   public void handleState(int state, String s) {
     Message completeMessage = handler.obtainMessage(state, s);
+    completeMessage.sendToTarget();
+  }
+
+  public void handleState2(int state, String s) {
+    Message completeMessage = handler2.obtainMessage(state, s);
     completeMessage.sendToTarget();
   }
 
