@@ -131,22 +131,21 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
+      // запустить отдельный поток для таймера
       timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
-          int min = time / 60;
-          int sec = time % 60;
-          // вместо String.format() используется тернарный оператор (в целях производительности)
-          String minS = ((min < 10) ? "0" : "") + min;
-          String secS = ((sec < 10) ? "0" : "") + sec;
+          int min = time / 60; // получить количество минут
+          int sec = time % 60; // получить количество секунд
+          // для создания формата времени 00:00, вместо String.format()
+          // используется тернарный оператор (в целях производительности)
+          handleState2(1, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
-          Log.i(TAG, minS + ":" + secS);
           time--;
-          handleState2(1, minS + ":" + secS);
         }
-      }, 0, 1000);
+      }, 1000, 1000); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
     }
 
     // используется в различных примерах, но эффект от этого метода не определил
