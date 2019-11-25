@@ -30,7 +30,6 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
 
 public class GameActivity extends AppCompatActivity {
@@ -38,7 +37,6 @@ public class GameActivity extends AppCompatActivity {
   //private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   private Handler handler;
-  //private Handler handler2;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
   private int time = 600;
@@ -94,16 +92,6 @@ public class GameActivity extends AppCompatActivity {
     bringViewsToFront(hits, rockets, message, time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
-
-    /*
-    handler2 = new Handler(Looper.getMainLooper()) {
-      @Override
-      public void handleMessage(Message inputMessage) {
-        String text = (String) inputMessage.obj;
-        time.setText(text);
-      }
-    };
-    */
   }
 
   private boolean detectOpenGLES30() {
@@ -163,8 +151,8 @@ public class GameActivity extends AppCompatActivity {
   protected void onPause() {
     Log.i(TAG, className + "onPause()");
     super.onPause();
-    executor.interrupt();
-    timer.cancel();
+    executor.interrupt(); // остановить рендер
+    timer.cancel(); // остановить время
     // используется в различных примерах, но эффект от этого метода не определил
     //surfaceView.onPause(); // полноэкранный режим
     //oglView.onPause(); // рендер в компонент
@@ -187,7 +175,6 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopGameActivity();
-    //executor.interrupt();
   }
 
   /* вызов метода не гарантирован */
@@ -203,8 +190,9 @@ public class GameActivity extends AppCompatActivity {
     super.onSaveInstanceState(savedInstanceState);
   }
 
+  // нажатие на андроид-кнопку "назад"
   @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) { // нажатие на кнопку "назад"
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
     Log.i(TAG, className + "onKeyDown()");
     if (keyCode == 0x00000004) { //KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       startActivity(new Intent(this, DialogActivity.class));
@@ -214,7 +202,8 @@ public class GameActivity extends AppCompatActivity {
   }
 
   /**
-   *
+   * Принимает сообщения из других потоков и передает их обработчику,
+   * который управляет отображением элементов интерфейса
    * @param state - код сообщения
    * @param message - сообщение
    */
@@ -222,13 +211,6 @@ public class GameActivity extends AppCompatActivity {
     Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();
   }
-
-  /*
-  public void handleState2(int state, String s) {
-    Message completeMessage = handler2.obtainMessage(state, s);
-    completeMessage.sendToTarget();
-  }
-  */
 
   /*
   * Перемещает элементы интерфейса на передний план - чтобы они были
