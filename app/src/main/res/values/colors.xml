@@ -25,4 +25,6 @@
     <color name="noActivityButtonSolidCenter">#636363</color>
     <color name="noActivityButtonPressSolidStartEnd">#C7C7C7</color>
     <color name="noActivityButtonPressSolidCenter">#6F6F6F</color>
+
+    <color name="gameMessage">#9ec41e</color>
 </resources>

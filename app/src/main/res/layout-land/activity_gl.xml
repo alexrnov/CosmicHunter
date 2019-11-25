@@ -21,7 +21,7 @@
         android:layout_marginBottom="3sp"
         android:layout_marginStart="3sp"
         android:text="  0/100"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -32,7 +32,7 @@
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="3sp"
         android:text="100"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -40,12 +40,11 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/holo_green_light"
+        android:layout_marginBottom="3sp"
+        android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/time"
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="5sp"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@color/gameMessage"
         android:text="00:00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rockets" />

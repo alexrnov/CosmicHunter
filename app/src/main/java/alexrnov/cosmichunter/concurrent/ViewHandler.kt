@@ -1,5 +1,7 @@
 package alexrnov.cosmichunter.concurrent
 
+import alexrnov.cosmichunter.R
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -25,10 +27,14 @@ class ViewHandler(
   override fun handleMessage(inputMessage: Message) {
     // получение значения из входящего сообщения
     val text: String = inputMessage.obj as String
+    // обновить один из объектов интерфейса
     when (inputMessage.what) {
       HITS_CODE -> hits.text = text
       ROCKETS_CODE -> rockets.text = text
-      MESSAGE_CODE -> message.text = text
+      MESSAGE_CODE -> {
+        message.text = text
+        message.setTextColor(Color.parseColor("#00a8f3"))
+      }
       TIME_CODE -> time.text = text
     }
   }

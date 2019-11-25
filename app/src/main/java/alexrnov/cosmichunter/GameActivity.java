@@ -30,12 +30,15 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
+import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
+
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView; // используется в случае вывода рендера в отдельный компонент интерфейса
   //private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   private Handler handler;
-  private Handler handler2;
+  //private Handler handler2;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
   private int time = 600;
@@ -86,11 +89,13 @@ public class GameActivity extends AppCompatActivity {
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
-    final TextView time = findViewById(R.id.time);
+    TextView time = findViewById(R.id.time);
+
     bringViewsToFront(hits, rockets, message, time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
+    /*
     handler2 = new Handler(Looper.getMainLooper()) {
       @Override
       public void handleMessage(Message inputMessage) {
@@ -98,6 +103,7 @@ public class GameActivity extends AppCompatActivity {
         time.setText(text);
       }
     };
+    */
   }
 
   private boolean detectOpenGLES30() {
@@ -140,7 +146,7 @@ public class GameActivity extends AppCompatActivity {
           int sec = time % 60; // получить количество секунд
           // для создания формата времени 00:00, вместо String.format()
           // используется тернарный оператор (в целях производительности)
-          handleState2(1, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+          handleState(TIME_CODE, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
@@ -207,15 +213,22 @@ public class GameActivity extends AppCompatActivity {
     return super.onKeyDown(keyCode, event);
   }
 
-  public void handleState(int state, String s) {
-    Message completeMessage = handler.obtainMessage(state, s);
+  /**
+   *
+   * @param state - код сообщения
+   * @param message - сообщение
+   */
+  public synchronized void handleState(int state, String message) {
+    Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();
   }
 
+  /*
   public void handleState2(int state, String s) {
     Message completeMessage = handler2.obtainMessage(state, s);
     completeMessage.sendToTarget();
   }
+  */
 
   /*
   * Перемещает элементы интерфейса на передний план - чтобы они были
