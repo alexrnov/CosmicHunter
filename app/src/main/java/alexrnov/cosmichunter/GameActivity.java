@@ -30,6 +30,7 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
 
 public class GameActivity extends AppCompatActivity {
@@ -139,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
           //String secS = String.format("%02d", sec);
           time--;
         }
-      }, 1000, 1000); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
+      }, 1000, 100); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
     }
 
     // используется в различных примерах, но эффект от этого метода не определил
@@ -208,6 +209,15 @@ public class GameActivity extends AppCompatActivity {
    * @param message - сообщение
    */
   public synchronized void handleState(int state, String message) {
+    if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
+      Log.i(TAG, "message = " + message);
+      startActivity(new Intent(this, DialogActivity.class));
+    }
+
+    if (state == TIME_CODE && message.equals("00:00")) {
+      startActivity(new Intent(this, DialogActivity.class));
+    }
+
     Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();
   }
