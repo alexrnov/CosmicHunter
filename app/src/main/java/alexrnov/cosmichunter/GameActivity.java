@@ -117,6 +117,7 @@ public class GameActivity extends AppCompatActivity {
      * приложению, объекты будут немного смещаться
      */
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
+    Log.i(TAG, "dialogWasOpen = " + dialogWasOpen);
     if (!dialogWasOpen) {
       Log.i(TAG, className + "threads run");
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
@@ -194,8 +195,8 @@ public class GameActivity extends AppCompatActivity {
   // нажатие на андроид-кнопку "назад"
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
-    Log.i(TAG, className + "onKeyDown()");
-    if (keyCode == 0x00000004) { //KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
+    if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
+      Log.i(TAG, className + "onKeyDown()");
       startActivity(new Intent(this, DialogActivity.class));
       spotFlagOpenDialogWindow(true);
     }

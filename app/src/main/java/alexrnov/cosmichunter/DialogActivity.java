@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
@@ -27,6 +29,13 @@ public class DialogActivity extends Activity {
     } else {
       getWindow().setLayout((int) (width * .5), (int) (height * .7));
     }
+
+    /*
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+
+    //and watch for outside touch events too
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+    */
   }
 
   public void backToMainMenu(View view) {
@@ -39,9 +48,17 @@ public class DialogActivity extends Activity {
   }
 
   @Override
-  public void onStart() {
-    Log.i(TAG, className + "onStart()");
-    super.onStart();
+  public void onResume() {
+    Log.i(TAG, className + "onResume()");
+    super.onResume();
+    //spotFlagOpenDialogWindow(true);
+  }
+
+  @Override
+  public void onPause() {
+    Log.i(TAG, className + "onPause()");
+    super.onPause();
+    //spotFlagOpenDialogWindow(false);
   }
 
   @Override
@@ -60,9 +77,24 @@ public class DialogActivity extends Activity {
   /* нажатие на кнопку "назад", чтобы скрыть диалог */
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
-    Log.i(TAG, className + "onKeyDown()");
-    spotFlagOpenDialogWindow(false);
-    //finish();
+    if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
+      Log.i(TAG, className + "onKeyDown(), keyCode = " + keyCode);
+      spotFlagOpenDialogWindow(false);
+      //finish();
+    }
     return super.onKeyDown(keyCode, event);
   }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+      Log.i(TAG, "onTouchEvent() = true");
+      return true;
+    } else {
+      Log.i(TAG, "onTouchEvent() = false");
+    }
+
+    return false;
+  }
+
 }
