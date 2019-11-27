@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -80,18 +81,6 @@ public class GameActivity extends AppCompatActivity {
     ActionBar ab = getSupportActionBar();
     if (ab != null) ab.hide();
 
-    View decorView = getWindow().getDecorView();
-    int ioOptions = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE ;
-    /*
-    int ioOptions = View.SYSTEM_UI_FLAG_IMMERSIVE | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE ;
-            */
-    decorView.setSystemUiVisibility(ioOptions);
-
     // используется в случае полноэкранного режима
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
@@ -109,6 +98,25 @@ public class GameActivity extends AppCompatActivity {
     bringViewsToFront(hits, rockets, message, time);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
+
+    View decorView = getWindow().getDecorView();
+
+    int ioOptions = View.SYSTEM_UI_FLAG_IMMERSIVE
+            | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+
+    /*
+    int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_FULLSCREEN;
+    */
+    /*
+    int ioOptions = View.SYSTEM_UI_FLAG_IMMERSIVE
+            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE ;
+            */
+    decorView.setSystemUiVisibility(ioOptions);
   }
 
   private boolean detectOpenGLES30() {
@@ -251,6 +259,26 @@ public class GameActivity extends AppCompatActivity {
       view.bringToFront();
       view.requestLayout(); // чтобы работало на Android 4.1.1
     }
+  }
+
+  /*
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    View decorView = getWindow().getDecorView();
+    int ioOptions = View.SYSTEM_UI_FLAG_IMMERSIVE
+            | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+
+    decorView.setSystemUiVisibility(ioOptions);
+    Log.i(TAG, "onTouchEvent()");
+    return false;
+  }
+  */
+
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    super.onWindowFocusChanged(hasFocus);
+    Log.i("P", "hasFocus = " + hasFocus);
   }
 
 }
