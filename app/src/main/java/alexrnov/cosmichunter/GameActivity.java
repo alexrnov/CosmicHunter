@@ -46,7 +46,9 @@ public class GameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
-    // необходимо  в случае если приложение будет разрушено и опять будет вызван метод onCreate()
+    // необходимо  в случае если приложение будет разрушено и опять будет
+    // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
+    // диалог, тогда возникнет ошибка, поскольку потоки рендера не будут созданы
     spotFlagOpenDialogWindow(false);
     // ориентация экрана определяется в файле манифеста, а не в коде -
     // это позволяет избежать повторной перезагрузки активити.Кроме того,
@@ -170,7 +172,7 @@ public class GameActivity extends AppCompatActivity {
 
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (dialogWasOpen) {
-      startActivity(new Intent(this, DialogActivity.class));
+      startActivity(new Intent(this, DialogCancelActivity.class));
     }
   }
 
@@ -199,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
-      startActivity(new Intent(this, DialogActivity.class));
+      startActivity(new Intent(this, DialogCancelActivity.class));
       spotFlagOpenDialogWindow(true);
     }
     return super.onKeyDown(keyCode, event);
@@ -214,11 +216,11 @@ public class GameActivity extends AppCompatActivity {
   public synchronized void handleState(int state, String message) {
     if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
       Log.i(TAG, "message = " + message);
-      startActivity(new Intent(this, DialogActivity.class));
+      startActivity(new Intent(this, DialogCancelActivity.class));
     }
 
     if (state == TIME_CODE && message.equals("00:00")) {
-      startActivity(new Intent(this, DialogActivity.class));
+      startActivity(new Intent(this, DialogCancelActivity.class));
     }
 
     Message completeMessage = handler.obtainMessage(state, message);

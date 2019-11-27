@@ -42,7 +42,11 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
-        <activity android:name=".DialogActivity"
+        <activity android:name=".DialogCancelActivity"
+            android:theme="@style/AppTheme.Dialog">
+        </activity>
+
+        <activity android:name=".DialogGameOverActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
     </application>

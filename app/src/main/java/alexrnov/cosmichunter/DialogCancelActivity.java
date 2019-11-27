@@ -12,7 +12,7 @@ import android.view.View;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
-public class DialogActivity extends Activity {
+public class DialogCancelActivity extends Activity {
 
   private String className = this.getClass().getSimpleName() + ".class: ";
   @Override
