@@ -46,6 +46,8 @@ public class GameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
+    // необходимо  в случае если приложение будет разрушено и опять будет вызван метод onCreate()
+    spotFlagOpenDialogWindow(false);
     // ориентация экрана определяется в файле манифеста, а не в коде -
     // это позволяет избежать повторной перезагрузки активити.Кроме того,
     // не нужно создавать лэйаут для портретной ориентации, поскольку
@@ -236,4 +238,5 @@ public class GameActivity extends AppCompatActivity {
       view.requestLayout(); // чтобы работало на Android 4.1.1
     }
   }
+
 }

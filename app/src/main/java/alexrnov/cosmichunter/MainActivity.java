@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
-    spotFlagOpenDialogWindow(false);
     Intent intent = new Intent(this, GameActivity.class);
     startActivity(intent);
   }
