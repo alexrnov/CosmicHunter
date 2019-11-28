@@ -73,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
       decorView.setSystemUiVisibility(uiOptions);
     }
     */
+
     // скрыть строку статуса
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -104,20 +105,22 @@ public class GameActivity extends AppCompatActivity {
     decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
       @Override
       public void onSystemUiVisibilityChange(int visibility) {
-        Log.i(TAG, "decorView");
-        int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                // navigation bar распологается поверх контента, чтобы при
-                // появлении, размер контента не менялся (Android 4.1 и выше)
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-
-        decorView.setSystemUiVisibility(ioOptions);
+        Log.i(TAG, "decorView, visibility = " + visibility);
+        if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+          int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                  | View.SYSTEM_UI_FLAG_FULLSCREEN
+                  // navigation bar распологается поверх контента, чтобы при
+                  // появлении, размер контента не менялся (Android 4.1 и выше)
+                  | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                  | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+          decorView.setSystemUiVisibility(ioOptions);
+        }
       }
     });
 
     int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_IMMERSIVE
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
@@ -267,11 +270,14 @@ public class GameActivity extends AppCompatActivity {
   }
 
 
+  /*
   @Override
   public boolean onTouchEvent(MotionEvent event) {
+
     decorView = getWindow().getDecorView();
     int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_IMMERSIVE
             // navigation bar распологается поверх контента, чтобы при
             // появлении, размер контента не менялся (Android 4.1 и выше)
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -279,14 +285,14 @@ public class GameActivity extends AppCompatActivity {
 
     decorView.setSystemUiVisibility(ioOptions);
     Log.i(TAG, "onTouchEvent()");
-    return false;
+
+    return true;
   }
+  */
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
     Log.i("P", "hasFocus = " + hasFocus);
     super.onWindowFocusChanged(hasFocus);
   }
-
-
 }
