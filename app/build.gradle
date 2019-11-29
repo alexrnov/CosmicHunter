@@ -5,7 +5,11 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "alexrnov.application1"
-        minSdkVersion 17
+        // OpenGL 3.0 поддерживается начиная с Android 4.3 (API level 18)
+        // но здесь указана минимальная версия Android 4.0 (API level 14),
+        // поэтому проверка поддержки OpenGL 3.0 проводится в runtime (GameActivity),
+        // поскольку версии ниже Android 4.3 могут не поддерживать OpenGL 3.0
+        minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

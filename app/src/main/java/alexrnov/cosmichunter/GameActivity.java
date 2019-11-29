@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
     // не нужно создавать лэйаут для портретной ориентации, поскольку
     // в начале будет загружаться именно он
     //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    // дополнительная проверка поддержки OpenGL на устройстве в рантайме
     if (detectOpenGLES30()) Log.v(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
     else Log.v(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
@@ -270,7 +271,6 @@ public class GameActivity extends AppCompatActivity {
   }
 
 
-  /*
   @Override
   public boolean onTouchEvent(MotionEvent event) {
 
@@ -288,7 +288,7 @@ public class GameActivity extends AppCompatActivity {
 
     return true;
   }
-  */
+
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
