@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- xmlns:tools add tools namespace. When build app, the build tools remove
+these attributes so there is no effect on your APK size or runtime behavior -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="alexrnov.cosmichunter"> <!-- permit declare short name without full packet path as: android:name = ".ClassName"-->
@@ -28,26 +30,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- android:parentActivityName add return arrow for navigation (API Level 16 and higher)-->
+        <!-- for API 4-16 instead parentActivityName is used meta-data with attributes:
+        android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" -->
         <!-- android:configChanges is used together with screenOrientation="landscape" -->
-        <!--  screenSize attribute used with API level 13 or higher -->
+        <!-- screenSize attribute used with API level 13 or higher -->
         <activity
             android:name=".GameActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            />
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            />
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".LevelsActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            tools:targetApi="jelly_bean" />
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".DialogCancelActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
