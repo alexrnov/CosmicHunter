@@ -6,8 +6,11 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     package="alexrnov.cosmichunter"> <!-- permit declare short name without full packet path as: android:name = ".ClassName"-->
     <!-- Tell the system this application requires OpenGL ES 3.0. -->
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <!--
+    instead that declare, sdk options define in gradle script
     <uses-sdk android:minSdkVersion="14"
         android:targetSdkVersion="28"/>
+    -->
     <uses-feature
         android:glEsVersion="0x00030000"
         android:required="true" />
@@ -30,7 +33,8 @@ these attributes so there is no effect on your APK size or runtime behavior -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- android:parentActivityName add return arrow for navigation (API Level 16 and higher)-->
+        <!-- android:parentActivityName add return arrow for up navigation (added in API Level 16 and higher)
+        and the system can also use this information to synthesize a back stack of activities with TaskStackBuilder-->
         <!-- for API 4-16 instead parentActivityName is used meta-data with attributes:
         android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" -->
         <!-- android:configChanges is used together with screenOrientation="landscape" -->
