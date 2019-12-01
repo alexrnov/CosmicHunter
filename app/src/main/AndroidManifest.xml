@@ -69,6 +69,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".DialogCancelActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
