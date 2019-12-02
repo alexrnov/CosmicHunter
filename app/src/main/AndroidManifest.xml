@@ -22,11 +22,17 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="alexrnov.cosmichunter.Initialization"
-        android:hardwareAccelerated="true"> <!-- аппаратное ускорение -->
+        android:hardwareAccelerated="true"> <!-- enable hardware accelerated -->
+        <!-- launchMode specify how the activity should associate with a task. Value
+        "standard"(used by default) Default - the system creates a new instance of the
+        activity in the task from which it was started and routes the intent to it. -->
+        <!-- alwaysRetainTaskState - the task retains all activities in its stack even after a long period-->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="standard"
+            android:alwaysRetainTaskState="true">
            <intent-filter>
                <!-- specify that the activity initiates the application -->
                 <action android:name="android.intent.action.MAIN" />
