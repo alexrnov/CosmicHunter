@@ -11,9 +11,11 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -43,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
   private Timer timer;
   private int time = 600;
   private View decorView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -103,6 +106,7 @@ public class GameActivity extends AppCompatActivity {
 
     decorView = getWindow().getDecorView();
 
+
     decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
       @Override
       public void onSystemUiVisibilityChange(int visibility) {
@@ -110,6 +114,7 @@ public class GameActivity extends AppCompatActivity {
         if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
           int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                   | View.SYSTEM_UI_FLAG_FULLSCREEN
+                  | View.SYSTEM_UI_FLAG_IMMERSIVE
                   // navigation bar распологается поверх контента, чтобы при
                   // появлении, размер контента не менялся (Android 4.1 и выше)
                   | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -119,6 +124,7 @@ public class GameActivity extends AppCompatActivity {
       }
     });
 
+
     int ioOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_FULLSCREEN
             | View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -126,7 +132,17 @@ public class GameActivity extends AppCompatActivity {
             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
     decorView.setSystemUiVisibility(ioOptions);
+
+    boolean hasMenuKey = ViewConfiguration.get(this.getBaseContext()).hasPermanentMenuKey();
+    boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+    // проверить имеет ли девайс навигационную панель
+    if (!hasMenuKey && !hasBackKey) { // если нет кнопок - тогда панель рисуется на экране
+      Log.i(TAG, "the device has a navigation bar");
+    } else {
+      Log.i(TAG, "the device has not a navigation bar");
+    }
   }
+
 
   private boolean detectOpenGLES30() {
     ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -270,7 +286,7 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-
+  /*
   @Override
   public boolean onTouchEvent(MotionEvent event) {
 
@@ -288,7 +304,7 @@ public class GameActivity extends AppCompatActivity {
 
     return true;
   }
-
+  */
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {

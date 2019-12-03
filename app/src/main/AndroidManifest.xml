@@ -13,7 +13,9 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     -->
     <uses-feature
         android:glEsVersion="0x00030000"
-        android:required="true" />
+        android:required="true"/>
+    <!-- hardwareAccelerated="true" - enable hardware accelerated -->
+    <!-- tools:ignore="GoogleAppIndexingWarning" - remove tool tip warning GoogleAppIndexing-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,16 +24,19 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="alexrnov.cosmichunter.Initialization"
-        android:hardwareAccelerated="true"> <!-- enable hardware accelerated -->
+        android:hardwareAccelerated="true"
+        tools:ignore="GoogleAppIndexingWarning">
         <!-- launchMode specify how the activity should associate with a task. Value
-        "standard"(used by default) Default - the system creates a new instance of the
-        activity in the task from which it was started and routes the intent to it. -->
+        "singleTask" - The system creates a new task and instantiates the activity at the root
+        of the new task. However, if an instance of the activity already exists in a separate task,
+        the system routes the intent to the existing instance through a call to its onNewIntent()
+        method, rather than creating a new instance. Only one instance of the activity can exist at a time.-->
         <!-- alwaysRetainTaskState - the task retains all activities in its stack even after a long period-->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="standard"
+            android:launchMode="singleTask"
             android:alwaysRetainTaskState="true">
            <intent-filter>
                <!-- specify that the activity initiates the application -->

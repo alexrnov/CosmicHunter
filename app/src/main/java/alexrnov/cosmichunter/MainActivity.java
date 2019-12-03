@@ -2,6 +2,7 @@ package alexrnov.cosmichunter;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) { //состояние "создано"
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
-    //requestWindowFeature(Window.FEATURE_NO_TITLE);
-    //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    //скрыть заголовок приложения
-    //ActionBar ab = getSupportActionBar();
-    //if (ab != null) ab.hide();
     setContentView(R.layout.activity_main);
   }
 
@@ -84,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(Intent.ACTION_MAIN);
     intent.addCategory(Intent.CATEGORY_HOME);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
+    startActivity(intent); // выйти на рабочий стол системы
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)  // Android 5.0 (API 21) and higher
+      // завершить все активити в этой задаче и удалить их из списка "недавние" (recent)
+      // работает правильно, если в манифесте launchMode="singleTask" а не "standard"
+      finishAndRemoveTask();
+     else
+      finish();
+
+    System.exit(0);
+
   }
 }
