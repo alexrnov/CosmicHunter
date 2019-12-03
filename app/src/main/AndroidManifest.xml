@@ -14,11 +14,13 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     <uses-feature
         android:glEsVersion="0x00030000"
         android:required="true"/>
-    <!-- android:allowBackup="false" - opt out by disabling backups (API Level 23 (Android 6.0) and higher)-->
+    <!-- android:allowBackup="true" (default true in Android 6.0 (API 23) and higher, but
+    recommend explicitly setting this attribute) -->
+    <!-- android:fullBackupContent - This attribute points to an XML file that contains backup rules -->
     <!-- hardwareAccelerated="true" - enable hardware accelerated -->
     <!-- tools:ignore="GoogleAppIndexingWarning" - remove tool tip warning GoogleAppIndexing -->
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -26,6 +28,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:theme="@style/AppTheme"
         android:name="alexrnov.cosmichunter.Initialization"
         android:hardwareAccelerated="true"
+        android:fullBackupContent="@xml/backup_rules"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- launchMode specify how the activity should associate with a task. Value
         "singleTask" - The system creates a new task and instantiates the activity at the root

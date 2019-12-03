@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- rules to control what gets backed up. -->
+<full-backup-content>
+    <!-- <include> - Specifies a file or folder to backup. By default, Auto Backup includes
+    almost all app files. If you specify an <include> element, the system no longer includes
+    any files by default and backs up only the files specified.-->
+    <include domain="sharedpref" path="."/>
+    <!-- <exclude> - Specifies a file or folder to exclude during backup Here are some files that are
+    typically excluded from backup: Files that have device specific identifiers, either issued by a server
+    or generated on the device. For example, Google Cloud Messaging (GCM) needs to generate a registration
+    token every time a user installs your app on a new device. If the old registration token is restored, the
+    app may behave unexpectedly. Account credentials or other sensitive information. Large files that cause
+    the app to exceed the 25MB backup quota.-->
+</full-backup-content>
