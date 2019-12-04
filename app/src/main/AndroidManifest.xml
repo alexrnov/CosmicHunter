@@ -6,10 +6,13 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     package="alexrnov.cosmichunter"> <!-- permit declare short name without full packet path as: android:name = ".ClassName"-->
     <!-- Tell the system this application requires OpenGL ES 3.0. -->
     <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!--instead that declare, sdk options define in gradle script-->
     <!--
-    instead that declare, sdk options define in gradle script
     <uses-sdk android:minSdkVersion="14"
-        android:targetSdkVersion="28"/>
+        android:targetSdkVersion="28"
+        android:maxSdkVersion = "28"
+        tools:ignore="GradleOverrides"/>
     -->
     <uses-feature
         android:glEsVersion="0x00030000"
