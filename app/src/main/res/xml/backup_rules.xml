@@ -4,6 +4,7 @@
     <!-- <include> - Specifies a file or folder to backup. By default, Auto Backup includes
     almost all app files. If you specify an <include> element, the system no longer includes
     any files by default and backs up only the files specified.-->
+    <!-- include in back up only share preference -->
     <include domain="sharedpref" path="."/>
     <!-- <exclude> - Specifies a file or folder to exclude during backup Here are some files that are
     typically excluded from backup: Files that have device specific identifiers, either issued by a server

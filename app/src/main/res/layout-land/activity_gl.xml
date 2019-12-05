@@ -14,16 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <!-- layout_marginLeft="3sp" same as layout_marginStart, only for support older versions than API 17 -->
     <TextView
         android:id="@+id/hits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:layout_marginStart="3sp"
+        android:layout_marginLeft="3sp"
         android:text="  0/100"
         android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+         />
+
+    <!-- layout_marginRight="3sp" same as layout_marginEnd, only for support older versions than API 17 -->
 
     <TextView
         android:id="@+id/rockets"
@@ -31,10 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="3sp"
+        android:layout_marginRight="3sp"
         android:text="100"
         android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/message"
@@ -52,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="5sp"
+        android:layout_marginRight="5sp"
         android:textColor="@color/gameMessage"
         android:text="00:00"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -23,6 +23,8 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     <!-- android:fullBackupContent - This attribute points to an XML file that contains backup rules -->
     <!-- hardwareAccelerated="true" - enable hardware accelerated -->
     <!-- tools:ignore="GoogleAppIndexingWarning" - remove tool tip warning GoogleAppIndexing -->
+    <!-- resizeableActivity="false" - disable multi-window display (API Level 24 Android 7.0).
+    If app Level 23 or lower then attribute ignore -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +35,10 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:name="alexrnov.cosmichunter.Initialization"
         android:hardwareAccelerated="true"
         android:fullBackupContent="@xml/backup_rules"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:resizeableActivity="false"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <!-- android:configChanges is used together with screenOrientation="landscape". Also this attribute
+        may use when handling multi-window configuration changes yourself, but here multi-window mode is disable -->
         <!-- launchMode specify how the activity should associate with a task. Value
         "singleTask" - The system creates a new task and instantiates the activity at the root
         of the new task. However, if an instance of the activity already exists in a separate task,
@@ -56,7 +61,6 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         and the system can also use this information to synthesize a back stack of activities with TaskStackBuilder-->
         <!-- for API 4-16 instead parentActivityName is used meta-data with attributes:
         android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" -->
-        <!-- android:configChanges is used together with screenOrientation="landscape" -->
         <!-- screenSize attribute used with API level 13 or higher -->
         <activity
             android:name=".GameActivity"
