@@ -4,7 +4,13 @@ these attributes so there is no effect on your APK size or runtime behavior -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="alexrnov.cosmichunter"> <!-- permit declare short name without full packet path as: android:name = ".ClassName"-->
-    <supports-screens android:smallScreens="false"/>
+    <!-- filters: -->
+    <!-- supports-screens - lets you specify the screen sizes your application supports. It's important that you always use this
+    element in your application to specify the screen sizes your application supports. normalScreen - this is an HVGA (480 x 320 or 640x240)-->
+    <supports-screens android:smallScreens="false"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!--instead that declare, sdk options define in gradle script-->
