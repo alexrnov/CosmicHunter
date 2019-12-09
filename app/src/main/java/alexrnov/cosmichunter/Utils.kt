@@ -29,3 +29,4 @@ fun printDPSizeScreen(activity: AppCompatActivity) {
   Log.i(TAG, "width = $width, height = $height")
   Log.i(TAG, "dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
+

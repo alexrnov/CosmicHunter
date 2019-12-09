@@ -1,6 +1,5 @@
 package alexrnov.cosmichunter.concurrent
 
-import alexrnov.cosmichunter.R
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper

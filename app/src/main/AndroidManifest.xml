@@ -16,7 +16,6 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:largeScreens="true"
         android:xlargeScreens="true"
         android:requiresSmallestWidthDp="320"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!--instead that declare, sdk options define in gradle script-->
     <!--
@@ -25,10 +24,13 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:maxSdkVersion = "28"
         tools:ignore="GradleOverrides"/>
     -->
-    <!-- Tell the system this application requires OpenGL ES 3.0. -->
+    <!-- Tell the system this application requires OpenGL ES 3.0. uses-feature was introduced in Android 2.0 (API Level 5.0) -->
+    <!-- version OpenGL 2.0 is available starting with Android 2.2 (API Level 8), OpenGL 3.0 with Android 4.3 (API Level 18) -->
     <uses-feature
         android:glEsVersion="0x00030000"
         android:required="true"/>
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- android:allowBackup="true" (default true in Android 6.0 (API 23) and higher, but
     recommend explicitly setting this attribute) -->
     <!-- android:fullBackupContent - This attribute points to an XML file that contains backup rules -->
