@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.view
 
+import alexrnov.cosmichunter.Rocket
 import android.opengl.GLU
 import android.opengl.Matrix
 import alexrnov.cosmichunter.objects.RocketObject3D
@@ -61,7 +62,7 @@ class AsteroidView3D(widthScreen: Int, heightScreen: Int):
    * Проверить попала ли ракета в астероид. ПАТТЕРН НАБЛЮДАТЕЛЬ.
    * [flyRockets] - список летящих ракет.
    */
-  fun checkHit(flyRockets: List<RocketObject3D>): Boolean {
+  fun checkHit(flyRockets: List<Rocket>): Boolean {
     flyRockets.forEach hit@ { //определить дистанцию для каждой ракеты
       val distance = sqrt(pow((it.view.x - this.x).toDouble(), 2.0)
               + pow((it.view.y - this.y).toDouble(), 2.0) +

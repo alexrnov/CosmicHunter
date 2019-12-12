@@ -4,6 +4,7 @@ import android.content.Context;
 import android.opengl.GLES30;
 import android.util.Log;
 
+import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.utils.gl30.LinkedProgram;
 import alexrnov.cosmichunter.utils.gl30.Texture;

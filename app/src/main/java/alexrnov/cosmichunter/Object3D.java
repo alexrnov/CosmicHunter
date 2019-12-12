@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.objects;
+package alexrnov.cosmichunter;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,36 +18,36 @@ import static alexrnov.cosmichunter.utils.commonGL.Buffers.intBuffer;
 
 public abstract class Object3D {
 
-  final byte INT_SIZE = 4; //количество байт на тип integer
+  protected final byte INT_SIZE = 4; //количество байт на тип integer
   private final byte FLOAT_SIZE = 4; // количество байт на тип float
   //количество элементов массива на вершину (x, y, z)
-  final byte VERTEX_COMPONENT = 3;
+  protected final byte VERTEX_COMPONENT = 3;
   // количество элементов массива на текстурную координату (u,v)
-  final byte TEXTURE_COMPONENT = 2;
+  protected final byte TEXTURE_COMPONENT = 2;
   //количество элементов массива на нормаль (x, y, z)
-  final byte NORMAL_COMPONENT = 3;
+  protected final byte NORMAL_COMPONENT = 3;
   // шаг для вершины: количество байт на тип float умножить на количество
   // элементов массива для вершины (x, y, z)
-  final byte VERTEX_STRIDE = FLOAT_SIZE * VERTEX_COMPONENT;
+  protected final byte VERTEX_STRIDE = FLOAT_SIZE * VERTEX_COMPONENT;
   // шаг для текстурной координаты:  количество байт на тип float умножить
   // на количество элементов массива для текстурной координаты(u, v)
-  final byte TEXTURE_STRIDE = FLOAT_SIZE * TEXTURE_COMPONENT;
+  protected final byte TEXTURE_STRIDE = FLOAT_SIZE * TEXTURE_COMPONENT;
   // шаг для нормали: количество байт на тип float умножить на количество
   // элементов массива для нормали (x, y, z)
-  final byte NORMAL_STRIDE = FLOAT_SIZE * NORMAL_COMPONENT;
-  final int NUMBER_INDICES; // количество индексов
-  final int NUMBER_VERTICES; // количество вершин
-  final int NUMBER_NORMALS; // количество нормалей
-  final int NUMBERS_TEXTURES; // количество текстурных координат
+  protected final byte NORMAL_STRIDE = FLOAT_SIZE * NORMAL_COMPONENT;
+  protected final int NUMBER_INDICES; // количество индексов
+  protected final int NUMBER_VERTICES; // количество вершин
+  protected final int NUMBER_NORMALS; // количество нормалей
+  protected final int NUMBERS_TEXTURES; // количество текстурных координат
 
-  FloatBuffer bufferVertices;
-  FloatBuffer bufferNormals;
-  FloatBuffer bufferTextureCoordinates;
-  IntBuffer bufferIndices;
+  protected FloatBuffer bufferVertices;
+  protected FloatBuffer bufferNormals;
+  protected FloatBuffer bufferTextureCoordinates;
+  protected IntBuffer bufferIndices;
   private ModelData modelData;
   private final String className = this.getClass().getSimpleName();
 
-  Object3D(Context context, float scale, String assetFileName) {
+  public Object3D(Context context, float scale, String assetFileName) {
     try {
       InputStream input = context.getAssets().open(assetFileName);
       OBJFileLoader loader = new OBJFileLoader();
@@ -78,7 +78,7 @@ public abstract class Object3D {
     bufferTextureCoordinates = floatBuffer(textureCoordinates);
   }
 
-  Object3D(Context context, float scale, int resourceID) {
+  public Object3D(Context context, float scale, int resourceID) {
     InputStream input = context.getResources().openRawResource(resourceID);
     OBJFileLoader loader = new OBJFileLoader();
     modelData = loader.loadOBJ(input);

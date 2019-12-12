@@ -4,7 +4,9 @@ import android.content.Context;
 import android.opengl.GLES30;
 import android.util.Log;
 
+import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
+import alexrnov.cosmichunter.Rocket;
 import alexrnov.cosmichunter.utils.gl30.LinkedProgram;
 import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
@@ -12,7 +14,7 @@ import alexrnov.cosmichunter.view.View3D;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.gl30.Texture.loadTextureFromRaw;
 
-public class RocketObject3D extends Object3D {
+public class RocketObject3D extends Object3D implements Rocket {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;

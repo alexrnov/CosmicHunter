@@ -12,8 +12,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
@@ -26,7 +24,6 @@ import alexrnov.cosmichunter.opengl20.objects.BackgroundObject3D2;
 import alexrnov.cosmichunter.opengl20.objects.Explosion2;
 import alexrnov.cosmichunter.opengl20.objects.IceAsteroidObject3D2;
 import alexrnov.cosmichunter.opengl20.objects.MetalAsteroidObject3D2;
-import alexrnov.cosmichunter.opengl20.objects.Object3D2;
 import alexrnov.cosmichunter.opengl20.objects.RockAsteroidObject3D2;
 import alexrnov.cosmichunter.opengl20.objects.RocketObject3D2;
 import alexrnov.cosmichunter.utils.MeanValue;
@@ -38,7 +35,7 @@ import alexrnov.cosmichunter.view.RocketView3D;
 public class SceneRenderer2 implements GLSurfaceView.Renderer {
   private final String className = this.getClass().getSimpleName() + ".class: ";
   private Context context; // нужно ли синхронизировать?
-  private Object3D2 backgroundObject3D; // нужно ли синхронизировать?
+  private Object3D backgroundObject3D; // нужно ли синхронизировать?
 
   private GameActivity gameActivity;
   private int numberOfHints = 0; // количество попаданий в астероиды
@@ -71,7 +68,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
 
   private final byte NUMBER_ROCKETS = 15; // максимальное количество ракет
   private RocketObject3D2[] allRockets = new RocketObject3D2[NUMBER_ROCKETS]; // все ракеты
-  private List<RocketObject3D2> flyRockets = new ArrayList<>(); // летящие ракеты
+  private List<Rocket> flyRockets = new ArrayList<>(); // летящие ракеты
   private int indexOfRocket = 0; // индекс ракеты, которая будет запущена
 
   // флаг определяет открыто ли приложение первый раз
@@ -166,7 +163,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
         asteroid.getMiddleExplosion().createDataVertex(width, height);
         asteroid.getSmallExplosion().createDataVertex(width, height);
       }
-      for (Object3D2 rocket: allRockets) {
+      for (Object3D rocket: allRockets) {
         rocket.setView(new RocketView3D(width, height));
       }
       firstRun = false;
@@ -176,11 +173,10 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
   public void onDrawFrame(GL10 glUnused) { // вызывается при перерисовке кадра
     delta = meanValue.add(interpolationRatio);
     defineFlyRocket();
-    for (Object3D2 rocket: flyRockets) rocket.getView().spotPosition(delta);
+    for (Rocket rocket: flyRockets) rocket.getView().spotPosition(delta);
     for (Asteroid2 asteroid: asteroids) {
       asteroid.getView().spotPosition(delta);
 
-      /*
       if (asteroid.getView().checkHit(flyRockets)) {
         numberOfHints++;
         gameActivity.handleState(HITS_CODE, String.valueOf(numberOfHints));
@@ -189,7 +185,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
         }
         createExplosion(asteroid);
       }
-      */
+
     }
 
     //установить буфер цвета
@@ -204,7 +200,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
     /* отрисовка только летящих ракет */
-    for (Object3D2 rocket: flyRockets) rocket.draw();
+    for (Rocket rocket: flyRockets) rocket.draw();
 
     backgroundObject3D.draw();
 

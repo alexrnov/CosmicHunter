@@ -4,9 +4,8 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.objects.Asteroid;
-import alexrnov.cosmichunter.objects.Object3D;
 import alexrnov.cosmichunter.opengl20.LinkedProgram2;
 import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
@@ -14,7 +13,7 @@ import alexrnov.cosmichunter.view.View3D;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.gl30.Texture2.loadTextureFromRaw;
 
-public class RockAsteroidObject3D2 extends Object3D2 implements Asteroid2 {
+public class RockAsteroidObject3D2 extends Object3D implements Asteroid2 {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.opengl20.LinkedProgram2;
 import alexrnov.cosmichunter.utils.gl30.Texture2;
@@ -12,7 +13,7 @@ import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 
-public class BackgroundObject3D2 extends Object3D2 {
+public class BackgroundObject3D2 extends Object3D {
   private final int programObject;
   private BackgroundView3D view;
 
