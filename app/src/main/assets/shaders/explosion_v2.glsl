@@ -4,9 +4,9 @@ uniform vec3 u_centerPosition;
 uniform float u_sizeSprite;
 // переменные a_lifetime, a_startPosition и a_endPosition получают
 // случайные значения в конструкторе класса.
-layout(location = 0) attribute float a_lifeTime; // время жизни частицы в секундах
-layout(location = 1) attribute vec3 a_startPosition; // начальное положение частицы в момент взрыва
-layout(location = 2) attribute vec3 a_endPosition; // конечное положение частицы
+attribute float a_lifeTime; // время жизни частицы в секундах
+attribute vec3 a_startPosition; // начальное положение частицы в момент взрыва
+attribute vec3 a_endPosition; // конечное положение частицы
 // оставшееся время жизни частицы (передается во фрагментный шейдер)
 // это значение будет использоваться фрагментным шейдером, для того
 // чтобы увеличивать прозрачность частицы по мере того, как ее время
