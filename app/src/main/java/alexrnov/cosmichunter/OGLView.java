@@ -18,7 +18,7 @@ import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
-  private SceneRendererGLES20 renderer;
+  private SceneRenderer renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
   private volatile float xPress;//переменные используются в другом потоке(OpenGL)
@@ -37,11 +37,15 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   private void init(Context context) {
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
 
-    //Сообщить контейнеру mGLSurfaceView, что мы хотим создать
-    //OpenGL ES 3.0-совместимый контекст, и установить
-    //OpenGL ES 3.0-совместимый рендер
-    setEGLContextClientVersion(2);
-    renderer = new SceneRendererGLES20(context);
+    if (true) {
+      // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0-совместимый
+      // контекст, и установить OpenGL ES 2.0-совместимый рендер
+      setEGLContextClientVersion(2);
+      renderer = new SceneRendererGLES20(context);
+    } else {
+      setEGLContextClientVersion(3); // OpenGL ES 3.0-совместимый контекст и рендер
+      renderer = new SceneRendererGLES30(context);
+    }
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования
     //setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -133,4 +137,6 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   public void setGameActivity(GameActivity gameActivity) {
     renderer.setGameActivity(gameActivity);
   }
+
+
 }

@@ -60,8 +60,8 @@ public class GameActivity extends AppCompatActivity {
     // в начале будет загружаться именно он
     //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     // дополнительная проверка поддержки OpenGL на устройстве в рантайме
-    if (detectOpenGLES30()) Log.v(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
-    else Log.v(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
+    if (detectOpenGLES30()) Log.i(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
+    else Log.i(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
     /*
     // hide the status bar
@@ -143,14 +143,14 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-
   private boolean detectOpenGLES30() {
     ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
     ConfigurationInfo info = null;
     if (am != null) {
       info = am.getDeviceConfigurationInfo();
     }
-    return info != null && (info.reqGlEsVersion >= 0x3000);
+    Log.i(TAG, "Double version = " + Double.parseDouble(info.getGlEsVersion()));
+    return info != null && (info.reqGlEsVersion >= 0x30000);
   }
 
   @Override
