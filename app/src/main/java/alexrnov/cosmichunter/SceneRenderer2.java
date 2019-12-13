@@ -19,13 +19,13 @@ import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.HITS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 
-import alexrnov.cosmichunter.opengl20.objects.Asteroid2;
-import alexrnov.cosmichunter.opengl20.objects.BackgroundObject3D2;
-import alexrnov.cosmichunter.opengl20.objects.Explosion2;
-import alexrnov.cosmichunter.opengl20.objects.IceAsteroidObject3D2;
-import alexrnov.cosmichunter.opengl20.objects.MetalAsteroidObject3D2;
-import alexrnov.cosmichunter.opengl20.objects.RockAsteroidObject3D2;
-import alexrnov.cosmichunter.opengl20.objects.RocketObject3D2;
+import alexrnov.cosmichunter.gles20.objects.AsteroidGLES20;
+import alexrnov.cosmichunter.gles20.objects.BackgroundGLES20;
+import alexrnov.cosmichunter.gles20.objects.ExplosionGLES20;
+import alexrnov.cosmichunter.gles20.objects.IceAsteroidGLES20;
+import alexrnov.cosmichunter.gles20.objects.MetalAsteroidGLES20;
+import alexrnov.cosmichunter.gles20.objects.RockAsteroidGLES20;
+import alexrnov.cosmichunter.gles20.objects.RocketGLES20;
 import alexrnov.cosmichunter.utils.MeanValue;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 import alexrnov.cosmichunter.view.AsteroidView3D;
@@ -64,10 +64,10 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
   private final byte NUMBER_ASTEROIDS = 4; // количество астероидов
   // Массив астероидов. Если бы объектов было много, возможно,
   // понадобилось применение паттерна "Приспособленец"
-  private Asteroid2[] asteroids = new Asteroid2[NUMBER_ASTEROIDS];
+  private AsteroidGLES20[] asteroids = new AsteroidGLES20[NUMBER_ASTEROIDS];
 
   private final byte NUMBER_ROCKETS = 15; // максимальное количество ракет
-  private RocketObject3D2[] allRockets = new RocketObject3D2[NUMBER_ROCKETS]; // все ракеты
+  private RocketGLES20[] allRockets = new RocketGLES20[NUMBER_ROCKETS]; // все ракеты
   private List<Rocket> flyRockets = new ArrayList<>(); // летящие ракеты
   private int indexOfRocket = 0; // индекс ракеты, которая будет запущена
 
@@ -80,7 +80,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
   // рисовать. При таком подходе, объект просто удаляется из коллекции.
   // Использовать конструктор CopyOnWriteArrayList() вместо ArrayList()
   // что-бы не было ConcurrentModificationException.
-  private List<Explosion2> activeExplosions = new CopyOnWriteArrayList<>();
+  private List<ExplosionGLES20> activeExplosions = new CopyOnWriteArrayList<>();
 
   private VibratorExplosion vibratorExplosion;
   enum TypeExplosion { ROCK_BIG, ROCK_MIDDLE, ROCK_SMALL, ICE_BIG,
@@ -112,19 +112,19 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
     */
     //GLES30.glHint(GLES30.GL_FRAGMENT_SHADER_DERIVATIVE_HINT,
     //GLES30.GL_FASTEST); // required version API 18
-    asteroids[0] = new MetalAsteroidObject3D2(context, 1.0f);
+    asteroids[0] = new MetalAsteroidGLES20(context, 1.0f);
     bindExplosions(asteroids[0]);
-    asteroids[1] = new IceAsteroidObject3D2(context, 1.0f);
+    asteroids[1] = new IceAsteroidGLES20(context, 1.0f);
     bindExplosions(asteroids[1]);
-    asteroids[2] = new RockAsteroidObject3D2(context, 1.0f);
+    asteroids[2] = new RockAsteroidGLES20(context, 1.0f);
     bindExplosions(asteroids[2]);
-    asteroids[3] = new IceAsteroidObject3D2(context, 1.0f);
+    asteroids[3] = new IceAsteroidGLES20(context, 1.0f);
     bindExplosions(asteroids[3]);
 
-    for (int i = 0; i < NUMBER_ROCKETS; i++) allRockets[i] = new RocketObject3D2(context, 1.0f);
+    for (int i = 0; i < NUMBER_ROCKETS; i++) allRockets[i] = new RocketGLES20(context, 1.0f);
     // значение scale установлено с запасом, поскольку на различных
     // устройствах могут появляться полоски по бокам экрана
-    backgroundObject3D = new BackgroundObject3D2(context, 70.0f);
+    backgroundObject3D = new BackgroundGLES20(context, 70.0f);
 
     vibratorExplosion = new VibratorExplosion(context, 50);
 
@@ -154,7 +154,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
     if (firstRun) { // первый запуск приложения
       backgroundObject3D.setView(new BackgroundView3D(width, height));
       float z = -95;
-      for (Asteroid2 asteroid: asteroids) {
+      for (AsteroidGLES20 asteroid: asteroids) {
         AsteroidView3D view = new AsteroidView3D(width, height);
         view.setZ(z);
         asteroid.setView(view);
@@ -174,7 +174,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
     delta = meanValue.add(interpolationRatio);
     defineFlyRocket();
     for (Rocket rocket: flyRockets) rocket.getView().spotPosition(delta);
-    for (Asteroid2 asteroid: asteroids) {
+    for (AsteroidGLES20 asteroid: asteroids) {
       asteroid.getView().spotPosition(delta);
 
       if (asteroid.getView().checkHit(flyRockets)) {
@@ -204,10 +204,10 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
 
     backgroundObject3D.draw();
 
-    for (Asteroid2 asteroid: asteroids) asteroid.draw();
+    for (AsteroidGLES20 asteroid: asteroids) asteroid.draw();
 
     /* отрисовка только активных взрывов */
-    for (Explosion2 explosion: activeExplosions) explosion.draw(delta);
+    for (ExplosionGLES20 explosion: activeExplosions) explosion.draw(delta);
 
     flyRockets.clear();
     defineDeltaTime();
@@ -215,7 +215,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
 
   // добавляет в коллекцию flyRockets только летящие ракеты
   private void defineFlyRocket() {
-    for (RocketObject3D2 rocket: allRockets) {
+    for (RocketGLES20 rocket: allRockets) {
       if (rocket.getView().getFly()) flyRockets.add(rocket);
     }
   }
@@ -225,7 +225,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
    * создать взрыв. Координаты центра взрыва выводятся на основе оконных
    * координат астероида, какими они были в момент попадания ракеты
    */
-  private void createExplosion(Asteroid2 asteroid) {
+  private void createExplosion(AsteroidGLES20 asteroid) {
     vibratorExplosion.execute();
     asteroid.getView().setHit(false);
     coordinatesOpenGL.fromDisplay(this.getWidthDisplay(), this.getHeightDisplay(),
@@ -295,12 +295,12 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
   /*
    * К каждому астероиду привязать по три взрыва (большой, средний, маленький)
    */
-  private void bindExplosions(Asteroid2 asteroid) {
-    if (asteroid instanceof RockAsteroidObject3D2) {
+  private void bindExplosions(AsteroidGLES20 asteroid) {
+    if (asteroid instanceof RockAsteroidGLES20) {
       asteroid.setBigExplosion(createExplosion(TypeExplosion.ROCK_BIG));
       asteroid.setMiddleExplosion(createExplosion(TypeExplosion.ROCK_MIDDLE));
       asteroid.setSmallExplosion(createExplosion(TypeExplosion.ROCK_SMALL));
-    } else if (asteroid instanceof MetalAsteroidObject3D2) {
+    } else if (asteroid instanceof MetalAsteroidGLES20) {
       asteroid.setBigExplosion(createExplosion(TypeExplosion.METAL_BIG));
       asteroid.setMiddleExplosion(createExplosion(TypeExplosion.METAL_MIDDLE));
       asteroid.setSmallExplosion(createExplosion(TypeExplosion.METAL_SMALL));
@@ -314,33 +314,33 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
     asteroid.getSmallExplosion().setExplosions(activeExplosions);
   }
 
-  private Explosion2 createExplosion(TypeExplosion type) {
+  private ExplosionGLES20 createExplosion(TypeExplosion type) {
     switch (type) {
       case ROCK_BIG:
-        return new Explosion2(context, "explosion/rock.png");
+        return new ExplosionGLES20(context, "explosion/rock.png");
       case ROCK_MIDDLE:
-        return new Explosion2(context, "explosion/rock.png", 0.001f,
+        return new ExplosionGLES20(context, "explosion/rock.png", 0.001f,
                 0.4f, 80.0f, 120, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
       case ROCK_SMALL:
-        return new Explosion2(context, "explosion/rock.png", 0.005f,
+        return new ExplosionGLES20(context, "explosion/rock.png", 0.005f,
                 0.2f, 60.0f, 110, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
       case ICE_BIG:
-        return new Explosion2(context, "explosion/ice.png", 0.05f,
+        return new ExplosionGLES20(context, "explosion/ice.png", 0.05f,
                 0.6f, 100.0f, 150, new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
       case ICE_MIDDLE:
-        return new Explosion2(context, "explosion/ice.png", 0.001f,
+        return new ExplosionGLES20(context, "explosion/ice.png", 0.001f,
                 0.4f, 80.0f, 120, new float[] {0.1f, 0.4f, 1.0f, 1.0f});
       case ICE_SMALL:
-        return new Explosion2(context, "explosion/ice.png", 0.005f,
+        return new ExplosionGLES20(context, "explosion/ice.png", 0.005f,
                 0.2f, 60.0f, 110, new float[] {0.1f, 0.4f, 1.0f, 1.0f});
       case METAL_BIG:
-        return new Explosion2(context, "explosion/metal.png", 0.05f,
+        return new ExplosionGLES20(context, "explosion/metal.png", 0.05f,
                 0.6f, 100.0f, 150, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
       case METAL_MIDDLE:
-        return new Explosion2(context, "explosion/metal.png", 0.001f,
+        return new ExplosionGLES20(context, "explosion/metal.png", 0.001f,
                 0.4f, 80.0f, 120, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
       case METAL_SMALL:
-        return new Explosion2(context, "explosion/metal.png", 0.005f,
+        return new ExplosionGLES20(context, "explosion/metal.png", 0.005f,
                 0.2f, 60.0f, 110, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
       default:
         return null;

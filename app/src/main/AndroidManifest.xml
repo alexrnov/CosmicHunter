@@ -27,7 +27,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     <!-- Tell the system this application requires OpenGL ES 3.0. uses-feature was introduced in Android 2.0 (API Level 5.0) -->
     <!-- version OpenGL 2.0 is available starting with Android 2.2 (API Level 8), OpenGL 3.0 with Android 4.3 (API Level 18) -->
     <uses-feature
-        android:glEsVersion="0x00030000"
+        android:glEsVersion="0x00020000"
         android:required="true"/>
 
     <uses-permission android:name="android.permission.VIBRATE"/>

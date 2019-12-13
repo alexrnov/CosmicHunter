@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.opengl20;
+package alexrnov.cosmichunter.gles20;
 
 import android.opengl.GLES20;
 import android.opengl.GLES30;

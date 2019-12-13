@@ -37,7 +37,6 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   }
 
   private void init(Context context) {
-    setEGLContextClientVersion(3);
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
 
     //Сообщить контейнеру mGLSurfaceView, что мы хотим создать

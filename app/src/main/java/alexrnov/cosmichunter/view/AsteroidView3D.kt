@@ -3,7 +3,6 @@ package alexrnov.cosmichunter.view
 import alexrnov.cosmichunter.Rocket
 import android.opengl.GLU
 import android.opengl.Matrix
-import alexrnov.cosmichunter.objects.RocketObject3D
 import java.lang.Math.pow
 import java.lang.Math.sqrt
 import java.util.*

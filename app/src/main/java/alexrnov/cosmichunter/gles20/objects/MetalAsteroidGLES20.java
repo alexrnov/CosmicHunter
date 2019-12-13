@@ -1,20 +1,20 @@
-package alexrnov.cosmichunter.objects;
+package alexrnov.cosmichunter.gles20.objects;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.Rocket;
-import alexrnov.cosmichunter.utils.gl30.LinkedProgram;
-import alexrnov.cosmichunter.view.RocketView3D;
+import alexrnov.cosmichunter.gles20.LinkedProgram2;
+import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.Texture.loadTextureFromRaw;
+import static alexrnov.cosmichunter.utils.gl30.Texture2.loadTextureFromRaw;
 
-public class RocketObject3D extends Object3D implements Rocket {
+public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -40,18 +40,30 @@ public class RocketObject3D extends Object3D implements Rocket {
   // вектор положения источника света
   private final int lightPositionLink;
 
-  private RocketView3D view;
+  private final int positionLink; // индекс переменной атрибута для вершин
+  private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
+  private final int normalLink; // индекс переменной атрибута для нормали
+
+  private AsteroidView3D view;
   private final int[] VBO = new int[4];
 
-  public RocketObject3D(Context context, float scale) {
-    super(context, scale, R.raw.rocket);
-    LinkedProgram linkProgram = new LinkedProgram(context,
-            "shaders/rocket_v.glsl",
-            "shaders/rocket_f.glsl");
-    final String className = this.getClass().getSimpleName();
+  private ExplosionGLES20 bigExplosion;
+  private ExplosionGLES20 middleExplosion;
+  private ExplosionGLES20 smallExplosion;
+
+  public MetalAsteroidGLES20(Context context, float scale) { //, TypeAsteroid type) {
+    super(context, scale, "objects/asteroid1.obj");
+
+    //загрузка шейдеров из каталога raw
+    //LinkedProgram2 linkedProgramGL = new LinkedProgram2(context,
+    //R.raw.vertex_shader, R.raw.fragment_shader);
+    LinkedProgram2 linkProgram = new LinkedProgram2(context,
+            "shaders/gles20/asteroid_v.glsl",
+            "shaders/gles20/asteroid_f.glsl"); // линковать программу
+    final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
     if (programObject == 0) {
-      Log.e(TAG, className + "error program link rocket: " + programObject);
+      Log.v(TAG, className + "error program link asteroid: " + programObject);
     }
 
     //связать a_position с атрибутом 0 в шейдере
@@ -61,31 +73,35 @@ public class RocketObject3D extends Object3D implements Rocket {
 
     //Получить ссылку на переменную, содержащую итоговую MPV-матрицу.
     //Эта переменная находится в вершинном шейдере: uniform mat4 u_mvpMatrix;
-    mvpMatrixLink = GLES30.glGetUniformLocation(this.programObject, "u_mvpMatrix");
+    mvpMatrixLink = GLES30.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
-    mvMatrixLink = GLES30.glGetUniformLocation(this.programObject, "u_mvMatrix");
+    mvMatrixLink = GLES30.glGetUniformLocation(programObject, "u_mvMatrix");
     //получить местоположение семплера
-    samplerLink = GLES30.glGetUniformLocation(this.programObject, "s_texture");
-    textureID = loadTextureFromRaw(context, R.raw.rocket_texture); //загрузить текстуру
-    ambientLightColorLink = GLES30.glGetUniformLocation(this.programObject,
+    samplerLink = GLES30.glGetUniformLocation(programObject, "s_texture");
+    textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
+    ambientLightColorLink = GLES30.glGetUniformLocation(programObject,
             "u_ambientLight.color");
-    ambientLightIntensityLink = GLES30.glGetUniformLocation(this.programObject,
+    ambientLightIntensityLink = GLES30.glGetUniformLocation(programObject,
             "u_ambientLight.intensity");
-    diffuseLightColorLink = GLES30.glGetUniformLocation(this.programObject,
+    diffuseLightColorLink = GLES30.glGetUniformLocation(programObject,
             "u_diffuseLight.color");
-    diffuseLightIntensityLink = GLES30.glGetUniformLocation(this.programObject,
+    diffuseLightIntensityLink = GLES30.glGetUniformLocation(programObject,
             "u_diffuseLight.intensity");
-    lightPositionLink = GLES30.glGetUniformLocation(this.programObject,
+    lightPositionLink = GLES30.glGetUniformLocation(programObject,
             "u_lightPosition");
 
+    // получить индексы атрибутов в вершинном шейдере
+    positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
+    textureCoordinatesLink = GLES20.glGetAttribLocation(programObject, "a_textureCoordinates");
+    normalLink = GLES20.glGetAttribLocation(programObject, "a_normal");
 
-    Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
-            mvpMatrixLink + "; u_mvMatrix id: " + mvMatrixLink + "; s_texture id: " +
-            samplerLink + "; u_ambientLight.color id: " + ambientLightColorLink +
+    Log.v(TAG, className +
+            ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
+            mvMatrixLink + "; s_texture id: " + samplerLink +
+            "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; u_lightPosition id: " + lightPositionLink + "; textureID: " + textureID);
-
     createVertexBuffers();
   }
 
@@ -119,11 +135,11 @@ public class RocketObject3D extends Object3D implements Rocket {
 
   @Override
   public void setView(View3D view) {
-    if (view instanceof RocketView3D) this.view = (RocketView3D) view;
+    if (view instanceof AsteroidView3D) this.view = (AsteroidView3D) view;
   }
 
   @Override
-  public RocketView3D getView() {
+  public AsteroidView3D getView() {
     return view;
   }
 
@@ -133,7 +149,7 @@ public class RocketObject3D extends Object3D implements Rocket {
     // включение вершинного массива для атрибута(in vec4 a_position). Если
     // для заданного индекса атрибута вершинный массив выключен, то для
     // этого атрибута будет использоваться соответствующее постоянное значение
-    GLES30.glEnableVertexAttribArray(0); // разрешить атрибут вершин куба
+    GLES30.glEnableVertexAttribArray(positionLink); // разрешить атрибут вершин куба
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[0]);
     // Метод glVertexAttribPointer загружет вершинные массивы. Size - число
     // компонент в вершинном массиве для заданного атрибута. Допустимые
@@ -143,25 +159,25 @@ public class RocketObject3D extends Object3D implements Rocket {
     // получения данных для следующей вершины. Для лучшего быстродействия
     // предпочтительно использовать GLES30.GL_HALF_FLOAT (не работает)
     // Загрузить данные вершин (location = 0)
-    GLES30.glVertexAttribPointer(0, VERTEX_COMPONENT, GLES30.GL_FLOAT,
+    GLES30.glVertexAttribPointer(positionLink, VERTEX_COMPONENT, GLES30.GL_FLOAT,
             false, VERTEX_STRIDE, 0);
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
 
     //включение массива текстурных координат для атрибута(in vec4 a_position)
-    GLES30.glEnableVertexAttribArray(1);//разрешить атрибут координат текстуры
+    GLES30.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[1]);
     //загрузить текстурные координаты (location = 1)
-    GLES30.glVertexAttribPointer(1, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
+    GLES30.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
 
-    GLES30.glEnableVertexAttribArray(2);
+    GLES30.glEnableVertexAttribArray(normalLink);
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[2]);
     // индекс переменной атрибута можно получить следущим образом
     // int a_normal_Handle = GLES30.glGetAttribLocation(programObject, "a_Normal");
     // но мы просто указываем индекс 2, поскольку в шейдере он обазначен
     // с помощью ключевого слова location
-    GLES30.glVertexAttribPointer(2, NORMAL_COMPONENT, GLES30.GL_FLOAT,
+    GLES30.glVertexAttribPointer(normalLink, NORMAL_COMPONENT, GLES30.GL_FLOAT,
             false, NORMAL_STRIDE, 0);
     GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
 
@@ -169,7 +185,7 @@ public class RocketObject3D extends Object3D implements Rocket {
     // окружающего света
     GLES30.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES30.glUniform1f(ambientLightIntensityLink, 0.5f);
+    GLES30.glUniform1f(ambientLightIntensityLink, 0.2f);
 
     GLES30.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
@@ -178,8 +194,8 @@ public class RocketObject3D extends Object3D implements Rocket {
      * Источник света движется за кубом, поэтому куб освещается
      * всегда с одной стороны.
      */
-    GLES30.glUniform3f(lightPositionLink, view.getX() + 5.0f,
-            view.getY() + 5.0f, view.getZ() + 2.0f);
+    GLES30.glUniform3f(lightPositionLink, view.getX(),
+            view.getY(), view.getZ() + 2.0f);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -208,10 +224,40 @@ public class RocketObject3D extends Object3D implements Rocket {
     GLES30.glDrawElements(GLES30.GL_TRIANGLES, NUMBER_INDICES, GLES30.GL_UNSIGNED_INT, 0);
     GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
-    GLES30.glDisableVertexAttribArray(0); // отключить атрибут вершин куба
-    GLES30.glDisableVertexAttribArray(1); // отключить атрибут координат текстуры
-    GLES30.glDisableVertexAttribArray(2); // отключить атрибут нормалей
+    GLES30.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
+    GLES30.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
+    GLES30.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
 
     //GLES30.glFinish();
+  }
+
+  @Override
+  public void setBigExplosion(ExplosionGLES20 explosion) {
+    bigExplosion = explosion;
+  }
+
+  @Override
+  public ExplosionGLES20 getBigExplosion() {
+    return bigExplosion;
+  }
+
+  @Override
+  public void setMiddleExplosion(ExplosionGLES20 explosion) {
+    middleExplosion = explosion;
+  }
+
+  @Override
+  public ExplosionGLES20 getMiddleExplosion() {
+    return middleExplosion;
+  }
+
+  @Override
+  public void setSmallExplosion(ExplosionGLES20 explosion) {
+    smallExplosion = explosion;
+  }
+
+  @Override
+  public ExplosionGLES20 getSmallExplosion() {
+    return smallExplosion;
   }
 }

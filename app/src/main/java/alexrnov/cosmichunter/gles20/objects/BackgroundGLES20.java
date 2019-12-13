@@ -1,19 +1,19 @@
-package alexrnov.cosmichunter.objects;
+package alexrnov.cosmichunter.gles20.objects;
 
 import android.content.Context;
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.utils.gl30.LinkedProgram;
-import alexrnov.cosmichunter.utils.gl30.Texture;
+import alexrnov.cosmichunter.gles20.LinkedProgram2;
+import alexrnov.cosmichunter.utils.gl30.Texture2;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 
-public class BackgroundObject3D extends Object3D {
+public class BackgroundGLES20 extends Object3D {
   private final int programObject;
   private BackgroundView3D view;
 
@@ -23,11 +23,11 @@ public class BackgroundObject3D extends Object3D {
   private final int textureID; // обработчик текстуры
 
   private final int[] VBO = new int[3];
-  public BackgroundObject3D(Context context, float scale) {
+  public BackgroundGLES20(Context context, float scale) {
     super(context, scale, R.raw.fone);
-    final LinkedProgram linkProgram = new LinkedProgram(context,
-            "shaders/background_v.glsl",
-            "shaders/background_f.glsl");
+    final LinkedProgram2 linkProgram = new LinkedProgram2(context,
+            "shaders/gles20/background_v.glsl",
+            "shaders/gles20/background_f.glsl");
     programObject = linkProgram.get();
     final String className = this.getClass().getSimpleName() + ".class: ";
     if (programObject == 0) {
@@ -36,10 +36,10 @@ public class BackgroundObject3D extends Object3D {
 
     //Получить ссылку на переменную, содержащую итоговую MPV-матрицу.
     //Эта переменная находится в вершинном шейдере: uniform mat4 u_mvpMatrix;
-    mvpMatrixLink = GLES30.glGetUniformLocation(programObject, "u_mvpMatrix");
+    mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     //получить местоположение семплера
-    samplerLink = GLES30.glGetUniformLocation(programObject, "s_texture");
-    textureID = Texture.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+    samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
+    textureID = Texture2.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
 
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
@@ -51,21 +51,21 @@ public class BackgroundObject3D extends Object3D {
     VBO[1] = 0;
     VBO[2] = 0;
 
-    GLES30.glGenBuffers(3, VBO, 0);
+    GLES20.glGenBuffers(3, VBO, 0);
     bufferVertices.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[0]);
-    GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_VERTICES,
-            bufferVertices, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
+    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_VERTICES,
+            bufferVertices, GLES20.GL_STATIC_DRAW);
 
     bufferTextureCoordinates.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[1]);
-    GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, TEXTURE_STRIDE * NUMBERS_TEXTURES,
-            bufferTextureCoordinates, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
+    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, TEXTURE_STRIDE * NUMBERS_TEXTURES,
+            bufferTextureCoordinates, GLES20.GL_STATIC_DRAW);
 
     bufferIndices.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
-    GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, INT_SIZE * NUMBER_INDICES,
-            bufferIndices, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, INT_SIZE * NUMBER_INDICES,
+            bufferIndices, GLES20.GL_STATIC_DRAW);
   }
 
   @Override
@@ -82,12 +82,12 @@ public class BackgroundObject3D extends Object3D {
 
   @Override
   public void draw() {
-    GLES30.glUseProgram(programObject);
+    GLES20.glUseProgram(programObject);
     // включение вершинного массива для атрибута(in vec4 a_position). Если
     // для заданного индекса атрибута вершинный массив выключен, то для
     // этого атрибута будет использоваться соответствующее постоянное значение
-    GLES30.glEnableVertexAttribArray(0); // разрешить атрибут вершин куба
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[0]);
+    GLES20.glEnableVertexAttribArray(0); // разрешить атрибут вершин куба
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
     // Метод glVertexAttribPointer загружет вершинные массивы. Size - число
     // компонент в вершинном массиве для заданного атрибута. Допустимые
     // значения 1 - 4. Stride - смещение в байтах между вершиной I и вершиной
@@ -96,17 +96,17 @@ public class BackgroundObject3D extends Object3D {
     // получения данных для следующей вершины. Для лучшего быстродействия
     // предпочтительно использовать GLES30.GL_HALF_FLOAT (не работает)
     // Загрузить данные вершин (location = 0)
-    GLES30.glVertexAttribPointer(0, VERTEX_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(0, VERTEX_COMPONENT, GLES20.GL_FLOAT,
             false, VERTEX_STRIDE, 0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
     //включение массива текстурных координат для атрибута(in vec4 a_position)
-    GLES30.glEnableVertexAttribArray(1);//разрешить атрибут координат текстуры
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[1]);
+    GLES20.glEnableVertexAttribArray(1);//разрешить атрибут координат текстуры
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     //загрузить текстурные координаты (location = 1)
-    GLES30.glVertexAttribPointer(1, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(1, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
@@ -115,27 +115,27 @@ public class BackgroundObject3D extends Object3D {
     // семплера (s_texture) параметр задает текстурный блок, который
     // станет активным, принимает значения GL_TEXTURE0,
     // GL_TEXTURE1,..., GL_TEXTURE31.
-    GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
+    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
-    GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureID);
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId
-    GLES30.glUniform1i(samplerLink, 0);
+    GLES20.glUniform1i(samplerLink, 0);
 
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
-    GLES30.glUniformMatrix4fv(mvpMatrixLink, 1, false,
+    GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
 
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.
     // второй параметр - количество индексов, которое необходимо вывести.
     // третий параметр - тип индексов (другие варианты UNSIGNED_SHORT и UNSIGNED_BYTE)
-    GLES30.glDrawElements(GLES30.GL_TRIANGLES, NUMBER_INDICES, GLES30.GL_UNSIGNED_INT, 0);
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, 0);
+    GLES20.glDrawElements(GLES20.GL_TRIANGLES, NUMBER_INDICES, GLES20.GL_UNSIGNED_INT, 0);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
-    GLES30.glDisableVertexAttribArray(0); // отключить атрибут вершин куба
-    GLES30.glDisableVertexAttribArray(1); // отключить атрибут координат текстуры
+    GLES20.glDisableVertexAttribArray(0); // отключить атрибут вершин куба
+    GLES20.glDisableVertexAttribArray(1); // отключить атрибут координат текстуры
 
     //GLES30.glFinish();
   }
