@@ -5,14 +5,12 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 
+import alexrnov.cosmichunter.gles20.SceneRendererGLES20;
+import alexrnov.cosmichunter.gles30.SceneRendererGLES30;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
-
-import static alexrnov.cosmichunter.Initialization.TAG;
 
 /**
  * Используется при выводе рендера openGL в отдельный компонент интерфейса
@@ -20,7 +18,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
-  private SceneRenderer2 renderer;
+  private SceneRendererGLES20 renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
   private volatile float xPress;//переменные используются в другом потоке(OpenGL)
@@ -43,7 +41,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     //OpenGL ES 3.0-совместимый контекст, и установить
     //OpenGL ES 3.0-совместимый рендер
     setEGLContextClientVersion(2);
-    renderer = new SceneRenderer2(context);
+    renderer = new SceneRendererGLES20(context);
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования
     //setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -131,11 +129,6 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     //сильное нажатие
     return true;
   }
-
-  public SceneRenderer2 getRenderer() {
-    return renderer;
-  }
-
 
   public void setGameActivity(GameActivity gameActivity) {
     renderer.setGameActivity(gameActivity);

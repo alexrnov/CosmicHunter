@@ -6,12 +6,12 @@ import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.gles20.LinkedProgram2;
+import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
 import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.Texture2.loadTextureFromRaw;
+import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromRaw;
 
 public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
   private final int programObject;
@@ -54,9 +54,9 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     super(context, scale, "objects/asteroid1.obj");
 
     //загрузка шейдеров из каталога raw
-    //LinkedProgram2 linkedProgramGL = new LinkedProgram2(context,
+    //LinkedProgramGLES20 linkedProgramGL = new LinkedProgramGLES20(context,
     //R.raw.vertex_shader, R.raw.fragment_shader);
-    LinkedProgram2 linkProgram = new LinkedProgram2(context,
+    LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
             "shaders/gles20/asteroid_v.glsl",
             "shaders/gles20/asteroid_f.glsl"); // линковать программу
     final String className = this.getClass().getSimpleName() + ".class: ";

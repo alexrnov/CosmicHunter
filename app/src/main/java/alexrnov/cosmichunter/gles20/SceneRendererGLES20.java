@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.gles20;
 
 import android.content.Context;
 import android.opengl.ETC1Util;
@@ -19,6 +19,10 @@ import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.HITS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 
+import alexrnov.cosmichunter.GameActivity;
+import alexrnov.cosmichunter.Object3D;
+import alexrnov.cosmichunter.Rocket;
+import alexrnov.cosmichunter.VibratorExplosion;
 import alexrnov.cosmichunter.gles20.objects.AsteroidGLES20;
 import alexrnov.cosmichunter.gles20.objects.BackgroundGLES20;
 import alexrnov.cosmichunter.gles20.objects.ExplosionGLES20;
@@ -32,7 +36,7 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.RocketView3D;
 
-public class SceneRenderer2 implements GLSurfaceView.Renderer {
+public class SceneRendererGLES20 implements GLSurfaceView.Renderer {
   private final String className = this.getClass().getSimpleName() + ".class: ";
   private Context context; // нужно ли синхронизировать?
   private Object3D backgroundObject3D; // нужно ли синхронизировать?
@@ -86,7 +90,7 @@ public class SceneRenderer2 implements GLSurfaceView.Renderer {
   enum TypeExplosion { ROCK_BIG, ROCK_MIDDLE, ROCK_SMALL, ICE_BIG,
     ICE_MIDDLE, ICE_SMALL, METAL_BIG, METAL_MIDDLE, METAL_SMALL }
 
-  SceneRenderer2(Context context) {
+  public SceneRendererGLES20(Context context) {
     this.context = context;
   }
 

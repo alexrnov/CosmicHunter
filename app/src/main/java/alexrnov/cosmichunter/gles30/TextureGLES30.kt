@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.utils.gl30
+package alexrnov.cosmichunter.gles30
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,7 +8,7 @@ import android.opengl.GLUtils
 import java.io.IOException
 import java.io.InputStream
 
-object Texture {
+object TextureGLES30 {
 
   /**
    * Загружает текстуру из директории raw

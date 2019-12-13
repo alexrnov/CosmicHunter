@@ -1,3 +1,4 @@
+#version 100
 precision lowp float; // низкая точность для всех переменных, основанных на типе float
 uniform mat4 u_mvpMatrix; // модельно-видо-проекционная матрица
 

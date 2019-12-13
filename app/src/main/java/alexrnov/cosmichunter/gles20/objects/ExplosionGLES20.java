@@ -8,11 +8,11 @@ import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
 
-import alexrnov.cosmichunter.gles20.LinkedProgram2;
+import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
-import static alexrnov.cosmichunter.utils.gl30.Texture2.loadTextureFromAsset;
+import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromAsset;
 
 public class ExplosionGLES20 {
   private final byte NUM_COORDINATES = 3; // количество координат - 3 т.е. x, y, z
@@ -75,7 +75,7 @@ public class ExplosionGLES20 {
     startPositionData = new float[numberParticles * NUM_COORDINATES];
     endPositionData = new float[numberParticles * NUM_COORDINATES];
 
-    LinkedProgram2 linkProgram = new LinkedProgram2(context,
+    LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
             "shaders/gles20/explosion_v.glsl",
             "shaders/gles20/explosion_f.glsl");
     programObject = linkProgram.get();

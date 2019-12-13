@@ -1,4 +1,5 @@
-precision mediump float;
+#version 100
+precision lowp float;
 varying float v_lifeTime; // входная переменная - оставшееся время жизни частицы
 // цвет взрыва (вектор-константа). Значение влияет на цвет частицы
 //const vec4 c_color = vec4(0.1, 0.9, 0.2, 1.0);

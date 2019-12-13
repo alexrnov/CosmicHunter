@@ -6,8 +6,8 @@ import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.gles20.LinkedProgram2;
-import alexrnov.cosmichunter.utils.gl30.Texture2;
+import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
+import alexrnov.cosmichunter.utils.gl30.TextureGLES20;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 
@@ -25,7 +25,7 @@ public class BackgroundGLES20 extends Object3D {
   private final int[] VBO = new int[3];
   public BackgroundGLES20(Context context, float scale) {
     super(context, scale, R.raw.fone);
-    final LinkedProgram2 linkProgram = new LinkedProgram2(context,
+    final LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
             "shaders/gles20/background_v.glsl",
             "shaders/gles20/background_f.glsl");
     programObject = linkProgram.get();
@@ -39,7 +39,7 @@ public class BackgroundGLES20 extends Object3D {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    textureID = Texture2.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+    textureID = TextureGLES20.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
 
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);

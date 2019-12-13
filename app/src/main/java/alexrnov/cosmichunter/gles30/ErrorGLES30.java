@@ -1,12 +1,11 @@
-package alexrnov.cosmichunter.gles20;
+package alexrnov.cosmichunter.gles30;
 
-import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.util.Log;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 
-public class ErrorGL2 {
+public class ErrorGLES30 {
 
   /**
    * Utility method for debugging OpenGL calls. Provide the name of the call
@@ -21,7 +20,7 @@ public class ErrorGL2 {
    */
   public static void checkGlError(String glOperation) {
     int error;
-    while ((error = GLES20.glGetError()) != GLES30.GL_NO_ERROR) {
+    while ((error = GLES30.glGetError()) != GLES30.GL_NO_ERROR) {
       Log.e(TAG, glOperation + ": glError " + error);
       throw new RuntimeException(glOperation + ": glError " + error);
     }

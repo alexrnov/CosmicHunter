@@ -8,7 +8,7 @@ import android.opengl.GLUtils
 import java.io.IOException
 import java.io.InputStream
 
-object Texture2 {
+object TextureGLES20 {
 
   /**
    * Загружает текстуру из директории raw

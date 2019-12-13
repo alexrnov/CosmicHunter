@@ -1,3 +1,4 @@
+#version 100
 uniform float u_lastTimeExplosion; // время, прошедшее с момента взрыва.
 // центр взрыва (координаты частиц заданы относительно этого центра.
 uniform vec3 u_centerPosition;

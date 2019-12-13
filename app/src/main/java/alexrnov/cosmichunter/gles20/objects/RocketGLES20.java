@@ -7,12 +7,12 @@ import android.util.Log;
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.Rocket;
-import alexrnov.cosmichunter.gles20.LinkedProgram2;
+import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
 import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.Texture2.loadTextureFromRaw;
+import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromRaw;
 
 public class RocketGLES20 extends Object3D implements Rocket {
   private final int programObject;
@@ -49,7 +49,7 @@ public class RocketGLES20 extends Object3D implements Rocket {
 
   public RocketGLES20(Context context, float scale) {
     super(context, scale, R.raw.rocket);
-    LinkedProgram2 linkProgram = new LinkedProgram2(context,
+    LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
             "shaders/gles20/rocket_v.glsl",
             "shaders/gles20/rocket_f.glsl");
     final String className = this.getClass().getSimpleName();

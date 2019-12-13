@@ -1,3 +1,4 @@
+#version 100
 precision lowp float;
 varying vec2 v_textureCoordinates;
 //varying vec4 outColor;
