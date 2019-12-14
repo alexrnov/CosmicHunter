@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity {
     if (am != null) {
       info = am.getDeviceConfigurationInfo();
     }
-    Log.i(TAG, "Double version = " + Double.parseDouble(info.getGlEsVersion()));
+    Log.i(TAG, "Double version2 = " + Double.parseDouble(info.getGlEsVersion()));
     return info != null && (info.reqGlEsVersion >= 0x30000);
   }
 
