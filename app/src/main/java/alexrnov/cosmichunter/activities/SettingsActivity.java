@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import alexrnov.cosmichunter.BackgroundMusic;
+import alexrnov.cosmichunter.R;
+import alexrnov.cosmichunter.activities.MainActivity;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;

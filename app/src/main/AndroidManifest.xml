@@ -59,7 +59,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         method, rather than creating a new instance. Only one instance of the activity can exist at a time.-->
         <!-- alwaysRetainTaskState - the task retains all activities in its stack even after a long period-->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
@@ -76,41 +76,41 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" -->
         <!-- screenSize attribute used with API level 13 or higher -->
         <activity
-            android:name=".GameActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.GameActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".LevelsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.LevelsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
 
-        <activity android:name=".DialogCancelActivity"
+        <activity android:name=".activities.DialogCancelActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
 
-        <activity android:name=".DialogGameOverActivity"
+        <activity android:name=".activities.DialogGameOverActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
     </application>

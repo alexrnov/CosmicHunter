@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter
+package alexrnov.cosmichunter.activities
 
 import alexrnov.cosmichunter.Initialization.TAG
 import android.app.Activity

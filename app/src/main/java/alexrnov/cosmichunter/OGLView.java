@@ -5,12 +5,16 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import alexrnov.cosmichunter.activities.GameActivity;
 import alexrnov.cosmichunter.gles20.SceneRendererGLES20;
 import alexrnov.cosmichunter.gles30.SceneRendererGLES30;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
+
+import static alexrnov.cosmichunter.Initialization.TAG;
 
 /**
  * Используется при выводе рендера openGL в отдельный компонент интерфейса
@@ -37,14 +41,16 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   private void init(Context context) {
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
 
-    if (true) {
+    if (false) {
       // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0-совместимый
       // контекст, и установить OpenGL ES 2.0-совместимый рендер
       setEGLContextClientVersion(2);
       renderer = new SceneRendererGLES20(context);
+      Log.i(TAG, "GLES = 2.0");
     } else {
       setEGLContextClientVersion(3); // OpenGL ES 3.0-совместимый контекст и рендер
       renderer = new SceneRendererGLES30(context);
+      Log.i(TAG, "GLES = 3.0");
     }
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования

@@ -12,7 +12,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
-class BackgroundMusic {
+public class BackgroundMusic {
   private static MediaPlayer player;
   private static final String resourceFolder = "raw";
 

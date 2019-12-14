@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".SettingsActivity"
+    tools:context=".activities.SettingsActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <android.support.constraint.ConstraintLayout

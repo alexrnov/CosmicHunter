@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
+import alexrnov.cosmichunter.R;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;

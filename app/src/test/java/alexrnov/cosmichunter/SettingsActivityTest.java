@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import alexrnov.cosmichunter.activities.SettingsActivity;
 
 public class SettingsActivityTest {
 

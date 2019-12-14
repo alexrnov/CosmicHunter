@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.activities;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
@@ -23,6 +22,9 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import alexrnov.cosmichunter.OGLView;
+import alexrnov.cosmichunter.R;
+import alexrnov.cosmichunter.activities.DialogCancelActivity;
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
 import alexrnov.cosmichunter.concurrent.ViewHandler;

@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import alexrnov.cosmichunter.R;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity;
