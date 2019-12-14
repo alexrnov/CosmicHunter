@@ -1,13 +1,9 @@
-package alexrnov.cosmichunter
+package alexrnov.cosmichunter.utils
 
 import alexrnov.cosmichunter.Initialization.TAG
 import android.annotation.SuppressLint
-import android.app.ActivityManager
-import android.content.Context
-import android.content.pm.ConfigurationInfo
 import android.graphics.Point
 import android.os.Build
-import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 

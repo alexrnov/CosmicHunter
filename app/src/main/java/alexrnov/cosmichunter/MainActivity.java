@@ -10,7 +10,7 @@ import android.view.View;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity;
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.UtilsKt.printDPSizeScreen;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.printDPSizeScreen;
 
 public class MainActivity extends AppCompatActivity {
 
