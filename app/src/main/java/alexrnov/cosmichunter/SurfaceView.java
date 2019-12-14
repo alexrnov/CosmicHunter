@@ -7,7 +7,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import alexrnov.cosmichunter.gles30.SceneRendererGLES30;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
 /**
