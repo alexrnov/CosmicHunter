@@ -61,9 +61,6 @@ public class GameActivity extends AppCompatActivity {
     // не нужно создавать лэйаут для портретной ориентации, поскольку
     // в начале будет загружаться именно он
     //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    // дополнительная проверка поддержки OpenGL на устройстве в рантайме
-    if (detectOpenGLES30()) Log.i(TAG, className + "OpenGL ES 3.0 поддерживается на данном устройстве");
-    else Log.i(TAG, className + "OpenGL ES 3.0 не поддерживается на данном устройстве");
 
     /*
     // hide the status bar
@@ -92,9 +89,16 @@ public class GameActivity extends AppCompatActivity {
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
 
+    // поддержки OpenGL на устройстве в рантайме
+    Log.i(TAG, "Поддержка OpenGL " + detectOpenGLES());
+    byte versionGLES = detectOpenGLES();
+    if (versionGLES == 0) {
+
+    }
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
+    oglView.init(this.getApplicationContext(), versionGLES);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
 
     TextView hits = findViewById(R.id.hits);
@@ -107,7 +111,6 @@ public class GameActivity extends AppCompatActivity {
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
     decorView = getWindow().getDecorView();
-
 
     decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
       @Override
@@ -145,14 +148,19 @@ public class GameActivity extends AppCompatActivity {
     }
   }
 
-  private boolean detectOpenGLES30() {
+  private byte detectOpenGLES() {
     ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-    ConfigurationInfo info = null;
-    if (am != null) {
-      info = am.getDeviceConfigurationInfo();
-    }
-    Log.i(TAG, "Double version = " + Double.parseDouble(info.getGlEsVersion()));
-    return info != null && (info.reqGlEsVersion >= 0x30000);
+    ConfigurationInfo info = am != null ? am.getDeviceConfigurationInfo() : null;
+    if (info != null) {
+      Double d = Double.parseDouble(info.getGlEsVersion());
+      if (d >= 3.0) { // info.reqGlEsVersion >= 0x30000
+        return 3;
+      } else if (d >= 2.0) {
+        return 2;
+      } else {
+        return 1;
+      }
+    } else return 1;
   }
 
   @Override

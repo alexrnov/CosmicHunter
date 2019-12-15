@@ -1,8 +1,11 @@
 package alexrnov.cosmichunter.utils
 
 import alexrnov.cosmichunter.Initialization.TAG
+import alexrnov.cosmichunter.activities.GameActivity
+import alexrnov.cosmichunter.view.RocketView3D
 import android.annotation.SuppressLint
 import android.graphics.Point
+import android.opengl.GLSurfaceView
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -30,5 +33,42 @@ fun printDPSizeScreen(activity: AppCompatActivity) {
   Log.i(TAG, "dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
 
+
+/**
+ * Интерфейс введен для случая, когда класс-наследник View3D работает
+ * c экземпляром RocketGLES30 для разных версий OpenGL
+ */
+interface Rocket {
+  val view: RocketView3D
+  fun draw()
+}
+/*
+ * java:
+ * public interface Rocket {
+ *   RocketView3D getView();
+ *   void draw();
+ * }
+ */
+
+/**
+ * Интерфейс нужен для того, чтобы в классе OGLView (SurfaceView) можно
+ * было использовать классы рендера как для OpenGL 2.0, так и для OpenGL 3.0
+ */
+interface SceneRenderer : GLSurfaceView.Renderer {
+  val widthDisplay: Int
+  val heightDisplay: Int
+  fun setPassXY(passX: Float, passY: Float)
+  fun setGameActivity(gameActivity: GameActivity)
+}
+
+/*
+ * java:
+ * public interface SceneRenderer extends GLSurfaceView.Renderer {
+ *   int getWidthDisplay();
+ *   int getHeightDisplay();
+ *   void setPassXY(float passX, float passY);
+ *   void setGameActivity(GameActivity gameActivity);
+ * }
+*/
 
 

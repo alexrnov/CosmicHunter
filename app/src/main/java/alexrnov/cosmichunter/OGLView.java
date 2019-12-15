@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import alexrnov.cosmichunter.activities.GameActivity;
 import alexrnov.cosmichunter.gles20.SceneRendererGLES20;
 import alexrnov.cosmichunter.gles30.SceneRendererGLES30;
+import alexrnov.cosmichunter.utils.SceneRenderer;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
@@ -30,18 +31,17 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
 
   public OGLView(Context context) {
     super(context);
-    init(context);
   }
 
   public OGLView(Context context, AttributeSet attributes) {
     super(context, attributes);
-    init(context);
   }
 
-  private void init(Context context) {
+  public void init(Context context, int versionGLES) {
+
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
 
-    if (false) {
+    if (versionGLES == 2) {
       // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0-совместимый
       // контекст, и установить OpenGL ES 2.0-совместимый рендер
       setEGLContextClientVersion(2);

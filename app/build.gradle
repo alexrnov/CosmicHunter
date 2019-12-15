@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "alexrnov.application1"
+        applicationId "alexrnov.cosmichunter"
         // OpenGL 3.0 поддерживается начиная с Android 4.3 (API level 18)
         // но здесь указана минимальная версия Android 4.0 (API level 14),
         // поэтому проверка поддержки OpenGL 3.0 проводится в runtime (GameActivity),

@@ -6,8 +6,8 @@ import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.Rocket;
 import alexrnov.cosmichunter.gles30.LinkedProgramGLES30;
+import alexrnov.cosmichunter.utils.Rocket;
 import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 

@@ -144,7 +144,7 @@ public class Initialization extends Application {
       return;
     }
     boolean processOpeningGameActivity = sp.getBoolean(GAME_ACTIVITY, false);
-    //если открывается game activity ничего не делать, т.к. остаовка
+    //если открывается game activity ничего не делать, т.к. остановка
     //и запуск плеера производятся в методе onStart() game activity
     if (processOpeningGameActivity) {
       return;
@@ -210,7 +210,7 @@ public class Initialization extends Application {
 
   /**
    * Устанавливает свойство, которое определяет, идет ли процесс открытия
-   * главного(неглавного, игрового) активити
+   * главного (неглавного, игрового) активити
    * @param activity - активити, для которого устанавливется флаг открытия
    * @param isOpeningProcess флаг для активити:
    * открывается(true)/не открывается(false)
