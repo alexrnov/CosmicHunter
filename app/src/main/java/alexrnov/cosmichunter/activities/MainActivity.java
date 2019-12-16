@@ -48,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
   public void startGame(View view) {
     Intent intent = new Intent(this, GameActivity.class);
-    startActivity(intent);
+    intent.putExtra("version", "2");
+    intent.setType("text/plain");
+    if (intent.resolveActivity(getPackageManager()) != null) {
+      startActivity(intent);
+    }
+
   }
 
   public void selectLevel(View view) {

@@ -50,6 +50,13 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    Bundle extras = getIntent().getExtras();
+    if (extras != null) {
+      String value = extras.getString("version");
+      Log.i(TAG, "extra version = " + value);
+    }
+    String value2 = getIntent().getStringExtra("version");
+    Log.i(TAG, "extra version2 = " + value2);
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
