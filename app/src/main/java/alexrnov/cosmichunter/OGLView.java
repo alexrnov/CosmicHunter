@@ -44,11 +44,11 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     if (versionGLES == 2) {
       // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0-совместимый
       // контекст, и установить OpenGL ES 2.0-совместимый рендер
-      setEGLContextClientVersion(2);
+      setEGLContextClientVersion(versionGLES);
       renderer = new SceneRendererGLES20(context);
       Log.i(TAG, "GLES = 2.0");
     } else {
-      setEGLContextClientVersion(3); // OpenGL ES 3.0-совместимый контекст и рендер
+      setEGLContextClientVersion(versionGLES); // OpenGL ES 3.0-совместимый контекст и рендер
       renderer = new SceneRendererGLES30(context);
       Log.i(TAG, "GLES = 3.0");
     }

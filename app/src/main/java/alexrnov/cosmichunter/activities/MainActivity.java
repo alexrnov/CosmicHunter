@@ -1,6 +1,9 @@
 package alexrnov.cosmichunter.activities;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ConfigurationInfo;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
+    int version = detectOpenGLES();
     Intent intent = new Intent(this, GameActivity.class);
-    intent.putExtra("version", "2");
-    intent.setType("text/plain");
+    intent.putExtra("version", version);
+    //intent.setType("text/plain");
     if (intent.resolveActivity(getPackageManager()) != null) {
       startActivity(intent);
     }
@@ -93,5 +97,21 @@ public class MainActivity extends AppCompatActivity {
      else
       finish();
     System.exit(0);
+  }
+
+  // проверка OpenGL на устройстве в рантайме
+  private int detectOpenGLES() {
+    ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+    ConfigurationInfo info = am != null ? am.getDeviceConfigurationInfo() : null;
+    if (info != null) {
+      Double d = Double.parseDouble(info.getGlEsVersion());
+      if (d >= 3.0) { // info.reqGlEsVersion >= 0x30000
+        return 3;
+      } else if (d >= 2.0) {
+        return 2;
+      } else {
+        return 1;
+      }
+    } else return 1;
   }
 }

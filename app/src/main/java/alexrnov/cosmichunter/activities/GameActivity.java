@@ -50,13 +50,8 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Bundle extras = getIntent().getExtras();
-    if (extras != null) {
-      String value = extras.getString("version");
-      Log.i(TAG, "extra version = " + value);
-    }
-    String value2 = getIntent().getStringExtra("version");
-    Log.i(TAG, "extra version2 = " + value2);
+    int versionGLES = getIntent().getIntExtra("version", 0);
+    Log.i(TAG, "versionGLES = " + versionGLES);
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
@@ -96,12 +91,6 @@ public class GameActivity extends AppCompatActivity {
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
 
-    // поддержки OpenGL на устройстве в рантайме
-    Log.i(TAG, "Поддержка OpenGL " + detectOpenGLES());
-    byte versionGLES = detectOpenGLES();
-    if (versionGLES == 0) {
-
-    }
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
