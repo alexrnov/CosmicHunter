@@ -26,7 +26,9 @@ public class LevelsActivity extends AppCompatActivity {
 
   public void startLevel1(View view) {
     spotFlagOpenDialogWindow(false);
+    int versionGLES = getIntent().getIntExtra("versionGLES", 2);
     Intent intent = new Intent(this, GameActivity.class);
+    intent.putExtra("versionGLES", versionGLES);
     startActivity(intent);
   }
 

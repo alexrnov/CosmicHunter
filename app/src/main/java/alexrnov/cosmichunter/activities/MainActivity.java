@@ -50,19 +50,25 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
-    int version = detectOpenGLES();
-    Intent intent = new Intent(this, GameActivity.class);
-    intent.putExtra("version", version);
-    //intent.setType("text/plain");
-    if (intent.resolveActivity(getPackageManager()) != null) {
+    int versionGLES = getSupportOpenGLES();
+    if (versionGLES != 1) {
+      Intent intent = new Intent(this, GameActivity.class);
+      intent.putExtra("versionGLES", versionGLES);
       startActivity(intent);
-    }
+    } else {
 
+    }
   }
 
   public void selectLevel(View view) {
-    Intent intent = new Intent(this, LevelsActivity.class);
-    startActivity(intent);
+    int versionGLES = getSupportOpenGLES();
+    if (versionGLES != 1) {
+      Intent intent = new Intent(this, LevelsActivity.class);
+      intent.putExtra("versionGLES", versionGLES);
+      startActivity(intent);
+    } else {
+
+    }
   }
 
   public void settingsMenu(View view) {
@@ -99,8 +105,13 @@ public class MainActivity extends AppCompatActivity {
     System.exit(0);
   }
 
-  // проверка OpenGL на устройстве в рантайме
-  private int detectOpenGLES() {
+  // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется
+  // поддержка OpenGL 2, которая по умолчанию подразумевает поддержку OpenGL 2 и OpenGL 1.
+  // Поскольку на самом деле, данное приложение поддерживает OpenGL 2 и OpenGL 3,
+  // поддержиаемая версия проверяется в рантайме. Если поддерживается OpenGL 3, используется
+  // третья версия, если поддерживается OpenGL 2, тогда используется вторая версия,
+  // если поддерживается только версия OpenGL 1, тогда GameActivity или LevelsActivity не запускаются
+  private int getSupportOpenGLES() {
     ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
     ConfigurationInfo info = am != null ? am.getDeviceConfigurationInfo() : null;
     if (info != null) {

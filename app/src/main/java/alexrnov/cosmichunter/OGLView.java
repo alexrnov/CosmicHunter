@@ -38,31 +38,27 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   }
 
   public void init(Context context, int versionGLES) {
-
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
-
-    if (versionGLES == 2) {
-      // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0-совместимый
-      // контекст, и установить OpenGL ES 2.0-совместимый рендер
-      setEGLContextClientVersion(versionGLES);
-      renderer = new SceneRendererGLES20(context);
-      Log.i(TAG, "GLES = 2.0");
-    } else {
-      setEGLContextClientVersion(versionGLES); // OpenGL ES 3.0-совместимый контекст и рендер
-      renderer = new SceneRendererGLES30(context);
-      Log.i(TAG, "GLES = 3.0");
-    }
+    renderer = createSceneRenderer(context, versionGLES);
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования
     //setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-
     //определить детектор жестов с контекстом приложения и
     //реализацией GestureDetector.OnGestureListener
     mDetector = new GestureDetectorCompat(context, this);
     //установить детектор жестов как слушатель двойного нажатия
     mDetector.setOnDoubleTapListener(this);
     coordinatesOpenGL = new CoordinatesOpenGL();
+  }
+
+  private SceneRenderer createSceneRenderer(Context context, int versionGLES) {
+    // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0 (или 3.0)-совместимый
+    // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер
+    setEGLContextClientVersion(versionGLES);
+    Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
+    if (versionGLES == 2) return new SceneRendererGLES20(context);
+    else return new SceneRendererGLES30(context);
   }
 
   @SuppressLint("ClickableViewAccessibility")

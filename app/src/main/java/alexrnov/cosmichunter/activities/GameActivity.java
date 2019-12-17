@@ -1,9 +1,6 @@
 package alexrnov.cosmichunter.activities;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ConfigurationInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,9 +47,8 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    int versionGLES = getIntent().getIntExtra("version", 0);
-    Log.i(TAG, "versionGLES = " + versionGLES);
     Log.i(TAG, className + "onCreate()");
+    int versionGLES = getIntent().getIntExtra("versionGLES", 2);
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
     // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
@@ -142,21 +138,6 @@ public class GameActivity extends AppCompatActivity {
     } else {
       Log.i(TAG, "the device has not a navigation bar");
     }
-  }
-
-  private byte detectOpenGLES() {
-    ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-    ConfigurationInfo info = am != null ? am.getDeviceConfigurationInfo() : null;
-    if (info != null) {
-      Double d = Double.parseDouble(info.getGlEsVersion());
-      if (d >= 3.0) { // info.reqGlEsVersion >= 0x30000
-        return 3;
-      } else if (d >= 2.0) {
-        return 2;
-      } else {
-        return 1;
-      }
-    } else return 1;
   }
 
   @Override
