@@ -5,10 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
 import android.os.Build;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import alexrnov.cosmichunter.R;
 
@@ -50,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
+    //getToast();
+    getSnackbar();
+    /*
     int versionGLES = getSupportOpenGLES();
     if (versionGLES != 1) {
       Intent intent = new Intent(this, GameActivity.class);
@@ -58,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     } else {
 
     }
+    */
   }
 
   public void selectLevel(View view) {
@@ -124,5 +135,31 @@ public class MainActivity extends AppCompatActivity {
         return 1;
       }
     } else return 1;
+  }
+
+  private void getToast() {
+    LayoutInflater inflater = getLayoutInflater();
+    //первый параметр - xml-файл с представлением, второй параметр
+    //- корневой вьюер в этом файле
+    View layout = inflater.inflate(R.layout.custom_toast,
+            (ViewGroup) findViewById(R.id.custom_toast_container));
+
+    TextView text = (TextView) layout.findViewById(R.id.text_toast);
+    text.setText("OpenGL не поддерживается");
+    Toast toast = new Toast(getApplicationContext());
+    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 20);
+    toast.setDuration(Toast.LENGTH_SHORT);
+    toast.setView(layout);
+    toast.show();
+  }
+
+  private void getSnackbar() {
+    Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT );
+    CoordinatorLayout cr = findViewById(R.id.myCoordinatorLayout);
+    Log.i(TAG, "getSnackbar() 2");
+    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "text", 10);
+    Log.i(TAG, "getSnackbar() 3");
+    mySnackbar.show();
+    Log.i(TAG, "getSnackbar() 4");
   }
 }
