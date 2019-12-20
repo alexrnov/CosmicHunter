@@ -1,22 +1,27 @@
-
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/myCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/my_coordinator_layout"
     android:layout_height="match_parent">
 
-    <!-- Here are the existing layout elements, now wrapped in
-         a CoordinatorLayout -->
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- …Toolbar, other layouts, other elements… -->
-        <TextView android:text="text"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView android:text="text1"
+            android:layout_height="10dp"
+            android:layout_width="10dp" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
   public void startGame(View view) {
     //getToast();
-    getSnackbar();
+    getSnackbar(view);
     /*
     int versionGLES = getSupportOpenGLES();
     if (versionGLES != 1) {
@@ -153,13 +153,26 @@ public class MainActivity extends AppCompatActivity {
     toast.show();
   }
 
-  private void getSnackbar() {
-    Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT );
-    CoordinatorLayout cr = findViewById(R.id.myCoordinatorLayout);
-    Log.i(TAG, "getSnackbar() 2");
-    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "text", 10);
-    Log.i(TAG, "getSnackbar() 3");
-    mySnackbar.show();
-    Log.i(TAG, "getSnackbar() 4");
+  private void getSnackbar(View view) {
+    try {
+      LayoutInflater inflater = getLayoutInflater();
+      Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT);
+      View v = inflater.inflate(R.layout.snackbar, (ViewGroup) findViewById(R.id.my_coordinator_layout));
+
+      Snackbar.make(v, "text2", Snackbar.LENGTH_LONG).show();
+      //Snackbar.make(findViewById(R.id.my_coordinator_layout), "text2", Snackbar.LENGTH_SHORT).show();
+      //Snackbar.make(findViewById(R.id.custom_toast_container), "text", 100).show();
+
+      /*
+      View layout = inflater.inflate(R.layout.custom_toast,
+              (ViewGroup) findViewById(R.id.custom_toast_container));
+      Snackbar.make(layout, "text2", Snackbar.LENGTH_SHORT).show();
+      */
+
+      Log.i(TAG, "getSnackbar() 2");
+      Log.i(TAG, "getSnackbar() 3");
+    } catch (RuntimeException e) {
+      Log.i(TAG, e.getMessage());
+    }
   }
 }
