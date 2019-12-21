@@ -4,8 +4,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
+import android.graphics.Color;
 import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -157,17 +157,30 @@ public class MainActivity extends AppCompatActivity {
     try {
       LayoutInflater inflater = getLayoutInflater();
       Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT);
-      View v = inflater.inflate(R.layout.snackbar, (ViewGroup) findViewById(R.id.my_coordinator_layout));
-
-      Snackbar.make(v, "text2", Snackbar.LENGTH_LONG).show();
+      Snackbar snackbar = Snackbar.make(view, "text2", 2000);
+      snackbar.setAction("OK", new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Log.i(TAG, "click2");
+        }
+      });
+      snackbar.setActionTextColor(Color.CYAN);
+      snackbar.show();
+      //View v = inflater.inflate(R.layout.snackbar, (ViewGroup) findViewById(R.id.my_coordinator_layout));
+      //View v2 = (View) findViewById(R.id.my_coordinator_layout);
+      //Snackbar.make(v2, "text2", Snackbar.LENGTH_LONG).show();
       //Snackbar.make(findViewById(R.id.my_coordinator_layout), "text2", Snackbar.LENGTH_SHORT).show();
-      //Snackbar.make(findViewById(R.id.custom_toast_container), "text", 100).show();
+      //Snackbar.make(findViewById(R.id.custom_toast_container), "text", 1000).show();
 
       /*
       View layout = inflater.inflate(R.layout.custom_toast,
               (ViewGroup) findViewById(R.id.custom_toast_container));
       Snackbar.make(layout, "text2", Snackbar.LENGTH_SHORT).show();
       */
+
+      //View v = findViewById(R.id.custom_toast_container);
+      //final SnackbarContentLayout contentLayout = (SnackbarContentLayout) v;
+      //Snackbar.make(contentLayout, "text", 1000);
 
       Log.i(TAG, "getSnackbar() 2");
       Log.i(TAG, "getSnackbar() 3");
