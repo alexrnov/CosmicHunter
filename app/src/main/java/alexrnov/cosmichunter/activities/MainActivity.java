@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
   public void startGame(View view) {
     //getToast();
     getSnackbar(view);
+
     /*
     int versionGLES = getSupportOpenGLES();
     if (versionGLES != 1) {
@@ -157,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
     try {
       LayoutInflater inflater = getLayoutInflater();
       Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT);
-      Snackbar snackbar = Snackbar.make(view, "text2", 2000);
+      //Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout2), "text2", 2000);
+      Snackbar snackbar = Snackbar.make(view, "text", 2000);
       snackbar.setAction("OK", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -165,25 +168,24 @@ public class MainActivity extends AppCompatActivity {
         }
       });
       snackbar.setActionTextColor(Color.GREEN);
+      View v = snackbar.getView();
+      v.setBackgroundColor(Color.LTGRAY);
       snackbar.show();
-      //View v = inflater.inflate(R.layout.snackbar, (ViewGroup) findViewById(R.id.my_coordinator_layout));
-      //View v2 = (View) findViewById(R.id.my_coordinator_layout);
-      //Snackbar.make(v2, "text2", Snackbar.LENGTH_LONG).show();
-      //Snackbar.make(findViewById(R.id.my_coordinator_layout), "text2", Snackbar.LENGTH_SHORT).show();
-      //Snackbar.make(findViewById(R.id.custom_toast_container), "text", 1000).show();
+
 
       /*
-      View layout = inflater.inflate(R.layout.custom_toast,
-              (ViewGroup) findViewById(R.id.custom_toast_container));
-      Snackbar.make(layout, "text2", Snackbar.LENGTH_SHORT).show();
+      Snackbar snackbar = Snackbar.make(view, "", 2000);
+      Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+      //TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+      //textView.setVisibility(View.INVISIBLE);
+
+      View snackView = inflater.inflate(R.layout.custom_toast, null);
+      //ImageView imageView = (ImageView) snackView.findViewById(R.id.image_toast);
+
+      layout.setPadding(0, 0, 0, 0);
+      layout.addView(snackView, 0);
+      snackbar.show();
       */
-
-      //View v = findViewById(R.id.custom_toast_container);
-      //final SnackbarContentLayout contentLayout = (SnackbarContentLayout) v;
-      //Snackbar.make(contentLayout, "text", 1000);
-
-      Log.i(TAG, "getSnackbar() 2");
-      Log.i(TAG, "getSnackbar() 3");
     } catch (RuntimeException e) {
       Log.i(TAG, e.getMessage());
     }
