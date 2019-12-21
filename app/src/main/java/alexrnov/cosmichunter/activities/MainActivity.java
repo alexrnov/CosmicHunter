@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
       snackbar.setAction("OK", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          Log.i(TAG, "click2");
+          Log.i(TAG, "click5");
         }
       });
       snackbar.setActionTextColor(Color.CYAN);
