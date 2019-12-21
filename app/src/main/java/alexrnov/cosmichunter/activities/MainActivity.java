@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
           Log.i(TAG, "click");
         }
       });
-      snackbar.setActionTextColor(Color.CYAN);
+      snackbar.setActionTextColor(Color.GREEN);
       snackbar.show();
       //View v = inflater.inflate(R.layout.snackbar, (ViewGroup) findViewById(R.id.my_coordinator_layout));
       //View v2 = (View) findViewById(R.id.my_coordinator_layout);
