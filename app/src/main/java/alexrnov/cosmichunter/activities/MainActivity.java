@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
-    //getToast();
-    getSnackbar(view);
+    //showToast();
+    showSnackbar(view);
 
     /*
     int versionGLES = getSupportOpenGLES();
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     } else return 1;
   }
 
-  private void getToast() {
+  private void showToast() {
     LayoutInflater inflater = getLayoutInflater();
     //первый параметр - xml-файл с представлением, второй параметр
     //- корневой вьюер в этом файле
@@ -155,39 +155,21 @@ public class MainActivity extends AppCompatActivity {
     toast.show();
   }
 
-  private void getSnackbar(View view) {
+  private void showSnackbar(View view) {
     try {
-      LayoutInflater inflater = getLayoutInflater();
       Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT);
       //Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout2), "text2", 2000);
       Snackbar snackbar = Snackbar.make(view, "text", 2000);
-      snackbar.setAction("OK", new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          Log.i(TAG, "click");
-        }
-      });
-      snackbar.setActionTextColor(Color.GREEN);
-      View v = snackbar.getView();
-      v.setBackgroundColor(Color.LTGRAY);
+      // добавить кнопку к снекбару
+      snackbar.setAction("OK", new View.OnClickListener() { @Override public void onClick(View view) {}});
+      snackbar.setActionTextColor(Color.GREEN); // цвет кнопки
+      View snackbarView = snackbar.getView();
+      snackbarView.setBackgroundColor(Color.LTGRAY); // цвет фона
+      TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+      textView.setTextColor(Color.parseColor("#00a8f3"));
       snackbar.show();
-
-
-      /*
-      Snackbar snackbar = Snackbar.make(view, "", 2000);
-      Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-      //TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
-      //textView.setVisibility(View.INVISIBLE);
-
-      View snackView = inflater.inflate(R.layout.custom_toast, null);
-      //ImageView imageView = (ImageView) snackView.findViewById(R.id.image_toast);
-
-      layout.setPadding(0, 0, 0, 0);
-      layout.addView(snackView, 0);
-      snackbar.show();
-      */
     } catch (RuntimeException e) {
-      Log.i(TAG, e.getMessage());
+      Log.e(TAG, e.getMessage());
     }
   }
 }
