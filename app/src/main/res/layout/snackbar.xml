@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
+
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/my_coordinator_layout"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/custom_toast_container"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="8dp"
-        android:background="#00a8f3">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    android:background="#000">
 
-        <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btn_invite_snackbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background"
+        android:includeFontPadding="false"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="text"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
 
-            <!-- layout_marginRight same as layout_marginEnd, only for support older versions than API 17 -->
-            <ImageView android:id="@+id/image_toast"
-                android:src="@mipmap/ic_launcher_round"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/text_toast"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/btn_close_snackbar"
+        android:layout_width="45dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="X"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp" />
+</RelativeLayout>
+    <!--Cordinator Layout used-->
 
-            <TextView android:id="@+id/text_toast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/image_toast"
-                android:textColor="#ffffff" />
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
+<android.support.design.widget.CoordinatorLayout
+android:id="@+id/coord"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+<android.support.v4.view.ViewPager
+    android:id="@+id/home_view_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+</android.support.v4.view.ViewPager>
+
 </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +16,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -157,19 +162,75 @@ public class MainActivity extends AppCompatActivity {
 
   private void showSnackbar(View view) {
     try {
+      /*
+      Log.i(TAG, "showSnackbar");
+      CoordinatorLayout snackbarCoordinatorLayout;
+
+      snackbarCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coord);
+      RelativeLayout objRelativeLayout = new RelativeLayout(this.getApplicationContext());
+      RelativeLayout.LayoutParams objLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+      // Create the Snackbar
+      final Snackbar snackbar = Snackbar.make(snackbarCoordinatorLayout, "", Snackbar.LENGTH_INDEFINITE);
+      // Get the Snackbar's layout view
+      Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+      TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+      textView.setVisibility(View.INVISIBLE);
+
+      LayoutInflater objLayoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      View snackView = objLayoutInflater.inflate(R.layout.snackbar, null);// use the parent ViewGroup instead of null        // Configure the view
+
+      Button btnInvite = (Button) snackView.findViewById(R.id.btn_invite_snackbar);
+      Button btnCancel = (Button) snackView.findViewById(R.id.btn_close_snackbar);
+
+      btnInvite.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          snackbar.dismiss();
+        }
+      });
+
+      btnCancel.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          snackbar.dismiss();
+        }
+      });
+      snackView.setLayoutParams(objLayoutParams);
+      layout.addView(snackView, 0);
+      snackbar.show();
+      */
+
+
+
+
+
       Log.i(TAG, "getSnckbar() 1, Build.VERSION = " + Build.VERSION.SDK_INT);
-      //Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout2), "text2", 2000);
-      Snackbar snackbar = Snackbar.make(view, "text", 2000);
+      //Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "text", 2000);
+      final Snackbar snackbar = Snackbar.make(view, "OpenGL не поддерживается", 2000);
       // добавить кнопку к снекбару
-      snackbar.setAction("OK", new View.OnClickListener() { @Override public void onClick(View view) {}});
+      snackbar.setAction("OK", new View.OnClickListener() {
+        @Override public void onClick(View view) {
+          snackbar.dismiss(); // при нажатии на кнопку snackbar просто скрывается
+        }
+      });
       snackbar.setActionTextColor(Color.GREEN); // цвет кнопки
       View snackbarView = snackbar.getView();
-      snackbarView.setBackgroundColor(Color.LTGRAY); // цвет фона
+      snackbarView.setBackgroundColor(Color.parseColor("#baf300")); // цвет фона
+      snackbarView.setPadding(0, 0, 0, 0);
+      snackbarView.getLayoutParams().width = AppBarLayout.LayoutParams.MATCH_PARENT;
+      //final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+      //params.setMargins(params.leftMargin - 100,
+         //     params.topMargin,
+          //    params.rightMargin,
+           //   params.bottomMargin + 100);
+      //snackbarView.setLayoutParams(params);
+
       TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-      textView.setTextColor(Color.parseColor("#00a8f3"));
+      textView.setTextColor(Color.parseColor("#00a8f3")); // цвет сообщения
       snackbar.show();
     } catch (RuntimeException e) {
-      Log.e(TAG, e.getMessage());
+      Log.i(TAG, e.getMessage());
     }
   }
 }
