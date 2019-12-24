@@ -29,6 +29,11 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivit
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.printDPSizeScreen;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showToast;
+import static alexrnov.cosmichunter.utils.JavaUtils.showToast2;
+//import static alexrnov.cosmichunter.utils.JavaUtils.showToast2;
+//import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showToast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
-    //showToast();
-    showSnackbar(view);
 
+    //showToast(this, "Нет поддержки OpenGL");
+    //showSnackbar(view, "Нет поддержки OpenGL");
+    showToast2(this);
     /*
     int versionGLES = getSupportOpenGLES();
     if (versionGLES != 1) {
@@ -144,51 +150,23 @@ public class MainActivity extends AppCompatActivity {
     } else return 1;
   }
 
-  private void showToast() {
-    LayoutInflater inflater = getLayoutInflater();
+
+  /*
+  private void showToast(AppCompatActivity app) {
+    LayoutInflater inflater = app.getLayoutInflater();
     //первый параметр - xml-файл с представлением, второй параметр
     //- корневой вьюер в этом файле
     View layout = inflater.inflate(R.layout.custom_toast,
-            (ViewGroup) findViewById(R.id.custom_toast_container));
+            (ViewGroup) app.findViewById(R.id.custom_toast_container));
 
     TextView text = (TextView) layout.findViewById(R.id.text_toast);
     text.setText("OpenGL не поддерживается");
-    Toast toast = new Toast(getApplicationContext());
+    Toast toast = new Toast(app.getApplicationContext());
     toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 20);
     toast.setDuration(Toast.LENGTH_SHORT);
     toast.setView(layout);
     toast.show();
   }
+*/
 
-  private void showSnackbar(View view) {
-    try {
-      final Snackbar snackbar = Snackbar.make(view, "OpenGL не поддерживается", 2000);
-      snackbar.setAction("OK", new View.OnClickListener() { // добавить кнопку к снекбару
-        @Override public void onClick(View view) {
-          snackbar.dismiss(); // при нажатии на кнопку snackbar просто скрывается
-        }
-      });
-      snackbar.setActionTextColor(Color.parseColor("#98d4c1")); // цвет кнопки
-      View snackbarView = snackbar.getView();
-      snackbarView.setBackgroundColor(Color.parseColor("#575757")); // цвет фона
-      snackbarView.setPadding(0, 0, 0, 0);
-      //snackbarView.getLayoutParams().width = AppBarLayout.LayoutParams.MATCH_PARENT;
-
-      final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-      params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-      params.width = FrameLayout.LayoutParams.MATCH_PARENT;
-      //params.setMargins(params.leftMargin - 100,
-         //     params.topMargin,
-          //    params.rightMargin,
-           //   params.bottomMargin + 100);
-      snackbarView.setLayoutParams(params);
-
-      TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-      textView.setTextColor(Color.parseColor("#e7e7e7")); // цвет сообщения
-      snackbar.show();
-
-    } catch (RuntimeException e) {
-      Log.i(TAG, e.getMessage());
-    }
-  }
 }
