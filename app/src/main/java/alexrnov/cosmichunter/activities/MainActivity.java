@@ -4,24 +4,11 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import alexrnov.cosmichunter.R;
 
@@ -30,10 +17,6 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.printDPSizeScreen;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
-import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showToast;
-import static alexrnov.cosmichunter.utils.JavaUtils.showToast2;
-//import static alexrnov.cosmichunter.utils.JavaUtils.showToast2;
-//import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showToast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     printDPSizeScreen(this);
-    }
+  }
 
   @Override
   protected void onStart() { // состояние "запущено"
@@ -68,10 +51,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startGame(View view) {
-
-    //showToast(this, "Нет поддержки OpenGL");
-    //showSnackbar(view, "Нет поддержки OpenGL");
-    showToast2(this);
+    //showCustomToast(this, "Нет поддержки OpenGL");
+    showSnackbar(view, "Нет поддержки OpenGL");
+    //showToast(getApplicationContext(), "Нет поддержки OpenGL");
     /*
     int versionGLES = getSupportOpenGLES();
     if (versionGLES != 1) {
@@ -149,24 +131,4 @@ public class MainActivity extends AppCompatActivity {
       }
     } else return 1;
   }
-
-
-  /*
-  private void showToast(AppCompatActivity app) {
-    LayoutInflater inflater = app.getLayoutInflater();
-    //первый параметр - xml-файл с представлением, второй параметр
-    //- корневой вьюер в этом файле
-    View layout = inflater.inflate(R.layout.custom_toast,
-            (ViewGroup) app.findViewById(R.id.custom_toast_container));
-
-    TextView text = (TextView) layout.findViewById(R.id.text_toast);
-    text.setText("OpenGL не поддерживается");
-    Toast toast = new Toast(app.getApplicationContext());
-    toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 20);
-    toast.setDuration(Toast.LENGTH_SHORT);
-    toast.setView(layout);
-    toast.show();
-  }
-*/
-
 }
