@@ -16,6 +16,7 @@ import alexrnov.cosmichunter.activities.MainActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
 import static alexrnov.cosmichunter.Initialization.sp;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
 
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
@@ -107,6 +108,7 @@ public class SettingsActivity extends AppCompatActivity
   public void onCheckedChanged(CompoundButton button, boolean b) {
     if (button.getId() == languageRadioButton.getId()) {
       establishValue("language", b ? "english" : "russian");
+      showSnackbar(button.getRootView(), "Нет поддержки OpenGL");
     } else if (button.getId() == vibrationRadioButton.getId()) {
       establishValue("vibration", b ? "off" : "on");
     } else if (button.getId() == musicRadioButton.getId()) {
