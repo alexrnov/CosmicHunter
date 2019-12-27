@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import alexrnov.cosmichunter.BackgroundMusic;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.activities.MainActivity;
@@ -17,7 +17,7 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivi
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
-
+import static alexrnov.cosmichunter.Initialization.TAG;
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
         implements CompoundButton.OnCheckedChangeListener {
@@ -27,12 +27,14 @@ public class SettingsActivity extends AppCompatActivity
   private RadioButton soundRadioButton;
   private RadioButton musicRadioButton;
 
+  private View view;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
     defineViewRadioButtons();
     addListeners();
+    view = findViewById(R.id.background_settings);
   }
 
   /**
@@ -45,7 +47,6 @@ public class SettingsActivity extends AppCompatActivity
     String defaultValue;
     String currentValue;
     RadioGroup group;
-
     defaultValue = getResources().getString(R.string.default_language);
     currentValue = sp.getString("language", defaultValue);
     group = findViewById(R.id.radioGroup_language);
@@ -108,15 +109,18 @@ public class SettingsActivity extends AppCompatActivity
   public void onCheckedChanged(CompoundButton button, boolean b) {
     if (button.getId() == languageRadioButton.getId()) {
       establishValue("language", b ? "english" : "russian");
-      showSnackbar(button.getRootView(), "Нет поддержки OpenGL");
+      showSnackbar(view, "Язык интерфейса: " + (b ? "english" : "russian"));
     } else if (button.getId() == vibrationRadioButton.getId()) {
       establishValue("vibration", b ? "off" : "on");
+      showSnackbar(view, "Вибрация: " + (b ? "off" : "on"));
     } else if (button.getId() == musicRadioButton.getId()) {
       establishValue("music", b ? "off" : "on");
       manageMusic(b);
+      showSnackbar(view, "Музыка: " + (b ? "off" : "on"));
     } else if (button.getId() == soundRadioButton.getId()) {
       establishValue("sound", b ? "off" : "on");
       manageMusic(b);
+      showSnackbar(view, "Звук: " + (b ? "off" : "on"));
     }
   }
 
