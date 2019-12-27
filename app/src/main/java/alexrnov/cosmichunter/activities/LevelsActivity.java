@@ -16,17 +16,18 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 public class LevelsActivity extends AppCompatActivity {
 
   private String className = this.getClass().getSimpleName() + ".class: ";
+  private int versionGLES;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_level);
+    versionGLES = getIntent().getIntExtra("versionGLES", 2);
   }
 
   public void startLevel1(View view) {
     spotFlagOpenDialogWindow(false);
-    int versionGLES = getIntent().getIntExtra("versionGLES", 2);
     Intent intent = new Intent(this, GameActivity.class);
     intent.putExtra("versionGLES", versionGLES);
     startActivity(intent);

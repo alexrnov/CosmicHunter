@@ -3,7 +3,6 @@ package alexrnov.cosmichunter.activities
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ConfigurationInfo
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -41,49 +40,31 @@ class MainActivity : AppCompatActivity() {
     }
 
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
-    Log.i(TAG, className + "onCreate()")
     super.onCreate(savedInstanceState)
+    Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
     printDPSizeScreen(this)
   }
 
   override fun onStart() { // состояние "запущено"
-    Log.i(TAG, className + "onStart()")
     super.onStart()
+    Log.i(TAG, className + "onStart()")
     checkMusicForStartMainActivity(this)
   }
 
   override fun onStop() { // состояние "остановлено"
-    Log.i(TAG, className + "onStop()")
     super.onStop()
+    Log.i(TAG, className + "onStop()")
     checkMusicForStopMainActivity()
   }
 
   override fun onPause() {
-    Log.i(TAG, className + "onPause()")
     super.onPause()
+    Log.i(TAG, className + "onPause()")
   }
 
-  fun startGame(view: View) {
-    val v1: Class<GameActivity> = GameActivity::class.java
-    val v2: Class<LevelsActivity> = LevelsActivity::class.java
-    f(v1)
-    if (supportOpenGLES != 1) {
-      val intent = Intent(this, GameActivity::class.java)
-      intent.putExtra("versionGLES", supportOpenGLES)
-      startActivity(intent)
-    } else showSnackbar(view, "Нет поддержки OpenGL")
-    //showToast(getApplicationContext(), "Нет поддержки OpenGL");
-    //showCustomToast(this, "Нет поддержки OpenGL");
-  }
-
-  fun selectLevel(view: View) {
-    if (supportOpenGLES != 1) {
-      val intent = Intent(this, LevelsActivity::class.java)
-      intent.putExtra("versionGLES", supportOpenGLES)
-      startActivity(intent)
-    } else showSnackbar(view, "Нет поддержки OpenGL")
-  }
+  fun startGame(view: View) = startActivityForGame(GameActivity::class.java, view)
+  fun selectLevel(view: View) = startActivityForGame(LevelsActivity::class.java, view)
 
   fun settingsMenu(view: View) {
     val intent = Intent(this, SettingsActivity::class.java)
@@ -111,7 +92,18 @@ class MainActivity : AppCompatActivity() {
     else finish()
     System.exit(0)
   }
-  fun f(a: Class<out AppCompatActivity>) {
 
+  /**
+   * Если нет поддержки второй или третьей версии OpenGL - вывести соответствующее сообщение,
+   * иначе запустить GameActivity или LevelsActivity.
+   */
+  private fun startActivityForGame(activity: Class<out AppCompatActivity>, view: View) {
+    if (supportOpenGLES != 1) {
+      val intent = Intent(this, activity)
+      intent.putExtra("versionGLES", supportOpenGLES)
+      startActivity(intent)
+    } else showSnackbar(view, "Нет поддержки OpenGL")
+    //showToast(getApplicationContext(), "Нет поддержки OpenGL");
+    //showCustomToast(this, "Нет поддержки OpenGL");
   }
 }
