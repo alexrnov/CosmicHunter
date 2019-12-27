@@ -6,6 +6,7 @@ import alexrnov.cosmichunter.activities.GameActivity
 import alexrnov.cosmichunter.view.RocketView3D
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -20,30 +21,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-
-/** Вывест на экран информацию по размерам экрана (в единицах dp) */
-@SuppressLint("ObsoleteSdkInt")
-fun printDPSizeScreen(activity: AppCompatActivity) {
-  fun getScreenSizes(): Pair<Int, Int> {
-    val display = activity.windowManager.defaultDisplay
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-      val size = Point()
-      display.getSize(size) // was introduced in Level API 13 and height
-      Pair(size.x, size.y)
-    } else @Suppress("DEPRECATION") Pair(display.width, display.height)
-  }
-  val (width, height) = getScreenSizes()
-  val displayMetrics = activity.resources.displayMetrics
-  // логическая плотность дисплея. Это мастштабирующий фактор, независящий
-  // от плотности пикселей (added in API Level 1)
-  val density:Float = displayMetrics.density
-  val dpWidth: Float = width / density
-  val dpHeight: Float = height / density
-  Log.i(TAG, "density = $density")
-  Log.i(TAG, "width = $width, height = $height")
-  Log.i(TAG, "dpWidth = $dpWidth, dpHeight = $dpHeight")
-}
-
 
 /**
  * Интерфейс введен для случая, когда класс-наследник View3D работает
@@ -81,6 +58,29 @@ interface SceneRenderer : GLSurfaceView.Renderer {
  *   void setGameActivity(GameActivity gameActivity);
  * }
 */
+
+/** Вывест на экран информацию по размерам экрана (в единицах dp) */
+@SuppressLint("ObsoleteSdkInt")
+fun printDPSizeScreen(activity: AppCompatActivity) {
+  fun getScreenSizes(): Pair<Int, Int> {
+    val display = activity.windowManager.defaultDisplay
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+      val size = Point()
+      display.getSize(size) // was introduced in Level API 13 and height
+      Pair(size.x, size.y)
+    } else @Suppress("DEPRECATION") Pair(display.width, display.height)
+  }
+  val (width, height) = getScreenSizes()
+  val displayMetrics = activity.resources.displayMetrics
+  // логическая плотность дисплея. Это мастштабирующий фактор, независящий
+  // от плотности пикселей (added in API Level 1)
+  val density:Float = displayMetrics.density
+  val dpWidth: Float = width / density
+  val dpHeight: Float = height / density
+  Log.i(TAG, "density = $density")
+  Log.i(TAG, "width = $width, height = $height")
+  Log.i(TAG, "dpWidth = $dpWidth, dpHeight = $dpHeight")
+}
 
 /**
  * Показать снэкбар (уведомление).

@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_dialog.*
 
 class DialogGameOverActivity: Activity() {
 
-  val className = (this.javaClass.simpleName?:"DialogGameOverActivity") + ".class: "
+  val className = this.javaClass.simpleName + ".class: "
 
   override fun onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
