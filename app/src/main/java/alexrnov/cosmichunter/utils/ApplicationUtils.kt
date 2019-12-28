@@ -6,7 +6,6 @@ import alexrnov.cosmichunter.activities.GameActivity
 import alexrnov.cosmichunter.view.RocketView3D
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -17,10 +16,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import org.jetbrains.annotations.NotNull
 
 /**
  * Интерфейс введен для случая, когда класс-наследник View3D работает
@@ -46,7 +45,7 @@ interface SceneRenderer : GLSurfaceView.Renderer {
   val widthDisplay: Int
   val heightDisplay: Int
   fun setPassXY(passX: Float, passY: Float)
-  fun setGameActivity(gameActivity: GameActivity)
+  fun setGameActivity(@NotNull gameActivity: GameActivity)
 }
 
 /*
