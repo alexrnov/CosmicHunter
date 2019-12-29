@@ -65,6 +65,9 @@ object TextureGLES30 {
             GLES30.GL_CLAMP_TO_EDGE)
     GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T,
             GLES30.GL_CLAMP_TO_EDGE)
+
+    // поддержка mip-карты
+    // GLES30.glGenerateMipmap(GLES30.GL_TEXTURE_2D)
     return textureId[0]
   }
 }

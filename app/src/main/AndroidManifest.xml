@@ -24,7 +24,8 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:maxSdkVersion = "28"
         tools:ignore="GradleOverrides"/>
     -->
-    <!-- Tell the system this application requires OpenGL ES 2.0. uses-feature was introduced in Android 2.0 (API Level 5.0).
+    <!-- uses-feature declares a single hardware or software feature that is used by the application.-->
+    <!-- Tell the system this application requires OpenGL ES 2.0. uses-feature was introduced in Android 2.0 (API Level 5.0 or 4?).
     version OpenGL 2.0 is available starting with Android 2.2 (API Level 8), OpenGL 3.0 with Android 4.3 (API Level 18).
     By declaring the OpenGL ES 2.0 API as a requirement in your manifest, you can use that API version as a default,
     check for the availability of the 3.x API at run time and then use OpenGL ES 3.x features if the device supports it.-->
