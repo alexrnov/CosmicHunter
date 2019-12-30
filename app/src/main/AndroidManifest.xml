@@ -30,12 +30,15 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     By declaring the OpenGL ES 2.0 API as a requirement in your manifest, you can use that API version as a default,
     check for the availability of the 3.x API at run time and then use OpenGL ES 3.x features if the device supports it.-->
     <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-    <!-- The permissions that you request in <uses-permission> elements can directly affect how Google Play filters your application.-->
-    <!-- So that Google Play no filter app by uses-permission for vibrate, need declare the feature explicitly in a <uses-feature> element and include an android:required="false" attribute-->
-    <uses-feature android:name="android.permission.VIBRATE" android:required="false" />
+    <!-- Will be available only on devices that support landscape orientation. -->
+    <uses-feature android:name="android.hardware.screen.landscape" android:required="true"/>
+    <!-- All apps that don't explicitly require android.hardware.touchscreen will also work on devices with android.hardware.faketouch.-->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
     <!-- By declaring a feature explicitly and including an android:required="false" attribute, you can effectively disable all filtering on Google Play for the specified feature. -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
+    <!-- The permissions that you request in <uses-permission> elements can directly affect how Google Play filters your application.
+    So that Google Play no filter app by uses-permission, need declare the feature explicitly in a <uses-feature> element and include an android:required="false" attribute -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- android:allowBackup="true" (default true in Android 6.0 (API 23) and higher, but
     recommend explicitly setting this attribute) -->
