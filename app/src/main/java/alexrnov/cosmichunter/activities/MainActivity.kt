@@ -4,7 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AppCompatActivity // пакет v7 также поддерживает минимальный уровень API 14 (Android 4.0)
 import android.os.Bundle
 import android.util.Log
 import android.view.View

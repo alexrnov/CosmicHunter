@@ -6,11 +6,9 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "alexrnov.cosmichunter"
-        // OpenGL 3.0 поддерживается начиная с Android 4.3 (API level 18)
-        // но здесь указана минимальная версия Android 4.0 (API level 14),
-        // поэтому проверка поддержки OpenGL 3.0 проводится в runtime (GameActivity),
-        // поскольку версии ниже Android 4.3 могут не поддерживать OpenGL 3.0
         minSdkVersion 14
+        // To maintain your application along with each Android release, you should increase the value of this attribute
+        // to match the latest API level, then thoroughly test your application on the corresponding platform version.
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -33,7 +31,9 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    // добавить поддержку Android Design Support Library (поддерживается начиная с Android 2.1 API 7)
+    // add maintain Android Design Support Library (begin with Android 2.1 API 7)
+    // Starting with Support Library release 26.0.0 (July 2017), the minimum supported
+    // API level across most support libraries has increased to Android 4.0 (API level 14) for most library packages.
     implementation 'com.android.support:design:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -47,8 +47,8 @@ repositories {
 }
 
 
-//необходимо для покрытия тестами классов kotlin
-//выполнить в консоли команду gradlew copyTestClasses
+// necessary to cover kotlin classes with tests.
+// execute gradlew copyTestClasses command in the console
 task copyTestClasses(type: Copy) {
     from "build/tmp/kotlin-classes/debug"
     into "build/intermediates/classes/debug"

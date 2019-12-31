@@ -52,6 +52,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     coordinatesOpenGL = new CoordinatesOpenGL();
   }
 
+  // Проверка поддержки OpenGL 2.0 и OpenGL 3.0 в runtime
   private SceneRenderer createSceneRenderer(Context context, int versionGLES) {
     // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0 (или 3.0)-совместимый
     // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер

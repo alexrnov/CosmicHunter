@@ -24,7 +24,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:maxSdkVersion = "28"
         tools:ignore="GradleOverrides"/>
     -->
-    <!-- uses-feature declares a single hardware or software feature that is used by the application. Uses-feature was introduced in API Level 4. required attribute introduced in API Level 5. -->
+    <!-- uses-feature declares a single hardware or software feature that is used by the application. Uses-feature was introduced in API Level 4. Required attribute introduced in API Level 5. -->
     <!-- Tell the system this application requires OpenGL ES 2.0.
     version OpenGL 2.0 is available starting with Android 2.2 (API Level 8), OpenGL 3.0 with Android 4.3 (API Level 18).
     By declaring the OpenGL ES 2.0 API as a requirement in your manifest, you can use that API version as a default,
@@ -34,7 +34,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     <uses-feature android:name="android.hardware.screen.landscape" android:required="true"/>
     <!-- All apps that don't explicitly require android.hardware.touchscreen will also work on devices with android.hardware.faketouch.-->
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
-    <!-- By declaring a  feature explicitly and including an android:required="false" attribute, you can effectively disable all filtering on Google Play for the specified feature. -->
+    <!-- By declaring a feature explicitly and including an android:required="false" attribute, you can effectively disable all filtering on Google Play for the specified feature. -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <!-- The permissions that you request in <uses-permission> elements can directly affect how Google Play filters your application.
