@@ -71,11 +71,10 @@ class MainActivity : AppCompatActivity() {
     startActivity(intent)
   }
 
-  /** выйти из приложения  */
-  fun exitFromApplication(view: View) = backToHome()
+  fun exitFromApplication(view: View) = backToHome() // выйти из приложения
 
   /*
-   * Если кнопка выхода нажата в главном меню, - выйти из приложения, а не
+   * Если кнопка выхода в навигационном меню, нажата в главном активити, - выйти из приложения, а не
    * возвращаться к другим активити(в том числе к игровому активити).
    */
   override fun onBackPressed() = backToHome()
