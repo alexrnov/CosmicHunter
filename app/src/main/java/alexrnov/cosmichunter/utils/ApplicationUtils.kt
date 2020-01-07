@@ -100,11 +100,13 @@ fun showSnackbar(view: View, message: CharSequence) {
   params.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
   params.width = FrameLayout.LayoutParams.MATCH_PARENT
   snackbarView.layoutParams = params
-  /*
-  val textView = snackbarView.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+
+  // вызов для библиотеки поддержки android support
+  //val textView = snackbarView.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+  // вызов для библиотеки androidx
+  val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
   textView.setTextColor(Color.parseColor("#e7e7e7")) // цвет сообщения
   snackbar.show()
-  */
 }
 
 /**
