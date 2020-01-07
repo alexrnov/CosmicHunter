@@ -1,13 +1,10 @@
 package alexrnov.cosmichunter.concurrent;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-
-import static alexrnov.cosmichunter.Initialization.TAG;
 
 public class SurfaceExecutor implements Executor {
 

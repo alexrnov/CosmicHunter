@@ -11,8 +11,8 @@ import android.graphics.Color
 import android.graphics.Point
 import android.opengl.GLSurfaceView
 import android.os.Build
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -100,9 +100,11 @@ fun showSnackbar(view: View, message: CharSequence) {
   params.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
   params.width = FrameLayout.LayoutParams.MATCH_PARENT
   snackbarView.layoutParams = params
+  /*
   val textView = snackbarView.findViewById<TextView>(android.support.design.R.id.snackbar_text)
   textView.setTextColor(Color.parseColor("#e7e7e7")) // цвет сообщения
   snackbar.show()
+  */
 }
 
 /**

@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -21,7 +21,6 @@ import java.util.TimerTask;
 
 import alexrnov.cosmichunter.OGLView;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.activities.DialogCancelActivity;
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
 import alexrnov.cosmichunter.concurrent.ViewHandler;

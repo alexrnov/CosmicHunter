@@ -2,15 +2,9 @@ package alexrnov.cosmichunter;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import java.io.InputStream;
-
-import static java.io.File.separator;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Объект класса создается при запуске приложения. Содержит статические
