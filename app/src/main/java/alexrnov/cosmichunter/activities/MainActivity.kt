@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     }
 
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
+    // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
+    // повторной перезагрузки активити. Кроме того, не нужно создавать лэйаут для портретной
+    // ориентации, поскольку в начале будет загружаться именно он
     super.onCreate(savedInstanceState)
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)

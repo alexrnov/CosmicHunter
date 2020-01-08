@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- tools:ignore="MissingDefaultResource used hide tooltip when a resource is only defined in folders
+with qualifiers like -land or -en, and there is no default declaration in the base folder (layout or values etc).
+Here, the default resource is not needed, since the screen orientation is defined in the manifest file"-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
