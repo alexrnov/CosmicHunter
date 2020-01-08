@@ -8,7 +8,8 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".activities.SettingsActivity"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/basic_layout"
@@ -62,12 +63,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
+                    <!-- marginLeft for support older version than API 17 -->
                     <RadioButton
                         android:id="@+id/vibrationOff"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -81,14 +84,17 @@
                         android:text="@string/off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
 
+                    <!-- marginRight for support older version than API 17 -->
                     <RadioButton
                         android:id="@+id/vibrationOn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -101,7 +107,8 @@
                         android:text="@string/on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,6 +152,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -157,7 +165,8 @@
                         android:text="@string/settings_english"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
 
                     <RadioButton
                         android:id="@+id/russian"
@@ -165,6 +174,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -178,7 +188,8 @@
                         android:text="@string/settings_russian"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -250,6 +261,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -262,7 +274,8 @@
                         android:text="@string/off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
 
                     <RadioButton
                         android:id="@+id/soundOn"
@@ -270,6 +283,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -283,7 +297,8 @@
                         android:text="@string/on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -328,6 +343,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -340,7 +356,8 @@
                         android:text="@string/off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
 
                     <RadioButton
                         android:id="@+id/musicOn"
@@ -348,6 +365,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="1dp"
                         android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/toggle_radio_shape"
@@ -361,7 +379,8 @@
                         android:text="@string/on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
-                        android:typeface="sans" />
+                        android:typeface="sans"
+                         />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
