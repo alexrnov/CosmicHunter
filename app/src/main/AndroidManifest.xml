@@ -11,7 +11,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     screen space (in dp units) that must be available to your application UI—that is, the shortest of the available screen's two dimensions.
     Usually, the value you supply for this is the "smallest width" that your layout supports, regardless of the screen's current orientation.
     A typical handset screen has a smallestWidth of 320dp. Value 320 is declared here to not support the screen - 640 x 240 -->
-    <supports-screens android:smallScreens="false"
+    <supports-screens android:smallScreens="true"
         android:normalScreens="true"
         android:largeScreens="true"
         android:xlargeScreens="true"

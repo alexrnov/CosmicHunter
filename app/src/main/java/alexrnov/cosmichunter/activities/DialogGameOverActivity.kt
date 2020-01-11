@@ -11,10 +11,11 @@ class DialogGameOverActivity: Activity() {
 
   val className = this.javaClass.simpleName + ".class: "
 
-  override fun onCreate(savedInstanceState: Bundle) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_dialog)
     button_continue_game.text = ""
     Log.i(TAG, "$className onCreate()")
   }
+
 }
