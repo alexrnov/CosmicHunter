@@ -36,7 +36,6 @@ these attributes so there is no effect on your APK size or runtime behavior -->
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
     <!-- By declaring a feature explicitly and including an android:required="false" attribute, you can effectively disable all filtering on Google Play for the specified feature. -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
-
     <!-- The permissions that you request in <uses-permission> elements can directly affect how Google Play filters your application.
     So that Google Play no filter app by uses-permission, need declare the feature explicitly in a <uses-feature> element and include an android:required="false" attribute -->
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -59,6 +58,13 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         android:fullBackupContent="@xml/backup_rules"
         android:resizeableActivity="false"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <!-- To run tests that rely on JUnit-based classes, add the necessary <uses-library> elements. -->
+        <!-- when required="false" the application can use the library if present, but is designed to function without it if necessary.  The system will allow the application
+        to be installed, even if the library is not present. If you use "false", you are responsible for checking at runtime that the library is available.-->
+        <uses-library android:name="android.test.runner" android:required="false" />
+        <uses-library android:name="android.test.base" android:required="false" />
+        <uses-library android:name="android.test.mock" android:required="false" />
         <!-- android:configChanges is used together with screenOrientation="landscape". Also this attribute
         may use when handling multi-window configuration changes yourself, but here multi-window mode is disable -->
         <!-- launchMode specify how the activity should associate with a task. Value
