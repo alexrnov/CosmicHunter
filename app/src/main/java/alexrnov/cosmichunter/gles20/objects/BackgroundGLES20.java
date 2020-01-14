@@ -23,6 +23,10 @@ public class BackgroundGLES20 extends Object3D {
   private final int textureID; // обработчик текстуры
 
   private final int[] VBO = new int[3];
+
+  private final int positionLink; // индекс переменной атрибута для вершин
+  private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
+
   public BackgroundGLES20(Context context, float scale) {
     super(context, scale, R.raw.fone);
     final LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
@@ -40,6 +44,10 @@ public class BackgroundGLES20 extends Object3D {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     textureID = TextureGLES20.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+
+    // получить индексы атрибутов в вершинном шейдере
+    positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
+    textureCoordinatesLink = GLES20.glGetAttribLocation(programObject, "a_textureCoordinates");
 
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
@@ -86,7 +94,7 @@ public class BackgroundGLES20 extends Object3D {
     // включение вершинного массива для атрибута(in vec4 a_position). Если
     // для заданного индекса атрибута вершинный массив выключен, то для
     // этого атрибута будет использоваться соответствующее постоянное значение
-    GLES20.glEnableVertexAttribArray(0); // разрешить атрибут вершин куба
+    GLES20.glEnableVertexAttribArray(positionLink); // разрешить атрибут вершин куба
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
     // Метод glVertexAttribPointer загружет вершинные массивы. Size - число
     // компонент в вершинном массиве для заданного атрибута. Допустимые
@@ -96,15 +104,15 @@ public class BackgroundGLES20 extends Object3D {
     // получения данных для следующей вершины. Для лучшего быстродействия
     // предпочтительно использовать GLES30.GL_HALF_FLOAT (не работает)
     // Загрузить данные вершин (location = 0)
-    GLES20.glVertexAttribPointer(0, VERTEX_COMPONENT, GLES20.GL_FLOAT,
+    GLES20.glVertexAttribPointer(positionLink, VERTEX_COMPONENT, GLES20.GL_FLOAT,
             false, VERTEX_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
     //включение массива текстурных координат для атрибута(in vec4 a_position)
-    GLES20.glEnableVertexAttribArray(1);//разрешить атрибут координат текстуры
+    GLES20.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     //загрузить текстурные координаты (location = 1)
-    GLES20.glVertexAttribPointer(1, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
+    GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
@@ -134,8 +142,8 @@ public class BackgroundGLES20 extends Object3D {
     GLES20.glDrawElements(GLES20.GL_TRIANGLES, NUMBER_INDICES, GLES20.GL_UNSIGNED_INT, 0);
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
-    GLES20.glDisableVertexAttribArray(0); // отключить атрибут вершин куба
-    GLES20.glDisableVertexAttribArray(1); // отключить атрибут координат текстуры
+    GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
+    GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
 
     //GLES30.glFinish();
   }
