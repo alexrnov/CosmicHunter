@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class CoordinatesWindowTest {
 
-  //минимальная разница вещественных чисел - пять знаков после разделителя
+  // минимальная разница вещественных чисел - пять знаков после разделителя
   private final double DELTA = 1e-5;
   private CoordinatesWindow cw;
 
@@ -41,7 +41,7 @@ public class CoordinatesWindowTest {
     cw = null;
   }
 
-  @Test //протестировать побочный эффект от вызова метода
+  @Test // протестировать побочный эффект от вызова метода
   public void fromVertexOfObjectOpenGL() {
     cw.setMatrices(mvpMatrix, projectionMatrix);
     cw.fromVertexOfObjectOpenGL(0.05f, 0.05f, -0.05f);
@@ -50,7 +50,7 @@ public class CoordinatesWindowTest {
     assertEquals(0.9371569, cw.getZ(), DELTA);
   }
 
-  @Test //протестировать побочный эффект от вызова метода
+  @Test // протестировать побочный эффект от вызова метода
   public void fromCenterOfObjectOpenGL() {
     cw.setMatrices(mvpMatrix, projectionMatrix);
     cw.fromCenterOfObjectOpenGL();
