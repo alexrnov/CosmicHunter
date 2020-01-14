@@ -7,7 +7,7 @@ import android.util.Log;
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
-import alexrnov.cosmichunter.utils.gl30.TextureGLES20;
+import alexrnov.cosmichunter.gles20.TextureGLES20;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 

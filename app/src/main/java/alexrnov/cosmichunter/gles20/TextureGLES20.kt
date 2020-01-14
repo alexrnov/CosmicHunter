@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.utils.gl30
+package alexrnov.cosmichunter.gles20
 
 import android.content.Context
 import android.graphics.Bitmap

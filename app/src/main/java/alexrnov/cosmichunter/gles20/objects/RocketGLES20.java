@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromRaw;
+import static alexrnov.cosmichunter.gles20.TextureGLES20.loadTextureFromRaw;
 
 public class RocketGLES20 extends Object3D implements Rocket {
   private final int programObject;

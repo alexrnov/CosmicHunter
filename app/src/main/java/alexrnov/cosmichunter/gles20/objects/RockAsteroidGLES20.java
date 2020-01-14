@@ -11,7 +11,7 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromRaw;
+import static alexrnov.cosmichunter.gles20.TextureGLES20.loadTextureFromRaw;
 
 public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
   private final int programObject;

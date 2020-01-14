@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
-import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromAsset;
+import static alexrnov.cosmichunter.gles20.TextureGLES20.loadTextureFromAsset;
 
 public class ExplosionGLES20 {
   private final byte NUM_COORDINATES = 3; // количество координат - 3 т.е. x, y, z

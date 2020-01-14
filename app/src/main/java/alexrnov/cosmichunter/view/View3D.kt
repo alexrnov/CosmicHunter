@@ -25,9 +25,8 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
   protected val mvpMatrix = FloatArray(16)
 
   init {
-    // установить позицию камеры(матрица вида)
-    // eyeX, eyeY, eyeZ - позиция камеры(отодвинута на три единицы
-    // назад (к наблюдателю))
+    // установить позицию камеры (матрица вида)
+    // eyeX, eyeY, eyeZ - позиция камеры(отодвинута на три единицы назад (к наблюдателю))
     // centerX, centerY, centerZ - координаты точки, куда смотрит камера
     // upX, upY, upZ - поворот камеры (обычно менять эти значения не нужно)
     Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 4f,
@@ -51,7 +50,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
     val near = 1.0f
     // значение far установлено с запасом, потому-что на разных устройствах
     // фон звездного неба отображается при разном значении far
-    val far = 130.0f
+    val far = 140.0f
     if (widthScreen < heightScreen) {
       bottom /= aspect
       top /= aspect
@@ -64,7 +63,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
 
   /**
    * Метод вызывается при перересовке каждого кадра, и определяет
-   * алгоритм поведения трехмерного объекта(перемещение, вращение,
+   * алгоритм поведения трехмерного объекта (перемещение, вращение,
    * изменение размера и т.п.) Паттерн СТРАТЕГИЯ
    */
   abstract fun spotPosition(delta: Float)

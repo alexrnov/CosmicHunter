@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.utils.gl30.TextureGLES20.loadTextureFromRaw;
+import static alexrnov.cosmichunter.gles20.TextureGLES20.loadTextureFromRaw;
 
 public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
   private final int programObject;
@@ -73,21 +73,21 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
 
     //Получить ссылку на переменную, содержащую итоговую MPV-матрицу.
     //Эта переменная находится в вершинном шейдере: uniform mat4 u_mvpMatrix;
-    mvpMatrixLink = GLES30.glGetUniformLocation(programObject, "u_mvpMatrix");
+    mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
-    mvMatrixLink = GLES30.glGetUniformLocation(programObject, "u_mvMatrix");
+    mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
     //получить местоположение семплера
-    samplerLink = GLES30.glGetUniformLocation(programObject, "s_texture");
+    samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
-    ambientLightColorLink = GLES30.glGetUniformLocation(programObject,
+    ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
-    ambientLightIntensityLink = GLES30.glGetUniformLocation(programObject,
+    ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.intensity");
-    diffuseLightColorLink = GLES30.glGetUniformLocation(programObject,
+    diffuseLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_diffuseLight.color");
-    diffuseLightIntensityLink = GLES30.glGetUniformLocation(programObject,
+    diffuseLightIntensityLink = GLES20.glGetUniformLocation(programObject,
             "u_diffuseLight.intensity");
-    lightPositionLink = GLES30.glGetUniformLocation(programObject,
+    lightPositionLink = GLES20.glGetUniformLocation(programObject,
             "u_lightPosition");
 
     // получить индексы атрибутов в вершинном шейдере
@@ -111,26 +111,26 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     VBO[2] = 0;
     VBO[3] = 0;
 
-    GLES30.glGenBuffers(4, VBO, 0);
+    GLES20.glGenBuffers(4, VBO, 0);
     bufferVertices.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[0]);
-    GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_VERTICES,
-            bufferVertices, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
+    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_VERTICES,
+            bufferVertices, GLES20.GL_STATIC_DRAW);
 
     bufferTextureCoordinates.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[1]);
-    GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, TEXTURE_STRIDE * NUMBERS_TEXTURES,
-            bufferTextureCoordinates, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
+    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, TEXTURE_STRIDE * NUMBERS_TEXTURES,
+            bufferTextureCoordinates, GLES20.GL_STATIC_DRAW);
 
     bufferNormals.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[2]);
-    GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_NORMALS,
-            bufferNormals, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_NORMALS,
+            bufferNormals, GLES20.GL_STATIC_DRAW);
 
     bufferIndices.position(0);
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
-    GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, INT_SIZE * NUMBER_INDICES,
-            bufferIndices, GLES30.GL_STATIC_DRAW);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
+    GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, INT_SIZE * NUMBER_INDICES,
+            bufferIndices, GLES20.GL_STATIC_DRAW);
   }
 
   @Override
@@ -145,12 +145,12 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
 
   @Override
   public void draw() {
-    GLES30.glUseProgram(programObject);
+    GLES20.glUseProgram(programObject);
     // включение вершинного массива для атрибута(in vec4 a_position). Если
     // для заданного индекса атрибута вершинный массив выключен, то для
     // этого атрибута будет использоваться соответствующее постоянное значение
-    GLES30.glEnableVertexAttribArray(positionLink); // разрешить атрибут вершин куба
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[0]);
+    GLES20.glEnableVertexAttribArray(positionLink); // разрешить атрибут вершин куба
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
     // Метод glVertexAttribPointer загружет вершинные массивы. Size - число
     // компонент в вершинном массиве для заданного атрибута. Допустимые
     // значения 1 - 4. Stride - смещение в байтах между вершиной I и вершиной
@@ -159,43 +159,38 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     // получения данных для следующей вершины. Для лучшего быстродействия
     // предпочтительно использовать GLES30.GL_HALF_FLOAT (не работает)
     // Загрузить данные вершин (location = 0)
-    GLES30.glVertexAttribPointer(positionLink, VERTEX_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(positionLink, VERTEX_COMPONENT, GLES20.GL_FLOAT,
             false, VERTEX_STRIDE, 0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
-
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
     //включение массива текстурных координат для атрибута(in vec4 a_position)
-    GLES30.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[1]);
+    GLES20.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     //загрузить текстурные координаты (location = 1)
-    GLES30.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
-
-    GLES30.glEnableVertexAttribArray(normalLink);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
+    GLES20.glEnableVertexAttribArray(normalLink);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
     // индекс переменной атрибута можно получить следущим образом
     // int a_normal_Handle = GLES30.glGetAttribLocation(programObject, "a_Normal");
     // но мы просто указываем индекс 2, поскольку в шейдере он обазначен
     // с помощью ключевого слова location
-    GLES30.glVertexAttribPointer(normalLink, NORMAL_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(normalLink, NORMAL_COMPONENT, GLES20.GL_FLOAT,
             false, NORMAL_STRIDE, 0);
-    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0);
-
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
     // передать в шейдер трехкомпонентный вектор цвета(белый) для
     // окружающего света
-    GLES30.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
+    GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES30.glUniform1f(ambientLightIntensityLink, 0.2f);
-
-    GLES30.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
+    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES30.glUniform1f(diffuseLightIntensityLink, 50.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
     /*
      * Источник света движется за кубом, поэтому куб освещается
      * всегда с одной стороны.
      */
-    GLES30.glUniform3f(lightPositionLink, view.getX(),
-            view.getY(), view.getZ() + 2.0f);
+    GLES20.glUniform3f(lightPositionLink, view.getX(), view.getY(), view.getZ() + 2.0f);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -203,31 +198,30 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     // семплера (s_texture) параметр задает текстурный блок, который
     // станет активным, принимает значения GL_TEXTURE0,
     // GL_TEXTURE1,..., GL_TEXTURE31.
-    GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
+    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
-    GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureID);
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId
-    GLES30.glUniform1i(samplerLink, 0);
+    GLES20.glUniform1i(samplerLink, 0);
     // MV-матрица загружается в соответствующую uniform-переменную
-    GLES30.glUniformMatrix4fv(mvMatrixLink, 1, false,
+    GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
             view.getMVMatrixAsFloatBuffer());
 
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
-    GLES30.glUniformMatrix4fv(mvpMatrixLink, 1, false,
+    GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.
     // второй параметр - количество индексов, которое необходимо вывести.
     // третий параметр - тип индексов (другие варианты UNSIGNED_SHORT и UNSIGNED_BYTE)
-    GLES30.glDrawElements(GLES30.GL_TRIANGLES, NUMBER_INDICES, GLES30.GL_UNSIGNED_INT, 0);
-    GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, 0);
+    GLES20.glDrawElements(GLES20.GL_TRIANGLES, NUMBER_INDICES, GLES20.GL_UNSIGNED_INT, 0);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
-    GLES30.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
-    GLES30.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
-    GLES30.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
-
+    GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
+    GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
+    GLES20.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
     //GLES30.glFinish();
   }
 
