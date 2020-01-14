@@ -50,7 +50,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
     val near = 1.0f
     // значение far установлено с запасом, потому-что на разных устройствах
     // фон звездного неба отображается при разном значении far
-    val far = 140.0f
+    val far = 130.0f
     if (widthScreen < heightScreen) {
       bottom /= aspect
       top /= aspect
