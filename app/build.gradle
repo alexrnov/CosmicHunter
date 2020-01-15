@@ -26,6 +26,12 @@ android {
     useLibrary 'android.test.runner' // Gradle automatically adds 'android.test.runner' as a dependency
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
+
+    // make your app to be compiled by java8 compiler. Necessary for work Truth
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -53,8 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:truth:1.2.0'
     androidTestImplementation 'com.google.truth:truth:0.42'
     // require for Truth library
-    //implementation "com.google.truth.extensions:truth-java8-extension:0.42"
-    //implementation "com.google.truth.extensions:truth-java8-extension:0.42"
+    implementation "com.google.truth.extensions:truth-java8-extension:0.42"
     // Espresso dependencies
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'

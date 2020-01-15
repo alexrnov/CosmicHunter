@@ -3,10 +3,9 @@ package alexrnov.cosmichunter.utils
 import java.util.*
 
 /**
- * Класс вычисляет среднее значение из группы элементов, которые хранятся
- * в очереди. Очередь имеет фиксированный объем [numberValues].
- * Когда очередь заполняется, то при добавлении нового элемента, удаляется
- * самый старый элемент.
+ * Класс вычисляет среднее значение из группы элементов, которые хранятся в очереди.
+ * Очередь имеет фиксированный объем [numberValues]. Когда очередь заполняется,
+ * то при добавлении нового элемента, удаляется самый старый элемент.
  */
 class MeanValue(private val numberValues: Short = 1000) {
   private val queue = ArrayDeque<Float>()
@@ -21,7 +20,7 @@ class MeanValue(private val numberValues: Short = 1000) {
     if (queue.size == 1) return v
     if (queue.size > numberValues) queue.poll()
     return average()
-    //return q.stream()
+    //return queue.stream()
             //.collect(Collectors.averagingDouble{e -> e.toDouble()}).toFloat()
   }
 
