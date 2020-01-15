@@ -11,9 +11,7 @@ import android.util.Log
 @Suppress("DEPRECATION")
 class VibratorExplosion(context: Context, var time: Long = 50) {
 
-  var v: Vibrator =
-          context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
+  var v: Vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
   // пустая функция выполняется, если вибрация отключена в настройках приложения
   var f: () -> Unit = { }
 
@@ -33,10 +31,9 @@ class VibratorExplosion(context: Context, var time: Long = 50) {
   }
 
   /**
-   * Произвести вибрацию. Если вибрация отключена, тогда выполняется
-   * пустая функция. Использование лямда-выражения, в данном случае,
-   * позваляет избежать условной проверки включения вибрации при
-   * перерисовке каждого кадра
+   * Произвести вибрацию. Если вибрация отключена, тогда выполняется пустая
+   * функция. Использование лямда-выражения, в данном случае позволяет избежать
+   * условной проверки включения вибрации при перерисовке каждого кадра
    */
   fun execute() { f() }
 }

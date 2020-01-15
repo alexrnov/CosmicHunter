@@ -7,7 +7,6 @@ import org.junit.Test;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
 import static org.junit.Assert.*;
-
 public class CoordinatesOpenGLTest {
 
   //минимальная разница вещественных чисел - шесть знаков после разделителя
