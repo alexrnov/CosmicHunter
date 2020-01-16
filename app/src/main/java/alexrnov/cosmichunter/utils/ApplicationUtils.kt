@@ -76,9 +76,7 @@ fun printDPSizeScreen(activity: AppCompatActivity) {
   val density:Float = displayMetrics.density
   val dpWidth: Float = width / density
   val dpHeight: Float = height / density
-  Log.i(TAG, "density = $density")
-  Log.i(TAG, "width = $width, height = $height")
-  Log.i(TAG, "dpWidth = $dpWidth, dpHeight = $dpHeight")
+  Log.i(TAG, "density = $density, width = $width, height = $height, dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
 
 /**
