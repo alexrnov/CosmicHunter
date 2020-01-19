@@ -13,7 +13,8 @@ import org.junit.runner.RunWith
 class VibratorExplosionTest {
   // Given a Context object retrieved from Robolectric...
   private val context = ApplicationProvider.getApplicationContext<Context>()
-  private val vibrator = VibratorExplosion(context, 100)
+  private val vibrator = VibratorExplosion(context, 500)
+
   @Test
   fun f() {
     Log.i(TAG, "tag2")
