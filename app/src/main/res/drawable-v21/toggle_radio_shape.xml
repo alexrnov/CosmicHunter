@@ -3,7 +3,7 @@
     <item android:drawable="@drawable/shape_button_default"
         android:state_checked="true" />
 
-    <item android:drawable ="@color/design_default_color_primary"
+    <item android:drawable="@drawable/shape_radio_button_press"
         android:state_pressed="true" />
 
 </selector>
