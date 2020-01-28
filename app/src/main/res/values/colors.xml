@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#246F09</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#fdeca6</color>
 
     <color name="radioButtonBaseSolid">#C0C0C0</color>
     <color name="radioButtonSelectText">#FFFFFF</color>
@@ -10,6 +10,7 @@
     <color name="radioButtonNonSelectText">#696969</color>
     <color name="radioButtonPressSolid">#FFC87E</color>
     <color name="radioButtonPressBorder">#C77F15</color>
+    <color name="transparent">#00000000</color>
 
     <color name="buttonDefaultStartEnd">#FFC87E</color>
     <color name="buttonDefaultCenter">#C06E11</color>
