@@ -2,8 +2,12 @@ package alexrnov.cosmichunter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.opengl.GLES20;
+import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import androidx.core.view.GestureDetectorCompat;
+
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -58,6 +62,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер
     setEGLContextClientVersion(versionGLES);
     Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
+
     if (versionGLES == 2) return new SceneRendererGLES20(context);
     else return new SceneRendererGLES30(context);
   }
@@ -139,5 +144,9 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
 
   public void setGameActivity(GameActivity gameActivity) {
     renderer.setGameActivity(gameActivity);
+  }
+
+  private double getVersionGLES() {
+    return 3.2;
   }
 }

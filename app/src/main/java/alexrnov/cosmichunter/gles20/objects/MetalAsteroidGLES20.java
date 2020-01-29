@@ -2,7 +2,6 @@ package alexrnov.cosmichunter.gles20.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.opengl.GLES30;
 import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
@@ -166,7 +165,7 @@ public class MetalAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     GLES20.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     //загрузить текстурные координаты (location = 1)
-    GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES30.GL_FLOAT,
+    GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
     GLES20.glEnableVertexAttribArray(normalLink);

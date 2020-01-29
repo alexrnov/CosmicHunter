@@ -9,6 +9,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
+import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.os.Build
 import com.google.android.material.snackbar.Snackbar
