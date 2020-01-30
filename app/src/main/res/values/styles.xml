@@ -4,6 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- in current project use for color radio buttons for version less than 21 -->
         <item name="colorAccent">@color/darkYellow</item>
         <!-- remove render problem coordinator layout -->
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
