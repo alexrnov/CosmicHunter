@@ -145,8 +145,4 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   public void setGameActivity(GameActivity gameActivity) {
     renderer.setGameActivity(gameActivity);
   }
-
-  private double getVersionGLES() {
-    return 3.2;
-  }
 }
