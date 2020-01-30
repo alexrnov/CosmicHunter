@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="20dp" />
-    <solid android:color="@color/buttonPressSolidStartEnd" />
+    <solid android:color="@color/radioButtonBaseSolidOld" />
     <stroke android:width="3dp" android:color="@color/buttonDefaultCenter" />
 </shape>
 

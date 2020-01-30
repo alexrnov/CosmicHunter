@@ -12,6 +12,11 @@
     <color name="radioButtonPressBorder">#C77F15</color>
     <color name="transparent">#00000000</color>
 
+    <color name="radioButtonBaseSolidOld">#d9cfa8</color>
+    <color name="radioButtonTextNoCheckOld">#757575</color>
+    <color name="radioButtonTextPressOld">#c59042</color>
+    <color name="darkYellow">#af6f10</color>
+
     <color name="buttonDefaultStartEnd">#FFC87E</color>
     <color name="buttonDefaultCenter">#C06E11</color>
     <color name="buttonPressSolidStartEnd">#FFCC8F</color>
