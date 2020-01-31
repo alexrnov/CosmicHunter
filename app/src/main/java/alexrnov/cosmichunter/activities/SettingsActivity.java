@@ -21,7 +21,6 @@ public class SettingsActivity extends AppCompatActivity
         implements CompoundButton.OnCheckedChangeListener {
 
   private RadioButton vibrationRadioButton;
-  private RadioButton languageRadioButton;
   private RadioButton soundRadioButton;
   private RadioButton musicRadioButton;
 
@@ -45,15 +44,6 @@ public class SettingsActivity extends AppCompatActivity
     String defaultValue;
     String currentValue;
     RadioGroup group;
-    defaultValue = getResources().getString(R.string.default_language);
-    currentValue = sp.getString("language", defaultValue);
-    group = findViewById(R.id.radioGroup_language);
-
-    if (currentValue.equalsIgnoreCase("russian")) {
-      group.check(R.id.russian);
-    } else {
-      group.check(R.id.english);
-    }
 
     defaultValue = getResources().getString(R.string.default_vibration);
     currentValue = sp.getString("vibration", defaultValue);
@@ -85,10 +75,6 @@ public class SettingsActivity extends AppCompatActivity
 
   /** Метод добавляет слушателей к радио-кнопкам */
   private void addListeners() {
-    languageRadioButton = findViewById(R.id.english);
-    if (languageRadioButton != null) {
-      languageRadioButton.setOnCheckedChangeListener(this);
-    }
     vibrationRadioButton = findViewById(R.id.vibrationOff);
     if (vibrationRadioButton != null) {
       vibrationRadioButton.setOnCheckedChangeListener(this);
@@ -105,10 +91,7 @@ public class SettingsActivity extends AppCompatActivity
 
   @Override
   public void onCheckedChanged(CompoundButton button, boolean b) {
-    if (button.getId() == languageRadioButton.getId()) {
-      establishValue("language", b ? "english" : "russian");
-      showSnackbar(view, "Язык интерфейса: " + (b ? "english" : "russian"));
-    } else if (button.getId() == vibrationRadioButton.getId()) {
+    if (button.getId() == vibrationRadioButton.getId()) {
       establishValue("vibration", b ? "off" : "on");
       showSnackbar(view, "Вибрация: " + (b ? "off" : "on"));
     } else if (button.getId() == musicRadioButton.getId()) {
