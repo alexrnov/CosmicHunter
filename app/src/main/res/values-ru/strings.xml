@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="start_game">Начать игру</string>
-    <string name="select_level">Выбрать уровень</string>
+    <string name="select_level">Уровень</string>
     <string name="settings_button">Настройки</string>
+    <string name="about_game_button">Об игре</string>
     <string name="exit">Выход</string>
 
     <string name="settings_vibration">Вибрация</string>
@@ -23,6 +24,6 @@
 
     <string name="pause">ПАУЗА</string>
     <string name="dialog_text">Выйти в главное меню?</string>
-    <string name="back_to_menu">Выйти</string>
+    <string name="back_to_menu">Меню</string>
     <string name="cancel">Отмена</string>
 </resources>
