@@ -9,6 +9,7 @@
     <string name="start_game">start game</string>
     <string name="select_level">select level</string>
     <string name="settings_button">settings</string>
+    <string name="about_game_button">about game</string>
     <string name="exit">exit</string>
 
     <string name="settings_vibration">Vibration</string>
