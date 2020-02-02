@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    
     <string name="start_game">Start game</string>
     <string name="select_level">Select level</string>
     <string name="settings_button">Settings</string>
