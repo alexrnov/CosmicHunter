@@ -12,8 +12,8 @@
 
     <string name="sound">du son</string>
     <string name="music">la musique</string>
-    <string name="on">sur</string>
-    <string name="off">de</string>
+    <string name="on">activer</string>
+    <string name="off">éteindre</string>
 
     <string name="level1">Niveau 1</string>
     <string name="level2">Niveau 2</string>

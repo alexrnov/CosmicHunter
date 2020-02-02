@@ -1,9 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" translatable="false">Cosmic hunter</string>
-    <string name="default_vibration" translatable="false">on</string>
-    <string name="default_music" translatable="false">on</string>
-    <string name="default_sound" translatable="false">on</string>
-
     <string name="start_game">Start game</string>
     <string name="select_level">Select level</string>
     <string name="settings_button">Settings</string>
@@ -20,14 +15,14 @@
     <string name="on">on</string>
     <string name="off">off</string>
 
-    <string name="level1">Level 1</string>
-    <string name="level2">Level 2</string>
-    <string name="level3">Level 3</string>
-    <string name="level4">Level 4</string>
-    <string name="level5">Level 5</string>
+    <string name="level1">المستوى 1</string>
+    <string name="level2">المستوى 2</string>
+    <string name="level3">المستوى 3</string>
+    <string name="level4">المستوى 4</string>
+    <string name="level5">المستوى 5</string>
 
-    <string name="pause">PAUSE</string>
-    <string name="dialog_text">Return to main menu?</string>
-    <string name="back_to_menu">Menu</string>
-    <string name="cancel">Cancel</string>
+    <string name="pause">وقفة</string>
+    <string name="dialog_text">العودة إلى القائمة؟</string>
+    <string name="back_to_menu">قائمة طعام</string>
+    <string name="cancel">إلغاء</string>
 </resources>

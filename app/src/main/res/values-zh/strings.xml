@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="start_game">开始游戏</string>
+    <string name="select_level">选择级别</string>
+    <string name="settings_button">设定</string>
+    <string name="about_game_button">关于游戏</string>
+    <string name="exit">出口</string>
+
+    <string name="settings_vibration">振动</string>
+    <string name="settings_portrait_orientation">肖像</string>
+    <string name="settings_album_orientation">专辑</string>
+    <string name="back">背部</string>
+
+    <string name="sound">声音</string>
+    <string name="music">音乐</string>
+    <string name="on">打开</string>
+    <string name="off">断线</string>
+
+    <string name="level1">1级</string>
+    <string name="level2">2级</string>
+    <string name="level3">3级</string>
+    <string name="level4">4级</string>
+    <string name="level5">5级</string>
+
+    <string name="pause">暂停</string>
+    <string name="dialog_text">返回主菜单？</string>
+    <string name="back_to_menu">菜单</string>
+    <string name="cancel">取消</string>
+</resources>

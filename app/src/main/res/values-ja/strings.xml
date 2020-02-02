@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="start_game">ゲームを始める</string>
+    <string name="select_level">レベルを選択</string>
+    <string name="settings_button">設定</string>
+    <string name="about_game_button">ゲームについて</string>
+    <string name="exit">出口</string>
+
+    <string name="settings_vibration">振動</string>
+    <string name="settings_portrait_orientation">肖像画</string>
+    <string name="settings_album_orientation">アルバム</string>
+    <string name="back">バック</string>
+
+    <string name="sound">音</string>
+    <string name="music">音楽</string>
+    <string name="on">つける</string>
+    <string name="off">消す</string>
+
+    <string name="level1">レベル1</string>
+    <string name="level2">レベル2</string>
+    <string name="level3">レベル3</string>
+    <string name="level4">レベル4</string>
+    <string name="level5">レベル5</string>
+
+    <string name="pause">一時停止</string>
+    <string name="dialog_text">メインメニューに戻りますか？</string>
+    <string name="back_to_menu">メニュー</string>
+    <string name="cancel">キャンセル</string>
+</resources>
