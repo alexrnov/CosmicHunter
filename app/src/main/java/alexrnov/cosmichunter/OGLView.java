@@ -2,21 +2,18 @@ package alexrnov.cosmichunter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.opengl.GLES20;
-import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+
+import alexrnov.cosmichunter.gles.SceneRenderer;
+import alexrnov.cosmichunter.utils.CosmicRenderer;
 import androidx.core.view.GestureDetectorCompat;
 
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import alexrnov.cosmichunter.activities.GameActivity;
-import alexrnov.cosmichunter.gles20.SceneRendererGLES20;
-import alexrnov.cosmichunter.gles30.SceneRendererGLES30;
-import alexrnov.cosmichunter.utils.SceneRenderer;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
@@ -27,7 +24,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
-  private SceneRenderer renderer;
+  private CosmicRenderer renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
   private volatile float xPress;//переменные используются в другом потоке(OpenGL)
@@ -63,9 +60,14 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     setEGLContextClientVersion(versionGLES);
     Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
 
-    if (versionGLES == 2) return new SceneRendererGLES20(context);
+    /*
+    if (versionGLES == 2) return new SceneRenderer(context);
     else return new SceneRendererGLES30(context);
+    */
+    if (versionGLES == 2) return new SceneRenderer(2.0, context);
+    else return new SceneRenderer(3.0, context);
   }
+
 
   @SuppressLint("ClickableViewAccessibility")
   @Override

@@ -1,6 +1,6 @@
 package alexrnov.cosmichunter.view
 
-import alexrnov.cosmichunter.utils.Rocket
+import alexrnov.cosmichunter.gles.objects.Rocket
 import android.opengl.GLU
 import android.opengl.Matrix
 import java.lang.Math.pow
