@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.gles20.objects;
+package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -6,14 +6,14 @@ import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
+import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.gles20.TextureGLES20.loadTextureFromRaw;
+import static alexrnov.cosmichunter.gles.Textures.loadTextureFromRaw;
 
-public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
+public class MetalAsteroid extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -46,19 +46,29 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
   private AsteroidView3D view;
   private final int[] VBO = new int[4];
 
-  private ExplosionGLES20 bigExplosion;
-  private ExplosionGLES20 middleExplosion;
-  private ExplosionGLES20 smallExplosion;
+  private Explosion bigExplosion;
+  private Explosion middleExplosion;
+  private Explosion smallExplosion;
 
-  public RockAsteroidGLES20(Context context, float scale) { //, TypeAsteroid type) {
+  public MetalAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
     super(context, scale, "objects/asteroid1.obj");
 
     //загрузка шейдеров из каталога raw
-    //LinkedProgramGLES20 linkedProgramGL = new LinkedProgramGLES20(context,
+    //LinkedProgram linkedProgramGL = new LinkedProgram(context,
     //R.raw.vertex_shader, R.raw.fragment_shader);
-    LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
-            "shaders/gles20/asteroid_v.glsl",
-            "shaders/gles20/asteroid_f.glsl"); // линковать программу
+
+    LinkedProgram linkProgram = null;
+    if (versionGL == 2.0) {
+      linkProgram = new LinkedProgram(context,
+              "shaders/gles20/asteroid_v.glsl",
+              "shaders/gles20/asteroid_f.glsl");
+    } else if (versionGL == 3.0) {
+      linkProgram = new LinkedProgram(context,
+              "shaders/gles30/asteroid_v.glsl",
+              "shaders/gles30/asteroid_f.glsl");
+    }
+
+
     final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
     if (programObject == 0) {
@@ -77,7 +87,7 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    textureID = loadTextureFromRaw(context, R.raw.dolerite_texture); //загрузить текстуру
+    textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -161,7 +171,6 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     GLES20.glVertexAttribPointer(positionLink, VERTEX_COMPONENT, GLES20.GL_FLOAT,
             false, VERTEX_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
     //включение массива текстурных координат для атрибута(in vec4 a_position)
     GLES20.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
@@ -169,7 +178,6 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
             false, TEXTURE_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
     GLES20.glEnableVertexAttribArray(normalLink);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
     // индекс переменной атрибута можно получить следущим образом
@@ -179,13 +187,11 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     GLES20.glVertexAttribPointer(normalLink, NORMAL_COMPONENT, GLES20.GL_FLOAT,
             false, NORMAL_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
     // передать в шейдер трехкомпонентный вектор цвета(белый) для
     // окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
     GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
-
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
@@ -193,8 +199,7 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
      * Источник света движется за кубом, поэтому куб освещается
      * всегда с одной стороны.
      */
-    GLES20.glUniform3f(lightPositionLink, view.getX(),
-            view.getY(), view.getZ() + 2.0f);
+    GLES20.glUniform3f(lightPositionLink, view.getX(), view.getY(), view.getZ() + 2.0f);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -226,37 +231,36 @@ public class RockAsteroidGLES20 extends Object3D implements AsteroidGLES20 {
     GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
     GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
     GLES20.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
-
     //GLES30.glFinish();
   }
 
   @Override
-  public void setBigExplosion(ExplosionGLES20 explosion) {
+  public void setBigExplosion(Explosion explosion) {
     bigExplosion = explosion;
   }
 
   @Override
-  public ExplosionGLES20 getBigExplosion() {
+  public Explosion getBigExplosion() {
     return bigExplosion;
   }
 
   @Override
-  public void setMiddleExplosion(ExplosionGLES20 explosion) {
+  public void setMiddleExplosion(Explosion explosion) {
     middleExplosion = explosion;
   }
 
   @Override
-  public ExplosionGLES20 getMiddleExplosion() {
+  public Explosion getMiddleExplosion() {
     return middleExplosion;
   }
 
   @Override
-  public void setSmallExplosion(ExplosionGLES20 explosion) {
+  public void setSmallExplosion(Explosion explosion) {
     smallExplosion = explosion;
   }
 
   @Override
-  public ExplosionGLES20 getSmallExplosion() {
+  public Explosion getSmallExplosion() {
     return smallExplosion;
   }
 }

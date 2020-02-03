@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.gles20;
+package alexrnov.cosmichunter.gles;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -22,7 +22,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
  * сборка программы потерпела неудачу, тогда метод get() возвращает
  * значение 0.
  */
-public class LinkedProgramGLES20 {
+public class LinkedProgram {
   private final String className = this.getClass().getSimpleName() + ".class: ";
   private Context context;
   private int programObject;
@@ -32,8 +32,8 @@ public class LinkedProgramGLES20 {
    * @param idVertexShader идентификатор ресурса для вершинного шейдера
    * @param idFragmentShader идентификатор ресурса для фрагментного шейдера
    */
-  public LinkedProgramGLES20(final Context context, int idVertexShader,
-                             int idFragmentShader) {
+  public LinkedProgram(final Context context, int idVertexShader,
+                       int idFragmentShader) {
     this.context = context;
     String codeVertexShader = readShaderFileFromRawResource(idVertexShader);
     String codeFragmentShader = readShaderFileFromRawResource(idFragmentShader);
@@ -45,8 +45,8 @@ public class LinkedProgramGLES20 {
    * @param filePathVertexShader путь к файлу вершинного шейдера
    * @param filePathFragmentShader путь к файлу фрагментного шейдера
    */
-  public LinkedProgramGLES20(final Context context, String filePathVertexShader,
-                             String filePathFragmentShader) {
+  public LinkedProgram(final Context context, String filePathVertexShader,
+                       String filePathFragmentShader) {
     this.context = context;
     String codeVertexShader = readShaderFileFromFilePath(filePathVertexShader);
     String codeFragmentShader = readShaderFileFromFilePath(filePathFragmentShader);
@@ -59,7 +59,7 @@ public class LinkedProgramGLES20 {
    * @param codeVertexShader исходный код вершинного шейдера
    * @param codeFragmentShader исходный код фрагментного шейдера
    */
-  public LinkedProgramGLES20(String codeVertexShader, String codeFragmentShader) {
+  public LinkedProgram(String codeVertexShader, String codeFragmentShader) {
     programObject = linkProgramAndGetId(codeVertexShader, codeFragmentShader);
   }
 

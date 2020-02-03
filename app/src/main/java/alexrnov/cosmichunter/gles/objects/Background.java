@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter.gles20.objects;
+package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -6,14 +6,14 @@ import android.util.Log;
 
 import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.gles20.LinkedProgramGLES20;
-import alexrnov.cosmichunter.gles20.TextureGLES20;
+import alexrnov.cosmichunter.gles.LinkedProgram;
+import alexrnov.cosmichunter.gles.Textures;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 
-public class BackgroundGLES20 extends Object3D {
+public class Background extends Object3D {
   private final int programObject;
   private BackgroundView3D view;
 
@@ -27,11 +27,21 @@ public class BackgroundGLES20 extends Object3D {
   private final int positionLink; // индекс переменной атрибута для вершин
   private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
 
-  public BackgroundGLES20(Context context, float scale) {
+  public Background(double versionGL, Context context, float scale) {
     super(context, scale, R.raw.fone);
-    final LinkedProgramGLES20 linkProgram = new LinkedProgramGLES20(context,
-            "shaders/gles20/background_v.glsl",
-            "shaders/gles20/background_f.glsl");
+
+    LinkedProgram linkProgram = null;
+    if (versionGL == 2.0) {
+      linkProgram = new LinkedProgram(context,
+              "shaders/gles20/background_v.glsl",
+              "shaders/gles20/background_f.glsl");
+    } else if (versionGL == 3.0) {
+      linkProgram = new LinkedProgram(context,
+              "shaders/gles30/background_v.glsl",
+              "shaders/gles30/background_f.glsl");
+    }
+
+
     programObject = linkProgram.get();
     final String className = this.getClass().getSimpleName() + ".class: ";
     if (programObject == 0) {
@@ -43,7 +53,7 @@ public class BackgroundGLES20 extends Object3D {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    textureID = TextureGLES20.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+    textureID = Textures.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");

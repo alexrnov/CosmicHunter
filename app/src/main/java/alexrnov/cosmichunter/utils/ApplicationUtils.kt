@@ -22,42 +22,12 @@ import android.widget.TextView
 import android.widget.Toast
 import org.jetbrains.annotations.NotNull
 
-/**
- * Интерфейс введен для случая, когда класс-наследник View3D работает
- * c экземпляром RocketGLES30 для разных версий OpenGL
- */
-interface Rocket {
-  val view: RocketView3D
-  fun draw()
-}
-/*
- * java:
- * public interface Rocket {
- *   RocketView3D getView();
- *   void draw();
- * }
- */
-
-/**
- * Интерфейс нужен для того, чтобы в классе OGLView (SurfaceView) можно
- * было использовать классы рендера как для OpenGL 2.0, так и для OpenGL 3.0
- */
-interface SceneRenderer : GLSurfaceView.Renderer {
+interface CosmicRenderer : GLSurfaceView.Renderer {
   val widthDisplay: Int
   val heightDisplay: Int
   fun setPassXY(passX: Float, passY: Float)
   fun setGameActivity(@NotNull gameActivity: GameActivity)
 }
-
-/*
- * java:
- * public interface SceneRenderer extends GLSurfaceView.Renderer {
- *   int getWidthDisplay();
- *   int getHeightDisplay();
- *   void setPassXY(float passX, float passY);
- *   void setGameActivity(GameActivity gameActivity);
- * }
-*/
 
 /** Вывест на экран информацию по размерам экрана (в единицах dp) */
 @SuppressLint("ObsoleteSdkInt")
