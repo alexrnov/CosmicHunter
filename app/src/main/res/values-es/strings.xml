@@ -23,4 +23,6 @@
     <string name="dialog_text">¿Volver al menú principal?</string>
     <string name="back_to_menu">Menú</string>
     <string name="cancel">Cancelar</string>
+
+    <string name="opengl_not_support">OpenGL no es compatible</string>
 </resources>

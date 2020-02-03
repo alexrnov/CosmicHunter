@@ -23,4 +23,6 @@
     <string name="dialog_text">返回主菜单？</string>
     <string name="back_to_menu">菜单</string>
     <string name="cancel">取消</string>
+
+    <string name="opengl_not_support">不支持OpenGL</string>
 </resources>

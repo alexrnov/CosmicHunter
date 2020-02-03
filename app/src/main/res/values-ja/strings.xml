@@ -24,4 +24,6 @@
     <string name="dialog_text">メニューに戻りますか？</string>
     <string name="back_to_menu">メニュー</string>
     <string name="cancel">キャンセル</string>
+
+    <string name="opengl_not_support">OpenGLはサポートされていません</string>
 </resources>

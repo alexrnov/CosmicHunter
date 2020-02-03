@@ -104,8 +104,10 @@ class MainActivity : AppCompatActivity() {
       val intent = Intent(this, activity)
       intent.putExtra("versionGLES", supportOpenGLES)
       startActivity(intent)
-    } else showSnackbar(view, "Нет поддержки OpenGL")
-    //showToast(getApplicationContext(), "Нет поддержки OpenGL");
-    //showCustomToast(this, "Нет поддержки OpenGL");
+    } else {
+      showSnackbar(view, getString(R.string.opengl_not_support))
+      //showToast(getApplicationContext(), "Нет поддержки OpenGL");
+      //showCustomToast(this, "Нет поддержки OpenGL");
+    }
   }
 }

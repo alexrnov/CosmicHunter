@@ -23,4 +23,6 @@
     <string name="dialog_text">Kembali ke menu utama?</string>
     <string name="back_to_menu">Menu</string>
     <string name="cancel">Batalkan</string>
+
+    <string name="opengl_not_support">OpenGL tidak disokong</string>
 </resources>

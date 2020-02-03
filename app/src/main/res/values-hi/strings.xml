@@ -23,4 +23,6 @@
     <string name="dialog_text">मुख्य मेनू पर लौटें?</string>
     <string name="back_to_menu">मेन्यू</string>
     <string name="cancel">रद्द करना</string>
+
+    <string name="opengl_not_support">OpenGL समर्थित नहीं है</string>
 </resources>

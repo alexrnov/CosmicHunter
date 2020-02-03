@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import alexrnov.cosmichunter.BackgroundMusic;
 import alexrnov.cosmichunter.R;
 
@@ -25,6 +26,12 @@ public class SettingsActivity extends AppCompatActivity
   private RadioButton musicRadioButton;
 
   private View view;
+
+  private String vibrationText = "Vibration";
+  private String soundText = "Sound";
+  private String musicText = "Music";
+  private String onText = "on";
+  private String offText = "off";
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,6 +39,11 @@ public class SettingsActivity extends AppCompatActivity
     defineViewRadioButtons();
     addListeners();
     view = findViewById(R.id.background_settings);
+    vibrationText = getString(R.string.settings_vibration);
+    soundText = getString(R.string.sound);
+    musicText = getString(R.string.music);
+    onText = getString(R.string.on);
+    offText = getString(R.string.off);
   }
 
   /**
@@ -93,15 +105,15 @@ public class SettingsActivity extends AppCompatActivity
   public void onCheckedChanged(CompoundButton button, boolean b) {
     if (button.getId() == vibrationRadioButton.getId()) {
       establishValue("vibration", b ? "off" : "on");
-      showSnackbar(view, "Вибрация: " + (b ? "off" : "on"));
+      showSnackbar(view, vibrationText + ": " + (b ? offText : onText));
     } else if (button.getId() == musicRadioButton.getId()) {
       establishValue("music", b ? "off" : "on");
       manageMusic(b);
-      showSnackbar(view, "Музыка: " + (b ? "off" : "on"));
+      showSnackbar(view, musicText + ": "+ (b ? offText : onText));
     } else if (button.getId() == soundRadioButton.getId()) {
       establishValue("sound", b ? "off" : "on");
       manageMusic(b);
-      showSnackbar(view, "Звук: " + (b ? "off" : "on"));
+      showSnackbar(view, soundText + ": " + (b ? offText : onText));
     }
   }
 
@@ -138,5 +150,4 @@ public class SettingsActivity extends AppCompatActivity
     super.onStop();
     checkMusicForStopOtherActivity();
   }
-
 }

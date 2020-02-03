@@ -23,4 +23,6 @@
     <string name="dialog_text">Выйти в главное меню?</string>
     <string name="back_to_menu">Меню</string>
     <string name="cancel">Отмена</string>
+
+    <string name="opengl_not_support">Нет поддержки OpenGL</string>
 </resources>

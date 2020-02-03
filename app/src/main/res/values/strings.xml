@@ -28,4 +28,6 @@
     <string name="dialog_text">Return to main menu?</string>
     <string name="back_to_menu">Menu</string>
     <string name="cancel">Cancel</string>
+
+    <string name="opengl_not_support">OpenGL is not supported</string>
 </resources>

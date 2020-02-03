@@ -23,4 +23,6 @@
     <string name="dialog_text">العودة إلى القائمة؟</string>
     <string name="back_to_menu">قائمة طعام</string>
     <string name="cancel">إلغاء</string>
+
+    <string name="opengl_not_support">برنامج OpenGL غير مدعوم</string>
 </resources>
