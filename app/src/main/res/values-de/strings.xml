@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="start_game">Spiel starten</string>
     <string name="select_level">Niveau</string>
     <string name="settings_button">Einstellungen</string>
@@ -6,14 +7,11 @@
     <string name="exit">Ausfahrt</string>
 
     <string name="settings_vibration">Vibration</string>
-    <string name="settings_portrait_orientation">Porträt</string>
-    <string name="settings_album_orientation">Album</string>
-    <string name="back">Zurück</string>
-
     <string name="sound">Klang</string>
     <string name="music">Musik</string>
     <string name="on">auf</string>
     <string name="off">aus</string>
+    <string name="back">Zurück</string>
 
     <string name="level1">Niveau 1</string>
     <string name="level2">Niveau 2</string>

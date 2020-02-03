@@ -1,19 +1,17 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="start_game">Start game</string>
-    <string name="select_level">Select level</string>
-    <string name="settings_button">Settings</string>
-    <string name="about_game_button">About game</string>
-    <string name="exit">exit</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_game">بدء اللعبة</string>
+    <string name="select_level">اختار مستوى</string>
+    <string name="settings_button">الإعدادات</string>
+    <string name="about_game_button">عن اللعبة</string>
+    <string name="exit">خروج</string>
 
-    <string name="settings_vibration">Vibration</string>
-    <string name="settings_portrait_orientation">portrait</string>
-    <string name="settings_album_orientation">album</string>
-    <string name="back">back</string>
-
-    <string name="sound">Sound</string>
-    <string name="music">Music</string>
-    <string name="on">on</string>
-    <string name="off">off</string>
+    <string name="settings_vibration">اهتزاز</string>
+    <string name="sound">صوت</string>
+    <string name="music">موسيقى</string>
+    <string name="on">مكن</string>
+    <string name="off">أطفئ</string>
+    <string name="back">عودة</string>
 
     <string name="level1">المستوى 1</string>
     <string name="level2">المستوى 2</string>

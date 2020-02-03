@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_game">Jogos</string>
+    <string name="select_level">Nível</string>
+    <string name="settings_button">Config.</string>
+    <string name="about_game_button">Sobre o jogo</string>
+    <string name="exit">Saída</string>
+
+    <string name="settings_vibration">Vibração</string>
+    <string name="sound">Som</string>
+    <string name="music">Música</string>
+    <string name="on">Ativar</string>
+    <string name="off">Desligar</string>
+    <string name="back">costas</string>
+
+    <string name="level1">Nível 1</string>
+    <string name="level2">Nível 2</string>
+    <string name="level3">Nível 3</string>
+    <string name="level4">Nível 4</string>
+    <string name="level5">Nível 5</string>
+
+    <string name="pause">PAUSA</string>
+    <string name="dialog_text">Voltar ao menu principal?</string>
+    <string name="back_to_menu">Menu</string>
+    <string name="cancel">Cancelar</string>
+</resources>

@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="app_name" translatable="false">Cosmic hunter</string>
     <string name="default_vibration" translatable="false">on</string>
     <string name="default_music" translatable="false">on</string>
@@ -11,14 +12,11 @@
     <string name="exit">exit</string>
 
     <string name="settings_vibration">Vibration</string>
-    <string name="settings_portrait_orientation">portrait</string>
-    <string name="settings_album_orientation">album</string>
-    <string name="back">back</string>
-
     <string name="sound">Sound</string>
     <string name="music">Music</string>
     <string name="on">on</string>
     <string name="off">off</string>
+    <string name="back">back</string>
 
     <string name="level1">Level 1</string>
     <string name="level2">Level 2</string>

@@ -7,14 +7,11 @@
     <string name="exit">Выход</string>
 
     <string name="settings_vibration">Вибрация</string>
-    <string name="settings_portrait_orientation">книжная</string>
-    <string name="settings_album_orientation">альбомная</string>
-    <string name="back">Назад</string>
-
     <string name="sound">Весь звук</string>
     <string name="music">Музыка</string>
     <string name="on">вкл.</string>
     <string name="off">откл.</string>
+    <string name="back">Назад</string>
 
     <string name="level1">Уровень 1</string>
     <string name="level2">Уровень 2</string>

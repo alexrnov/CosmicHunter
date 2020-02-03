@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_game">खेल शुरू</string>
+    <string name="select_level">स्तर चुनें</string>
+    <string name="settings_button">समायोजन</string>
+    <string name="about_game_button">खेल के बारे में</string>
+    <string name="exit">बाहर जाएं</string>
+
+    <string name="settings_vibration">कंपन</string>
+    <string name="sound">ध्वनि</string>
+    <string name="music">संगीत</string>
+    <string name="on">सक्षम</string>
+    <string name="off">बंद</string>
+    <string name="back">वापस</string>
+
+    <string name="level1">स्तर 1</string>
+    <string name="level2">स्तर 2</string>
+    <string name="level3">स्तर 3</string>
+    <string name="level4">स्तर 4</string>
+    <string name="level5">स्तर 5</string>
+
+    <string name="pause">रोकें</string>
+    <string name="dialog_text">मुख्य मेनू पर लौटें?</string>
+    <string name="back_to_menu">मेन्यू</string>
+    <string name="cancel">रद्द करना</string>
+</resources>
