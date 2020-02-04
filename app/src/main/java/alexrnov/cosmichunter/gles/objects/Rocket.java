@@ -11,7 +11,6 @@ import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.gles.Textures.loadTextureFromRaw;
 
 public class Rocket extends Object3D {
   private final int programObject;
@@ -41,7 +40,7 @@ public class Rocket extends Object3D {
   private final int[] VBO = new int[3];
 
   public Rocket(double versionGL, Context context, float scale) {
-    super(context, scale, R.raw.rocket);
+    super(context, scale, R.raw.simple_rocket);
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
@@ -157,10 +156,10 @@ public class Rocket extends Object3D {
     GLES20.glUniform1f(ambientLightIntensityLink, 0.5f);
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 100.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 30.0f);
     // Источник света движется за кубом, поэтому куб освещается всегда с одной стороны.
-    GLES20.glUniform3f(lightPositionLink, view.getX() + 5.0f,
-            view.getY() + 5.0f, view.getZ() + 2.0f);
+    GLES20.glUniform3f(lightPositionLink, view.getX(),
+            view.getY(), view.getZ() + 2.0f);
 
     // включить прозрачность
     GLES20.glEnable(GLES20.GL_BLEND);

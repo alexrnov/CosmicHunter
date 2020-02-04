@@ -203,7 +203,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
-    GLES20.glUniform1f(alphaLink, 0.6f); // коэффициент прозрачности
+    GLES20.glUniform1f(alphaLink, 0.7f); // коэффициент прозрачности
     /*
      * Источник света движется за кубом, поэтому куб освещается
      * всегда с одной стороны.

@@ -1,6 +1,7 @@
 package alexrnov.cosmichunter.view
 
 import android.opengl.Matrix
+import kotlin.math.abs
 
 /**
  * Определяет поведение ракеты, - такие ее характеристики как:
@@ -9,11 +10,11 @@ import android.opengl.Matrix
  */
 class RocketView3D(widthScreen: Int, heightScreen: Int):
         View3D(widthScreen, heightScreen) {
-  var kx: Float = 0.23f
-  var ky: Float = 0.23f
-  private var angleX: Float = 0f
-  private var angleY: Float = 0f
-  private val k = 20
+  private var kx: Float = 0.23f
+  private var ky: Float = 0.23f
+  private var angleX: Float = 0f // угол поворота ракеты по оси X
+  private var angleY: Float = 0f // угол поворота ракеты по оси Y
+  private val k = 16 // коэффициент влияет на угол поворота ракеты
   var fly: Boolean = false // переменная определяет запущена ли ракета
 
   override fun spotPosition(delta: Float) {
@@ -47,7 +48,7 @@ class RocketView3D(widthScreen: Int, heightScreen: Int):
     z = 0f
     kx = x / 10
     ky = y / 10
-    angleX = if (x > 0.0f) 360 - Math.abs(x * k) else Math.abs(x * k)
+    angleX = if (x > 0.0f) 360 - abs(x * k) else abs(x * k)
     angleY = y * k
   }
 }
