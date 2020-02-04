@@ -5,7 +5,6 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 import alexrnov.cosmichunter.gles.SceneRenderer;
-import alexrnov.cosmichunter.utils.CosmicRenderer;
 import androidx.core.view.GestureDetectorCompat;
 
 import android.util.AttributeSet;
@@ -24,7 +23,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
-  private CosmicRenderer renderer;
+  private SceneRenderer renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
   private volatile float xPress;//переменные используются в другом потоке(OpenGL)

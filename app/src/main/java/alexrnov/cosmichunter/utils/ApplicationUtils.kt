@@ -22,12 +22,15 @@ import android.widget.TextView
 import android.widget.Toast
 import org.jetbrains.annotations.NotNull
 
+/*
 interface CosmicRenderer : GLSurfaceView.Renderer {
   val widthDisplay: Int
   val heightDisplay: Int
   fun setPassXY(passX: Float, passY: Float)
   fun setGameActivity(@NotNull gameActivity: GameActivity)
 }
+
+*/
 
 /** Вывест на экран информацию по размерам экрана (в единицах dp) */
 @SuppressLint("ObsoleteSdkInt")

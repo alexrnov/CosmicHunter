@@ -13,7 +13,6 @@ uniform vec3 u_lightPosition; // позиция источника света
 // layout(location = 1) in vec2 a_textureCoordinates; // сюда загружаются двухкомпонентные текстурные координаты
 // layout(location = 2) in vec3 a_normal; // сюда загружаются нормали
 in vec4 a_position; // сюда загружаются данные вершин
-in vec2 a_textureCoordinates; // сюда загружаются двухкомпонентные текстурные координаты
 in vec3 a_normal; // сюда загружаются нормали
 
 // выходные переменные вершинного шейдера описываются ключевым словом out
@@ -22,7 +21,7 @@ in vec3 a_normal; // сюда загружаются нормали
 // вдоль примитива во время растеризации. Для выходных переменных вершинного
 // шейдера/входных переменных фрагментного шейдера не могут иметь описателей
 // размещения(layout)
-out vec2 v_textureCoordinates; //out - вместо varying в OpenGL 2.0/GLSL 1.00
+
 // smooth - описатель интерполяции. Smooth(линейная интерполяция вдоль примитива)
 // - используется по умолчанию. Другие возможные варианты flat(плоское закрашивние)
 // и centroid(интерполяция внутри примитива)
@@ -54,7 +53,6 @@ void main() {
     // расчитать итоговый цвет для диффузного освещения
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
-    v_textureCoordinates = a_textureCoordinates;
     gl_Position = u_mvpMatrix * a_position;
 }
 //Фактически любой параметр в шейдере, который остается неизменным
