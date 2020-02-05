@@ -14,7 +14,6 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
-import alexrnov.cosmichunter.utils.printDPSizeScreen
 import alexrnov.cosmichunter.utils.showSnackbar
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
-    printDPSizeScreen(this)
   }
 
   override fun onStart() { // состояние "запущено"

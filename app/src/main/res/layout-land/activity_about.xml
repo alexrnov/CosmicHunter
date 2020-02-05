@@ -27,8 +27,6 @@ Here, the default resource is not needed, since the screen orientation is define
             android:id="@+id/textView_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
             android:layout_marginTop="36dp"
             android:text="TextView"
             android:textSize="16sp"
@@ -39,10 +37,8 @@ Here, the default resource is not needed, since the screen orientation is define
             android:id="@+id/textView_about2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
             android:layout_marginTop="52dp"
-            android:text="TextView2"
+            android:text="TextView23532"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_about" />
 
@@ -50,10 +46,8 @@ Here, the default resource is not needed, since the screen orientation is define
             android:id="@+id/textView_about3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
             android:layout_marginTop="56dp"
-            android:text="TextView3"
+            android:text="TextView364556464"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_about2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
