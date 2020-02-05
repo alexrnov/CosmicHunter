@@ -38,9 +38,8 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:autoLink="web"
-                android:text="www.google.ru"
-                android:textSize="16sp"
+                android:text="music"
+                android:textAppearance="@style/TextAboutGame"
                 app:layout_constraintBottom_toTopOf="@+id/musicLink"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +48,9 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:id="@+id/musicLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="www.purpure-planet.com"
+                android:autoLink="web"
+                android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -67,7 +68,8 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="TextView23532"
+                android:text="Textures"
+                android:textAppearance="@style/TextAboutGame"
                 app:layout_constraintBottom_toTopOf="@+id/textureLink"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +78,9 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:id="@+id/textureLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="www.textures.ru"
+                android:autoLink="web"
+                android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,7 +98,8 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="TextView364556464"
+                android:text="Modeling by Blender"
+                android:textAppearance="@style/TextAboutGame"
                 app:layout_constraintBottom_toTopOf="@+id/blenderLink"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +108,9 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:id="@+id/blenderLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="www.blender.ru"
+                android:autoLink="web"
+                android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
 import android.os.Build
-import android.util.Log
 import android.view.ViewTreeObserver
-import alexrnov.cosmichunter.Initialization.TAG
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
@@ -35,13 +33,13 @@ class AboutGameActivity: AppCompatActivity() {
     val (width, _) = getScreenSizeWithoutNavBar(this)
     middleWidth = width / 2
     //Log.i(TAG, "width = $width, height = $height, middleWidth = $middleWidth")
-    blenderText?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+    blenderLink?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
       override fun onGlobalLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-          musicText?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+          blenderText?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
         } else {
           @Suppress("DEPRECATION")
-          musicText?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
+          blenderText?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
         }
         animationViews()
       }
@@ -49,7 +47,7 @@ class AboutGameActivity: AppCompatActivity() {
   }
 
   private fun animationViews() {
-    val d = 300L
+    val d = 270L
     val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
     animationMusicText.duration = d
     animationMusicText.addUpdateListener { musicText?.translationX = it.animatedValue as Float }
