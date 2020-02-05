@@ -4,15 +4,13 @@ import alexrnov.cosmichunter.R
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import alexrnov.cosmichunter.Initialization.TAG
-import alexrnov.cosmichunter.utils.getScreenSizeWithNavBar
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
 import android.os.Build
+import android.util.Log
 import android.view.ViewTreeObserver
-
+import alexrnov.cosmichunter.Initialization.TAG
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
@@ -45,37 +43,45 @@ class AboutGameActivity: AppCompatActivity() {
           @Suppress("DEPRECATION")
           musicText?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
         }
-        animationViews(middleWidth)
+        animationViews()
       }
     })
   }
 
-  private fun animationViews(middleWidth: Int) {
-    val animation = ValueAnimator.ofFloat(0f, middleWidth - halfView(musicText))
-    animation.duration = 150
-    animation.addUpdateListener { updateAnimation ->
-      musicText?.translationX = updateAnimation.animatedValue as Float
-    }
+  private fun animationViews() {
+    val d = 300L
+    val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
+    animationMusicText.duration = d
+    animationMusicText.addUpdateListener { musicText?.translationX = it.animatedValue as Float }
 
-    val animation2 = ValueAnimator.ofFloat(0f, middleWidth - halfView(textureText))
-    animation2.duration = 150
-    animation2.addUpdateListener { updateAnimation ->
-      textureText?.translationX = updateAnimation.animatedValue as Float
-    }
+    val animationMusicLink = ValueAnimator.ofFloat(0f, halfView(musicLink))
+    animationMusicLink.duration = d
+    animationMusicLink.addUpdateListener { musicLink?.translationX = - (it.animatedValue as Float) }
 
-    val animation3 = ValueAnimator.ofFloat(0f, middleWidth - halfView(blenderText))
-    animation3.duration = 150
-    animation3.addUpdateListener { updateAnimation ->
-      blenderText?.translationX = updateAnimation.animatedValue as Float
-    }
+    val animationTextureText = ValueAnimator.ofFloat(0f, halfView(textureText))
+    animationTextureText.duration = d
+    animationTextureText.addUpdateListener { textureText?.translationX = it.animatedValue as Float }
+
+    val animationTextureLink = ValueAnimator.ofFloat(0f, halfView(textureLink))
+    animationTextureLink.duration = d
+    animationTextureLink.addUpdateListener { textureLink?.translationX = - (it.animatedValue as Float) }
+
+    val animationBlenderText = ValueAnimator.ofFloat(0f, halfView(blenderText))
+    animationBlenderText.duration = d
+    animationBlenderText.addUpdateListener { blenderText?.translationX = it.animatedValue as Float }
+
+    val animationBlenderLink = ValueAnimator.ofFloat(0f, halfView(blenderLink))
+    animationBlenderLink.duration = d
+    animationBlenderLink.addUpdateListener { blenderLink?.translationX = - (it.animatedValue as Float) }
 
     val animatorSet = AnimatorSet()
-    animatorSet.play(animation).before(animation2)
-    animatorSet.play(animation3).after(animation2)
+    animatorSet.play(animationMusicText).with(animationMusicLink)
+    animatorSet.play(animationMusicText).before(animationTextureText)
+    animatorSet.play(animationTextureText).with(animationTextureLink)
+    animatorSet.play(animationBlenderText).after(animationTextureText)
+    animatorSet.play(animationBlenderText).with(animationBlenderLink)
     animatorSet.start()
-    //animation.start()
-    //animation2.start()
   }
 
-  private fun halfView(view: TextView?) = ((view?.width ?: 0).toFloat() / 2)
+  private fun halfView(view: TextView?) = middleWidth - ((view?.width ?: 0).toFloat() / 2)
 }
