@@ -74,6 +74,11 @@ class MainActivity : AppCompatActivity() {
     startActivity(intent)
   }
 
+  fun aboutGame(view: View) {
+    val intent = Intent(this, AboutGameActivity::class.java)
+    startActivity(intent)
+  }
+
   fun exitFromApplication(view: View) = backToHome() // выйти из приложения
 
   /*

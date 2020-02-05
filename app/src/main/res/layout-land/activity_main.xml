@@ -117,6 +117,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_button_shape"
+                android:onClick="aboutGame"
                 android:paddingStart="0dp"
                 android:paddingLeft="0dp"
                 android:paddingTop="15dp"

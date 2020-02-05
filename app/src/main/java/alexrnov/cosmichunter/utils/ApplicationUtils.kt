@@ -20,7 +20,9 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import org.jetbrains.annotations.NotNull
+import android.view.WindowManager
+import android.content.res.Configuration
+
 
 /*
 interface CosmicRenderer : GLSurfaceView.Renderer {
@@ -34,23 +36,24 @@ interface CosmicRenderer : GLSurfaceView.Renderer {
 
 /** Вывест на экран информацию по размерам экрана (в единицах dp) */
 @SuppressLint("ObsoleteSdkInt")
-fun printDPSizeScreen(activity: AppCompatActivity) {
-  fun getScreenSizes(): Pair<Int, Int> {
+fun printDPSizeScreen(activity: AppCompatActivity): Pair<Int, Int> {
     val display = activity.windowManager.defaultDisplay
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
       val size = Point()
       display.getSize(size) // was introduced in Level API 13 and height
       Pair(size.x, size.y)
-    } else @Suppress("DEPRECATION") Pair(display.width, display.height)
-  }
-  val (width, height) = getScreenSizes()
-  val displayMetrics = activity.resources.displayMetrics
+    } else {
+      @Suppress("DEPRECATION")
+      Pair(display.width, display.height)
+    }
+  //val (width, height) = getScreenSizes()
+  // val displayMetrics = activity.resources.displayMetrics
   // логическая плотность дисплея. Это мастштабирующий фактор, независящий
   // от плотности пикселей (added in API Level 1)
-  val density:Float = displayMetrics.density
-  val dpWidth: Float = width / density
-  val dpHeight: Float = height / density
-  Log.i(TAG, "density = $density, width = $width, height = $height, dpWidth = $dpWidth, dpHeight = $dpHeight")
+  //val density: Float = displayMetrics.density
+  //val dpWidth: Float = width / density
+  //val dpHeight: Float = height / density
+  //Log.i(TAG, "density = $density, width = $width, height = $height, dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
 
 /**
@@ -111,4 +114,40 @@ fun showCustomToast(activity: Activity, message: CharSequence) {
   toast.duration = Toast.LENGTH_SHORT
   toast.view = layout
   toast.show()
+}
+
+
+fun getScreenSize(context: Context) {
+  val x: Int
+  val y: Int
+  val orientation = context.resources.configuration.orientation
+  val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+  val display = wm.defaultDisplay
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+    val screenSize = Point()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      display.getRealSize(screenSize)
+      x = screenSize.x
+      y = screenSize.y
+    } else {
+      display.getSize(screenSize)
+      x = screenSize.x
+      y = screenSize.y
+    }
+  } else {
+    x = display.width
+    y = display.height
+  }
+
+  val width = getWidth(x, y, orientation)
+  val height = getHeight(x, y, orientation)
+  Log.i(TAG, "getScreenSize: width = $width, height = $height")
+}
+
+private fun getWidth(x: Int, y: Int, orientation: Int): Int {
+  return if (orientation == Configuration.ORIENTATION_PORTRAIT) x else y
+}
+
+private fun getHeight(x: Int, y: Int, orientation: Int): Int {
+  return if (orientation == Configuration.ORIENTATION_PORTRAIT) y else x
 }
