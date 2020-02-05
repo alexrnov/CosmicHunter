@@ -15,67 +15,58 @@ import android.view.ViewTreeObserver
 
 
 class AboutGameActivity: AppCompatActivity() {
-  private var textView: TextView? = null
-  private var textView2: TextView? = null
-  private var textView3: TextView? = null
+  private var musicText: TextView? = null
+  private var musicLink: TextView? = null
+  private var textureText: TextView? = null
+  private var textureLink: TextView? = null
+  private var blenderText: TextView? = null
+  private var blenderLink: TextView? = null
+
   private var middleWidth: Int = 0
 
   override fun onCreate(bundle: Bundle?) {
     super.onCreate(bundle)
     setContentView(R.layout.activity_about)
-    textView = findViewById(R.id.textView_about)
-    textView2 = findViewById(R.id.textView_about2)
-    textView3 = findViewById(R.id.textView_about3)
-
+    musicText = findViewById(R.id.musicText)
+    musicLink = findViewById(R.id.musicLink)
+    textureText = findViewById(R.id.textureText)
+    textureLink = findViewById(R.id.textureLink)
+    blenderText = findViewById(R.id.blenderText)
+    blenderLink = findViewById(R.id.blenderLink)
     //getScreenSize(this.applicationContext)
-    val (width, height) = getScreenSizeWithoutNavBar(this)
-    val (width2, height2) = getScreenSizeWithNavBar(this.applicationContext)
+    val (width, _) = getScreenSizeWithoutNavBar(this)
     middleWidth = width / 2
-    //middleWidth = height2 / 2
-    Log.i(TAG, "width = $width, width2 = $height2")
     //Log.i(TAG, "width = $width, height = $height, middleWidth = $middleWidth")
-    textView3?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+    blenderText?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
       override fun onGlobalLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-          Log.i(TAG, "onGlobalLayout 1")
-          textView?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+          musicText?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
         } else {
-          Log.i(TAG, "onGlobalLayout 2")
           @Suppress("DEPRECATION")
-          textView?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
+          musicText?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
         }
-
-        var w1 = textView?.width //height is ready
-        //Log.i(TAG, "w2 = $w")
-        var w2 = textView2?.width
-        //Log.i(TAG, "w3 = $w")
-        var w3 = textView3?.width
-        //Log.i(TAG, "w4 = $w")
-
-        animationViews(middleWidth, w1!!, w2!!, w3!!)
+        animationViews(middleWidth)
       }
     })
   }
 
-  private fun animationViews(middleWidth: Int, w1: Int, w2: Int, w3: Int) {
-
-    val animation: ValueAnimator = ValueAnimator.ofFloat(0f, middleWidth - (w1.toFloat() / 2))
+  private fun animationViews(middleWidth: Int) {
+    val animation = ValueAnimator.ofFloat(0f, middleWidth - halfView(musicText))
     animation.duration = 150
     animation.addUpdateListener { updateAnimation ->
-      textView?.translationX = updateAnimation.animatedValue as Float
+      musicText?.translationX = updateAnimation.animatedValue as Float
     }
 
-
-    val animation2: ValueAnimator = ValueAnimator.ofFloat(0f, middleWidth - (w2.toFloat() / 2))
+    val animation2 = ValueAnimator.ofFloat(0f, middleWidth - halfView(textureText))
     animation2.duration = 150
     animation2.addUpdateListener { updateAnimation ->
-      textView2?.translationX = updateAnimation.animatedValue as Float
+      textureText?.translationX = updateAnimation.animatedValue as Float
     }
 
-    val animation3: ValueAnimator = ValueAnimator.ofFloat(0f, middleWidth - (w3.toFloat() / 2))
+    val animation3 = ValueAnimator.ofFloat(0f, middleWidth - halfView(blenderText))
     animation3.duration = 150
     animation3.addUpdateListener { updateAnimation ->
-      textView3?.translationX = updateAnimation.animatedValue as Float
+      blenderText?.translationX = updateAnimation.animatedValue as Float
     }
 
     val animatorSet = AnimatorSet()
@@ -85,4 +76,6 @@ class AboutGameActivity: AppCompatActivity() {
     //animation.start()
     //animation2.start()
   }
+
+  private fun halfView(view: TextView?) = ((view?.width ?: 0).toFloat() / 2)
 }
