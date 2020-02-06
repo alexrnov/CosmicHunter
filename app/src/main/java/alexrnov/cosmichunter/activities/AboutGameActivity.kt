@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.view.ViewTreeObserver
 
@@ -22,6 +23,9 @@ class AboutGameActivity: AppCompatActivity() {
 
   override fun onCreate(bundle: Bundle?) {
     super.onCreate(bundle)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
     setContentView(R.layout.activity_about)
     musicText = findViewById(R.id.musicText)
     musicLink = findViewById(R.id.musicLink)
@@ -47,7 +51,6 @@ class AboutGameActivity: AppCompatActivity() {
   }
 
   private fun animationViews(d: Long = 270) {
-    //val d = 270L
     val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
     animationMusicText.duration = d
     animationMusicText.addUpdateListener { musicText?.translationX = it.animatedValue as Float }
@@ -95,13 +98,14 @@ class AboutGameActivity: AppCompatActivity() {
 
     val animatorSet = AnimatorSet()
     animatorSet.play(animationMusicText).with(animationMusicLink)
-    animatorSet.play(animationMusicText).with(alphaMusic)
+    animatorSet.playTogether(animationMusicText, alphaMusic)
     animatorSet.play(animationMusicText).before(animationTextureText)
     animatorSet.play(animationTextureText).with(animationTextureLink)
-    animatorSet.play(animationTextureText).with(alphaTexture)
+    animatorSet.playTogether(animationTextureText, alphaTexture)
     animatorSet.play(animationBlenderText).after(animationTextureText)
     animatorSet.play(animationBlenderText).with(animationBlenderLink)
-    animatorSet.play(animationBlenderText).with(alphaBlender)
+    animatorSet.playTogether(animationBlenderText, alphaBlender)
+
     animatorSet.start()
   }
 

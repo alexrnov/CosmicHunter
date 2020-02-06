@@ -41,7 +41,6 @@ public class ExplosionSound {
         player.start();
       }
     });
-
   }
 
   /** Освобождает ресурсы для плеера (музыка останавливается) */

@@ -259,8 +259,7 @@ public class Initialization extends Application {
   private static void spotStartVolumeLevel(AudioManager am) {
     if (am != null) {
       //Уровень громкости в приложении - в два раза больше чем в системе.
-      //Если в системе звук отключен - то и в приложении при старте
-      //не будет звука.
+      //Если в системе звук отключен - то и в приложении при старте не будет звука.
       int volumeLevel = am.getStreamVolume(AudioManager.STREAM_SYSTEM) * 2;
       am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeLevel, 0);
     }

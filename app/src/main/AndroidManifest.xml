@@ -132,7 +132,6 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         <activity android:name=".activities.AboutGameActivity"
             android:theme="@style/AppTheme.Dialog"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             tools:ignore="UnusedAttribute">
             <meta-data
