@@ -47,7 +47,7 @@ public class ExplosionSound {
   /** Освобождает ресурсы для плеера (музыка останавливается) */
   public static void freeResourcesForPlayer() {
     if (player != null) {
-      player.release();//освободить системные ресурсы, выделенные для плеера
+      player.release(); // освободить системные ресурсы, выделенные для плеера
       player = null;
     }
   }
