@@ -199,7 +199,7 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onStart()");
     super.onStart();
     checkMusicForStartGameActivity(this);
-
+    //gun(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
     if (dialogWasOpen) {
       startActivity(new Intent(this, DialogCancelActivity.class));

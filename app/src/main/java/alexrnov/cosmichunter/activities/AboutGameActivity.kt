@@ -46,8 +46,8 @@ class AboutGameActivity: AppCompatActivity() {
     })
   }
 
-  private fun animationViews() {
-    val d = 270L
+  private fun animationViews(d: Long = 270) {
+    //val d = 270L
     val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
     animationMusicText.duration = d
     animationMusicText.addUpdateListener { musicText?.translationX = it.animatedValue as Float }
@@ -55,6 +55,13 @@ class AboutGameActivity: AppCompatActivity() {
     val animationMusicLink = ValueAnimator.ofFloat(0f, halfView(musicLink))
     animationMusicLink.duration = d
     animationMusicLink.addUpdateListener { musicLink?.translationX = - (it.animatedValue as Float) }
+
+    val alphaMusic = ValueAnimator.ofFloat(0f, 1f)
+    alphaMusic.duration = d
+    alphaMusic.addUpdateListener {
+      musicText?.alpha = it.animatedValue as Float
+      musicLink?.alpha = it.animatedValue as Float
+    }
 
     val animationTextureText = ValueAnimator.ofFloat(0f, halfView(textureText))
     animationTextureText.duration = d
@@ -64,6 +71,13 @@ class AboutGameActivity: AppCompatActivity() {
     animationTextureLink.duration = d
     animationTextureLink.addUpdateListener { textureLink?.translationX = - (it.animatedValue as Float) }
 
+    val alphaTexture = ValueAnimator.ofFloat(0f, 1f)
+    alphaTexture.duration = d
+    alphaTexture.addUpdateListener {
+      textureText?.alpha = it.animatedValue as Float
+      textureLink?.alpha = it.animatedValue as Float
+    }
+
     val animationBlenderText = ValueAnimator.ofFloat(0f, halfView(blenderText))
     animationBlenderText.duration = d
     animationBlenderText.addUpdateListener { blenderText?.translationX = it.animatedValue as Float }
@@ -72,12 +86,22 @@ class AboutGameActivity: AppCompatActivity() {
     animationBlenderLink.duration = d
     animationBlenderLink.addUpdateListener { blenderLink?.translationX = - (it.animatedValue as Float) }
 
+    val alphaBlender = ValueAnimator.ofFloat(0f, 1f)
+    alphaBlender.duration = d
+    alphaBlender.addUpdateListener {
+      blenderText?.alpha = it.animatedValue as Float
+      blenderLink?.alpha = it.animatedValue as Float
+    }
+
     val animatorSet = AnimatorSet()
     animatorSet.play(animationMusicText).with(animationMusicLink)
+    animatorSet.play(animationMusicText).with(alphaMusic)
     animatorSet.play(animationMusicText).before(animationTextureText)
     animatorSet.play(animationTextureText).with(animationTextureLink)
+    animatorSet.play(animationTextureText).with(alphaTexture)
     animatorSet.play(animationBlenderText).after(animationTextureText)
     animatorSet.play(animationBlenderText).with(animationBlenderLink)
+    animatorSet.play(animationBlenderText).with(alphaBlender)
     animatorSet.start()
   }
 
