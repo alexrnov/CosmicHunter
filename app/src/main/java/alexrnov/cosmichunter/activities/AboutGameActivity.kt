@@ -9,13 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
 import android.content.pm.ActivityInfo
 import android.os.Build
+import android.util.Log
 import android.view.ViewTreeObserver
+import alexrnov.cosmichunter.Initialization.TAG
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
   private var musicLink: TextView? = null
+  private var soundText: TextView? = null
+  private var soundLink: TextView? = null
   private var textureText: TextView? = null
   private var textureLink: TextView? = null
+  private var pictureText: TextView? = null
+  private var pictureLink: TextView? = null
   private var blenderText: TextView? = null
   private var blenderLink: TextView? = null
 
@@ -32,8 +38,12 @@ class AboutGameActivity: AppCompatActivity() {
     setContentView(R.layout.activity_about)
     musicText = findViewById(R.id.musicText)
     musicLink = findViewById(R.id.musicLink)
+    soundText = findViewById(R.id.soundText)
+    soundLink = findViewById(R.id.soundLink)
     textureText = findViewById(R.id.textureText)
     textureLink = findViewById(R.id.textureLink)
+    pictureText = findViewById(R.id.pictureText)
+    pictureLink = findViewById(R.id.pictureLink)
     blenderText = findViewById(R.id.blenderText)
     blenderLink = findViewById(R.id.blenderLink)
     val (width, _) = getScreenSizeWithoutNavBar(this)
@@ -41,10 +51,10 @@ class AboutGameActivity: AppCompatActivity() {
     blenderLink?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
       override fun onGlobalLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-          blenderText?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+          blenderLink?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
         } else {
           @Suppress("DEPRECATION")
-          blenderText?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
+          blenderLink?.viewTreeObserver?.removeGlobalOnLayoutListener(this)
         }
         animationViews()
       }
@@ -54,17 +64,37 @@ class AboutGameActivity: AppCompatActivity() {
   private fun animationViews(d: Long = 270) {
     val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
     animationMusicText.duration = d
-    animationMusicText.addUpdateListener { musicText?.translationX = it.animatedValue as Float }
+    animationMusicText.addUpdateListener {
+      musicText?.translationX = it.animatedValue as Float
+    }
 
     val animationMusicLink = ValueAnimator.ofFloat(0f, halfView(musicLink))
     animationMusicLink.duration = d
-    animationMusicLink.addUpdateListener { musicLink?.translationX = - (it.animatedValue as Float) }
+    animationMusicLink.addUpdateListener {
+      musicLink?.translationX = - (it.animatedValue as Float)
+      println()
+    }
 
     val alphaMusic = ValueAnimator.ofFloat(0f, 1f)
     alphaMusic.duration = d
     alphaMusic.addUpdateListener {
       musicText?.alpha = it.animatedValue as Float
       musicLink?.alpha = it.animatedValue as Float
+    }
+
+    val animationSoundText = ValueAnimator.ofFloat(0f, halfView(soundText))
+    animationSoundText.duration = d
+    animationSoundText.addUpdateListener { soundText?.translationX = it.animatedValue as Float }
+
+    val animationSoundLink = ValueAnimator.ofFloat(0f, halfView(soundLink))
+    animationSoundLink.duration = d
+    animationSoundLink.addUpdateListener { soundLink?.translationX = - (it.animatedValue as Float) }
+
+    val alphaSound = ValueAnimator.ofFloat(0f, 1f)
+    alphaSound.duration = d
+    alphaSound.addUpdateListener {
+      soundText?.alpha = it.animatedValue as Float
+      soundLink?.alpha = it.animatedValue as Float
     }
 
     val animationTextureText = ValueAnimator.ofFloat(0f, halfView(textureText))
@@ -80,6 +110,22 @@ class AboutGameActivity: AppCompatActivity() {
     alphaTexture.addUpdateListener {
       textureText?.alpha = it.animatedValue as Float
       textureLink?.alpha = it.animatedValue as Float
+    }
+
+
+    val animationPictureText = ValueAnimator.ofFloat(0f, halfView(pictureText))
+    animationPictureText.duration = d
+    animationPictureText.addUpdateListener { pictureText?.translationX = it.animatedValue as Float }
+
+    val animationPictureLink = ValueAnimator.ofFloat(0f, halfView(pictureLink))
+    animationPictureLink.duration = d
+    animationPictureLink.addUpdateListener { pictureLink?.translationX = - (it.animatedValue as Float) }
+
+    val alphaPicture = ValueAnimator.ofFloat(0f, 1f)
+    alphaPicture.duration = d
+    alphaPicture.addUpdateListener {
+      pictureText?.alpha = it.animatedValue as Float
+      pictureLink?.alpha = it.animatedValue as Float
     }
 
     val animationBlenderText = ValueAnimator.ofFloat(0f, halfView(blenderText))
@@ -100,10 +146,21 @@ class AboutGameActivity: AppCompatActivity() {
     val animatorSet = AnimatorSet()
     animatorSet.play(animationMusicText).with(animationMusicLink)
     animatorSet.playTogether(animationMusicText, alphaMusic)
-    animatorSet.play(animationMusicText).before(animationTextureText)
+    animatorSet.play(animationMusicText).before(animationSoundText)
+
+    animatorSet.play(animationSoundText).with(animationSoundLink)
+    animatorSet.playTogether(animationSoundText, alphaSound)
+
+    animatorSet.play(animationTextureText).after(animationSoundText)
     animatorSet.play(animationTextureText).with(animationTextureLink)
     animatorSet.playTogether(animationTextureText, alphaTexture)
-    animatorSet.play(animationBlenderText).after(animationTextureText)
+
+
+    animatorSet.play(animationPictureText).after(animationTextureText)
+    animatorSet.play(animationPictureText).with(animationPictureLink)
+    animatorSet.playTogether(animationPictureText, alphaPicture)
+
+    animatorSet.play(animationBlenderText).after(animationPictureText)
     animatorSet.play(animationBlenderText).with(animationBlenderLink)
     animatorSet.playTogether(animationBlenderText, alphaBlender)
 

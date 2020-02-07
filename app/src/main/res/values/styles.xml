@@ -28,13 +28,13 @@
     </style>
 
     <style name="TextAboutGame" parent="@android:style/TextAppearance">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">#585858</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="LinkAboutGame" parent="@android:style/TextAppearance">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">italic|bold</item>
     </style>
 
