@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
 import android.content.pm.ActivityInfo
 import android.os.Build
-import android.view.ViewTreeObserver
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
@@ -24,6 +23,7 @@ class AboutGameActivity: AppCompatActivity() {
   private var blenderLink: TextView? = null
 
   private var middleWidth: Int = 0
+  private val duration = 270L
 
   override fun onCreate(bundle: Bundle?) {
     super.onCreate(bundle)
@@ -46,6 +46,14 @@ class AboutGameActivity: AppCompatActivity() {
     blenderLink = findViewById(R.id.blenderLink)
     val (width, _) = getScreenSizeWithoutNavBar(this)
     middleWidth = width / 2
+
+    /**
+     * Провести анимацию после измерения и отображения на экране.
+     * После этого, можно измерять размеры самих элементов интерфейса.
+     */
+    blenderLink?.post { animationViews() }
+    //  Метод post используется вместо подхода с viewTreeObserver, который приведен ниже
+    /*
     blenderLink?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
       override fun onGlobalLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -57,103 +65,63 @@ class AboutGameActivity: AppCompatActivity() {
         animationViews()
       }
     })
+    */
   }
 
-  private fun animationViews(d: Long = 270) {
-    val animationMusicText = moveRightToCenter(musicText)
+  private fun animationViews() {
+    val animationMusicText = moveToCenter(musicText, true)
+    val animationMusicLink = moveToCenter(musicLink, false)
+    val animationSoundText = moveToCenter(soundText, true)
+    val animationSoundLink = moveToCenter(soundLink, false)
+    val animationTextureText = moveToCenter(textureText, true)
+    val animationTextureLink = moveToCenter(textureLink, false)
+    val animationPictureText = moveToCenter(pictureText, true)
+    val animationPictureLink = moveToCenter(pictureLink, false)
+    val animationBlenderText = moveToCenter(blenderText, true)
+    val animationBlenderLink = moveToCenter(blenderLink, false)
 
-    val animationMusicLink = ValueAnimator.ofFloat(0f, halfView(musicLink))
-    animationMusicLink.duration = d
-    animationMusicLink.addUpdateListener {
-      musicLink?.translationX = - (it.animatedValue as Float)
-    }
-
-    val alphaMusic = ValueAnimator.ofFloat(0f, 1f)
-    alphaMusic.duration = d
-    alphaMusic.addUpdateListener {
-      musicText?.alpha = it.animatedValue as Float
-      musicLink?.alpha = it.animatedValue as Float
-    }
-
-    val animationSoundText = moveRightToCenter(soundText)
-    val animationSoundLink = ValueAnimator.ofFloat(0f, halfView(soundLink))
-    animationSoundLink.duration = d
-    animationSoundLink.addUpdateListener { soundLink?.translationX = - (it.animatedValue as Float) }
-
-    val alphaSound = ValueAnimator.ofFloat(0f, 1f)
-    alphaSound.duration = d
-    alphaSound.addUpdateListener {
-      soundText?.alpha = it.animatedValue as Float
-      soundLink?.alpha = it.animatedValue as Float
-    }
-
-    val animationTextureText = moveRightToCenter(textureText)
-    val animationTextureLink = ValueAnimator.ofFloat(0f, halfView(textureLink))
-    animationTextureLink.duration = d
-    animationTextureLink.addUpdateListener { textureLink?.translationX = - (it.animatedValue as Float) }
-
-    val alphaTexture = ValueAnimator.ofFloat(0f, 1f)
-    alphaTexture.duration = d
-    alphaTexture.addUpdateListener {
-      textureText?.alpha = it.animatedValue as Float
-      textureLink?.alpha = it.animatedValue as Float
-    }
-
-
-    val animationPictureText = moveRightToCenter(pictureText)
-    val animationPictureLink = ValueAnimator.ofFloat(0f, halfView(pictureLink))
-    animationPictureLink.duration = d
-    animationPictureLink.addUpdateListener { pictureLink?.translationX = - (it.animatedValue as Float) }
-
-    val alphaPicture = ValueAnimator.ofFloat(0f, 1f)
-    alphaPicture.duration = d
-    alphaPicture.addUpdateListener {
-      pictureText?.alpha = it.animatedValue as Float
-      pictureLink?.alpha = it.animatedValue as Float
-    }
-
-    val animationBlenderText = moveRightToCenter(blenderText)
-    val animationBlenderLink = ValueAnimator.ofFloat(0f, halfView(blenderLink))
-    animationBlenderLink.duration = d
-    animationBlenderLink.addUpdateListener { blenderLink?.translationX = - (it.animatedValue as Float) }
-
-    val alphaBlender = ValueAnimator.ofFloat(0f, 1f)
-    alphaBlender.duration = d
-    alphaBlender.addUpdateListener {
-      blenderText?.alpha = it.animatedValue as Float
-      blenderLink?.alpha = it.animatedValue as Float
-    }
-
-    val animatorSet = AnimatorSet()
+    val animatorSet = AnimatorSet() // задать порядок анимации
     animatorSet.play(animationMusicText).with(animationMusicLink)
-    animatorSet.playTogether(animationMusicText, alphaMusic)
+    animatorSet.playTogether(animationMusicText, alphaForGroup(musicText, musicLink))
     animatorSet.play(animationMusicText).before(animationSoundText)
 
     animatorSet.play(animationSoundText).with(animationSoundLink)
-    animatorSet.playTogether(animationSoundText, alphaSound)
+    animatorSet.playTogether(animationSoundText, alphaForGroup(soundText, soundLink))
 
     animatorSet.play(animationTextureText).after(animationSoundText)
     animatorSet.play(animationTextureText).with(animationTextureLink)
-    animatorSet.playTogether(animationTextureText, alphaTexture)
-
+    animatorSet.playTogether(animationTextureText, alphaForGroup(textureText, textureLink))
 
     animatorSet.play(animationPictureText).after(animationTextureText)
     animatorSet.play(animationPictureText).with(animationPictureLink)
-    animatorSet.playTogether(animationPictureText, alphaPicture)
+    animatorSet.playTogether(animationPictureText, alphaForGroup(pictureText, pictureLink))
 
     animatorSet.play(animationBlenderText).after(animationPictureText)
     animatorSet.play(animationBlenderText).with(animationBlenderLink)
-    animatorSet.playTogether(animationBlenderText, alphaBlender)
+    animatorSet.playTogether(animationBlenderText, alphaForGroup(blenderText, blenderLink))
 
     animatorSet.start()
   }
 
-  private fun moveRightToCenter(textView: TextView?): ValueAnimator {
+  private fun moveToCenter(textView: TextView?, direct: Boolean): ValueAnimator {
+    fun halfView(view: TextView?) = middleWidth - ((view?.width ?: 0).toFloat() / 2)
     val animation = ValueAnimator.ofFloat(0f, halfView(textView))
-    animation.duration = 270L
-    animation.addUpdateListener { textView?.translationX = it.animatedValue as Float }
+    animation.duration = duration
+    if (direct) { // направление движения справа налево
+      animation.addUpdateListener { textView?.translationX = it.animatedValue as Float }
+    } else { // направление движения слева направо
+      animation.addUpdateListener { textView?.translationX = - (it.animatedValue as Float) }
+    }
     return animation
   }
 
-  private fun halfView(view: TextView?) = middleWidth - ((view?.width ?: 0).toFloat() / 2)
+  private fun alphaForGroup(textView1: TextView?, textView2: TextView?): ValueAnimator {
+    val alpha = ValueAnimator.ofFloat(0f, 1f) // прозрачность от 0 до 100 %
+    alpha.duration = duration
+    alpha.addUpdateListener {
+      textView1?.alpha = it.animatedValue as Float
+      textView2?.alpha = it.animatedValue as Float
+    }
+    return alpha
+  }
 }
