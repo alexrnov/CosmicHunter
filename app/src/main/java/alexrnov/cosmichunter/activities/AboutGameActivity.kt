@@ -23,6 +23,9 @@ class AboutGameActivity: AppCompatActivity() {
 
   override fun onCreate(bundle: Bundle?) {
     super.onCreate(bundle)
+    // в манифесте не указывается ориентация для этого активити, что бы
+    // не было ощибки illegalstateexception-only-fullscreen-opaque-activities-can-reques
+    // в версиях Oreo и более поздних. Вместо этого ориентация указывается в коде
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
@@ -33,10 +36,8 @@ class AboutGameActivity: AppCompatActivity() {
     textureLink = findViewById(R.id.textureLink)
     blenderText = findViewById(R.id.blenderText)
     blenderLink = findViewById(R.id.blenderLink)
-    //getScreenSize(this.applicationContext)
     val (width, _) = getScreenSizeWithoutNavBar(this)
     middleWidth = width / 2
-    //Log.i(TAG, "width = $width, height = $height, middleWidth = $middleWidth")
     blenderLink?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
       override fun onGlobalLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

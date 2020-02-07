@@ -129,6 +129,8 @@ these attributes so there is no effect on your APK size or runtime behavior -->
             android:theme="@style/AppTheme.Dialog">
         </activity>
 
+        <!-- screen orientation is determined in code so that there is no mistake:
+        illegalstateexception: only full screen opaque activities can request in Oreo and last versions -->
         <activity android:name=".activities.AboutGameActivity"
             android:theme="@style/AppTheme.Dialog"
             android:parentActivityName=".activities.MainActivity"
