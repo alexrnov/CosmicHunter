@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
 import android.content.pm.ActivityInfo
 import android.os.Build
-import android.util.Log
 import android.view.ViewTreeObserver
-import alexrnov.cosmichunter.Initialization.TAG
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
@@ -62,17 +60,12 @@ class AboutGameActivity: AppCompatActivity() {
   }
 
   private fun animationViews(d: Long = 270) {
-    val animationMusicText = ValueAnimator.ofFloat(0f, halfView(musicText))
-    animationMusicText.duration = d
-    animationMusicText.addUpdateListener {
-      musicText?.translationX = it.animatedValue as Float
-    }
+    val animationMusicText = moveRightToCenter(musicText)
 
     val animationMusicLink = ValueAnimator.ofFloat(0f, halfView(musicLink))
     animationMusicLink.duration = d
     animationMusicLink.addUpdateListener {
       musicLink?.translationX = - (it.animatedValue as Float)
-      println()
     }
 
     val alphaMusic = ValueAnimator.ofFloat(0f, 1f)
@@ -82,10 +75,7 @@ class AboutGameActivity: AppCompatActivity() {
       musicLink?.alpha = it.animatedValue as Float
     }
 
-    val animationSoundText = ValueAnimator.ofFloat(0f, halfView(soundText))
-    animationSoundText.duration = d
-    animationSoundText.addUpdateListener { soundText?.translationX = it.animatedValue as Float }
-
+    val animationSoundText = moveRightToCenter(soundText)
     val animationSoundLink = ValueAnimator.ofFloat(0f, halfView(soundLink))
     animationSoundLink.duration = d
     animationSoundLink.addUpdateListener { soundLink?.translationX = - (it.animatedValue as Float) }
@@ -97,10 +87,7 @@ class AboutGameActivity: AppCompatActivity() {
       soundLink?.alpha = it.animatedValue as Float
     }
 
-    val animationTextureText = ValueAnimator.ofFloat(0f, halfView(textureText))
-    animationTextureText.duration = d
-    animationTextureText.addUpdateListener { textureText?.translationX = it.animatedValue as Float }
-
+    val animationTextureText = moveRightToCenter(textureText)
     val animationTextureLink = ValueAnimator.ofFloat(0f, halfView(textureLink))
     animationTextureLink.duration = d
     animationTextureLink.addUpdateListener { textureLink?.translationX = - (it.animatedValue as Float) }
@@ -113,10 +100,7 @@ class AboutGameActivity: AppCompatActivity() {
     }
 
 
-    val animationPictureText = ValueAnimator.ofFloat(0f, halfView(pictureText))
-    animationPictureText.duration = d
-    animationPictureText.addUpdateListener { pictureText?.translationX = it.animatedValue as Float }
-
+    val animationPictureText = moveRightToCenter(pictureText)
     val animationPictureLink = ValueAnimator.ofFloat(0f, halfView(pictureLink))
     animationPictureLink.duration = d
     animationPictureLink.addUpdateListener { pictureLink?.translationX = - (it.animatedValue as Float) }
@@ -128,10 +112,7 @@ class AboutGameActivity: AppCompatActivity() {
       pictureLink?.alpha = it.animatedValue as Float
     }
 
-    val animationBlenderText = ValueAnimator.ofFloat(0f, halfView(blenderText))
-    animationBlenderText.duration = d
-    animationBlenderText.addUpdateListener { blenderText?.translationX = it.animatedValue as Float }
-
+    val animationBlenderText = moveRightToCenter(blenderText)
     val animationBlenderLink = ValueAnimator.ofFloat(0f, halfView(blenderLink))
     animationBlenderLink.duration = d
     animationBlenderLink.addUpdateListener { blenderLink?.translationX = - (it.animatedValue as Float) }
@@ -165,6 +146,13 @@ class AboutGameActivity: AppCompatActivity() {
     animatorSet.playTogether(animationBlenderText, alphaBlender)
 
     animatorSet.start()
+  }
+
+  private fun moveRightToCenter(textView: TextView?): ValueAnimator {
+    val animation = ValueAnimator.ofFloat(0f, halfView(textView))
+    animation.duration = 270L
+    animation.addUpdateListener { textView?.translationX = it.animatedValue as Float }
+    return animation
   }
 
   private fun halfView(view: TextView?) = middleWidth - ((view?.width ?: 0).toFloat() / 2)
