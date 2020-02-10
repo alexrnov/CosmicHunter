@@ -79,4 +79,6 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
    * освещения в вершинном щейдере)
    */
   fun getMVMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(modelViewMatrix)
+
+  fun getVMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(viewMatrix)
 }

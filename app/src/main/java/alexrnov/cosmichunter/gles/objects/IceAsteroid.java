@@ -20,6 +20,8 @@ public class IceAsteroid extends Object3D implements Asteroid {
   private final int mvpMatrixLink;
   // ссылка на переменную вершинного шейдера, содержащую модельно-видовую матрицу
   private final int mvMatrixLink;
+  // ссылка на преременную вершинного шейдера, содержащую модельную матрицу
+  private final int vMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
   // ссылка на переменную вершинного шейдера, содержащую вектор цвета
@@ -87,6 +89,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
+    vMatrixLink = GLES20.glGetUniformLocation(programObject, "u_vMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     textureID = loadTextureFromRaw(context, R.raw.ice_texture); //загрузить текстуру
@@ -109,7 +112,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
 
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
-            mvMatrixLink + "; s_texture id: " + samplerLink +
+            mvMatrixLink + "; u_vMatrix id: " + vMatrixLink + "; s_texture id: " + samplerLink +
             "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
@@ -198,11 +201,11 @@ public class IceAsteroid extends Object3D implements Asteroid {
     // окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.1f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 0.8f); // 50
     GLES20.glUniform1f(alphaLink, 0.7f); // коэффициент прозрачности
     /*
      * Источник света движется за кубом, поэтому куб освещается
@@ -232,6 +235,9 @@ public class IceAsteroid extends Object3D implements Asteroid {
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
             view.getMVMatrixAsFloatBuffer());
+
+    GLES20.glUniformMatrix4fv(vMatrixLink, 1, false,
+            view.getVMatrixAsFloatBuffer());
 
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,

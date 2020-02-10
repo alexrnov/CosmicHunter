@@ -4,6 +4,7 @@
 precision lowp float; // низкая точность для всех переменных, основанных на типе float
 uniform mat4 u_mvpMatrix; // модельно-видо-проекционная матрица
 uniform mat4 u_mvMatrix; // модельно-видовая матрица
+uniform mat4 u_vMatrix;
 uniform vec3 u_lightPosition; // позиция источника света
 // атрибуты(переменные вершин) принимают значения, задаваемые для выводимых
 // вершин. Обычно атрибуты хранят такие данные, как положение, нормаль,
@@ -40,17 +41,15 @@ struct DiffuseLight { // структура для диффузного осве
 uniform AmbientLight u_ambientLight; // переменная для внешнего освещения
 uniform DiffuseLight u_diffuseLight; // переменная для диффузного освещения
 
+const vec3 lightVector = vec3(0.4, 0.0, -1.0); // вектор направленного освещения
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
+    // преобразовать ориентацию нормали в пространство глаза.
     vec3 modelViewNormal = vec3(u_mvMatrix * vec4(a_normal, 0.0));
-    vec3 modelViewVertex = vec3(u_mvMatrix * a_position);
-    // расчитать вектор света, вычитая из положения света положение объекта
-    vec3 lightVector = normalize(u_lightPosition - modelViewVertex);
-    float diffuse = max(dot(modelViewNormal, lightVector), 0.1);
-    float distance = length(u_lightPosition - modelViewVertex);
-    diffuse = diffuse * (1.0 / (1.0 + pow(distance, 2.0)));
-    // расчитать итоговый цвет для диффузного освещения
+    vec3 v = lightVector * mat3(u_vMatrix);
+    float diffuse = max(-dot(normalize(modelViewNormal), lightVector), 0.0);
+
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
     v_textureCoordinates = a_textureCoordinates;
