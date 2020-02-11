@@ -2,19 +2,14 @@ package alexrnov.cosmichunter.utils
 
 import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
-import alexrnov.cosmichunter.activities.GameActivity
-import alexrnov.cosmichunter.view.RocketView3D
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
-import android.opengl.GLES20
-import android.opengl.GLSurfaceView
 import android.os.Build
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -22,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.WindowManager
 import android.content.res.Configuration
+import android.util.Log
 
 /**
  * Получить размеры экрана не учитывая ширину навигационной панели.
@@ -33,19 +29,12 @@ fun getScreenSizeWithoutNavBar(activity: AppCompatActivity): Pair<Int, Int> {
   return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
     val size = Point()
     display.getSize(size) // was introduced in Level API 13 and height
+    printDensityScreen(activity, size.x, size.y)
     Pair(size.x, size.y)
   } else {
     @Suppress("DEPRECATION")
     Pair(display.width, display.height)
   }
-  /** Вывест на экран информацию по размерам экрана (в единицах dp) */
-  // val displayMetrics = activity.resources.displayMetrics
-  // логическая плотность дисплея. Это мастштабирующий фактор, независящий
-  // от плотности пикселей (added in API Level 1)
-  //val density: Float = displayMetrics.density
-  //val dpWidth: Float = width / density
-  //val dpHeight: Float = height / density
-  //Log.i(TAG, "density = $density, width = $width, height = $height, dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
 
 /**
@@ -137,4 +126,16 @@ private fun getWidth(x: Int, y: Int, orientation: Int): Int {
 
 private fun getHeight(x: Int, y: Int, orientation: Int): Int {
   return if (orientation == Configuration.ORIENTATION_PORTRAIT) y else x
+}
+
+/** Вывест на экран информацию по размерам экрана (в единицах dp) */
+private fun printDensityScreen(activity: AppCompatActivity, width: Int, height: Int) {
+  val displayMetrics = activity.resources.displayMetrics
+  // логическая плотность дисплея. Это мастштабирующий фактор,
+  // независящий от плотности пикселей (added in API Level 1)
+  val density: Float = displayMetrics.density
+  val dpWidth: Float = width / density
+  val dpHeight: Float = height / density
+  Log.i(TAG, "density = $density, width = $width, height = $height, " +
+          "dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
