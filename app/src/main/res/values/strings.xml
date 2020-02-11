@@ -5,6 +5,13 @@
     <string name="default_music" translatable="false">on</string>
     <string name="default_sound" translatable="false">on</string>
 
+    <!-- about game -->
+    <string name="music_link" translatable="false">https://www.purple-planet.com</string>
+    <string name="sound_link" translatable="false">https://www.opengameart.org</string>
+    <string name="textures_link" translatable="false">https://www.aduvan.ru</string>
+    <string name="pictures_link" translatable="false">https://www.goodfon.ru</string>
+    <string name="blender_link" translatable="false">https://www.blender.org</string>
+
     <string name="start_game">Start game</string>
     <string name="select_level">Select level</string>
     <string name="settings_button">Settings</string>
@@ -28,6 +35,13 @@
     <string name="dialog_text">Return to main menu?</string>
     <string name="back_to_menu">Menu</string>
     <string name="cancel">Cancel</string>
+
+    <!-- about game -->
+    <string name="music_text">Music</string>
+    <string name="sound_text">Sound</string>
+    <string name="textures_text">Textures</string>
+    <string name="pictures_text">Pictures</string>
+    <string name="blender_text">Modeling</string>
 
     <string name="opengl_not_support">OpenGL is not supported</string>
 </resources>

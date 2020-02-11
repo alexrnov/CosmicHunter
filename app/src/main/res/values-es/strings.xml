@@ -24,5 +24,12 @@
     <string name="back_to_menu">Menú</string>
     <string name="cancel">Cancelar</string>
 
+    <!-- about game -->
+    <string name="music_text">Música</string>
+    <string name="sound_text">Sonido</string>
+    <string name="textures_text">Texturas</string>
+    <string name="pictures_text">Imágenes</string>
+    <string name="blender_text">Modelado</string>
+
     <string name="opengl_not_support">OpenGL no es compatible</string>
 </resources>

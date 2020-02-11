@@ -24,5 +24,12 @@
     <string name="back_to_menu">मेन्यू</string>
     <string name="cancel">रद्द करना</string>
 
+    <!-- about game -->
+    <string name="music_text">संगीत</string>
+    <string name="sound_text">ध्वनि</string>
+    <string name="textures_text">बनावट</string>
+    <string name="pictures_text">चित्रों</string>
+    <string name="blender_text">मोडलिंग</string>
+
     <string name="opengl_not_support">OpenGL समर्थित नहीं है</string>
 </resources>

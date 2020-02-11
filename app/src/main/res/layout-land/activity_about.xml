@@ -49,7 +49,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:autoLink="web"
-                android:text="https://www.purple-planet.com"
+                android:text="@string/music_link"
                 android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -82,7 +82,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:autoLink="web"
-                android:text="https://opengameart.org"
+                android:text="@string/sound_link"
                 android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -115,7 +115,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:autoLink="web"
-                android:text="https://www.aduvan.ru"
+                android:text="@string/textures_link"
                 android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -147,7 +147,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:autoLink="web"
-                android:text="https://www.goodfon.ru"
+                android:text="@string/pictures_link"
                 android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -180,7 +180,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:autoLink="web"
-                android:text="https://www.blender.org"
+                android:text="@string/blender_link"
                 android:textAppearance="@style/LinkAboutGame"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

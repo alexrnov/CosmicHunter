@@ -25,5 +25,12 @@
     <string name="back_to_menu">メニュー</string>
     <string name="cancel">キャンセル</string>
 
+    <!-- about game -->
+    <string name="music_text">音楽</string>
+    <string name="sound_text">音</string>
+    <string name="textures_text">テクスチャー</string>
+    <string name="pictures_text">ピクチャー</string>
+    <string name="blender_text">モデリング</string>
+
     <string name="opengl_not_support">OpenGLはサポートされていません</string>
 </resources>

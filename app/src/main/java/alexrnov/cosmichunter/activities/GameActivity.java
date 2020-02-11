@@ -140,6 +140,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onResume() {
+    Log.i(TAG, "GAME ACTIVITY onResume()");
     Log.i(TAG, className + "onResume()");
     super.onResume();
     /*

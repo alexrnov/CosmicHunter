@@ -41,15 +41,13 @@ struct DiffuseLight { // структура для диффузного осве
 uniform AmbientLight u_ambientLight; // переменная для внешнего освещения
 uniform DiffuseLight u_diffuseLight; // переменная для диффузного освещения
 
-const vec3 lightVector = vec3(0.4, 0.0, -1.0); // вектор направленного освещения
+const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
     // преобразовать ориентацию нормали в пространство глаза.
     vec3 modelViewNormal = vec3(u_mvMatrix * vec4(a_normal, 0.0));
-    vec3 v = lightVector * mat3(u_vMatrix);
-    float diffuse = max(-dot(normalize(modelViewNormal), lightVector), 0.0);
-
+    float diffuse = max(-dot(modelViewNormal, lightDirection), 0.0);
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
     v_textureCoordinates = a_textureCoordinates;
