@@ -30,6 +30,6 @@
     <string name="textures_text">贴图</string>
     <string name="pictures_text">图片</string>
     <string name="blender_text">造型</string>
-    
+
     <string name="opengl_not_support">不支持OpenGL</string>
 </resources>
