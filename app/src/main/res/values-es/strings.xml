@@ -8,7 +8,7 @@
 
     <string name="settings_vibration">Vibración</string>
     <string name="sound">Sonido</string>
-    <string name="music">música</string>
+    <string name="music">Música</string>
     <string name="on">enc.</string> <!-- encender -->
     <string name="off">apag.</string> <!-- apagar -->
     <string name="back">espalda</string>

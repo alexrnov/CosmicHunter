@@ -7,8 +7,8 @@
     <string name="exit">sortie</string>
 
     <string name="settings_vibration">Vibration</string>
-    <string name="sound">du son</string>
-    <string name="music">la musique</string>
+    <string name="sound">Du son</string>
+    <string name="music">La musique</string>
     <string name="on">act.</string> <!-- activer -->
     <string name="off">ét.</string> <!-- éteindre -->
     <string name="back">retour</string>
