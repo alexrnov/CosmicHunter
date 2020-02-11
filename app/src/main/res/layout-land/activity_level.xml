@@ -29,40 +29,8 @@ Here, the default resource is not needed, since the screen orientation is define
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/button_level5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/toggle_no_activity_button_shape"
-                android:paddingBottom="15dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="15dp"
-                android:text="@string/level5"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_level3" />
-
-            <Button
-                android:id="@+id/button_level3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/toggle_no_activity_button_shape"
-                android:paddingBottom="15dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="15dp"
-                android:text="@string/level3"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/button_level5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_level1" />
-
-            <Button
                 android:id="@+id/button_level1"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_button_shape"
                 android:onClick="startLevel1"
@@ -72,10 +40,42 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:paddingTop="15dp"
                 android:text="@string/level1"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/button_level3"
+                app:layout_constraintBottom_toTopOf="@+id/button_level2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_level2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/toggle_no_activity_button_shape"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
+                android:text="@string/level2"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/button_level3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_level1" />
+
+            <Button
+                android:id="@+id/button_level3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/toggle_no_activity_button_shape"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
+                android:text="@string/level3"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_level2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@ Here, the default resource is not needed, since the screen orientation is define
 
             <Button
                 android:id="@+id/button_back"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_back_button_shape"
                 android:onClick="backToMainMenu"
@@ -104,37 +104,37 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_level4" />
+                app:layout_constraintTop_toBottomOf="@+id/button_level5" />
 
             <Button
-                android:id="@+id/button_level4"
-                android:layout_width="wrap_content"
+                android:id="@+id/button_level5"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_no_activity_button_shape"
-                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:paddingTop="15dp"
-                android:text="@string/level4"
+                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
+                android:text="@string/level5"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toTopOf="@+id/button_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_level2" />
+                app:layout_constraintTop_toBottomOf="@+id/button_level4" />
 
             <Button
-                android:id="@+id/button_level2"
-                android:layout_width="wrap_content"
+                android:id="@+id/button_level4"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_no_activity_button_shape"
-                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:paddingTop="15dp"
-                android:text="@string/level2"
+                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
+                android:text="@string/level4"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/button_level4"
+                app:layout_constraintBottom_toTopOf="@+id/button_level5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

@@ -9,8 +9,8 @@
     <string name="settings_vibration">Vibration</string>
     <string name="sound">du son</string>
     <string name="music">la musique</string>
-    <string name="on">activer</string>
-    <string name="off">éteindre</string>
+    <string name="on">act.</string> <!-- activer -->
+    <string name="off">ét.</string> <!-- éteindre -->
     <string name="back">retour</string>
 
     <string name="level1">Niveau 1</string>

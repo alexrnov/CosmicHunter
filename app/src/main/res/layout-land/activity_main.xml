@@ -52,13 +52,13 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/continueGame"
+                app:layout_constraintEnd_toStartOf="@+id/levelGame"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/continueGame"
+                android:id="@+id/levelGame"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"

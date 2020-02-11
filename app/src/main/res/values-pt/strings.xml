@@ -9,8 +9,8 @@
     <string name="settings_vibration">Vibração</string>
     <string name="sound">Som</string>
     <string name="music">Música</string>
-    <string name="on">Ativar</string>
-    <string name="off">Desligar</string>
+    <string name="on">Ativ.</string>
+    <string name="off">Des.</string>
     <string name="back">costas</string>
 
     <string name="level1">Nível 1</string>
