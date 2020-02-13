@@ -17,10 +17,8 @@ import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.utils.showSnackbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import androidx.appcompat.widget.Toolbar
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
 
   // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется поддержка
@@ -49,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
     setSupportActionBar(findViewById(R.id.my_toolbar))
+    supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
   }
 
   override fun onStart() { // состояние "запущено"
