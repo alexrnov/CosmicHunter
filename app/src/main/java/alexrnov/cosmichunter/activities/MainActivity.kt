@@ -15,9 +15,12 @@ import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
-
   private val className = this.javaClass.simpleName + ".class: "
 
   // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется поддержка
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
+    setSupportActionBar(findViewById(R.id.my_toolbar))
   }
 
   override fun onStart() { // состояние "запущено"
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
   /*
    * Если кнопка выхода в навигационном меню, нажата в главном активити, - выйти из приложения, а не
-   * возвращаться к другим активити(в том числе к игровому активити).
+   * возвращаться к другим активити (в том числе к игровому активити).
    */
   override fun onBackPressed() = backToHome()
 
@@ -112,5 +116,26 @@ class MainActivity : AppCompatActivity() {
       //showToast(getApplicationContext(), "Нет поддержки OpenGL");
       //showCustomToast(this, "Нет поддержки OpenGL");
     }
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    R.id.action_settings -> {
+      Log.i("TAG", "1")
+      true
+    }
+    R.id.action_favorite -> {
+      Log.i("TAG", "2")
+      true
+    }
+    else -> {
+      Log.i("TAG", "3")
+      super.onOptionsItemSelected(item)
+    }
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    menuInflater.inflate(R.menu.menu_layout, menu)
+    return super.onCreateOptionsMenu(menu)
   }
 }

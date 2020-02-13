@@ -23,6 +23,17 @@ Here, the default resource is not needed, since the screen orientation is define
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".activities.MainActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_layouy"
             android:layout_width="0dp"
