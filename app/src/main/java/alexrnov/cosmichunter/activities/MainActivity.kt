@@ -15,6 +15,7 @@ import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 
@@ -46,8 +47,17 @@ class MainActivity: AppCompatActivity() {
     super.onCreate(savedInstanceState)
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
-    setSupportActionBar(findViewById(R.id.my_toolbar))
+    setSupportActionBar(findViewById(R.id.toolbar_main_menu))
     supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      Log.i(TAG, "SDK_INT >= N")
+      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>", Html.FROM_HTML_MODE_LEGACY)
+    } else {
+      @Suppress("DEPRECATION")
+      Log.i(TAG, "SDK_INT < N")
+      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
+    }
   }
 
   override fun onStart() { // состояние "запущено"

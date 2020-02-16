@@ -24,10 +24,10 @@ Here, the default resource is not needed, since the screen orientation is define
         tools:context=".activities.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
+            android:id="@+id/toolbar_main_menu"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="70dp"
+            android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -41,7 +41,7 @@ Here, the default resource is not needed, since the screen orientation is define
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main_menu">
 
             <Button
                 android:id="@+id/startGame"

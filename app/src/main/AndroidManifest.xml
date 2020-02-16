@@ -143,5 +143,4 @@ these attributes so there is no effect on your APK size or runtime behavior -->
                 android:value=".activities.MainActivity" />
         </activity>
     </application>
-
 </manifest>

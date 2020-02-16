@@ -8,7 +8,8 @@
         <item name="colorAccent">@color/darkYellow</item>
         <!-- remove render problem coordinator layout -->
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
-
+        <!-- that not be mistake with NoActionBar -->
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="MenuLabel" parent="@android:style/TextAppearance">
@@ -36,10 +37,8 @@
         <item name="android:textStyle">italic|bold</item>
     </style>
 
-
-
-
-    <dimen name="abc_text_size_title_material_toolbar" tools:ignore="PrivateResource">40dp</dimen>
-
+    <style name="ActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#246F09</color>
+    <color name="centerColor">#0ed145</color>
     <color name="colorPrimaryDark">#6c6c6c</color>
     <color name="colorAccent">#fdeca6</color>
 
@@ -33,4 +34,5 @@
     <color name="noActivityButtonPressSolidCenter">#6F6F6F</color>
 
     <color name="gameMessage">#9ec41e</color>
+    <color name="white">#ffffff</color>
 </resources>
