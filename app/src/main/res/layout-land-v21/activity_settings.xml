@@ -45,7 +45,7 @@ Here, the default resource is not needed, since the screen orientation is define
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/radio_container"
-            android:layout_width="731dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/back_button"
             app:layout_constraintEnd_toEndOf="parent"
