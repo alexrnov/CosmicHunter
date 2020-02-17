@@ -42,7 +42,6 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:text="@string/about_game_button" />
         </androidx.appcompat.widget.Toolbar>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutMusic"
             android:layout_width="match_parent"
@@ -77,7 +76,6 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutSound"
             android:layout_width="match_parent"
@@ -111,7 +109,6 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutTexture"
