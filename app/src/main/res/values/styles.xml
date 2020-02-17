@@ -39,6 +39,15 @@
 
     <style name="ActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlNormal">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ActionBarTitle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>

@@ -5,6 +5,7 @@ import alexrnov.cosmichunter.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Build
@@ -139,3 +140,16 @@ private fun printDensityScreen(activity: AppCompatActivity, width: Int, height: 
   Log.i(TAG, "density = $density, width = $width, height = $height, " +
           "dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
+
+fun backToHome(activity : AppCompatActivity) {
+    val intent = Intent(Intent.ACTION_MAIN)
+    intent.addCategory(Intent.CATEGORY_HOME)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    activity.startActivity(intent) // выйти на рабочий стол системы
+    // Android 5.0 (API 21) and higher
+    // завершить все активити в этой задаче и удалить их из списка "недавние" (recent)
+    // работает правильно, если в манифесте launchMode="singleTask" а не "standard"
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) activity.finishAndRemoveTask()
+    else activity.finish()
+    System.exit(0)
+  }

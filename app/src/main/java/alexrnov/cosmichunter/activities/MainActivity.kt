@@ -3,7 +3,6 @@ package alexrnov.cosmichunter.activities
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity // пакет v7 также поддерживает минимальный уровень API 14 (Android 4.0)
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +13,8 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
+import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 
@@ -48,8 +47,10 @@ class MainActivity: AppCompatActivity() {
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
     setSupportActionBar(findViewById(R.id.toolbar_main_menu))
-    supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
-
+    //supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
+    supportActionBar?.title="" // текст и стиль заголовка определяется в лэйауте
+    // программно изменить цвет текст в activity bar
+    /*
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       Log.i(TAG, "SDK_INT >= N")
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>", Html.FROM_HTML_MODE_LEGACY)
@@ -58,6 +59,7 @@ class MainActivity: AppCompatActivity() {
       Log.i(TAG, "SDK_INT < N")
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
+     */
   }
 
   override fun onStart() { // состояние "запущено"
@@ -90,26 +92,13 @@ class MainActivity: AppCompatActivity() {
     startActivity(intent)
   }
 
-  fun exitFromApplication(view: View) = backToHome() // выйти из приложения
+  fun exitFromApplication(view: View) = backToHome(this) // выйти из приложения
 
   /*
    * Если кнопка выхода в навигационном меню, нажата в главном активити, - выйти из приложения, а не
    * возвращаться к другим активити (в том числе к игровому активити).
    */
-  override fun onBackPressed() = backToHome()
-
-  private fun backToHome() {
-    val intent = Intent(Intent.ACTION_MAIN)
-    intent.addCategory(Intent.CATEGORY_HOME)
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    startActivity(intent) // выйти на рабочий стол системы
-    // Android 5.0 (API 21) and higher
-    // завершить все активити в этой задаче и удалить их из списка "недавние" (recent)
-    // работает правильно, если в манифесте launchMode="singleTask" а не "standard"
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) finishAndRemoveTask()
-    else finish()
-    System.exit(0)
-  }
+  override fun onBackPressed() = backToHome(this)
 
   /**
    * Если нет поддержки второй или третьей версии OpenGL - вывести соответствующее сообщение,
@@ -127,19 +116,13 @@ class MainActivity: AppCompatActivity() {
     }
   }
 
+  /** Слушатель для правой кнопки activity bar */
   override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-    R.id.action_settings -> {
-      Log.i("TAG", "1")
+    R.id.action_exit -> {
+      backToHome(this)
       true
     }
-    R.id.action_favorite -> {
-      Log.i("TAG", "2")
-      true
-    }
-    else -> {
-      Log.i("TAG", "3")
-      super.onOptionsItemSelected(item)
-    }
+    else -> super.onOptionsItemSelected(item)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {

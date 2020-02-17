@@ -31,8 +31,15 @@ Here, the default resource is not needed, since the screen orientation is define
             android:elevation="4dp"
             android:theme="@style/ActionBar"
             app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            tools:layout_editor_absoluteX="0dp" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            tools:layout_editor_absoluteX="0dp" >
+            <TextView
+                android:id="@+id/toolbar_about_game_title"
+                android:text="@string/about_game_button"
+                style="@style/ActionBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </androidx.appcompat.widget.Toolbar>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

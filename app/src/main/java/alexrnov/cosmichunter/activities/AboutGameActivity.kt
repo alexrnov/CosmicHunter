@@ -1,18 +1,23 @@
 package alexrnov.cosmichunter.activities
 
 import alexrnov.cosmichunter.R
+import alexrnov.cosmichunter.utils.backToHome
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.PopupMenu
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null
@@ -41,15 +46,15 @@ class AboutGameActivity: AppCompatActivity() {
     setContentView(R.layout.activity_about)
     setSupportActionBar(findViewById(R.id.toolbar_about_game))
     supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
-    supportActionBar?.title = "About game"
-
+    supportActionBar?.title = ""
+    /*
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + "Об игре" + "</font>", Html.FROM_HTML_MODE_LEGACY)
+      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\" size=\"26\">" + "Об игре" + "</font>", Html.FROM_HTML_MODE_LEGACY)
     } else {
       @Suppress("DEPRECATION")
-      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + "Об игре" + "</font>")
+      supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\" size=\"26\">" + "Об игре" + "</font>")
     }
-
+    */
     musicText = findViewById(R.id.musicText)
     musicLink = findViewById(R.id.musicLink)
     soundText = findViewById(R.id.soundText)
@@ -141,20 +146,12 @@ class AboutGameActivity: AppCompatActivity() {
     return alpha
   }
 
-
   override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-    R.id.action_settings -> {
-      Log.i("TAG", "1")
+    R.id.action_exit -> {
+      backToHome(this)
       true
     }
-    R.id.action_favorite -> {
-      Log.i("TAG", "2")
-      true
-    }
-    else -> {
-      Log.i("TAG", "3")
-      super.onOptionsItemSelected(item)
-    }
+    else -> super.onOptionsItemSelected(item)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -162,7 +159,4 @@ class AboutGameActivity: AppCompatActivity() {
     menuInflater.inflate(R.menu.menu_layout, menu)
     return super.onCreateOptionsMenu(menu)
   }
-
-
-
 }

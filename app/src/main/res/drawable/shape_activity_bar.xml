@@ -7,5 +7,3 @@
         android:endColor="@color/colorPrimary"
         android:type="linear" />
 </shape>
-
-
