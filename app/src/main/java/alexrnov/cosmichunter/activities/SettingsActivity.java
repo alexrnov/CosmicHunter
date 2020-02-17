@@ -2,19 +2,28 @@ package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import alexrnov.cosmichunter.Initialization;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.Objects;
+
 import alexrnov.cosmichunter.BackgroundMusic;
 import alexrnov.cosmichunter.R;
+import androidx.appcompat.widget.Toolbar;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
 import static alexrnov.cosmichunter.Initialization.sp;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
 
 /** Активити-класс управляет отображением и поведением меню настроек */
@@ -36,8 +45,16 @@ public class SettingsActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
+
+    Toolbar toolbar = findViewById(R.id.toolbar_settings);
+    setSupportActionBar(toolbar);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); // enable the Up button
+    getSupportActionBar().setTitle("");
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     defineViewRadioButtons();
     addListeners();
+
     view = findViewById(R.id.background_settings);
     vibrationText = getString(R.string.settings_vibration);
     soundText = getString(R.string.sound);
@@ -149,5 +166,22 @@ public class SettingsActivity extends AppCompatActivity
   protected void onStop() {
     super.onStop();
     checkMusicForStopOtherActivity();
+  }
+
+  /** Слушатель для правой кнопки activity bar */
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_exit) {
+      backToHome(this);
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_layout, menu);
+    return super.onCreateOptionsMenu(menu);
   }
 }

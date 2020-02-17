@@ -47,7 +47,6 @@ class MainActivity: AppCompatActivity() {
     Log.i(TAG, className + "onCreate()")
     setContentView(R.layout.activity_main)
     setSupportActionBar(findViewById(R.id.toolbar_main_menu))
-    //supportActionBar?.setDisplayHomeAsUpEnabled(true) // enable the Up button
     supportActionBar?.title="" // текст и стиль заголовка определяется в лэйауте
     // программно изменить цвет текст в activity bar
     /*

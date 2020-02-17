@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Objects;
+
 import alexrnov.cosmichunter.R;
+import androidx.appcompat.widget.Toolbar;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -23,6 +29,12 @@ public class LevelsActivity extends AppCompatActivity {
     Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_level);
+
+    Toolbar toolbar = findViewById(R.id.toolbar_level);
+    setSupportActionBar(toolbar);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); // enable the Up button
+    getSupportActionBar().setTitle("");
+
     versionGLES = getIntent().getIntExtra("versionGLES", 2);
   }
 
@@ -62,5 +74,24 @@ public class LevelsActivity extends AppCompatActivity {
     Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopOtherActivity();
+  }
+
+
+
+  /** Слушатель для правой кнопки activity bar */
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_exit) {
+      backToHome(this);
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_layout, menu);
+    return super.onCreateOptionsMenu(menu);
   }
 }
