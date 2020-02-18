@@ -26,7 +26,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   private SceneRenderer renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
-  private volatile float xPress;//переменные используются в другом потоке(OpenGL)
+  private volatile float xPress; // переменные используются в другом потоке(OpenGL)
   private volatile float yPress;
 
   public OGLView(Context context) {
@@ -37,9 +37,9 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     super(context, attributes);
   }
 
-  public void init(Context context, int versionGLES) {
+  public void init(Context context, int versionGLES, int level) {
     setPreserveEGLContextOnPause(true); // сохранять контескт OpenGL
-    renderer = createSceneRenderer(context, versionGLES);
+    renderer = createSceneRenderer(context, versionGLES, level);
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования
     //setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -53,16 +53,14 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   }
 
   // Проверка поддержки OpenGL 2.0 и OpenGL 3.0 в runtime
-  private SceneRenderer createSceneRenderer(Context context, int versionGLES) {
+  private SceneRenderer createSceneRenderer(Context context,
+                                            int versionGLES, int level) {
+    Log.i(TAG, "LEVEL = " + level);
     // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0 (или 3.0)-совместимый
     // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер
     setEGLContextClientVersion(versionGLES);
     Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
 
-    /*
-    if (versionGLES == 2) return new SceneRenderer(context);
-    else return new SceneRendererGLES30(context);
-    */
     if (versionGLES == 2) return new SceneRenderer(2.0, context);
     else return new SceneRenderer(3.0, context);
   }

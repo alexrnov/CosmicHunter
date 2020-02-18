@@ -48,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     int versionGLES = getIntent().getIntExtra("versionGLES", 2);
+    int level = getIntent().getIntExtra("Level", 1);
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
     // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
@@ -88,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
-    oglView.init(this.getApplicationContext(), versionGLES);
+    oglView.init(this.getApplicationContext(), versionGLES, level);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
 
     TextView hits = findViewById(R.id.hits);

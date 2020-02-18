@@ -107,6 +107,7 @@ class MainActivity: AppCompatActivity() {
     if (supportOpenGLES != 1) {
       val intent = Intent(this, activity)
       intent.putExtra("versionGLES", supportOpenGLES)
+      intent.putExtra("Level", 1)
       startActivity(intent)
     } else {
       showSnackbar(view, getString(R.string.opengl_not_support))
