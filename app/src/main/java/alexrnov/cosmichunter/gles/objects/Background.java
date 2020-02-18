@@ -27,7 +27,7 @@ public class Background extends Object3D {
   private final int positionLink; // индекс переменной атрибута для вершин
   private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
 
-  public Background(double versionGL, Context context, float scale) {
+  public Background(double versionGL, Context context, float scale, int textureIDResource) {
     super(context, scale, R.raw.fone);
 
     LinkedProgram linkProgram = null;
@@ -53,7 +53,7 @@ public class Background extends Object3D {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    textureID = Textures.loadTextureFromRaw(context, R.raw.sky_texture); //загрузить текстуру
+    textureID = Textures.loadTextureFromRaw(context, textureIDResource); //загрузить текстуру
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
