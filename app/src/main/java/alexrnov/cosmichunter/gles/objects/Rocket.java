@@ -30,9 +30,6 @@ public class Rocket extends Object3D {
   // ссылка на переменную вершинного шейдера, содержащую значение
   // интенсивности диффузного освещения
   private final int diffuseLightIntensityLink;
-  // ссылка на переменную вершинное шейдера, содерщащую трехкомпонентный
-  // вектор положения источника света
-  private final int lightPositionLink;
   private final int positionLink; // индекс переменной атрибута для вершин
   private final int normalLink; // индекс переменной атрибута для нормали
 
@@ -71,8 +68,6 @@ public class Rocket extends Object3D {
             "u_diffuseLight.color");
     diffuseLightIntensityLink = GLES20.glGetUniformLocation(this.programObject,
             "u_diffuseLight.intensity");
-    lightPositionLink = GLES20.glGetUniformLocation(this.programObject,
-            "u_lightPosition");
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
@@ -81,8 +76,7 @@ public class Rocket extends Object3D {
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; u_mvMatrix id: " + mvMatrixLink + "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
-            "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
-            "; u_lightPosition id: " + lightPositionLink);
+            "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink);
 
     createVertexBuffers();
   }
@@ -153,13 +147,10 @@ public class Rocket extends Object3D {
     // передать в шейдер трехкомпонентный вектор цвета(белый) для окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.5f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.4f);
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 30.0f);
-    // Источник света движется за кубом, поэтому куб освещается всегда с одной стороны.
-    GLES20.glUniform3f(lightPositionLink, view.getX(),
-            view.getY(), view.getZ() + 2.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 0.6f);
 
     // включить прозрачность
     GLES20.glEnable(GLES20.GL_BLEND);
