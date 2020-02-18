@@ -47,6 +47,8 @@ void main() {
     float diffuse = max(dot(modelViewNormal, lightVector), 0.1);
     float distance = length(u_lightPosition - modelViewVertex);
     diffuse = diffuse * (1.0 / (1.0 + pow(distance, 2.0)));
+
+
     // расчитать итоговый цвет для диффузного освещения
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);

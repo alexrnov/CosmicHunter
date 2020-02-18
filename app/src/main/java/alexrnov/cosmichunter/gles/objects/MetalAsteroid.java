@@ -27,17 +27,17 @@ public class MetalAsteroid extends Object3D implements Asteroid {
   // ссылка на переменную вершинного шейдера, содержащую значение
   // интенсивности внешнего освещения
   private final int ambientLightIntensityLink;
-  // ссылка на переменную вершинного шейдера, содержащую вектор цвета
-  // диффузного освещения
+  // ссылка на переменную вершинного шейдера, содержащую вектор цвета диффузного освещения
   private final int diffuseLightColorLink;
-  // ссылка на переменную вершинного шейдера, содержащую значение
-  // интенсивности диффузного освещения
+  // ссылка на переменную вершинного шейдера, содержащую значение интенсивности диффузного освещения
   private final int diffuseLightIntensityLink;
-  // обработчик текстуры кирпичной стенки
+  // ссылка на переменную вершинного шейдера, содержащую вектор цвета бликового освещения
+  private final int specularLightColorLink;
+  // ссылка на переменную вершинного шейдера, содержащуб значение интенсивности бликового освещения
+  private final int specularLightIntensityLink;
+  // обработчик текстуры
   private final int textureID;
-  // ссылка на переменную вершинное шейдера, содерщащую трехкомпонентный
-  // вектор положения источника света
-  private final int lightPositionLink;
+
 
   private final int positionLink; // индекс переменной атрибута для вершин
   private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
@@ -60,12 +60,12 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles20/asteroid_v.glsl",
-              "shaders/gles20/asteroid_f.glsl");
+              "shaders/gles20/metal_asteroid_v.glsl",
+              "shaders/gles20/metal_asteroid_f.glsl");
     } else if (versionGL == 3.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles30/asteroid_v.glsl",
-              "shaders/gles30/asteroid_f.glsl");
+              "shaders/gles30/metal_asteroid_v.glsl",
+              "shaders/gles30/metal_asteroid_f.glsl");
     }
 
 
@@ -88,16 +88,12 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
-    ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
-            "u_ambientLight.color");
-    ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
-            "u_ambientLight.intensity");
-    diffuseLightColorLink = GLES20.glGetUniformLocation(programObject,
-            "u_diffuseLight.color");
-    diffuseLightIntensityLink = GLES20.glGetUniformLocation(programObject,
-            "u_diffuseLight.intensity");
-    lightPositionLink = GLES20.glGetUniformLocation(programObject,
-            "u_lightPosition");
+    ambientLightColorLink = GLES20.glGetUniformLocation(programObject, "u_ambientLight.color");
+    ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject, "u_ambientLight.intensity");
+    diffuseLightColorLink = GLES20.glGetUniformLocation(programObject, "u_diffuseLight.color");
+    diffuseLightIntensityLink = GLES20.glGetUniformLocation(programObject, "u_diffuseLight.intensity");
+    specularLightColorLink = GLES20.glGetUniformLocation(programObject, "u_specularLight.color");
+    specularLightIntensityLink = GLES20.glGetUniformLocation(programObject, "u_specularLight.intensity");
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
@@ -110,7 +106,9 @@ public class MetalAsteroid extends Object3D implements Asteroid {
             "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
-            "; u_lightPosition id: " + lightPositionLink + "; textureID: " + textureID);
+            "; u_specularLight.color id: " + specularLightColorLink +
+            "; u_specularLight.intensity id: " + specularLightColorLink +
+            "; textureID: " + textureID);
     createVertexBuffers();
   }
 
@@ -193,13 +191,10 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     // передать в шейдер интенсивность окружающего света
     GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 1.0f);
-    /*
-     * Источник света движется за кубом, поэтому куб освещается
-     * всегда с одной стороны.
-     */
-    GLES20.glUniform3f(lightPositionLink, view.getX(), view.getY(), view.getZ() + 2.0f);
+    GLES20.glUniform3f(specularLightColorLink, 1.0f, 1.0f, 1.0f);
+    GLES20.glUniform1f(specularLightIntensityLink, 0.015f);
+
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,

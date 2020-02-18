@@ -13,7 +13,7 @@ import alexrnov.cosmichunter.view.View3D;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureFromRaw;
 
-public class RockAsteroid extends Object3D implements Asteroid {
+public class BasaltAsteroid extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -50,7 +50,7 @@ public class RockAsteroid extends Object3D implements Asteroid {
   private Explosion middleExplosion;
   private Explosion smallExplosion;
 
-  public RockAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
+  public BasaltAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
     super(context, scale, "objects/asteroid1.obj");
 
     //загрузка шейдеров из каталога raw
@@ -60,12 +60,12 @@ public class RockAsteroid extends Object3D implements Asteroid {
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles20/asteroid_v.glsl",
-              "shaders/gles20/asteroid_f.glsl");
+              "shaders/gles20/basalt_asteroid_v.glsl",
+              "shaders/gles20/basalt_asteroid_f.glsl");
     } else if (versionGL == 3.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles30/asteroid_v.glsl",
-              "shaders/gles30/asteroid_f.glsl");
+              "shaders/gles30/basalt_asteroid_v.glsl",
+              "shaders/gles30/basalt_asteroid_f.glsl");
     }
 
 
