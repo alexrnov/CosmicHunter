@@ -35,9 +35,6 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
   private final int diffuseLightIntensityLink;
   // обработчик текстуры кирпичной стенки
   private final int textureID;
-  // ссылка на переменную вершинное шейдера, содерщащую трехкомпонентный
-  // вектор положения источника света
-  private final int lightPositionLink;
 
   private final int positionLink; // индекс переменной атрибута для вершин
   private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
@@ -96,8 +93,6 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
             "u_diffuseLight.color");
     diffuseLightIntensityLink = GLES20.glGetUniformLocation(programObject,
             "u_diffuseLight.intensity");
-    lightPositionLink = GLES20.glGetUniformLocation(programObject,
-            "u_lightPosition");
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
@@ -110,7 +105,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
             "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
-            "; u_lightPosition id: " + lightPositionLink + "; textureID: " + textureID);
+            "; textureID: " + textureID);
     createVertexBuffers();
   }
 
@@ -197,14 +192,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
-    /*
-     * Источник света движется за кубом, поэтому куб освещается
-     * всегда с одной стороны.
-     */
-    GLES20.glUniform3f(lightPositionLink, view.getX(),
-            view.getY(), view.getZ() + 2.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 1.5f);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
