@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-import alexrnov.cosmichunter.gles.SceneRenderer;
+import alexrnov.cosmichunter.gles.Level1;
 import androidx.core.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -17,7 +17,7 @@ public class SurfaceView extends GLSurfaceView
         implements GestureDetector.OnGestureListener,
           GestureDetector.OnDoubleTapListener {
 
-  private final SceneRenderer renderer;
+  private final Level1 renderer;
   private GestureDetectorCompat mDetector;
   private CoordinatesOpenGL coordinatesOpenGL;
   private volatile float xPress;//переменные используются в другом потоке(OpenGL)
@@ -31,7 +31,7 @@ public class SurfaceView extends GLSurfaceView
     //OpenGL ES 3.0-совместимый контекст, и установить
     //OpenGL ES 3.0-совместимый рендер
     setEGLContextClientVersion(3);
-    renderer = new SceneRenderer(3.0, context);
+    renderer = new Level1(3.0, context);
     setRenderer(renderer);
     //осуществлять рендеринг только когда изминились данные для рисования
     //setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -124,7 +124,7 @@ public class SurfaceView extends GLSurfaceView
     return true;
   }
 
-  public SceneRenderer getRenderer() {
+  public Level1 getRenderer() {
     return renderer;
   }
 }
