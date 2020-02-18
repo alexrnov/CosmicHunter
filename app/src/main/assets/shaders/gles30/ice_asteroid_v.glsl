@@ -41,7 +41,6 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
 
-const vec3 camera = vec3(0.0, 0.0, 4.0);
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
