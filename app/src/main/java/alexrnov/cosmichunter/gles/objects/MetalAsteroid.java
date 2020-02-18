@@ -194,7 +194,7 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 50.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 1.0f);
     /*
      * Источник света движется за кубом, поэтому куб освещается
      * всегда с одной стороны.

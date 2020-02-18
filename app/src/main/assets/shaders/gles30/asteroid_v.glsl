@@ -41,6 +41,10 @@ struct DiffuseLight { // структура для диффузного осве
 uniform AmbientLight u_ambientLight; // переменная для внешнего освещения
 uniform DiffuseLight u_diffuseLight; // переменная для диффузного освещения
 
+vec3 camera = vec3(0.0, 0.0, 4.0);
+
+const vec3 lightDirection = vec3(0.5, 0.0, -1.0); // вектор направленного освещения
+
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
@@ -48,12 +52,30 @@ void main() {
     vec3 modelViewVertex = vec3(u_mvMatrix * a_position);
     // расчитать вектор света, вычитая из положения света положение объекта
     vec3 lightVector = normalize(u_lightPosition - modelViewVertex);
-    float diffuse = max(dot(modelViewNormal, lightVector), 0.1);
-    float distance = length(u_lightPosition - modelViewVertex);
-    diffuse = diffuse * (1.0 / (1.0 + pow(distance, 2.0)));
+
+    //float diffuse = max(dot(modelViewNormal, lightVector), 0.1);
+    //float distance = length(u_lightPosition - modelViewVertex);
+    //diffuse = diffuse * (1.0 / (1.0 + pow(distance, 2.0)));
+
+    float diffuse = max(-dot(modelViewNormal, lightDirection), 0.0);
+
+
+    vec3 lightvector = normalize(u_lightPosition - modelViewVertex);
+    vec3 lookvector = normalize(camera - modelViewVertex);
+    vec3 reflectvector = reflect(-lightvector, a_normal);
+    float specular = 0.5 * pow(max(dot(lookvector, reflectvector), 0.0), 40.0);
+
+    vec3 frag_Normal = (u_mvMatrix * vec4(a_normal, 0.0)).xyz;
+    vec3 frag_Position = (u_mvMatrix * a_position).xyz;
+    vec3 Eye = normalize(frag_Position);
+    vec3 Normal = normalize(frag_Normal);
+    vec3 Reflection = reflect(lightDirection, Normal);
+    lowp float SpecularFactor = pow(max(0.0, -dot(Reflection, Eye)), 20.0);
+
     // расчитать итоговый цвет для диффузного освещения
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
-    v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
+    lowp vec3 specularColor = SpecularFactor * u_diffuseLight.color * 0.1;
+    v_commonLight = vec4((ambientColor + diffuseColor + specularColor), 1.0);
     v_textureCoordinates = a_textureCoordinates;
     gl_Position = u_mvpMatrix * a_position;
 }

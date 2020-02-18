@@ -26,7 +26,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
 
   init {
     // установить позицию камеры (матрица вида)
-    // eyeX, eyeY, eyeZ - позиция камеры(отодвинута на три единицы назад (к наблюдателю))
+    // eyeX, eyeY, eyeZ - позиция камеры(отодвинута на 4 единицы назад (к наблюдателю))
     // centerX, centerY, centerZ - координаты точки, куда смотрит камера
     // upX, upY, upZ - поворот камеры (обычно менять эти значения не нужно)
     Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 4f,

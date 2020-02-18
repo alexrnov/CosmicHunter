@@ -40,6 +40,8 @@ uniform AmbientLight u_ambientLight; // переменная для внешне
 uniform DiffuseLight u_diffuseLight; // переменная для диффузного освещения
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
+
+const vec3 camera = vec3(0.0, 0.0, 4.0);
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
@@ -47,6 +49,7 @@ void main() {
     vec3 modelViewNormal = vec3(u_mvMatrix * vec4(a_normal, 0.0));
     float diffuse = max(-dot(modelViewNormal, lightDirection), 0.0);
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
+
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
     v_textureCoordinates = a_textureCoordinates;
     gl_Position = u_mvpMatrix * a_position;
