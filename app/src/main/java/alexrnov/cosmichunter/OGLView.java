@@ -5,6 +5,10 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 import alexrnov.cosmichunter.gles.Level1;
+import alexrnov.cosmichunter.gles.Level2;
+import alexrnov.cosmichunter.gles.Level3;
+import alexrnov.cosmichunter.gles.Level4;
+import alexrnov.cosmichunter.gles.Level5;
 import alexrnov.cosmichunter.gles.SceneRenderer;
 import androidx.core.view.GestureDetectorCompat;
 
@@ -55,14 +59,19 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
 
   // Проверка поддержки OpenGL 2.0 и OpenGL 3.0 в runtime
   private SceneRenderer createSceneRenderer(Context context, int versionGLES, int level) {
-    Log.i(TAG, "LEVEL = " + level);
     // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0 (или 3.0)-совместимый
     // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер
     setEGLContextClientVersion(versionGLES);
     Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
 
-    if (versionGLES == 2) return new Level1(2.0, context);
-    else return new Level1(3.0, context);
+    switch (level) {
+      case 1: return new Level1((double) versionGLES, context);
+      case 2: return new Level2((double) versionGLES, context);
+      case 3: return new Level3((double) versionGLES, context);
+      case 4: return new Level4((double) versionGLES, context);
+      case 5: return new Level5((double) versionGLES, context);
+    }
+    return new Level1((double) versionGLES, context);
   }
 
   @SuppressLint("ClickableViewAccessibility")

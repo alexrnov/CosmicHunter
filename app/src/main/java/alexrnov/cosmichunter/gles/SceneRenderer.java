@@ -1,10 +1,7 @@
 package alexrnov.cosmichunter.gles;
 
 import android.opengl.GLSurfaceView;
-
 import org.jetbrains.annotations.NotNull;
-
-
 import alexrnov.cosmichunter.activities.GameActivity;
 
 public interface SceneRenderer extends GLSurfaceView.Renderer  {
@@ -19,5 +16,4 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
 
   /** @return высота дисплея OpenGL (в пикселах) */
   int getHeightDisplay();
-
 }
