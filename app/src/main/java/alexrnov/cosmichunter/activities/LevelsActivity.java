@@ -39,10 +39,30 @@ public class LevelsActivity extends AppCompatActivity {
   }
 
   public void startLevel1(View view) {
+    startLevel(1);
+  }
+
+  public void startLevel2(View view) {
+    startLevel(2);
+  }
+
+  public void startLevel3(View view) {
+    startLevel(3);
+  }
+
+  public void startLevel4(View view) {
+    startLevel(4);
+  }
+
+  public void startLevel5(View view) {
+    startLevel(5);
+  }
+
+  private void startLevel(int level) {
     spotFlagOpenDialogWindow(false);
     Intent intent = new Intent(this, GameActivity.class);
     intent.putExtra("versionGLES", versionGLES);
-    intent.putExtra("Level", 1);
+    intent.putExtra("Level", level);
     startActivity(intent);
   }
 
@@ -76,8 +96,6 @@ public class LevelsActivity extends AppCompatActivity {
     super.onStop();
     checkMusicForStopOtherActivity();
   }
-
-
 
   /** Слушатель для правой кнопки activity bar */
   @Override
