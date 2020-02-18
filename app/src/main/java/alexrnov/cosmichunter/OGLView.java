@@ -4,11 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-import alexrnov.cosmichunter.gles.Level1;
-import alexrnov.cosmichunter.gles.Level2;
-import alexrnov.cosmichunter.gles.Level3;
-import alexrnov.cosmichunter.gles.Level4;
-import alexrnov.cosmichunter.gles.Level5;
 import alexrnov.cosmichunter.gles.SceneRenderer;
 import androidx.core.view.GestureDetectorCompat;
 
