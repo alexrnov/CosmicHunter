@@ -24,4 +24,7 @@ public interface UserDao {
 
   @Delete
   void delete(User user);
+
+  @Query("UPDATE user SET first_name = :name WHERE uid = :userIds")
+  void updateUser(int userIds, String name);
 }

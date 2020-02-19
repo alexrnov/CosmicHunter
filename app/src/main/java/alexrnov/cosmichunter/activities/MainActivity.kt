@@ -73,6 +73,7 @@ class MainActivity: AppCompatActivity() {
 
       val user: User? = v.findByName("Bob", "N2")
 
+      /*
       if (user == null) {
         Log.i(TAG, "user == null")
         val newUser = User()
@@ -88,12 +89,13 @@ class MainActivity: AppCompatActivity() {
         //user.lastName = "N4"
         //v.insertAll(user)
       }
-
+      */
       val users: MutableList<User> = v.getAll()
       for (u in users) {
         Log.i(TAG, "u = ${u.firstName} ${u.lastName} ${u.uid}")
         //u.uid = 10
       }
+      //v.updateUser(3, "Bernard")
     }
     /*
     // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
