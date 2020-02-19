@@ -17,7 +17,7 @@ public interface LevelDao {
 
   @Query("SELECT * FROM level WHERE id LIKE :levelId AND " +
           "level_name LIKE :nameLevel LIMIT 1")
-  Level findByName(String levelId, String nameLevel);
+  Level findByName(int levelId, String nameLevel);
 
   @Insert
   void insertAll(Level... levels);

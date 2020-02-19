@@ -73,50 +73,6 @@ class MainActivity: AppCompatActivity() {
       // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
       // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
 
-      val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").build()
-      val v = db.userDao()
-
-      val user: User? = v.findByName("Bob", "N2")
-
-      /*
-      if (user == null) {
-        Log.i(TAG, "user == null")
-        val newUser = User()
-        newUser.uid = 2
-        newUser.firstName = "Bob"
-        newUser.lastName = "N2"
-        v.insertAll(newUser)
-      } else {
-        Log.i(TAG, "user != null")
-        Log.i(TAG, "firstName = " + user.firstName + " lastName = " + user.lastName)
-        //user.uid = 3
-        //user.firstName = "Bob2"
-        //user.lastName = "N4"
-        //v.insertAll(user)
-      }
-      */
-      val users: MutableList<User> = v.getAll()
-      for (u in users) {
-        Log.i(TAG, "u = ${u.firstName} ${u.lastName} ${u.uid}")
-        //u.uid = 10
-      }
-      //v.updateUser(3, "Bernard")
-
-      val currentDBPath = getDatabasePath("levels-database.db").absolutePath
-      val file = File(currentDBPath)
-      if (file.exists()) {
-        Log.i(TAG, "file is create")
-      } else {
-        Log.i(TAG, "file is not create")
-      }
-      /*
-      val pathes = Paths.get(currentDBPath)
-      if (Files.exists()) {
-
-      }
-      */
-
-      Log.i(TAG, "currentDBPath = $currentDBPath")
       val db2 = Room.databaseBuilder(applicationContext, LevelDatabase::class.java, "levels-database").build()
 
       val v2 = db2.levelDao()
@@ -130,43 +86,18 @@ class MainActivity: AppCompatActivity() {
         v2.insertAll(level1, level2, level3, level4, level5)
       } else {
         //v2.updateLevel("level2", true)
+
         val levels = v2.all
         for (lev in levels) {
           Log.i(TAG, "${lev.id} ${lev.levelName} ${lev.isOpen}")
         }
+
+        val level5 = v2.findByName(4, "level5")
+        Log.i(TAG, "level5 = " + level5.id + " " + level5.levelName + " " + level5.isOpen)
       }
       Log.i(TAG, "size = $size")
     }
-    /*
-    // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
-    val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
-    val v = db.userDao()
 
-
-    val user: User? = v.findByName("Bob", "N2")
-
-    if (user == null) {
-      Log.i(TAG, "user == null")
-      val newUser = User()
-      newUser.uid = 2
-      newUser.firstName = "Bob"
-      newUser.lastName = "N2"
-      v.insertAll(newUser)
-    } else {
-      Log.i(TAG, "user != null")
-      Log.i(TAG, "firstName = " + user.firstName + " lastName = " + user.lastName)
-      //user.uid = 3
-      //user.firstName = "Bob2"
-      //user.lastName = "N4"
-      //v.insertAll(user)
-    }
-
-    val users: MutableList<User> = v.getAll()
-    for (u in users) {
-      Log.i(TAG, "u = ${u.firstName} ${u.lastName} ${u.uid}")
-      //u.uid = 10
-    }
-    */
   }
 
   override fun onStart() { // состояние "запущено"
