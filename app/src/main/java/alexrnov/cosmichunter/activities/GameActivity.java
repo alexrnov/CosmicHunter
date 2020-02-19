@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
+import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -21,7 +23,6 @@ import java.util.TimerTask;
 
 import alexrnov.cosmichunter.OGLView;
 import alexrnov.cosmichunter.R;
-import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
 import alexrnov.cosmichunter.concurrent.ViewHandler;
 

@@ -13,10 +13,14 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
+import alexrnov.cosmichunter.base.AppDatabase
+import alexrnov.cosmichunter.base.User
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.os.AsyncTask
 import android.view.Menu
 import android.view.MenuItem
+import androidx.room.Room
 
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
@@ -58,7 +62,69 @@ class MainActivity: AppCompatActivity() {
       Log.i(TAG, "SDK_INT < N")
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
-     */
+    */
+
+    AsyncTask.execute {
+      // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
+      // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
+
+      val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").build()
+      val v = db.userDao()
+
+      val user: User? = v.findByName("Bob", "N2")
+
+      if (user == null) {
+        Log.i(TAG, "user == null")
+        val newUser = User()
+        newUser.uid = 2
+        newUser.firstName = "Bob"
+        newUser.lastName = "N2"
+        v.insertAll(newUser)
+      } else {
+        Log.i(TAG, "user != null")
+        Log.i(TAG, "firstName = " + user.firstName + " lastName = " + user.lastName)
+        //user.uid = 3
+        //user.firstName = "Bob2"
+        //user.lastName = "N4"
+        //v.insertAll(user)
+      }
+
+      val users: MutableList<User> = v.getAll()
+      for (u in users) {
+        Log.i(TAG, "u = ${u.firstName} ${u.lastName} ${u.uid}")
+        //u.uid = 10
+      }
+    }
+    /*
+    // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
+    val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
+    val v = db.userDao()
+
+
+    val user: User? = v.findByName("Bob", "N2")
+
+    if (user == null) {
+      Log.i(TAG, "user == null")
+      val newUser = User()
+      newUser.uid = 2
+      newUser.firstName = "Bob"
+      newUser.lastName = "N2"
+      v.insertAll(newUser)
+    } else {
+      Log.i(TAG, "user != null")
+      Log.i(TAG, "firstName = " + user.firstName + " lastName = " + user.lastName)
+      //user.uid = 3
+      //user.firstName = "Bob2"
+      //user.lastName = "N4"
+      //v.insertAll(user)
+    }
+
+    val users: MutableList<User> = v.getAll()
+    for (u in users) {
+      Log.i(TAG, "u = ${u.firstName} ${u.lastName} ${u.uid}")
+      //u.uid = 10
+    }
+    */
   }
 
   override fun onStart() { // состояние "запущено"
