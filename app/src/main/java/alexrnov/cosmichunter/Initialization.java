@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import alexrnov.cosmichunter.base.Level;
 import alexrnov.cosmichunter.base.LevelDao;
@@ -32,6 +33,8 @@ public class Initialization extends Application {
   private static String defaultStateSound;
   private static String defaultVibration;
 
+  private LevelDatabase dbLevels;
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -53,27 +56,20 @@ public class Initialization extends Application {
     AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
     spotStartVolumeLevel(am);
 
-
     AsyncTask.execute(() -> {
       // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
       // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
-      LevelDatabase db = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(rdc).build();
-      LevelDao v = db.levelDao();
-      int size = v.getAll().size();
-      if (size == 0) {
-        Log.i(TAG, "size1 = " + size);
-        Level level1 = new Level(0, "level1", true);
-        Level level2 = new Level(1, "level2", false);
-        Level level3 = new Level(2, "level3", false);
-        Level level4 = new Level(3, "level4", false);
-        Level level5 = new Level(4, "level5", false);
-        v.insertAll(level1, level2, level3, level4, level5);
-      } else {
-        Log.i(TAG, "size2 = " + size);
+      Log.i(TAG, "1");
+      // каст в колбэк не проходит
+      //dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(rdc).build();
+      dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(dbCallback).build();
+      LevelDao v = dbLevels.levelDao();
+      int size = v.getAll().size(); // фактически база будет создана при этой инструкции
+
+      if (size != 0) {
         List<Level> levels = v.getAll();
-        for (Level lev: levels) {
-          Log.i(TAG, "id = " + lev.id + " levelName = " + lev.levelName + " isOpen = " + lev.isOpen);
-        }
+        for (Level level: levels) Log.i(TAG, "id = " + level.id + ", levelName = "
+                + level.levelName + ", isOpen = " + level.isOpen + ";");
       }
     });
   }
@@ -300,15 +296,19 @@ public class Initialization extends Application {
     }
   }
 
-
-  RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
-    public void onCreate (@NonNull SupportSQLiteDatabase db) {
-      // do something after database has been created
-      Log.i(TAG, "ONCREATE()");
-    }
-    public void onOpen (@NonNull SupportSQLiteDatabase db) {
-      // do something every time database is open
-      Log.i(TAG, "ONOPEN()");
+  RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
+    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+      Executors.newSingleThreadScheduledExecutor().execute(() -> {
+        Log.i(TAG, "CREATE DATABASE LEVELS");
+        Level level1 = new Level(0, "level1", true);
+        Level level2 = new Level(1, "level2", false);
+        Level level3 = new Level(2, "level3", false);
+        Level level4 = new Level(3, "level4", false);
+        Level level5 = new Level(4, "level5", false);
+        dbLevels.levelDao().insertAll(level1, level2, level3, level4, level5);
+      });
     }
   };
+
+
 }
