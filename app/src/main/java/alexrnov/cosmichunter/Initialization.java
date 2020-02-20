@@ -3,8 +3,19 @@ package alexrnov.cosmichunter;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.AsyncTask;
+import android.util.Log;
 
+import java.util.List;
+
+import alexrnov.cosmichunter.base.Level;
+import alexrnov.cosmichunter.base.LevelDao;
+import alexrnov.cosmichunter.base.LevelDatabase;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * Объект класса создается при запуске приложения. Содержит статические
@@ -41,6 +52,30 @@ public class Initialization extends Application {
 
     AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
     spotStartVolumeLevel(am);
+
+
+    AsyncTask.execute(() -> {
+      // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
+      // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
+      LevelDatabase db = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(rdc).build();
+      LevelDao v = db.levelDao();
+      int size = v.getAll().size();
+      if (size == 0) {
+        Log.i(TAG, "size1 = " + size);
+        Level level1 = new Level(0, "level1", true);
+        Level level2 = new Level(1, "level2", false);
+        Level level3 = new Level(2, "level3", false);
+        Level level4 = new Level(3, "level4", false);
+        Level level5 = new Level(4, "level5", false);
+        v.insertAll(level1, level2, level3, level4, level5);
+      } else {
+        Log.i(TAG, "size2 = " + size);
+        List<Level> levels = v.getAll();
+        for (Level lev: levels) {
+          Log.i(TAG, "id = " + lev.id + " levelName = " + lev.levelName + " isOpen = " + lev.isOpen);
+        }
+      }
+    });
   }
 
   /**
@@ -264,4 +299,16 @@ public class Initialization extends Application {
       am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeLevel, 0);
     }
   }
+
+
+  RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
+    public void onCreate (@NonNull SupportSQLiteDatabase db) {
+      // do something after database has been created
+      Log.i(TAG, "ONCREATE()");
+    }
+    public void onOpen (@NonNull SupportSQLiteDatabase db) {
+      // do something every time database is open
+      Log.i(TAG, "ONOPEN()");
+    }
+  };
 }

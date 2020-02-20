@@ -68,35 +68,38 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
-
+    /*
     AsyncTask.execute {
       // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
       // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
 
-      val db2 = Room.databaseBuilder(applicationContext, LevelDatabase::class.java, "levels-database").build()
+      val db = Room.databaseBuilder(applicationContext, LevelDatabase::class.java, "levels-database").build()
 
-      val v2 = db2.levelDao()
-      val size = v2.all.size
+      val v = db.levelDao()
+      val size = v.all.size
       if (size == 0) { // база создается в первый раз
         val level1 = Level(0, "level1", true)
         val level2 = Level(1, "level2", false)
         val level3 = Level(2, "level3", false)
         val level4 = Level(3, "level4", false)
         val level5 = Level(4, "level5", false)
-        v2.insertAll(level1, level2, level3, level4, level5)
+        v.insertAll(level1, level2, level3, level4, level5)
       } else {
         //v2.updateLevel("level2", true)
 
-        val levels = v2.all
+        val levels = v.all
         for (lev in levels) {
           Log.i(TAG, "${lev.id} ${lev.levelName} ${lev.isOpen}")
         }
 
-        val level5 = v2.findByName(4, "level5")
+        val level5 = v.findByName(4, "level5")
         Log.i(TAG, "level5 = " + level5.id + " " + level5.levelName + " " + level5.isOpen)
       }
       Log.i(TAG, "size = $size")
     }
+
+*/
+
 
   }
 
