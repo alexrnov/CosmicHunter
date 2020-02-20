@@ -85,7 +85,8 @@ class MainActivity: AppCompatActivity() {
     if (supportOpenGLES != 1) {
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
-      intent.putExtra("Level", 1)
+
+      intent.putExtra("Level", f())
       startActivity(intent)
     } else {
       showSnackbar(view, getString(R.string.opengl_not_support))
@@ -171,20 +172,17 @@ class MainActivity: AppCompatActivity() {
     return super.onCreateOptionsMenu(menu)
   }
 
-  fun f() {
-    AsyncTask.execute {
-      val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").build()
-      val dao = dbLevels.levelDao()
-      if (dao.findById(4).isOpen) {
-        val level = dao.findById(1)
-      }
-      /*
-      when {
-        dao.findById(4).isOpen -> return 5
-
-      }
-      */
-      //Log.i(TAG, "level id = ${level.id}, level name =  ${level.levelName}, isOpen = ${level.isOpen}")
+  fun f(): Int {
+    val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
+    val dao = dbLevels.levelDao()
+    return when {
+      dao.findById(4).isOpen -> 5
+      dao.findById(3).isOpen -> 4
+      dao.findById(2).isOpen -> 3
+      dao.findById(1).isOpen -> 2
+      dao.findById(0).isOpen -> 1
+      else -> 1
     }
+      //Log.i(TAG, "level id = ${level.id}, level name =  ${level.levelName}, isOpen = ${level.isOpen}")
   }
 }

@@ -66,11 +66,11 @@ public class LevelsActivity extends AppCompatActivity {
   private void startLevel(int level) {
     LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
     LevelDao dao = dbLevels.levelDao();
-    if (dao.findById(level).isOpen) {
+    if (dao.findById(level).isOpen) { // если уровень открыт
       spotFlagOpenDialogWindow(false);
       Intent intent = new Intent(this, GameActivity.class);
       intent.putExtra("versionGLES", versionGLES);
-      intent.putExtra("Level", level);
+      intent.putExtra("Level", level + 1);
       startActivity(intent);
     }
   }
