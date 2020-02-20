@@ -13,10 +13,13 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
+import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.os.AsyncTask
 import android.view.Menu
 import android.view.MenuItem
+import androidx.room.Room
 
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
@@ -78,8 +81,30 @@ class MainActivity: AppCompatActivity() {
     Log.i(TAG, className + "onPause()")
   }
 
-  fun startGame(view: View) = startActivityForGame(GameActivity::class.java, view)
-  fun selectLevel(view: View) = startActivityForGame(LevelsActivity::class.java, view)
+  fun startGame(view: View) {
+    if (supportOpenGLES != 1) {
+      val intent = Intent(this, GameActivity::class.java)
+      intent.putExtra("versionGLES", supportOpenGLES)
+      intent.putExtra("Level", 1)
+      startActivity(intent)
+    } else {
+      showSnackbar(view, getString(R.string.opengl_not_support))
+      //showToast(getApplicationContext(), "Нет поддержки OpenGL");
+      //showCustomToast(this, "Нет поддержки OpenGL");
+    }
+  }
+
+  fun selectLevel(view: View) {
+    if (supportOpenGLES != 1) {
+      val intent = Intent(this, LevelsActivity::class.java)
+      intent.putExtra("versionGLES", supportOpenGLES)
+      startActivity(intent)
+    } else {
+      showSnackbar(view, getString(R.string.opengl_not_support))
+      //showToast(getApplicationContext(), "Нет поддержки OpenGL");
+      //showCustomToast(this, "Нет поддержки OpenGL");
+    }
+  }
 
   fun settingsMenu(view: View) {
     val intent = Intent(this, SettingsActivity::class.java)
@@ -103,6 +128,21 @@ class MainActivity: AppCompatActivity() {
    * Если нет поддержки второй или третьей версии OpenGL - вывести соответствующее сообщение,
    * иначе запустить GameActivity или LevelsActivity.
    */
+
+
+  private fun startGameActivity(activity: Class<out AppCompatActivity>, view: View) {
+    if (supportOpenGLES != 1) {
+      val intent = Intent(this, activity)
+      intent.putExtra("versionGLES", supportOpenGLES)
+      intent.putExtra("Level", 1)
+      startActivity(intent)
+    } else {
+      showSnackbar(view, getString(R.string.opengl_not_support))
+      //showToast(getApplicationContext(), "Нет поддержки OpenGL");
+      //showCustomToast(this, "Нет поддержки OpenGL");
+    }
+  }
+  /*
   private fun startActivityForGame(activity: Class<out AppCompatActivity>, view: View) {
     if (supportOpenGLES != 1) {
       val intent = Intent(this, activity)
@@ -115,7 +155,7 @@ class MainActivity: AppCompatActivity() {
       //showCustomToast(this, "Нет поддержки OpenGL");
     }
   }
-
+  */
   /** Слушатель для правой кнопки activity bar */
   override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
     R.id.action_exit -> {
@@ -129,5 +169,22 @@ class MainActivity: AppCompatActivity() {
     // Inflate the menu; this adds items to the action bar if it is present.
     menuInflater.inflate(R.menu.menu_layout, menu)
     return super.onCreateOptionsMenu(menu)
+  }
+
+  fun f() {
+    AsyncTask.execute {
+      val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").build()
+      val dao = dbLevels.levelDao()
+      if (dao.findById(4).isOpen) {
+        val level = dao.findById(1)
+      }
+      /*
+      when {
+        dao.findById(4).isOpen -> return 5
+
+      }
+      */
+      //Log.i(TAG, "level id = ${level.id}, level name =  ${level.levelName}, isOpen = ${level.isOpen}")
+    }
   }
 }
