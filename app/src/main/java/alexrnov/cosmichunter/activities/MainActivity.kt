@@ -13,19 +13,10 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
 import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
 import alexrnov.cosmichunter.Initialization.TAG
-import alexrnov.cosmichunter.base.AppDatabase
-import alexrnov.cosmichunter.base.Level
-import alexrnov.cosmichunter.base.LevelDatabase
-import alexrnov.cosmichunter.base.User
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
-import android.os.AsyncTask
 import android.view.Menu
 import android.view.MenuItem
-import androidx.room.Room
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Path
 
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
@@ -68,39 +59,6 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
-    /*
-    AsyncTask.execute {
-      // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
-      // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
-
-      val db = Room.databaseBuilder(applicationContext, LevelDatabase::class.java, "levels-database").build()
-
-      val v = db.levelDao()
-      val size = v.all.size
-      if (size == 0) { // база создается в первый раз
-        val level1 = Level(0, "level1", true)
-        val level2 = Level(1, "level2", false)
-        val level3 = Level(2, "level3", false)
-        val level4 = Level(3, "level4", false)
-        val level5 = Level(4, "level5", false)
-        v.insertAll(level1, level2, level3, level4, level5)
-      } else {
-        //v2.updateLevel("level2", true)
-
-        val levels = v.all
-        for (lev in levels) {
-          Log.i(TAG, "${lev.id} ${lev.levelName} ${lev.isOpen}")
-        }
-
-        val level5 = v.findByName(4, "level5")
-        Log.i(TAG, "level5 = " + level5.id + " " + level5.levelName + " " + level5.isOpen)
-      }
-      Log.i(TAG, "size = $size")
-    }
-
-*/
-
-
   }
 
   override fun onStart() { // состояние "запущено"

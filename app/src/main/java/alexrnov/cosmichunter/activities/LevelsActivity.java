@@ -1,7 +1,11 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
+import alexrnov.cosmichunter.base.LevelDao;
+import alexrnov.cosmichunter.base.LevelDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +16,7 @@ import java.util.Objects;
 
 import alexrnov.cosmichunter.R;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;

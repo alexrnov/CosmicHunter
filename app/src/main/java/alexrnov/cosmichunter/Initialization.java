@@ -59,15 +59,12 @@ public class Initialization extends Application {
     AsyncTask.execute(() -> {
       // .allowMainThreadQueries() - разрешить создавать БД в потоке пользовательского интерфейса
       // val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
-      Log.i(TAG, "1");
-      // каст в колбэк не проходит
-      //dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(rdc).build();
       dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").addCallback(dbCallback).build();
-      LevelDao v = dbLevels.levelDao();
-      int size = v.getAll().size(); // фактически база будет создана при этой инструкции
+      LevelDao dao = dbLevels.levelDao();
+      int size = dao.getAll().size(); // фактически база будет создана при этой инструкции
 
       if (size != 0) {
-        List<Level> levels = v.getAll();
+        List<Level> levels = dao.getAll();
         for (Level level: levels) Log.i(TAG, "id = " + level.id + ", levelName = "
                 + level.levelName + ", isOpen = " + level.isOpen + ";");
       }
@@ -289,14 +286,15 @@ public class Initialization extends Application {
    */
   private static void spotStartVolumeLevel(AudioManager am) {
     if (am != null) {
-      //Уровень громкости в приложении - в два раза больше чем в системе.
-      //Если в системе звук отключен - то и в приложении при старте не будет звука.
+      // Уровень громкости в приложении - в два раза больше чем в системе.
+      // Если в системе звук отключен - то и в приложении при старте не будет звука.
       int volumeLevel = am.getStreamVolume(AudioManager.STREAM_SYSTEM) * 2;
       am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeLevel, 0);
     }
   }
 
   RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
+    /** метод вызывается при создании базы данных */
     public void onCreate(@NonNull SupportSQLiteDatabase db) {
       Executors.newSingleThreadScheduledExecutor().execute(() -> {
         Log.i(TAG, "CREATE DATABASE LEVELS");
@@ -309,6 +307,4 @@ public class Initialization extends Application {
       });
     }
   };
-
-
 }
