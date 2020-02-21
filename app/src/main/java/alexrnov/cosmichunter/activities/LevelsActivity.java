@@ -1,6 +1,7 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import alexrnov.cosmichunter.base.LevelDao;
@@ -137,24 +138,28 @@ public class LevelsActivity extends AppCompatActivity {
 
   /** активировать кнопки выбора уровней, если уровни открыты */
   private void activateButtonsForOpenedLevels() {
-    LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(),
-            LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
-    LevelDao dao = dbLevels.levelDao();
+    AsyncTask.execute(() -> {
+      LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(),
+              LevelDatabase.class, "levels-database").build();
+      LevelDao dao = dbLevels.levelDao();
 
-    if (dao.findByNumber(2).isOpen) {
-      buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape);
-    }
 
-    if (dao.findByNumber(3).isOpen) {
-      buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape);
-    }
+      if (dao.findByNumber(2).isOpen) {
+        runOnUiThread(() -> buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape));
+      }
 
-    if (dao.findByNumber(4).isOpen) {
-      buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape);
-    }
+      if (dao.findByNumber(3).isOpen) {
+        runOnUiThread(() -> buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape));
+      }
 
-    if (dao.findByNumber(5).isOpen) {
-      buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape);
-    }
+      if (dao.findByNumber(4).isOpen) {
+        runOnUiThread(() -> buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape));
+      }
+
+      if (dao.findByNumber(5).isOpen) {
+        runOnUiThread(() -> buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape));
+      }
+  });
+
   }
 }
