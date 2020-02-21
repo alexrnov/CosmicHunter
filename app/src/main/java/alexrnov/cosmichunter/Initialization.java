@@ -65,7 +65,7 @@ public class Initialization extends Application {
 
       if (size != 0) {
         List<Level> levels = dao.getAll();
-        for (Level level: levels) Log.i(TAG, "id = " + level.id + ", levelName = "
+        for (Level level: levels) Log.i(TAG, "id = " + level.id + ", number = " + level.number + ", levelName = "
                 + level.levelName + ", isOpen = " + level.isOpen + ";");
       }
     });
@@ -298,11 +298,11 @@ public class Initialization extends Application {
     public void onCreate(@NonNull SupportSQLiteDatabase db) {
       Executors.newSingleThreadScheduledExecutor().execute(() -> {
         Log.i(TAG, "CREATE DATABASE LEVELS");
-        Level level1 = new Level(0, "level1", true);
-        Level level2 = new Level(1, "level2", false);
-        Level level3 = new Level(2, "level3", false);
-        Level level4 = new Level(3, "level4", false);
-        Level level5 = new Level(4, "level5", false);
+        Level level1 = new Level(0, 1, "level1", true);
+        Level level2 = new Level(1, 2, "level2", true);
+        Level level3 = new Level(2, 3, "level3", false);
+        Level level4 = new Level(3, 4, "level4", false);
+        Level level5 = new Level(4, 5, "level5", false);
         dbLevels.levelDao().insertAll(level1, level2, level3, level4, level5);
       });
     }

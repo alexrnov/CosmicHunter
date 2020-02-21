@@ -15,9 +15,13 @@ public class Level {
   @ColumnInfo(name = "is_open")
   public boolean isOpen;
 
-  public Level(int id, String levelName, boolean isOpen) {
+  @ColumnInfo(name = "number")
+  public int number;
+
+  public Level(int id, int number, String levelName, boolean isOpen) {
     this.id = id;
     this.levelName = levelName;
     this.isOpen = isOpen;
+    this.number = number;
   }
 }

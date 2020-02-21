@@ -85,8 +85,7 @@ class MainActivity: AppCompatActivity() {
     if (supportOpenGLES != 1) {
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
-
-      intent.putExtra("Level", f())
+      intent.putExtra("Level", getCurrentOpenLevel())
       startActivity(intent)
     } else {
       showSnackbar(view, getString(R.string.opengl_not_support))
@@ -143,21 +142,10 @@ class MainActivity: AppCompatActivity() {
       //showCustomToast(this, "Нет поддержки OpenGL");
     }
   }
-  /*
-  private fun startActivityForGame(activity: Class<out AppCompatActivity>, view: View) {
-    if (supportOpenGLES != 1) {
-      val intent = Intent(this, activity)
-      intent.putExtra("versionGLES", supportOpenGLES)
-      intent.putExtra("Level", 1)
-      startActivity(intent)
-    } else {
-      showSnackbar(view, getString(R.string.opengl_not_support))
-      //showToast(getApplicationContext(), "Нет поддержки OpenGL");
-      //showCustomToast(this, "Нет поддержки OpenGL");
-    }
-  }
-  */
-  /** Слушатель для правой кнопки activity bar */
+  // метод можно и пользовать для запуска различных активити
+  // private fun startActivityForGame(activity: Class<out AppCompatActivity>, view: View) {}
+
+  /** слушатель для правой кнопки activity bar */
   override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
     R.id.action_exit -> {
       backToHome(this)
@@ -166,23 +154,25 @@ class MainActivity: AppCompatActivity() {
     else -> super.onOptionsItemSelected(item)
   }
 
+  /** добавить меню - в данном слуае это просто кнопка exit справа */
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     // Inflate the menu; this adds items to the action bar if it is present.
     menuInflater.inflate(R.menu.menu_layout, menu)
     return super.onCreateOptionsMenu(menu)
   }
 
-  fun f(): Int {
+  /** При нажатии на кнопку начала игры будет загружаться максимальный открытый уровень */
+  private fun getCurrentOpenLevel(): Int {
+    // подключиться к базе в потоке пользовательского интерфейса
     val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
     val dao = dbLevels.levelDao()
     return when {
-      dao.findById(4).isOpen -> 5
-      dao.findById(3).isOpen -> 4
-      dao.findById(2).isOpen -> 3
-      dao.findById(1).isOpen -> 2
-      dao.findById(0).isOpen -> 1
+      dao.findByNumber(5).isOpen -> 5
+      dao.findByNumber(4).isOpen -> 4
+      dao.findByNumber(3).isOpen -> 3
+      dao.findByNumber(2).isOpen -> 2
+      dao.findByNumber(1).isOpen -> 1
       else -> 1
     }
-      //Log.i(TAG, "level id = ${level.id}, level name =  ${level.levelName}, isOpen = ${level.isOpen}")
   }
 }
