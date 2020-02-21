@@ -1,10 +1,12 @@
 package alexrnov.cosmichunter.concurrent
 
+import alexrnov.cosmichunter.base.LevelDatabase
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.widget.TextView
+import androidx.room.Room
 
 const val HITS_CODE = 0
 const val ROCKETS_CODE = 1

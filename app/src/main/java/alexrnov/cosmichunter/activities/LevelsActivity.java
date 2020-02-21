@@ -1,7 +1,6 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import alexrnov.cosmichunter.base.LevelDao;
@@ -30,7 +29,6 @@ public class LevelsActivity extends AppCompatActivity {
   private String className = this.getClass().getSimpleName() + ".class: ";
   private int versionGLES;
 
-  private Button buttonLevel1;
   private Button buttonLevel2;
   private Button buttonLevel3;
   private Button buttonLevel4;
@@ -137,6 +135,7 @@ public class LevelsActivity extends AppCompatActivity {
     return super.onCreateOptionsMenu(menu);
   }
 
+  /** активировать кнопки выбора уровней, если уровни открыты */
   private void activateButtonsForOpenedLevels() {
     LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(),
             LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
