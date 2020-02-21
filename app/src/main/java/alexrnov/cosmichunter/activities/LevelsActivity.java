@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.Objects;
 
@@ -29,6 +30,12 @@ public class LevelsActivity extends AppCompatActivity {
   private String className = this.getClass().getSimpleName() + ".class: ";
   private int versionGLES;
 
+  private Button buttonLevel1;
+  private Button buttonLevel2;
+  private Button buttonLevel3;
+  private Button buttonLevel4;
+  private Button buttonLevel5;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -41,6 +48,13 @@ public class LevelsActivity extends AppCompatActivity {
     getSupportActionBar().setTitle("");
 
     versionGLES = getIntent().getIntExtra("versionGLES", 2);
+
+    buttonLevel2 = findViewById(R.id.button_level2);
+    buttonLevel3 = findViewById(R.id.button_level3);
+    buttonLevel4 = findViewById(R.id.button_level4);
+    buttonLevel5 = findViewById(R.id.button_level5);
+
+    activateButtonsForOpenedLevels();
   }
 
   public void startLevel1(View view) {
@@ -121,5 +135,27 @@ public class LevelsActivity extends AppCompatActivity {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_layout, menu);
     return super.onCreateOptionsMenu(menu);
+  }
+
+  private void activateButtonsForOpenedLevels() {
+    LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(),
+            LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
+    LevelDao dao = dbLevels.levelDao();
+
+    if (dao.findByNumber(2).isOpen) {
+      buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape);
+    }
+
+    if (dao.findByNumber(3).isOpen) {
+      buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape);
+    }
+
+    if (dao.findByNumber(4).isOpen) {
+      buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape);
+    }
+
+    if (dao.findByNumber(5).isOpen) {
+      buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape);
+    }
   }
 }
