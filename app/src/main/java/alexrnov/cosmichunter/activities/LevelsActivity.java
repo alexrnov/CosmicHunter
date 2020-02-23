@@ -143,8 +143,8 @@ public class LevelsActivity extends AppCompatActivity {
               LevelDatabase.class, "levels-database").build();
       LevelDao dao = dbLevels.levelDao();
 
-
       if (dao.findByNumber(2).isOpen) {
+        // изменить фон кнопки в потоке пользовательского интерфейса
         runOnUiThread(() -> buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape));
       }
 
