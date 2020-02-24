@@ -3,7 +3,10 @@ package alexrnov.cosmichunter
 import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
@@ -13,7 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val LAUNCH_TIMEOUT = 5000L
+private const val LAUNCH_TIMEOUT = 3000L
 private const val BASIC_SAMPLE_PACKAGE = "alexrnov.cosmichunter"
 
 @RunWith(AndroidJUnit4::class)
@@ -47,44 +50,54 @@ class NavigationTest {
             }
     context.startActivity(intent)
 
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT ) // Wait
   }
 
   @Test
   fun launchApplication() {
+    // Получить объект кнопки. Если вы хотите получить доступ к определенному
+    // компоненту пользовательского интерфейса в приложении, используйте класс
+    // UiSelector. Этот класс представляет запрос для определенных элементов в
+    // отображаемом в настоящее время пользовательском интерфейсе.
     val settingsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/settingsButton"))
-    settingsButton.click()
+    settingsButton.click() // нажать на кнопку Espresso
+
+    val backFromSettingsButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
+    backFromSettingsButton.click() // вернутся в меню
+
+    val levelGameButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/levelGameButton"))
+    levelGameButton.click()
 
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT ) // Wait
 
-    val backButtonFromSettings: UiObject = device.findObject(UiSelector()
+    val backFromLevelsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
-    backButtonFromSettings.click() // вернутся в меню
+    backFromLevelsButton.click() // нажать на кнопку Espresso
+
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
+
+    val aboutGameButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/aboutGameButton"))
+    aboutGameButton.click() // нажать на кнопку Espresso
+
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
+
+    onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
+
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
+
   }
 
   @Test
   fun levelsActivity() {
-    // получить объект кнопки. Если вы хотите получить доступ к определенному
-    // компоненту пользовательского интерфейса в приложении, используйте класс
-    // UiSelector. Этот класс представляет запрос для определенных элементов в
-    // отображаемом в настоящее время пользовательском интерфейсе.
-    val levelGameButton: UiObject = device.findObject(UiSelector()
-            .resourceId("$BASIC_SAMPLE_PACKAGE:id/levelGameButton"))
-    levelGameButton.click() // нажать на кнопку Espresso
 
-    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT ) // Wait
-
-    val backButton: UiObject = device.findObject(UiSelector()
-            .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
-    backButton.click() // нажать на кнопку Espresso
-
-    /*
-    // Wait for the app to appear
-    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT)
-
-     */
   }
 }
