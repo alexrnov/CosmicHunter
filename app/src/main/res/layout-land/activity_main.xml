@@ -51,11 +51,10 @@ Here, the default resource is not needed, since the screen orientation is define
             app:layout_constraintTop_toBottomOf="@+id/toolbar_main_menu">
 
             <Button
-                android:id="@+id/startGame"
+                android:id="@+id/startGameButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="64dp"
-                android:layout_marginRight="64dp"
                 android:background="@drawable/toggle_button_shape"
                 android:onClick="startGame"
                 android:paddingStart="0dp"
@@ -68,13 +67,13 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/levelGame"
+                app:layout_constraintEnd_toStartOf="@+id/levelGameButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/levelGame"
+                android:id="@+id/levelGameButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
@@ -93,7 +92,7 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/startGame"
+                app:layout_constraintStart_toEndOf="@+id/startGameButton"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,14 +100,14 @@ Here, the default resource is not needed, since the screen orientation is define
             android:id="@+id/bottom_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/exit"
+            app:layout_constraintBottom_toTopOf="@+id/exitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
             <Button
-                android:id="@+id/settings"
+                android:id="@+id/settingsButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toggle_button_shape"
@@ -146,12 +145,12 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/settings"
+                app:layout_constraintStart_toEndOf="@+id/settingsButton"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/exit"
+            android:id="@+id/exitButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/toggle_back_button_shape"

@@ -119,10 +119,11 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
-                    android:id="@+id/button_back"
+                    android:id="@+id/back_button"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/toggle_back_button_shape"
+                    android:contentDescription="back button from levels"
                     android:onClick="backToMainMenu"
                     android:paddingLeft="20dp"
                     android:paddingTop="15dp"
@@ -148,7 +149,7 @@ Here, the default resource is not needed, since the screen orientation is define
                     android:paddingBottom="15dp"
                     android:text="@string/level5"
                     android:textColor="#FFFFFF"
-                    app:layout_constraintBottom_toTopOf="@+id/button_back"
+                    app:layout_constraintBottom_toTopOf="@+id/back_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
