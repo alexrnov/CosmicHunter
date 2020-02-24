@@ -30,10 +30,7 @@ class NavigationTest {
     // Initialize UiDevice instance
     device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-
-    // Start from the home screen
-    device.pressHome()
-
+    device.pressHome() // Start from the home screen
     // ждем запуска
     val launcherPackage: String = device.launcherPackageName
     ViewMatchers.assertThat(launcherPackage, CoreMatchers.notNullValue())
@@ -42,20 +39,18 @@ class NavigationTest {
 
     // Launch the app
     val context = ApplicationProvider.getApplicationContext<Context>()
-
     val intent = context.packageManager
             .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE)?.apply {
               // Clear out any previous instances
               addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             }
     context.startActivity(intent)
-
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT ) // Wait
   }
 
   @Test
-  fun mainButtons() {
+  fun backButtons() {
     // Получить объект кнопки. Если вы хотите получить доступ к определенному
     // компоненту пользовательского интерфейса в приложении, используйте класс
     // UiSelector. Этот класс представляет запрос для определенных элементов в
@@ -63,42 +58,48 @@ class NavigationTest {
     val settingsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/settingsButton"))
     settingsButton.click() // нажать на кнопку Espresso - перейти в настройки
-
     val backFromSettingsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT ) // Wait
     backFromSettingsButton.click() // вернутся в меню
 
     val levelGameButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/levelGameButton"))
     levelGameButton.click() // перейти в выбор уровней
-
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT ) // Wait
-
     val backFromLevelsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
     backFromLevelsButton.click() // вернуться в меню
-
-    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT)
-
-    val aboutGameButton: UiObject = device.findObject(UiSelector()
-            .resourceId("$BASIC_SAMPLE_PACKAGE:id/aboutGameButton"))
-    aboutGameButton.click() // перейти в раздел "о программе"
-
-    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT)
-
-    // нажать на arrow up button - вернуться в меню
-    onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
-
-    //onView(withContentDescription("Navigate up")).perform(click())
-    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT)
   }
 
   @Test
   fun homeUpButtons() {
+    val settingsButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/settingsButton"))
+    settingsButton.click() // нажать на кнопку Espresso - перейти в настройки
+    // нажать на arrow up button - вернуться в меню
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
+    onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
 
+    val levelGameButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/levelGameButton"))
+    levelGameButton.click() // перейти в выбор уровней
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT ) // Wait
+    // нажать на arrow up button - вернуться в меню
+    onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
+
+    val aboutGameButton: UiObject = device.findObject(UiSelector()
+            .resourceId("$BASIC_SAMPLE_PACKAGE:id/aboutGameButton"))
+    aboutGameButton.click() // перейти в раздел "о программе"
+    device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+            LAUNCH_TIMEOUT)
+    // нажать на arrow up button - вернуться в меню
+    onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
   }
 }
