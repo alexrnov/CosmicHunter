@@ -55,14 +55,14 @@ class NavigationTest {
   }
 
   @Test
-  fun launchApplication() {
+  fun mainButtons() {
     // Получить объект кнопки. Если вы хотите получить доступ к определенному
     // компоненту пользовательского интерфейса в приложении, используйте класс
     // UiSelector. Этот класс представляет запрос для определенных элементов в
     // отображаемом в настоящее время пользовательском интерфейсе.
     val settingsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/settingsButton"))
-    settingsButton.click() // нажать на кнопку Espresso
+    settingsButton.click() // нажать на кнопку Espresso - перейти в настройки
 
     val backFromSettingsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
@@ -70,34 +70,35 @@ class NavigationTest {
 
     val levelGameButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/levelGameButton"))
-    levelGameButton.click()
+    levelGameButton.click() // перейти в выбор уровней
 
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT ) // Wait
 
     val backFromLevelsButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/back_button"))
-    backFromLevelsButton.click() // нажать на кнопку Espresso
+    backFromLevelsButton.click() // вернуться в меню
 
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT)
 
     val aboutGameButton: UiObject = device.findObject(UiSelector()
             .resourceId("$BASIC_SAMPLE_PACKAGE:id/aboutGameButton"))
-    aboutGameButton.click() // нажать на кнопку Espresso
+    aboutGameButton.click() // перейти в раздел "о программе"
 
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT)
 
+    // нажать на arrow up button - вернуться в меню
     onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
 
+    //onView(withContentDescription("Navigate up")).perform(click())
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT)
-
   }
 
   @Test
-  fun levelsActivity() {
+  fun homeUpButtons() {
 
   }
 }
