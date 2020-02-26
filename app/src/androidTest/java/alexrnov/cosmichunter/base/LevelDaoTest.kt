@@ -1,8 +1,5 @@
-package alexrnov.cosmichunter
+package alexrnov.cosmichunter.base
 
-import alexrnov.cosmichunter.base.Level
-import alexrnov.cosmichunter.base.LevelDao
-import alexrnov.cosmichunter.base.LevelDatabase
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -15,7 +12,7 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class LevelDBTest {
+class LevelDaoTest {
   private lateinit var levelDao: LevelDao
   private lateinit var db: LevelDatabase
 
