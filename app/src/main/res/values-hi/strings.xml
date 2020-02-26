@@ -6,11 +6,11 @@
     <string name="about_game_button">खेल के बारे में</string>
     <string name="exit">बाहर जाएं</string>
 
-    <string name="settings_vibration">कंपन</string>
-    <string name="sound">ध्वनि</string>
-    <string name="music">संगीत</string>
-    <string name="on">सक्षम</string>
-    <string name="off">बंद</string>
+    <string name="settings_vibration_label">कंपन</string>
+    <string name="settings_sound_label">ध्वनि</string>
+    <string name="settings_music_label">संगीत</string>
+    <string name="settings_on">सक्षम</string>
+    <string name="settings_off">बंद</string>
     <string name="back">वापस</string>
 
     <string name="level1">स्तर 1</string>

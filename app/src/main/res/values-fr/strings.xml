@@ -6,11 +6,11 @@
     <string name="about_game_button">À propos du jeu</string>
     <string name="exit">sortie</string>
 
-    <string name="settings_vibration">Vibration</string>
-    <string name="sound">Du son</string>
-    <string name="music">La musique</string>
-    <string name="on">act.</string> <!-- activer -->
-    <string name="off">ét.</string> <!-- éteindre -->
+    <string name="settings_vibration_label">Vibration</string>
+    <string name="settings_sound_label">Du son</string>
+    <string name="settings_music_label">La musique</string>
+    <string name="settings_on">act.</string> <!-- activer -->
+    <string name="settings_off">ét.</string> <!-- éteindre -->
     <string name="back">retour</string>
 
     <string name="level1">Niveau 1</string>

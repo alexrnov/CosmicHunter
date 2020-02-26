@@ -6,11 +6,11 @@
     <string name="about_game_button">über das Spiel</string>
     <string name="exit">Ausfahrt</string>
 
-    <string name="settings_vibration">Vibration</string>
-    <string name="sound">Klang</string>
-    <string name="music">Musik</string>
-    <string name="on">auf</string>
-    <string name="off">aus</string>
+    <string name="settings_vibration_label">Vibration</string>
+    <string name="settings_sound_label">Klang</string>
+    <string name="settings_music_label">Musik</string>
+    <string name="settings_on">auf</string>
+    <string name="settings_off">aus</string>
     <string name="back">Zurück</string>
 
     <string name="level1">Niveau 1</string>

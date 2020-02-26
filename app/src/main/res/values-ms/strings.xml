@@ -6,11 +6,11 @@
     <string name="about_game_button">maklumat</string>
     <string name="exit">keluar</string>
 
-    <string name="settings_vibration">Getaran</string>
-    <string name="sound">Bunyi</string>
-    <string name="music">Muzik</string>
-    <string name="on">on</string>
-    <string name="off">off</string>
+    <string name="settings_vibration_label">Getaran</string>
+    <string name="settings_sound_label">Bunyi</string>
+    <string name="settings_music_label">Muzik</string>
+    <string name="settings_on">on</string>
+    <string name="settings_off">off</string>
     <string name="back">belakang</string>
 
     <string name="level1">Tahap 1</string>

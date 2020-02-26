@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.utils.commonGL;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesWindow;
 
 import static org.junit.Assert.assertEquals;
-
 
 @RunWith(AndroidJUnit4.class)
 public class CoordinatesWindowTest {

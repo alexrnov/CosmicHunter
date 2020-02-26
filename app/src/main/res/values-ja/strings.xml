@@ -7,11 +7,11 @@
     <string name="about_game_button">ゲームについて</string>
     <string name="exit">出口</string>
 
-    <string name="settings_vibration">振動</string>
-    <string name="sound">音</string>
-    <string name="music">音楽</string>
-    <string name="on">つける</string>
-    <string name="off">消す</string>
+    <string name="settings_vibration_label">振動</string>
+    <string name="settings_sound_label">音</string>
+    <string name="settings_music_label">音楽</string>
+    <string name="settings_on">つける</string>
+    <string name="settings_off">消す</string>
     <string name="back">バック</string>
 
     <string name="level1">レベル1</string>

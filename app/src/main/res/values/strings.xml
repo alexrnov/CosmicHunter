@@ -18,11 +18,11 @@
     <string name="about_game_button">About game</string>
     <string name="exit">exit</string>
 
-    <string name="settings_vibration">Vibration</string>
-    <string name="sound">Sound</string>
-    <string name="music">Music</string>
-    <string name="on">on</string>
-    <string name="off">off</string>
+    <string name="settings_vibration_label">Vibration</string>
+    <string name="settings_sound_label">Sound</string>
+    <string name="settings_music_label">Music</string>
+    <string name="settings_on">on</string>
+    <string name="settings_off">off</string>
     <string name="back">back</string>
 
     <string name="level1">Level 1</string>

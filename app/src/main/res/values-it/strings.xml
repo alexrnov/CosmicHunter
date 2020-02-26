@@ -6,11 +6,11 @@
     <string name="about_game_button">informazioni</string>
     <string name="exit">Uscita</string>
 
-    <string name="settings_vibration">Vibrazione</string>
-    <string name="sound">Suono</string>
-    <string name="music">Musica</string>
-    <string name="on">perm.</string>
-    <string name="off">speg.</string>
+    <string name="settings_vibration_label">Vibrazione</string>
+    <string name="settings_sound_label">Suono</string>
+    <string name="settings_music_label">Musica</string>
+    <string name="settings_on">perm.</string>
+    <string name="settings_off">speg.</string>
     <string name="back">indietro</string>
 
     <string name="level1">Livello 1</string>

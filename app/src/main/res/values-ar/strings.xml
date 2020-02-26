@@ -6,11 +6,11 @@
     <string name="about_game_button">عن اللعبة</string>
     <string name="exit">خروج</string>
 
-    <string name="settings_vibration">اهتزاز</string>
-    <string name="sound">صوت</string>
-    <string name="music">موسيقى</string>
-    <string name="on">مكن</string>
-    <string name="off">أطفئ</string>
+    <string name="settings_vibration_label">اهتزاز</string>
+    <string name="settings_sound_label">صوت</string>
+    <string name="settings_music_label">موسيقى</string>
+    <string name="settings_on">مكن</string>
+    <string name="settings_off">أطفئ</string>
     <string name="back">عودة</string>
 
     <string name="level1">المستوى 1</string>

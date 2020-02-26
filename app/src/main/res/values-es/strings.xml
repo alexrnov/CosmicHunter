@@ -6,11 +6,11 @@
     <string name="about_game_button">informacion</string>
     <string name="exit">salida</string>
 
-    <string name="settings_vibration">Vibración</string>
-    <string name="sound">Sonido</string>
-    <string name="music">Música</string>
-    <string name="on">enc.</string> <!-- encender -->
-    <string name="off">apag.</string> <!-- apagar -->
+    <string name="settings_vibration_label">Vibración</string>
+    <string name="settings_sound_label">Sonido</string>
+    <string name="settings_music_label">Música</string>
+    <string name="settings_on">enc.</string> <!-- encender -->
+    <string name="settings_off">apag.</string> <!-- apagar -->
     <string name="back">espalda</string>
 
     <string name="level1">Nivel 1</string>

@@ -6,11 +6,11 @@
     <string name="about_game_button">Об игре</string>
     <string name="exit">Выход</string>
 
-    <string name="settings_vibration">Вибрация</string>
-    <string name="sound">Звуки</string>
-    <string name="music">Музыка</string>
-    <string name="on">вкл.</string>
-    <string name="off">откл.</string>
+    <string name="settings_vibration_label">Вибрация</string>
+    <string name="settings_sound_label">Звуки</string>
+    <string name="settings_music_label">Музыка</string>
+    <string name="settings_on">вкл.</string>
+    <string name="settings_off">откл.</string>
     <string name="back">Назад</string>
 
     <string name="level1">Уровень 1</string>

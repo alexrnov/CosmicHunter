@@ -17,8 +17,6 @@ class VibratorExplosionTest {
 
   @Test
   fun f() {
-    Log.i(TAG, "tag2")
-    println("run test")
     vibrator.execute()
   }
 }

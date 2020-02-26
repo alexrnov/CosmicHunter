@@ -64,12 +64,12 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textSound"
+                    android:id="@+id/text_sound_label"
                     style="@style/MenuLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/sound"
+                    android:text="@string/settings_sound_label"
                     app:layout_constraintBottom_toTopOf="@+id/radioGroup_sound"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/off"
+                        android:text="@string/settings_off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />
@@ -123,7 +123,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/on"
+                        android:text="@string/settings_on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />
@@ -141,12 +141,12 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textMusic"
+                    android:id="@+id/text_music_label"
                     style="@style/MenuLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/music"
+                    android:text="@string/settings_music_label"
                     app:layout_constraintBottom_toTopOf="@+id/radioGroup_music"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +163,7 @@ Here, the default resource is not needed, since the screen orientation is define
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textMusic">
+                    app:layout_constraintTop_toBottomOf="@+id/text_music_label">
 
                     <RadioButton
                         android:id="@+id/musicOff"
@@ -180,7 +180,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/off"
+                        android:text="@string/settings_off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />
@@ -201,7 +201,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/on"
+                        android:text="@string/settings_on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />
@@ -219,12 +219,12 @@ Here, the default resource is not needed, since the screen orientation is define
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/vibration_label"
+                    android:id="@+id/text_vibration_label"
                     style="@style/MenuLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/settings_vibration"
+                    android:text="@string/settings_vibration_label"
                     app:layout_constraintBottom_toTopOf="@+id/radioGroup_vibration"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.496"
@@ -258,7 +258,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/off"
+                        android:text="@string/settings_off"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />
@@ -279,7 +279,7 @@ Here, the default resource is not needed, since the screen orientation is define
                         android:paddingTop="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/on"
+                        android:text="@string/settings_on"
                         android:textColor="@color/toggle_radio_text"
                         android:textSize="16sp"
                         android:typeface="sans" />

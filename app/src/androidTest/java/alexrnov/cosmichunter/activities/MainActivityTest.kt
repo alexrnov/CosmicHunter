@@ -24,7 +24,7 @@ class MainActivityTest {
           = ActivityTestRule(MainActivity::class.java)
 
   @Before
-  fun initValidString() {
+  fun initStrings() {
     startGame = activityRule.activity.getString(R.string.start_game)
     gameSettings = activityRule.activity.getString(R.string.settings_button)
     levelGame = activityRule.activity.getString(R.string.select_level)
@@ -33,13 +33,14 @@ class MainActivityTest {
   }
 
   @Test
-  fun checkButtons() {
+  fun checkView() {
     // проверить видимость кнопок
     onView(withId(R.id.startGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.settingsButton)).check(matches(isDisplayed()))
     onView(withId(R.id.levelGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.aboutGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.exitButton)).check(matches(isDisplayed()))
+    onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
 
     // проверить значения текста для кнопок основного меню
     onView(withId(R.id.startGameButton)).check(matches(withText(startGame)))

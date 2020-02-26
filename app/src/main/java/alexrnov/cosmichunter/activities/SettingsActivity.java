@@ -3,10 +3,8 @@ package alexrnov.cosmichunter.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import alexrnov.cosmichunter.Initialization;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,11 +54,11 @@ public class SettingsActivity extends AppCompatActivity
     addListeners();
 
     view = findViewById(R.id.background_settings);
-    vibrationText = getString(R.string.settings_vibration);
-    soundText = getString(R.string.sound);
-    musicText = getString(R.string.music);
-    onText = getString(R.string.on);
-    offText = getString(R.string.off);
+    vibrationText = getString(R.string.settings_vibration_label);
+    soundText = getString(R.string.settings_sound_label);
+    musicText = getString(R.string.settings_music_label);
+    onText = getString(R.string.settings_on);
+    offText = getString(R.string.settings_off);
   }
 
   /**

@@ -6,11 +6,11 @@
     <string name="about_game_button">Sobre o jogo</string>
     <string name="exit">Saída</string>
 
-    <string name="settings_vibration">Vibração</string>
-    <string name="sound">Som</string>
-    <string name="music">Música</string>
-    <string name="on">Ativ.</string>
-    <string name="off">Des.</string>
+    <string name="settings_vibration_label">Vibração</string>
+    <string name="settings_sound_label">Som</string>
+    <string name="settings_music_label">Música</string>
+    <string name="settings_on">Ativ.</string>
+    <string name="settings_off">Des.</string>
     <string name="back">costas</string>
 
     <string name="level1">Nível 1</string>
