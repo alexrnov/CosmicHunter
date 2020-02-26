@@ -34,7 +34,11 @@ class MainActivityTest {
 
   @Test
   fun checkView() {
-    // проверить видимость кнопок
+    // проверить видимость компонентов
+    onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
+    onView(withId(R.id.toolbar_title)).check(matches(isDisplayed()))
+    onView(withId(R.id.action_exit)).check(matches(isDisplayed()))
+
     onView(withId(R.id.startGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.settingsButton)).check(matches(isDisplayed()))
     onView(withId(R.id.levelGameButton)).check(matches(isDisplayed()))
@@ -42,7 +46,10 @@ class MainActivityTest {
     onView(withId(R.id.exitButton)).check(matches(isDisplayed()))
     onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
 
-    // проверить значения текста для кнопок основного меню
+    // проверить значения текста для компонентов основного меню
+    onView(withId(R.id.toolbar_title)).check(matches(withText(R.string.app_name)))
+    onView(withId(R.id.action_exit)).check(matches(withText(R.string.exit)))
+
     onView(withId(R.id.startGameButton)).check(matches(withText(startGame)))
     onView(withId(R.id.settingsButton)).check(matches(withText(gameSettings)))
     onView(withId(R.id.levelGameButton)).check(matches(withText(levelGame)))

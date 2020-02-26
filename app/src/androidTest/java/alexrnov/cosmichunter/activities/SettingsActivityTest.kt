@@ -38,7 +38,7 @@ class SettingsActivityTest {
   @Test
   fun displayedComponents() { // проверить отображение компонентов
     onView(withId(R.id.toolbar_settings)).check(matches(isDisplayed()))
-    onView(withId(R.id.toolbar_settings_title)).check(matches(isDisplayed()))
+    onView(withId(R.id.toolbar_title)).check(matches(isDisplayed()))
     onView(withId(R.id.action_exit)).check(matches(isDisplayed()))
 
     onView(withId(R.id.text_sound_label)).check(matches(isDisplayed()))
