@@ -33,7 +33,7 @@ class MainActivityTest {
   }
 
   @Test
-  fun checkView() {
+  fun displayedComponents() {
     // проверить видимость компонентов
     onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
     onView(withId(R.id.toolbar_title)).check(matches(isDisplayed()))
@@ -45,7 +45,10 @@ class MainActivityTest {
     onView(withId(R.id.aboutGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.exitButton)).check(matches(isDisplayed()))
     onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
+  }
 
+  @Test
+  fun textComponents() {
     // проверить значения текста для компонентов основного меню
     onView(withId(R.id.toolbar_title)).check(matches(withText(R.string.app_name)))
     onView(withId(R.id.action_exit)).check(matches(withText(R.string.exit)))
