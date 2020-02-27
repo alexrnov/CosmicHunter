@@ -26,6 +26,8 @@ class MainActivityTest {
 
   @Before
   fun initStrings() {
+    // инициализорвать значения строк здесь, чтобы небыло несоответствий при
+    // тестировании на устройствах с другой локализацией
     appName = activityRule.activity.getString(R.string.app_name)
     startGame = activityRule.activity.getString(R.string.start_game)
     gameSettings = activityRule.activity.getString(R.string.settings_button)

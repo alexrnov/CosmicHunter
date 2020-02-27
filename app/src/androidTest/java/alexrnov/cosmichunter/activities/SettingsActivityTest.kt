@@ -30,6 +30,8 @@ class SettingsActivityTest {
 
   @Before
   fun initStrings() {
+    // инициализорвать значения строк здесь, чтобы небыло несоответствий при
+    // тестировании на устройствах с другой локализацией
     soundTextLabel = activityRule.activity.getString(R.string.settings_sound_label)
     musicTextLabel = activityRule.activity.getString(R.string.settings_music_label)
     vibrationTextLabel = activityRule.activity.getString(R.string.settings_vibration_label)
