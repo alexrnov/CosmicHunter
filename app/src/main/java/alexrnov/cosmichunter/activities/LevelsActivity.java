@@ -52,7 +52,6 @@ public class LevelsActivity extends AppCompatActivity {
     buttonLevel3 = findViewById(R.id.button_level3);
     buttonLevel4 = findViewById(R.id.button_level4);
     buttonLevel5 = findViewById(R.id.button_level5);
-
     activateButtonsForOpenedLevels();
   }
 

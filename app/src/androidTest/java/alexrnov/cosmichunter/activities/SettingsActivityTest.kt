@@ -21,6 +21,8 @@ class SettingsActivityTest {
   private lateinit var vibrationTextLabel: String
   private lateinit var on: String
   private lateinit var off: String
+  private lateinit var exit: String
+  private lateinit var back: String
 
   @get:Rule
   var activityRule: ActivityTestRule<SettingsActivity>
@@ -33,6 +35,8 @@ class SettingsActivityTest {
     vibrationTextLabel = activityRule.activity.getString(R.string.settings_vibration_label)
     on = activityRule.activity.getString(R.string.settings_on)
     off = activityRule.activity.getString(R.string.settings_off)
+    back = activityRule.activity.getString(R.string.back)
+    exit = activityRule.activity.getString(R.string.exit)
   }
 
   @Test
@@ -55,7 +59,7 @@ class SettingsActivityTest {
 
   @Test
   fun textComponents() { // проверить текст в компонентах
-    onView(withId(R.id.action_exit)).check(matches(withText(R.string.exit)))
+    onView(withId(R.id.action_exit)).check(matches(withText(exit)))
     onView(withId(R.id.text_sound_label)).check(matches(withText(soundTextLabel)))
     onView(withId(R.id.text_music_label)).check(matches(withText(musicTextLabel)))
     onView(withId(R.id.text_vibration_label)).check(matches(withText(vibrationTextLabel)))
@@ -67,7 +71,7 @@ class SettingsActivityTest {
     onView(withId(R.id.vibrationOff)).check(matches(withText(off)))
     // одного идентификатора в некоторых случаях бывает недостаточно: например когда id являются не уникальными
     onView(allOf(withId(R.id.back_button), withContentDescription("back button from settings")))
-            .check(matches(withText(R.string.back)))
+            .check(matches(withText(back)))
   }
 
   @Test

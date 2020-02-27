@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
+  private lateinit var appName: String
   private lateinit var startGame: String
   private lateinit var gameSettings: String
   private lateinit var levelGame: String
@@ -25,6 +26,7 @@ class MainActivityTest {
 
   @Before
   fun initStrings() {
+    appName = activityRule.activity.getString(R.string.app_name)
     startGame = activityRule.activity.getString(R.string.start_game)
     gameSettings = activityRule.activity.getString(R.string.settings_button)
     levelGame = activityRule.activity.getString(R.string.select_level)
@@ -50,8 +52,8 @@ class MainActivityTest {
   @Test
   fun textComponents() {
     // проверить значения текста для компонентов основного меню
-    onView(withId(R.id.toolbar_title)).check(matches(withText(R.string.app_name)))
-    onView(withId(R.id.action_exit)).check(matches(withText(R.string.exit)))
+    onView(withId(R.id.toolbar_title)).check(matches(withText(appName)))
+    onView(withId(R.id.action_exit)).check(matches(withText(exit)))
 
     onView(withId(R.id.startGameButton)).check(matches(withText(startGame)))
     onView(withId(R.id.settingsButton)).check(matches(withText(gameSettings)))
