@@ -2,24 +2,43 @@ package alexrnov.cosmichunter.activities
 
 import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
+import alexrnov.cosmichunter.base.LevelDatabase
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.os.AsyncTask
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Checks
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+
+
+
 
 private const val LAUNCH_TIMEOUT = 3000L
 private const val BASIC_SAMPLE_PACKAGE = "alexrnov.cosmichunter"
@@ -108,5 +127,30 @@ class LevelsActivity2Test {
     onView(withId(R.id.button_level4)).check(matches(withText(level4)))
     onView(withId(R.id.button_level5)).check(matches(withText(level5)))
     onView(withId(R.id.back_button)).check(matches(withText(back)))
+
+    AsyncTask.execute {
+      val dbLevels = Room.databaseBuilder(ApplicationProvider.getApplicationContext<Context>(),
+              LevelDatabase::class.java, "levels-database").build()
+      val dao = dbLevels.levelDao()
+
+      if (dao.findByNumber(1).isOpen) {
+        Log.i(TAG, "isOpen")
+
+        //onView(allOf(withId(R.id.button_level1),
+           //     hasBackground(R.drawable.toggle_button_shape), isDisplayed()))
+
+        onView(allOf(withId(R.id.button_level1),
+                hasBackground(R.drawable.toggle_no_activity_button_shape), isDisplayed()))
+        //onView(withId(R.id.button_level1)).check(matches(withBackgroundColor(R.drawable.shape_button_no_activity)))
+        // toggle_no_activity_button_shape
+        // изменить фон кнопки в потоке пользовательского интерфейса
+        // runOnUiThread { buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape) }
+      } else {
+        Log.i(TAG, "is not open")
+      }
+    }
   }
+
+
+
 }
