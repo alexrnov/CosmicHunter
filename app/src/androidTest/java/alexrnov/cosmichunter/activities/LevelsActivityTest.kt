@@ -3,6 +3,7 @@ package alexrnov.cosmichunter.activities
 import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.base.LevelDatabase
+import alexrnov.cosmichunter.utils.EspressoTestsMatchers.withDrawable
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -36,9 +37,6 @@ import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-
-
 
 private const val LAUNCH_TIMEOUT = 3000L
 private const val BASIC_SAMPLE_PACKAGE = "alexrnov.cosmichunter"
@@ -128,28 +126,20 @@ class LevelsActivity2Test {
     onView(withId(R.id.button_level5)).check(matches(withText(level5)))
     onView(withId(R.id.back_button)).check(matches(withText(back)))
 
-    AsyncTask.execute {
       val dbLevels = Room.databaseBuilder(ApplicationProvider.getApplicationContext<Context>(),
-              LevelDatabase::class.java, "levels-database").build()
+              LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
       val dao = dbLevels.levelDao()
-
+      Log.i(TAG, "1111111111")
       if (dao.findByNumber(1).isOpen) {
-        Log.i(TAG, "isOpen")
-
-        //onView(allOf(withId(R.id.button_level1),
-           //     hasBackground(R.drawable.toggle_button_shape), isDisplayed()))
-
-        onView(allOf(withId(R.id.button_level1),
-                hasBackground(R.drawable.toggle_no_activity_button_shape), isDisplayed()))
-        //onView(withId(R.id.button_level1)).check(matches(withBackgroundColor(R.drawable.shape_button_no_activity)))
-        // toggle_no_activity_button_shape
-        // изменить фон кнопки в потоке пользовательского интерфейса
-        // runOnUiThread { buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape) }
-      } else {
+        Log.i(TAG, "2222222222")
+        //onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+        Log.i(TAG, "3333333333")
+        onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
+        } else {
         Log.i(TAG, "is not open")
       }
     }
-  }
+
 
 
 
