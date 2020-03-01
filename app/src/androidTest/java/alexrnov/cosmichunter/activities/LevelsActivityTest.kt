@@ -1,39 +1,20 @@
 package alexrnov.cosmichunter.activities
 
-import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.base.LevelDatabase
-import alexrnov.cosmichunter.utils.EspressoTestsMatchers.withDrawable
+import alexrnov.cosmichunter.testutils.EspressoTestsMatchers.withDrawable
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.os.AsyncTask
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Checks
-import androidx.test.espresso.matcher.BoundedMatcher
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -69,7 +50,7 @@ class LevelsActivity2Test {
     device.pressHome() // Start from the home screen
     // ждем запуска
     val launcherPackage: String = device.launcherPackageName
-    ViewMatchers.assertThat(launcherPackage, CoreMatchers.notNullValue())
+    assertThat(launcherPackage, CoreMatchers.notNullValue())
     device.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
             LAUNCH_TIMEOUT)
 
@@ -99,7 +80,7 @@ class LevelsActivity2Test {
   }
 
   @Test
-  fun visibleComponents() {
+  fun visibleComponentsAndActiveButtons() {
     val levelGameButton: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/levelGameButton"))
     levelGameButton.click() // перейти в выбор уровней
@@ -126,21 +107,24 @@ class LevelsActivity2Test {
     onView(withId(R.id.button_level5)).check(matches(withText(level5)))
     onView(withId(R.id.back_button)).check(matches(withText(back)))
 
-      val dbLevels = Room.databaseBuilder(ApplicationProvider.getApplicationContext<Context>(),
+    val dbLevels = Room.databaseBuilder(ApplicationProvider.getApplicationContext<Context>(),
               LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
-      val dao = dbLevels.levelDao()
-      Log.i(TAG, "1111111111")
-      if (dao.findByNumber(1).isOpen) {
-        Log.i(TAG, "2222222222")
-        //onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
-        Log.i(TAG, "3333333333")
-        onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
-        } else {
-        Log.i(TAG, "is not open")
-      }
-    }
+    val dao = dbLevels.levelDao()
 
+    /* Проверить внешний вид кнопок (активная/неактивная) в зависимости от того, открыты ли уровни */
+    if (dao.findByNumber(1).isOpen) onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+    else onView(withId(R.id.button_level1)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
 
+    if (dao.findByNumber(2).isOpen) onView(withId(R.id.button_level2)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+    else onView(withId(R.id.button_level2)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
 
+    if (dao.findByNumber(3).isOpen) onView(withId(R.id.button_level3)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+    else onView(withId(R.id.button_level3)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
 
+    if (dao.findByNumber(4).isOpen) onView(withId(R.id.button_level4)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+    else onView(withId(R.id.button_level4)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
+
+    if (dao.findByNumber(5).isOpen) onView(withId(R.id.button_level5)).check(matches(withDrawable(R.drawable.toggle_button_shape)))
+    else onView(withId(R.id.button_level5)).check(matches(withDrawable(R.drawable.toggle_no_activity_button_shape)))
+  }
 }
