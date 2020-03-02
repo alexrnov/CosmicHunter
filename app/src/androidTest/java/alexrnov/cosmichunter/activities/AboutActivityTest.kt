@@ -1,8 +1,10 @@
 package alexrnov.cosmichunter.activities
 
+import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -15,6 +17,7 @@ import org.hamcrest.CoreMatchers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.google.common.truth.Truth.assertThat
 
 private const val LAUNCH_TIMEOUT = 3000L
 private const val BASIC_SAMPLE_PACKAGE = "alexrnov.cosmichunter"
@@ -26,6 +29,17 @@ class AboutActivityTest {
   private lateinit var device: UiDevice
   private lateinit var title: String
   private lateinit var exit: String
+
+  private lateinit var musicText: String
+  private lateinit var musicLink: String
+  private lateinit var soundText: String
+  private lateinit var soundLink: String
+  private lateinit var textureText: String
+  private lateinit var textureLink: String
+  private lateinit var pictureText: String
+  private lateinit var pictureLink: String
+  private lateinit var blenderText: String
+  private lateinit var blenderLink: String
 
   @Before
   fun startMainActivityFromHomeScreen() {
@@ -54,6 +68,17 @@ class AboutActivityTest {
     // тестировании на устройствах с другой локализацией
     title = context.getString(R.string.about_game_button)
     exit = context.getString(R.string.exit)
+    musicText = context.getString(R.string.music_text)
+    musicLink = context.getString(R.string.music_link)
+    soundText = context.getString(R.string.sound_text)
+    soundLink = context.getString(R.string.sound_link)
+    pictureText = context.getString(R.string.pictures_text)
+    pictureLink = context.getString(R.string.pictures_link)
+    textureText = context.getString(R.string.textures_text)
+    textureLink = context.getString(R.string.textures_link)
+    blenderText = context.getString(R.string.blender_text)
+    blenderLink = context.getString(R.string.blender_link)
+
   }
 
   @Test
@@ -67,39 +92,73 @@ class AboutActivityTest {
     // проверить видимость компонентов
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
     onView(withId(R.id.action_exit)).check(matches(isDisplayed()))
+    onView(withId(R.id.musicText)).check(matches(isDisplayed()))
+    onView(withId(R.id.musicLink)).check(matches(isDisplayed()))
+    onView(withId(R.id.soundText)).check(matches(isDisplayed()))
+    onView(withId(R.id.soundLink)).check(matches(isDisplayed()))
+    onView(withId(R.id.textureText)).check(matches(isDisplayed()))
+    onView(withId(R.id.textureLink)).check(matches(isDisplayed()))
+    onView(withId(R.id.pictureText)).check(matches(isDisplayed()))
+    onView(withId(R.id.pictureLink)).check(matches(isDisplayed()))
+    onView(withId(R.id.blenderText)).check(matches(isDisplayed()))
+    onView(withId(R.id.blenderLink)).check(matches(isDisplayed()))
 
     // проверить значения текста для компонентов
     onView(withId(R.id.toolbar_about_game_title)).check(matches(withText(title)))
     onView(withId(R.id.action_exit)).check(matches(withText(exit)))
+    onView(withId(R.id.musicText)).check(matches(withText(musicText)))
+    onView(withId(R.id.musicLink)).check(matches(withText(musicLink)))
+    onView(withId(R.id.soundText)).check(matches(withText(soundText)))
+    onView(withId(R.id.soundLink)).check(matches(withText(soundLink)))
+    onView(withId(R.id.textureText)).check(matches(withText(textureText)))
+    onView(withId(R.id.textureLink)).check(matches(withText(textureLink)))
+    onView(withId(R.id.pictureText)).check(matches(withText(pictureText)))
+    onView(withId(R.id.pictureLink)).check(matches(withText(pictureLink)))
+    onView(withId(R.id.blenderText)).check(matches(withText(blenderText)))
+    onView(withId(R.id.blenderLink)).check(matches(withText(blenderLink)))
 
-    val musicLink: UiObject = device.findObject(UiSelector()
+    val musicLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/musicLink"))
-    musicLink.click() // открыть ссылку
+
+    // открыть ссылку и ждать минимум времени, чтобы страница не успела выдать
+    // какие-либо диалоговые окна
+    musicLinkAuto.clickAndWaitForNewWindow(0L)
+    var currentPackage: String = device.currentPackageName
+    assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
-    val soundLink: UiObject = device.findObject(UiSelector()
+    val soundLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/soundLink"))
-    soundLink.click()
+    soundLinkAuto.clickAndWaitForNewWindow(0L)
+    currentPackage = device.currentPackageName
+    // проверить что браузер открывается
+    assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
-
-    val textureLink: UiObject = device.findObject(UiSelector()
+    val textureLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/textureLink"))
-    textureLink.click()
+    textureLinkAuto.clickAndWaitForNewWindow(0L)
+    currentPackage = device.currentPackageName
+    assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
-    val pictureLink: UiObject = device.findObject(UiSelector()
+    val pictureLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/pictureLink"))
-    pictureLink.click()
+    pictureLinkAuto.clickAndWaitForNewWindow(0L)
+    currentPackage = device.currentPackageName
+    assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
+
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
-    val blenderLink: UiObject = device.findObject(UiSelector()
+    val blenderLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/blenderLink"))
-    blenderLink.click()
+    blenderLinkAuto.clickAndWaitForNewWindow(0L)
+    currentPackage = device.currentPackageName
+    assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
