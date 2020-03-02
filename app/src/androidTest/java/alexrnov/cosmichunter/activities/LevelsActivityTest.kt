@@ -65,7 +65,6 @@ class LevelsActivity2Test {
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT ) // Wait
 
-
     // инициализорвать значения строк здесь, чтобы небыло несоответствий при
     // тестировании на устройствах с другой локализацией
     title = context.getString(R.string.select_level)
