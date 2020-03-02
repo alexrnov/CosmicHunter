@@ -79,16 +79,16 @@ class AboutActivityTest {
     blenderText = context.getString(R.string.blender_text)
     blenderLink = context.getString(R.string.blender_link)
 
-  }
 
-  @Test
-  fun visibleComponent() {
     val aboutGameButton: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/aboutGameButton"))
     aboutGameButton.click() // перейти в выбор уровней
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT) // Wait
+  }
 
+  @Test
+  fun visibleComponent() {
     // проверить видимость компонентов
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
     onView(withId(R.id.action_exit)).check(matches(isDisplayed()))
@@ -116,7 +116,10 @@ class AboutActivityTest {
     onView(withId(R.id.pictureLink)).check(matches(withText(pictureLink)))
     onView(withId(R.id.blenderText)).check(matches(withText(blenderText)))
     onView(withId(R.id.blenderLink)).check(matches(withText(blenderLink)))
+  }
 
+  @Test
+  fun checkLinks() { // проверить переход по ссылкам
     val musicLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/musicLink"))
 
