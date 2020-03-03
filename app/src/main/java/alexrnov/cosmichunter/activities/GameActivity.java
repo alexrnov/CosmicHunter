@@ -166,27 +166,17 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
-      /*
-      while(oglView.getSceneRenderer().isLoadGame() == false) {
-        Log.i(TAG, "Game not load");
-      }
-      */
       // запустить отдельный поток для таймера
       timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
-          if (!oglView.getSceneRenderer().isLoadGame()) {
-            return;
-          }
+          if (!oglView.getSceneRenderer().isLoadGame()) return;
           int min = time / 60; // получить количество минут
           int sec = time % 60; // получить количество секунд
           // для создания формата времени 00:00, вместо String.format()
           // используется тернарный оператор (в целях производительности)
           handleState(TIME_CODE, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
-          //Log.i(TAG, "loadGame = " + oglView.getSceneRenderer().isLoadGame() + ", time: " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
-          Log.i(TAG, "loadGame = " + oglView.getSceneRenderer().isLoadGame() + ", time: " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
-
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
