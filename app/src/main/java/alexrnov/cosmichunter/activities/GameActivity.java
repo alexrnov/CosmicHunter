@@ -102,9 +102,9 @@ public class GameActivity extends AppCompatActivity {
 
     // добавить loadPanel в конец списка, чтобы фон загрузки закрывал остальные надписи
     bringViewsToFront(hits, rockets, message, time, loadPanel);
-    // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
+    // определяет объект handler, присоединенный к потоку пользовательского интерфейса
+    handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
 
     /*
     decorView = getWindow().getDecorView();
