@@ -8,7 +8,6 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
   /** установить ссылку на gameActivity, чтобы связываться с цифровым табло во время игры */
   void setGameActivity(@NotNull GameActivity gameActivity);
 
-
   /** передать координаты нажатия на экран */
   void setPassXY(float passX, float passY);
 
@@ -18,5 +17,9 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
   /** @return высота дисплея OpenGL (в пикселах) */
   int getHeightDisplay();
 
+  /**
+   * Проверяет загружена ли игра (проинициализированы все объекты игры)
+   * @return true - если игра загружена, false - в обратном случае
+   */
   boolean isLoadGame();
 }
