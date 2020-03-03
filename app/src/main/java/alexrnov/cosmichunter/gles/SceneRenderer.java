@@ -17,4 +17,6 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
 
   /** @return высота дисплея OpenGL (в пикселах) */
   int getHeightDisplay();
+
+  boolean isLoadGame();
 }

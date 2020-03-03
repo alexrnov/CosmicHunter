@@ -102,6 +102,8 @@ public class GameActivity extends AppCompatActivity {
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
+
+    /*
     decorView = getWindow().getDecorView();
 
     decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
@@ -129,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
     decorView.setSystemUiVisibility(ioOptions);
-
+    */
     boolean hasMenuKey = ViewConfiguration.get(this.getBaseContext()).hasPermanentMenuKey();
     boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
     // проверить имеет ли девайс навигационную панель
@@ -164,21 +166,32 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
+      /*
+      while(oglView.getSceneRenderer().isLoadGame() == false) {
+        Log.i(TAG, "Game not load");
+      }
+      */
       // запустить отдельный поток для таймера
       timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
+          if (!oglView.getSceneRenderer().isLoadGame()) {
+            return;
+          }
           int min = time / 60; // получить количество минут
           int sec = time % 60; // получить количество секунд
           // для создания формата времени 00:00, вместо String.format()
           // используется тернарный оператор (в целях производительности)
           handleState(TIME_CODE, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+          //Log.i(TAG, "loadGame = " + oglView.getSceneRenderer().isLoadGame() + ", time: " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+          Log.i(TAG, "loadGame = " + oglView.getSceneRenderer().isLoadGame() + ", time: " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
         }
-      }, 1000, 100); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
+      }, 1000, 1000); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
     }
 
     // используется в различных примерах, но эффект от этого метода не определил
