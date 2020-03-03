@@ -25,6 +25,7 @@ import alexrnov.cosmichunter.OGLView;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.concurrent.SurfaceRunnable;
 import alexrnov.cosmichunter.concurrent.ViewHandler;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartGameActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopGameActivity;
@@ -93,12 +94,14 @@ public class GameActivity extends AppCompatActivity {
     oglView.init(this.getApplicationContext(), versionGLES, level);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
 
+    ConstraintLayout loadPanel = findViewById(R.id.load_panel);
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
     TextView time = findViewById(R.id.time);
 
-    bringViewsToFront(hits, rockets, message, time);
+    // добавить loadPanel в конец списка, чтобы фон загрузки закрывал остальные надписи
+    bringViewsToFront(hits, rockets, message, time, loadPanel);
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), hits, rockets, message, time);
 
