@@ -1,10 +1,8 @@
 package alexrnov.cosmichunter.activities
 
-import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -128,7 +126,7 @@ class AboutActivityTest {
     musicLinkAuto.clickAndWaitForNewWindow(0L)
     var currentPackage: String = device.currentPackageName
     assertThat(currentPackage).isEqualTo("com.android.chrome")
-    device.pressBack()
+    device.pressBack() // вернуться обратно в приложение
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
     val soundLinkAuto: UiObject = device.findObject(UiSelector()
@@ -166,6 +164,6 @@ class AboutActivityTest {
     onView(withId(R.id.toolbar_about_game_title)).check(matches(isDisplayed()))
 
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-            LAUNCH_TIMEOUT) // Wait
+            LAUNCH_TIMEOUT)
   }
 }

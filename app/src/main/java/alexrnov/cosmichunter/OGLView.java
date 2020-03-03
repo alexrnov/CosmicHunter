@@ -85,11 +85,12 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
   public boolean onDown(MotionEvent event) {
     //преобразовать координаты экрана(пикселы) в координаты OpenGL
     coordinatesOpenGL.fromDisplay(renderer.getWidthDisplay(),
-            renderer.getHeightDisplay(),
-            event.getX(), event.getY());
+              renderer.getHeightDisplay(),
+              event.getX(), event.getY());
     xPress = coordinatesOpenGL.getXGL();//координаты OpenGL
     yPress = coordinatesOpenGL.getYGL();
     renderer.setPassXY(xPress, yPress);
+
     return true;
   }
 
