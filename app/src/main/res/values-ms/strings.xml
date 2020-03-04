@@ -13,6 +13,7 @@
     <string name="settings_off">off</string>
     <string name="back">belakang</string>
 
+    <string name="level">Tahap</string>
     <string name="level1">Tahap 1</string>
     <string name="level2">Tahap 2</string>
     <string name="level3">Tahap 3</string>

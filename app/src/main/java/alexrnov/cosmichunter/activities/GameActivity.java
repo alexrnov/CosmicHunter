@@ -48,12 +48,12 @@ public class GameActivity extends AppCompatActivity {
   private int time = 600;
   private View decorView;
   private ImageView loadImage;
-
+  private ConstraintLayout loadPanel;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
     int versionGLES = getIntent().getIntExtra("versionGLES", 2);
-    int level = getIntent().getIntExtra("Level", 1);
+    int levelNumber = getIntent().getIntExtra("Level", 1);
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
     // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
@@ -94,10 +94,10 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
     oglView = findViewById(R.id.oglView);
-    oglView.init(this.getApplicationContext(), versionGLES, level);
+    oglView.init(this.getApplicationContext(), versionGLES, levelNumber);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
 
-    ConstraintLayout loadPanel = findViewById(R.id.load_panel);
+    loadPanel = findViewById(R.id.load_panel);
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
@@ -109,10 +109,13 @@ public class GameActivity extends AppCompatActivity {
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
 
+    loadImage = findViewById(R.id.image_process); // изображения для отображения хода загрузки игры
+    loadImage.setBackgroundResource(R.drawable.animation_process); // добавить анимацию
+    //loadImage.setImageResource(R.drawable.image); // если добавляется статичное изображение
 
-    loadImage = findViewById(R.id.image_process);
-    loadImage.setBackgroundResource(R.drawable.animation_process);
-    //loadImage.setImageResource(R.drawable.load_process);
+    TextView loadLevelText = findViewById(R.id.load_level_text);
+    CharSequence currentLevel = getString(R.string.level) + " " + levelNumber;
+    loadLevelText.setText(currentLevel); // вывести на экран загрузки название текущего уровня
     /*
     decorView = getWindow().getDecorView();
 
@@ -218,8 +221,12 @@ public class GameActivity extends AppCompatActivity {
     //gun(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
 
-    AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
-    animation.start();
+    if (loadPanel.getAlpha() == 1.0) { // если панель загрузки игры видна
+      AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
+      animation.start(); // выполнить анимацию процесса загрузки
+      Log.i(TAG, "load panel is visible");
+    }
+
     if (dialogWasOpen) {
       startActivity(new Intent(this, DialogCancelActivity.class));
     }

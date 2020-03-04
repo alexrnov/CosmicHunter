@@ -13,6 +13,7 @@
     <string name="settings_off">apag.</string> <!-- apagar -->
     <string name="back">espalda</string>
 
+    <string name="level">Nivel</string>
     <string name="level1">Nivel 1</string>
     <string name="level2">Nivel 2</string>
     <string name="level3">Nivel 3</string>

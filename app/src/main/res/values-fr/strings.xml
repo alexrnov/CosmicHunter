@@ -13,6 +13,7 @@
     <string name="settings_off">ét.</string> <!-- éteindre -->
     <string name="back">retour</string>
 
+    <string name="level">Niveau</string>
     <string name="level1">Niveau 1</string>
     <string name="level2">Niveau 2</string>
     <string name="level3">Niveau 3</string>
