@@ -31,5 +31,7 @@
     <string name="pictures_text">الصور</string>
     <string name="blender_text">تصميم</string>
 
+    <string name="load_game_text">لعبة تحميل</string>
+
     <string name="opengl_not_support">برنامج OpenGL غير مدعوم</string>
 </resources>

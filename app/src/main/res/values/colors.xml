@@ -35,4 +35,5 @@
 
     <color name="gameMessage">#9ec41e</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

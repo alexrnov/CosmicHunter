@@ -1,6 +1,7 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -45,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
   private Timer timer;
   private int time = 600;
   private View decorView;
+  private ImageView loadImage;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,10 @@ public class GameActivity extends AppCompatActivity {
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
     handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
 
+
+    loadImage = findViewById(R.id.image_process);
+    loadImage.setBackgroundResource(R.drawable.animation_process);
+    //loadImage.setImageResource(R.drawable.load_process);
     /*
     decorView = getWindow().getDecorView();
 
@@ -210,6 +217,9 @@ public class GameActivity extends AppCompatActivity {
     checkMusicForStartGameActivity(this);
     //gun(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
+
+    AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
+    animation.start();
     if (dialogWasOpen) {
       startActivity(new Intent(this, DialogCancelActivity.class));
     }

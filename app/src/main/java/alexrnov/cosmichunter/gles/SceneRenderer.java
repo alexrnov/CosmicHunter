@@ -9,7 +9,7 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
   void setGameActivity(@NotNull GameActivity gameActivity);
 
   /** передать координаты нажатия на экран */
-  void setPassXY(float passX, float passY);
+  void setPassXY(Float passX, Float passY);
 
   /** @return ширина дисплея OpenGL (в пикселах) */
   int getWidthDisplay();

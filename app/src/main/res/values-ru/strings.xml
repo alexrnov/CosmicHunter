@@ -31,6 +31,7 @@
     <string name="pictures_text">Картинки</string>
     <string name="blender_text">Моделирование</string>
 
+    <string name="load_game_text">Загрузка игры</string>
 
     <string name="opengl_not_support">Нет поддержки OpenGL</string>
 </resources>

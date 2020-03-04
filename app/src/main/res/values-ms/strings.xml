@@ -31,5 +31,7 @@
     <string name="pictures_text">Gambar</string>
     <string name="blender_text">Pemodelan</string>
 
+    <string name="load_game_text">Muatkan permainan</string>
+
     <string name="opengl_not_support">OpenGL tidak disokong</string>
 </resources>

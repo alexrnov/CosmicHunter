@@ -31,5 +31,7 @@
     <string name="pictures_text">Bilder</string>
     <string name="blender_text">Modellieren</string>
 
+    <string name="load_game_text">Spiel laden</string>
+
     <string name="opengl_not_support">OpenGL wird nicht unterstützt</string>
 </resources>

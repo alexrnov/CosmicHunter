@@ -31,5 +31,7 @@
     <string name="pictures_text">चित्रों</string>
     <string name="blender_text">मोडलिंग</string>
 
+    <string name="load_game_text">खेल लोड करें</string>
+
     <string name="opengl_not_support">OpenGL समर्थित नहीं है</string>
 </resources>
