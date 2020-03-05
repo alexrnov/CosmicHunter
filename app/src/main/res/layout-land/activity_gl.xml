@@ -10,7 +10,6 @@ Here, the default resource is not needed, since the screen orientation is define
     tools:context=".activities.GameActivity"
     tools:layout_editor_absoluteY="25dp"
     android:orientation="vertical"
-    android:background="@drawable/background"
     tools:ignore="MissingDefaultResource">
 
     <alexrnov.cosmichunter.OGLView
@@ -28,6 +27,7 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_marginLeft="3sp"
         android:text="@string/start_hints"
         android:textColor="@color/gameMessage"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -41,6 +41,7 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_marginEnd="3sp"
         android:layout_marginRight="3sp"
         android:textColor="@color/gameMessage"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -50,6 +51,7 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_height="wrap_content"
         android:layout_marginBottom="3sp"
         android:textColor="@color/gameMessage"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -63,6 +65,7 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_marginRight="5sp"
         android:textColor="@color/gameMessage"
         android:text="@string/start_time"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rockets" />
 
