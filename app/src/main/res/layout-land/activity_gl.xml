@@ -26,11 +26,11 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_marginBottom="3sp"
         android:layout_marginStart="3sp"
         android:layout_marginLeft="3sp"
-        android:text="  0/100"
+        android:text="@string/start_hints"
         android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-         />
+        />
 
     <!-- layout_marginRight="3sp" same as layout_marginEnd, only for support older versions than API 17 -->
     <TextView
@@ -40,7 +40,6 @@ Here, the default resource is not needed, since the screen orientation is define
         android:layout_marginBottom="3sp"
         android:layout_marginEnd="3sp"
         android:layout_marginRight="3sp"
-        android:text="100"
         android:textColor="@color/gameMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

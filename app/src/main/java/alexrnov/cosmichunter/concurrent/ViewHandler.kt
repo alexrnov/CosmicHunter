@@ -1,15 +1,12 @@
 package alexrnov.cosmichunter.concurrent
 
-import alexrnov.cosmichunter.Initialization.TAG
-import alexrnov.cosmichunter.base.LevelDatabase
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.room.Room
 
 const val HITS_CODE = 0
 const val ROCKETS_CODE = 1
@@ -30,13 +27,14 @@ class ViewHandler(
    * для потока, которым управляет. Все объекты Handler для определенного
    * потока получают одно и то же сообщение.
    */
+  @SuppressLint("SetTextI18n")
   override fun handleMessage(inputMessage: Message) {
     // получение значения из входящего сообщения
     val text: String = inputMessage.obj as String
     // обновить один из объектов интерфейса
     when (inputMessage.what) {
-      HITS_CODE -> hits.text = text // обновить количество попаданий
-      ROCKETS_CODE -> rockets.text = text // обновить количество оставшихся ракет
+      HITS_CODE -> hits.text = "h:$text/50" // обновить количество попаданий
+      ROCKETS_CODE -> rockets.text = "r:$text" // обновить количество оставшихся ракет
       MESSAGE_CODE -> {
         message.text = text
         message.setTextColor(Color.parseColor("#00a8f3"))

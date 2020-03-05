@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -102,6 +103,8 @@ public class GameActivity extends AppCompatActivity {
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
     TextView time = findViewById(R.id.time);
+
+    setNumberRocketsForLevel(rockets, levelNumber);
 
     // добавить loadPanel в конец списка, чтобы фон загрузки закрывал остальные надписи
     bringViewsToFront(hits, rockets, message, time, loadPanel);
@@ -316,6 +319,33 @@ public class GameActivity extends AppCompatActivity {
     return true;
   }
   */
+
+  /* В зависимости от уровня установить стартовое количество ракет */
+  @SuppressLint("SetTextI18n")
+  private void setNumberRocketsForLevel(TextView rockets, int level) {
+    switch(level) {
+      case 1: {
+        rockets.setText("r:300");
+        break;
+      }
+      case 2: {
+        rockets.setText("r:200");
+        break;
+      }
+      case 3: {
+        rockets.setText("r:150");
+        break;
+      }
+      case 4: {
+        rockets.setText("r:100");
+        break;
+      }
+      case 5: {
+        rockets.setText("r:70");
+        break;
+      }
+    }
+  }
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
