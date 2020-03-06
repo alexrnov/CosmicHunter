@@ -168,5 +168,17 @@ Here, the default resource is not needed, since the screen orientation is define
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bottom_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/b_lay"
+            android:layout_width="729dp"
+            android:layout_height="53dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/exitButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_layout">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

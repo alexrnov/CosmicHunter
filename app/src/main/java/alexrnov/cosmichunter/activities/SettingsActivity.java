@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 
 import java.util.Objects;
 
-import alexrnov.cosmichunter.BackgroundMusic;
+import alexrnov.cosmichunter.sound.BackgroundMusic;
 import alexrnov.cosmichunter.R;
 import androidx.appcompat.widget.Toolbar;
 

@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import alexrnov.cosmichunter.base.Level;
 import alexrnov.cosmichunter.base.LevelDao;
 import alexrnov.cosmichunter.base.LevelDatabase;
+import alexrnov.cosmichunter.sound.BackgroundMusic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;

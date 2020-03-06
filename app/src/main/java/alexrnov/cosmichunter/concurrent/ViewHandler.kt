@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -40,7 +41,9 @@ class ViewHandler(
         message.setTextColor(Color.parseColor("#00a8f3"))
       }
       TIME_CODE -> time.text = text // обновить показатели времени
-      LOAD_GAME_CODE -> loadPanel.alpha = 0.0f // убрать (сделать прозрачной) панель загрузки игры
+      LOAD_GAME_CODE -> {
+        loadPanel.visibility = View.INVISIBLE
+      } // убрать (сделать прозрачной) панель загрузки игры
     }
   }
 }

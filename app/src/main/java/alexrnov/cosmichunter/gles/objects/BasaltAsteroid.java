@@ -4,7 +4,6 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import alexrnov.cosmichunter.Object3D;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.AsteroidView3D;

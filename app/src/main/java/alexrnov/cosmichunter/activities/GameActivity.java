@@ -1,8 +1,10 @@
 package alexrnov.cosmichunter.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,6 +52,9 @@ public class GameActivity extends AppCompatActivity {
   private View decorView;
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
+
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -92,11 +97,9 @@ public class GameActivity extends AppCompatActivity {
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
 
+
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
-    oglView = findViewById(R.id.oglView);
-    oglView.init(this.getApplicationContext(), versionGLES, levelNumber);
-    oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
 
     loadPanel = findViewById(R.id.load_panel);
     TextView hits = findViewById(R.id.hits);
@@ -104,13 +107,10 @@ public class GameActivity extends AppCompatActivity {
     TextView message = findViewById(R.id.message);
     TextView time = findViewById(R.id.time);
 
-    setNumberRocketsForLevel(rockets, levelNumber);
-
     // добавить loadPanel в конец списка, чтобы фон загрузки закрывал остальные надписи
     bringViewsToFront(hits, rockets, message, time, loadPanel);
 
-    // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
+    setNumberRocketsForLevel(rockets, levelNumber);
 
     loadImage = findViewById(R.id.image_process); // изображения для отображения хода загрузки игры
     loadImage.setBackgroundResource(R.drawable.animation_process); // добавить анимацию
@@ -119,6 +119,16 @@ public class GameActivity extends AppCompatActivity {
     TextView loadLevelText = findViewById(R.id.load_level_text);
     CharSequence currentLevel = getString(R.string.level) + " " + levelNumber;
     loadLevelText.setText(currentLevel); // вывести на экран загрузки название текущего уровня
+
+    // определяет объект handler, присоединенный к потоку пользовательского интерфейса
+    handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
+
+
+    oglView = findViewById(R.id.oglView);
+    oglView.init(this.getApplicationContext(), versionGLES, levelNumber);
+    oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
+
+
     /*
     decorView = getWindow().getDecorView();
 
@@ -182,6 +192,7 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
+
       // запустить отдельный поток для таймера
       timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
@@ -218,13 +229,16 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
+
     Log.i(TAG, className + "onStart()");
     super.onStart();
+
     checkMusicForStartGameActivity(this);
     //gun(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
 
-    if (loadPanel.getAlpha() == 1.0) { // если панель загрузки игры видна
+    //if (loadPanel.getAlpha() == 1.0) { // если панель загрузки игры видна
+    if (loadPanel.getVisibility() == View.VISIBLE) {
       AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
       animation.start(); // выполнить анимацию процесса загрузки
       Log.i(TAG, "load panel is visible");
@@ -352,4 +366,12 @@ public class GameActivity extends AppCompatActivity {
     Log.i("P", "hasFocus = " + hasFocus);
     super.onWindowFocusChanged(hasFocus);
   }
+
+
+
+
+
+
+
+
 }

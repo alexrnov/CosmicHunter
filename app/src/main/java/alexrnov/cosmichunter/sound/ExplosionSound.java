@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.sound;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,21 +12,12 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
-public class BackgroundMusic {
+public class ExplosionSound {
   private static MediaPlayer player;
   private static final String resourceFolder = "raw";
 
-  /** Запускает мелодию в меню */
-  public static void createMenuPlayer(AppCompatActivity activity) {
-    final String musicFile = "crystal_waters";
-    Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
-            + resourceFolder + separator + musicFile);
-    startPlayer(activity, uri);
-  }
-
-  /** Запускает мелодию в самой игре */
-  public static void createGamePlayer(AppCompatActivity activity) {
-    final String musicFile = "infinite_ocean";
+  public static void createExplosion(AppCompatActivity activity) {
+    final String musicFile = "explosion";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + resourceFolder + separator + musicFile);
     startPlayer(activity, uri);
@@ -36,7 +27,7 @@ public class BackgroundMusic {
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player.setVolume(1, 1);
-    player.setLooping(true);
+    player.setLooping(false);
     try {
       player.setDataSource(activity.getApplicationContext(), uri);
       player.prepareAsync();//асинхронная загрузка мелодии
@@ -55,7 +46,7 @@ public class BackgroundMusic {
   /** Освобождает ресурсы для плеера (музыка останавливается) */
   public static void freeResourcesForPlayer() {
     if (player != null) {
-      player.release();//освободить системные ресурсы, выделенные для плеера
+      player.release(); // освободить системные ресурсы, выделенные для плеера
       player = null;
     }
   }

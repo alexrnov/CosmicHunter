@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.util.Log;

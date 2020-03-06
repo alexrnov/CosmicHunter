@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.sound;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,12 +12,21 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
-public class GunSound {
+public class BackgroundMusic {
   private static MediaPlayer player;
   private static final String resourceFolder = "raw";
 
-  public static void createGun(AppCompatActivity activity) {
-    final String musicFile = "gun";
+  /** Запускает мелодию в меню */
+  public static void createMenuPlayer(AppCompatActivity activity) {
+    final String musicFile = "crystal_waters";
+    Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
+            + resourceFolder + separator + musicFile);
+    startPlayer(activity, uri);
+  }
+
+  /** Запускает мелодию в самой игре */
+  public static void createGamePlayer(AppCompatActivity activity) {
+    final String musicFile = "infinite_ocean";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + resourceFolder + separator + musicFile);
     startPlayer(activity, uri);
@@ -27,14 +36,14 @@ public class GunSound {
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player.setVolume(1, 1);
-    player.setLooping(false);
+    player.setLooping(true);
     try {
       player.setDataSource(activity.getApplicationContext(), uri);
-      player.prepareAsync(); // асинхронная загрузка мелодии
+      player.prepareAsync();//асинхронная загрузка мелодии
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
-    // музыка начнется после завершения подготовки mp3 файла
+    //музыка начнется после завершения подготовки mp3 файла
     player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer player) {
@@ -46,7 +55,7 @@ public class GunSound {
   /** Освобождает ресурсы для плеера (музыка останавливается) */
   public static void freeResourcesForPlayer() {
     if (player != null) {
-      player.release(); // освободить системные ресурсы, выделенные для плеера
+      player.release();//освободить системные ресурсы, выделенные для плеера
       player = null;
     }
   }

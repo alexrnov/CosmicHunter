@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.activities
 
+import alexrnov.cosmichunter.ClassLoad
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -16,14 +17,19 @@ import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.annotation.SuppressLint
+import android.graphics.drawable.AnimationDrawable
 import android.os.AsyncTask
 import android.view.Menu
 import android.view.MenuItem
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
+
+
 
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
-
+  private var bPanel: ConstraintLayout? = null
   // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется поддержка
   // OpenGL 2, которая по умолчанию подразумевает поддержку OpenGL 2 и OpenGL 1.
   // Поскольку на самом деле, данное приложение поддерживает OpenGL 2 и OpenGL 3,
@@ -62,6 +68,9 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
+
+    bPanel = findViewById(R.id.b_lay)
+    bPanel?.setVisibility(View.INVISIBLE)
   }
 
   override fun onStart() { // состояние "запущено"
@@ -83,6 +92,10 @@ class MainActivity: AppCompatActivity() {
 
   fun startGame(view: View) {
     if (supportOpenGLES != 1) {
+
+      ClassLoad(this, bPanel).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
       intent.putExtra("Level", getCurrentOpenLevel())
@@ -175,4 +188,5 @@ class MainActivity: AppCompatActivity() {
       else -> 1
     }
   }
+
 }

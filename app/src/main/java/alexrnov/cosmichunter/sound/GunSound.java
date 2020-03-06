@@ -1,4 +1,4 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.sound;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,12 +12,12 @@ import static alexrnov.cosmichunter.Initialization.TAG;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
-public class ExplosionSound {
+public class GunSound {
   private static MediaPlayer player;
   private static final String resourceFolder = "raw";
 
-  public static void createExplosion(AppCompatActivity activity) {
-    final String musicFile = "explosion";
+  public static void createGun(AppCompatActivity activity) {
+    final String musicFile = "gun";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + resourceFolder + separator + musicFile);
     startPlayer(activity, uri);
@@ -30,17 +30,18 @@ public class ExplosionSound {
     player.setLooping(false);
     try {
       player.setDataSource(activity.getApplicationContext(), uri);
-      player.prepareAsync();//асинхронная загрузка мелодии
+      player.prepareAsync(); // асинхронная загрузка мелодии
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
-    //музыка начнется после завершения подготовки mp3 файла
+    // музыка начнется после завершения подготовки mp3 файла
     player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer player) {
         player.start();
       }
     });
+
   }
 
   /** Освобождает ресурсы для плеера (музыка останавливается) */

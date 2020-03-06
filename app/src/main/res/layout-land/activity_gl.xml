@@ -69,6 +69,7 @@ Here, the default resource is not needed, since the screen orientation is define
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rockets" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id = "@+id/load_panel"
         android:layout_width="match_parent"
@@ -125,5 +126,4 @@ Here, the default resource is not needed, since the screen orientation is define
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
