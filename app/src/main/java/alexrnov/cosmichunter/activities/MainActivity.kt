@@ -7,7 +7,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity // пакет v7 также поддерживает минимальный уровень API 14 (Android 4.0)
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 
 import alexrnov.cosmichunter.R
 
@@ -20,8 +19,11 @@ import alexrnov.cosmichunter.utils.showSnackbar
 import android.annotation.SuppressLint
 import android.graphics.drawable.AnimationDrawable
 import android.os.AsyncTask
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
 
@@ -54,6 +56,7 @@ class MainActivity: AppCompatActivity() {
     // ориентации, поскольку в начале будет загружаться именно он
     super.onCreate(savedInstanceState)
     Log.i(TAG, className + "onCreate()")
+
     setContentView(R.layout.activity_main)
     setSupportActionBar(findViewById(R.id.toolbar_main_menu))
     supportActionBar?.title="" // текст и стиль заголовка определяется в лэйауте
@@ -68,13 +71,20 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
-
-    bPanel = findViewById(R.id.b_lay)
-    bPanel?.setVisibility(View.INVISIBLE)
   }
 
   override fun onStart() { // состояние "запущено"
     super.onStart()
+
+    bPanel = findViewById(R.id.b_lay)
+    bPanel?.setVisibility(View.INVISIBLE)
+    //val exitButton: Button = findViewById(R.id.exitButton)
+    //exitButton.visibility = View.VISIBLE
+    val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
+    toolbar.visibility = View.VISIBLE
+
+
+
     Log.i(TAG, className + "onStart()")
     checkMusicForStartMainActivity(this)
   }
@@ -93,7 +103,21 @@ class MainActivity: AppCompatActivity() {
   fun startGame(view: View) {
     if (supportOpenGLES != 1) {
 
-      ClassLoad(this, bPanel).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+      bPanel?.bringToFront()
+      bPanel?.requestLayout() // чтобы работало на Android 4.1.1
+      //val exitButton: Button = findViewById(R.id.exitButton)
+      //exitButton.visibility = View.INVISIBLE
+      val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
+      toolbar.visibility = View.INVISIBLE
+
+      val loadLevelText = findViewById<TextView>(R.id.load_level_text)
+      val currentLevel = getString(R.string.level) + " " + getCurrentOpenLevel()
+      loadLevelText.text = currentLevel // вывести на экран загрузки название текущего уровня
+
+      val loadImage = findViewById<ImageView>(R.id.image_process)
+      loadImage.setBackgroundResource(R.drawable.animation_process)
+      ClassLoad(this, bPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
 
       val intent = Intent(this, GameActivity::class.java)
