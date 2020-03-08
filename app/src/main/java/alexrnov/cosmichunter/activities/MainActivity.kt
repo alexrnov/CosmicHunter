@@ -1,6 +1,6 @@
 package alexrnov.cosmichunter.activities
 
-import alexrnov.cosmichunter.ClassLoad
+import alexrnov.cosmichunter.LoadingPanel
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -16,11 +16,8 @@ import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
-import android.annotation.SuppressLint
-import android.graphics.drawable.AnimationDrawable
 import android.os.AsyncTask
 import android.view.*
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -28,10 +25,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
 
 
-
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
-  private var bPanel: ConstraintLayout? = null
+  // окно с черным фоном, в котором отображаются надписи и
+  // анимированное изображение загрузки
+  private var loadPanel: ConstraintLayout? = null
   // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется поддержка
   // OpenGL 2, которая по умолчанию подразумевает поддержку OpenGL 2 и OpenGL 1.
   // Поскольку на самом деле, данное приложение поддерживает OpenGL 2 и OpenGL 3,
@@ -76,14 +74,12 @@ class MainActivity: AppCompatActivity() {
   override fun onStart() { // состояние "запущено"
     super.onStart()
 
-    bPanel = findViewById(R.id.b_lay)
-    bPanel?.setVisibility(View.INVISIBLE)
-    //val exitButton: Button = findViewById(R.id.exitButton)
-    //exitButton.visibility = View.VISIBLE
+    loadPanel = findViewById(R.id.load_panel)
+    // при старте активити сделать окно загрузки невидимым
+    loadPanel?.setVisibility(View.INVISIBLE)
+
     val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
     toolbar.visibility = View.VISIBLE
-
-
 
     Log.i(TAG, className + "onStart()")
     checkMusicForStartMainActivity(this)
@@ -104,8 +100,8 @@ class MainActivity: AppCompatActivity() {
     if (supportOpenGLES != 1) {
 
 
-      bPanel?.bringToFront()
-      bPanel?.requestLayout() // чтобы работало на Android 4.1.1
+      loadPanel?.bringToFront()
+      loadPanel?.requestLayout() // чтобы работало на Android 4.1.1
       //val exitButton: Button = findViewById(R.id.exitButton)
       //exitButton.visibility = View.INVISIBLE
       val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
@@ -117,7 +113,7 @@ class MainActivity: AppCompatActivity() {
 
       val loadImage = findViewById<ImageView>(R.id.image_process)
       loadImage.setBackgroundResource(R.drawable.animation_process)
-      ClassLoad(this, bPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+      LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
 
       val intent = Intent(this, GameActivity::class.java)
@@ -213,4 +209,8 @@ class MainActivity: AppCompatActivity() {
     }
   }
 
+
+
+
 }
+
