@@ -98,12 +98,12 @@ class MainActivity: AppCompatActivity() {
 
   fun startGame(view: View) {
     if (supportOpenGLES != 1) {
+      //requestWindowFeature(Window.FEATURE_NO_TITLE)
+      this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
 
       loadPanel?.bringToFront()
       loadPanel?.requestLayout() // чтобы работало на Android 4.1.1
-      //val exitButton: Button = findViewById(R.id.exitButton)
-      //exitButton.visibility = View.INVISIBLE
       val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
       toolbar.visibility = View.INVISIBLE
 
@@ -114,7 +114,6 @@ class MainActivity: AppCompatActivity() {
       val loadImage = findViewById<ImageView>(R.id.image_process)
       loadImage.setBackgroundResource(R.drawable.animation_process)
       LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-
 
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
