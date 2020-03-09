@@ -123,7 +123,8 @@ class AboutActivityTest {
 
     // открыть ссылку и ждать минимум времени, чтобы страница не успела выдать
     // какие-либо диалоговые окна
-    musicLinkAuto.clickAndWaitForNewWindow(0L)
+    //musicLinkAuto.clickAndWaitForNewWindow(0L)
+    musicLinkAuto.click()
     var currentPackage: String = device.currentPackageName
     assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack() // вернуться обратно в приложение
@@ -131,7 +132,8 @@ class AboutActivityTest {
 
     val soundLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/soundLink"))
-    soundLinkAuto.clickAndWaitForNewWindow(0L)
+    //soundLinkAuto.clickAndWaitForNewWindow(0L)
+    soundLinkAuto.click()
     currentPackage = device.currentPackageName
     // проверить что браузер открывается
     assertThat(currentPackage).isEqualTo("com.android.chrome")
@@ -140,7 +142,8 @@ class AboutActivityTest {
 
     val textureLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/textureLink"))
-    textureLinkAuto.clickAndWaitForNewWindow(0L)
+    //textureLinkAuto.clickAndWaitForNewWindow(0L)
+    textureLinkAuto.click()
     currentPackage = device.currentPackageName
     assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
@@ -148,7 +151,8 @@ class AboutActivityTest {
 
     val pictureLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/pictureLink"))
-    pictureLinkAuto.clickAndWaitForNewWindow(0L)
+    //pictureLinkAuto.clickAndWaitForNewWindow(0L)
+    pictureLinkAuto.click()
     currentPackage = device.currentPackageName
     assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
@@ -157,7 +161,8 @@ class AboutActivityTest {
 
     val blenderLinkAuto: UiObject = device.findObject(UiSelector()
             .resourceId("${BASIC_SAMPLE_PACKAGE}:id/blenderLink"))
-    blenderLinkAuto.clickAndWaitForNewWindow(0L)
+    //blenderLinkAuto.clickAndWaitForNewWindow(0L)
+    blenderLinkAuto.click()
     currentPackage = device.currentPackageName
     assertThat(currentPackage).isEqualTo("com.android.chrome")
     device.pressBack()
