@@ -2,8 +2,10 @@ package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
+import alexrnov.cosmichunter.LoadingPanel;
 import alexrnov.cosmichunter.base.LevelDao;
 import alexrnov.cosmichunter.base.LevelDatabase;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,12 +13,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Objects;
 
 import alexrnov.cosmichunter.R;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.room.Room;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
@@ -28,6 +34,12 @@ import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 public class LevelsActivity extends AppCompatActivity {
 
   private String className = this.getClass().getSimpleName() + ".class: ";
+
+  private Toolbar toolbar;
+  // окно с черным фоном, в котором отображаются надписи и
+  // анимированное изображение загрузки
+  private ConstraintLayout loadPanel;
+
   private int versionGLES;
 
   private Button buttonLevel2;
@@ -41,8 +53,10 @@ public class LevelsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_level);
 
-    Toolbar toolbar = findViewById(R.id.toolbar_level);
+    loadPanel = findViewById(R.id.load_panel);
+    toolbar = findViewById(R.id.toolbar_level);
     setSupportActionBar(toolbar);
+
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); // enable the Up button
     getSupportActionBar().setTitle("");
 
@@ -55,9 +69,7 @@ public class LevelsActivity extends AppCompatActivity {
     activateButtonsForOpenedLevels();
   }
 
-  public void startLevel1(View view) {
-    startLevel(1);
-  }
+  public void startLevel1(View view) { startLevel(1); }
 
   public void startLevel2(View view) {
     startLevel(2);
@@ -80,6 +92,7 @@ public class LevelsActivity extends AppCompatActivity {
     LevelDao dao = dbLevels.levelDao();
     if (dao.findByNumber(level).isOpen) { // если уровень открыт
       spotFlagOpenDialogWindow(false);
+      showLoadPanel(level);
       Intent intent = new Intent(this, GameActivity.class);
       intent.putExtra("versionGLES", versionGLES);
       intent.putExtra("Level", level);
@@ -96,6 +109,7 @@ public class LevelsActivity extends AppCompatActivity {
   protected void onStart() {
     Log.i(TAG, className + "onStart()");
     super.onStart();
+    hideLoadPanel(); // скрыть панель загрузки
     checkMusicForStartOtherActivity(this);
   }
 
@@ -160,5 +174,40 @@ public class LevelsActivity extends AppCompatActivity {
       }
   });
 
+  }
+
+  private void hideLoadPanel() {
+    // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
+    // для ранних версий панель загрузки отображается в GameActivity
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return;
+    // при старте активити сделать окно загрузки невидимым
+    loadPanel.setVisibility(View.INVISIBLE);
+    // сделать тулбар видимым
+    toolbar.setVisibility(View.VISIBLE);
+    // сделать видимой панель статуса
+    this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
+
+  private void showLoadPanel(int level) {
+    // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
+    // для ранних версий панель загрузки отображается в GameActivity
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return;
+    // убрать строку статуса вверху
+    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+    loadPanel.bringToFront(); // переместить панель загрузки на передний план
+    loadPanel.requestLayout(); // чтобы работало на Android 4.1.1
+
+    toolbar.setVisibility(View.INVISIBLE); // сделать тулбар невидимым
+
+    // установить для надписи загружаемого уровня - текущий уровень
+    TextView loadLevelText = findViewById(R.id.load_level_text);
+    String currentLevel = getString(R.string.level) + " " + level;
+    loadLevelText.setText(currentLevel); // вывести на экран загрузки название текущего уровня
+
+    ImageView loadImage = findViewById(R.id.image_process);
+    loadImage.setBackgroundResource(R.drawable.animation_process);
+    // отобразить окно загрузки в отдельном AsyncTask
+    new LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 }

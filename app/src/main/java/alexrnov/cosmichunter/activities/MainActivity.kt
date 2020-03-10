@@ -17,6 +17,7 @@ import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
 import android.os.AsyncTask
+import android.os.Build
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +28,7 @@ import androidx.room.Room
 
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
+  private var toolbar: Toolbar? = null
   // окно с черным фоном, в котором отображаются надписи и
   // анимированное изображение загрузки
   private var loadPanel: ConstraintLayout? = null
@@ -56,7 +58,11 @@ class MainActivity: AppCompatActivity() {
     Log.i(TAG, className + "onCreate()")
 
     setContentView(R.layout.activity_main)
-    setSupportActionBar(findViewById(R.id.toolbar_main_menu))
+
+    loadPanel = findViewById(R.id.load_panel)
+    toolbar = findViewById(R.id.toolbar_main_menu)
+
+    setSupportActionBar(toolbar)
     supportActionBar?.title="" // текст и стиль заголовка определяется в лэйауте
     // программно изменить цвет текст в activity bar
     /*
@@ -69,17 +75,13 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
+
+
   }
 
   override fun onStart() { // состояние "запущено"
     super.onStart()
-
-    loadPanel = findViewById(R.id.load_panel)
-    // при старте активити сделать окно загрузки невидимым
-    loadPanel?.setVisibility(View.INVISIBLE)
-
-    val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
-    toolbar.visibility = View.VISIBLE
+    hideLoadPanel() // скрыть панель загрузки
 
     Log.i(TAG, className + "onStart()")
     checkMusicForStartMainActivity(this)
@@ -98,22 +100,7 @@ class MainActivity: AppCompatActivity() {
 
   fun startGame(view: View) {
     if (supportOpenGLES != 1) {
-      //requestWindowFeature(Window.FEATURE_NO_TITLE)
-      this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-
-      loadPanel?.bringToFront()
-      loadPanel?.requestLayout() // чтобы работало на Android 4.1.1
-      val toolbar: Toolbar = findViewById(R.id.toolbar_main_menu)
-      toolbar.visibility = View.INVISIBLE
-
-      val loadLevelText = findViewById<TextView>(R.id.load_level_text)
-      val currentLevel = getString(R.string.level) + " " + getCurrentOpenLevel()
-      loadLevelText.text = currentLevel // вывести на экран загрузки название текущего уровня
-
-      val loadImage = findViewById<ImageView>(R.id.image_process)
-      loadImage.setBackgroundResource(R.drawable.animation_process)
-      LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+      showLoadPanel() // показать панель загрузки
 
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
@@ -157,11 +144,9 @@ class MainActivity: AppCompatActivity() {
   override fun onBackPressed() = backToHome(this)
 
   /**
-   * Если нет поддержки второй или третьей версии OpenGL - вывести соответствующее сообщение,
-   * иначе запустить GameActivity или LevelsActivity.
+   * Если нет поддержки второй или третьей версии OpenGL - вывести
+   * соответствующее сообщение, иначе запустить GameActivity или LevelActivity.
    */
-
-
   private fun startGameActivity(activity: Class<out AppCompatActivity>, view: View) {
     if (supportOpenGLES != 1) {
       val intent = Intent(this, activity)
@@ -208,8 +193,39 @@ class MainActivity: AppCompatActivity() {
     }
   }
 
+  private fun hideLoadPanel() {
+    // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
+    // для ранних версий панель загрузки отображается в GameActivity
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return
+    // при старте активити сделать окно загрузки невидимым
+    loadPanel?.setVisibility(View.INVISIBLE)
+    // сделать тулбар видимым
+    toolbar?.visibility = View.VISIBLE
+    // сделать видимой панель статуса
+    this.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+  }
 
+  private fun showLoadPanel() {
+    // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
+    // для ранних версий панель загрузки отображается в GameActivity
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return
+    // убрать строку статуса вверху
+    this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+    loadPanel?.bringToFront() // переместить панель загрузки на передний план
+    loadPanel?.requestLayout() // чтобы работало на Android 4.1.1
 
+    toolbar?.visibility = View.INVISIBLE // сделать тулбар невидимым
+
+    // установить для надписи загружаемого уровня - текущий уровень
+    val loadLevelText = findViewById<TextView>(R.id.load_level_text)
+    val currentLevel = getString(R.string.level) + " " + getCurrentOpenLevel()
+    loadLevelText.text = currentLevel // вывести на экран загрузки название текущего уровня
+
+    val loadImage = findViewById<ImageView>(R.id.image_process)
+    loadImage.setBackgroundResource(R.drawable.animation_process)
+    // отобразить окно загрузки в отдельном AsyncTask
+    LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+  }
 }
 

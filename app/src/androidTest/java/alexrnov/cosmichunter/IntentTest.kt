@@ -54,6 +54,6 @@ class IntentTest {
     intended(allOf(hasComponent(
             hasShortClassName(".activities.GameActivity")),
             toPackage("alexrnov.cosmichunter"),
-            allOf(hasExtra("versionGLES", 3), hasExtra("Level", 1))) )
+            allOf(hasExtra("versionGLES", 3), hasExtra("Level", 1))))
   }
 }

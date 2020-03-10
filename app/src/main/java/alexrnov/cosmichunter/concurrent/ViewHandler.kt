@@ -42,8 +42,9 @@ class ViewHandler(
       }
       TIME_CODE -> time.text = text // обновить показатели времени
       LOAD_GAME_CODE -> {
+        // убрать панель загрузки игры после загрузки игры
         loadPanel.visibility = View.INVISIBLE
-      } // убрать (сделать прозрачной) панель загрузки игры
+      }
     }
   }
 }

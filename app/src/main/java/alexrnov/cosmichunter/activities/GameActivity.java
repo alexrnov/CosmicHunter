@@ -237,7 +237,7 @@ public class GameActivity extends AppCompatActivity {
     //gun(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
 
-    //if (loadPanel.getAlpha() == 1.0) { // если панель загрузки игры видна
+    // если панель загрузки игры видна
     if (loadPanel.getVisibility() == View.VISIBLE) {
       AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
       animation.start(); // выполнить анимацию процесса загрузки
