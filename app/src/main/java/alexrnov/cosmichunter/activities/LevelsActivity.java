@@ -53,7 +53,7 @@ public class LevelsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_level);
 
-    loadPanel = findViewById(R.id.load_panel);
+    loadPanel = findViewById(R.id.load_panel_level);
     toolbar = findViewById(R.id.toolbar_level);
     setSupportActionBar(toolbar);
 

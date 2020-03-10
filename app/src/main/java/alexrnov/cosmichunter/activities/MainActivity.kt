@@ -25,7 +25,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
 
-
 class MainActivity: AppCompatActivity() {
   private val className = this.javaClass.simpleName + ".class: "
   private var toolbar: Toolbar? = null
@@ -59,7 +58,7 @@ class MainActivity: AppCompatActivity() {
 
     setContentView(R.layout.activity_main)
 
-    loadPanel = findViewById(R.id.load_panel)
+    loadPanel = findViewById(R.id.load_panel_main)
     toolbar = findViewById(R.id.toolbar_main_menu)
 
     setSupportActionBar(toolbar)
@@ -75,8 +74,6 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
-
-
   }
 
   override fun onStart() { // состояние "запущено"
@@ -228,4 +225,3 @@ class MainActivity: AppCompatActivity() {
     LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
   }
 }
-

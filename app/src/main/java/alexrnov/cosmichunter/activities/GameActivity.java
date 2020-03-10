@@ -1,10 +1,8 @@
 package alexrnov.cosmichunter.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -101,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
 
-    loadPanel = findViewById(R.id.load_panel);
+    loadPanel = findViewById(R.id.load_panel_game);
     TextView hits = findViewById(R.id.hits);
     TextView rockets = findViewById(R.id.rockets);
     TextView message = findViewById(R.id.message);
