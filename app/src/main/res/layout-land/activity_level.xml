@@ -203,7 +203,6 @@ Here, the default resource is not needed, since the screen orientation is define
                 android:text="@string/load_game_text"
                 android:textColor="@color/white"
                 android:textSize="36sp"
-                android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@+id/load_level_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

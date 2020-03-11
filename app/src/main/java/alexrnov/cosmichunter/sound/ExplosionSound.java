@@ -7,47 +7,79 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Queue;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
 public class ExplosionSound {
-  private static MediaPlayer player;
-  private static final String resourceFolder = "raw";
+  private MediaPlayer player1;
+  private MediaPlayer player2;
+  private MediaPlayer player3;
+  //private ArrayDeque<MediaPlayer> queue = new ArrayDeque<>();
+  private Queue<MediaPlayer> queue = new LinkedList<>();
 
-  public static void createExplosion(AppCompatActivity activity) {
+  public ExplosionSound(AppCompatActivity activity) {
     final String musicFile = "explosion";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
-            + resourceFolder + separator + musicFile);
-    startPlayer(activity, uri);
-  }
+            + "raw" + separator + musicFile);
 
-  private static void startPlayer(AppCompatActivity activity, Uri uri) {
-    player = new MediaPlayer();
-    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-    player.setVolume(1, 1);
-    player.setLooping(false);
+    player1 = new MediaPlayer();
+    player1.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    player1.setVolume(1, 1);
+    player1.setLooping(false);
+
+    player2 = new MediaPlayer();
+    player2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    player2.setVolume(1, 1);
+    player2.setLooping(false);
+
+    player3 = new MediaPlayer();
+    player3.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    player3.setVolume(1, 1);
+    player3.setLooping(false);
     try {
-      player.setDataSource(activity.getApplicationContext(), uri);
-      player.prepareAsync();//асинхронная загрузка мелодии
+      player1.setDataSource(activity.getApplicationContext(), uri);
+      player1.prepare(); // асинхронная загрузка мелодии
+
+      player2.setDataSource(activity.getApplicationContext(), uri);
+      player2.prepare(); // асинхронная загрузка мелодии
+
+      player3.setDataSource(activity.getApplicationContext(), uri);
+      player3.prepare(); // асинхронная загрузка мелодии
+
+      queue.add(player1);
+      queue.add(player2);
+      //queue.add(player3);
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
-    //музыка начнется после завершения подготовки mp3 файла
-    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-      @Override
-      public void onPrepared(MediaPlayer player) {
-        player.start();
-      }
-    });
   }
 
-  /** Освобождает ресурсы для плеера (музыка останавливается) */
-  public static void freeResourcesForPlayer() {
-    if (player != null) {
-      player.release(); // освободить системные ресурсы, выделенные для плеера
-      player = null;
+  public void createExplosion() {
+    MediaPlayer currentPlayer = queue.poll(); // извлечь объект из головы очереди
+    if (currentPlayer != null) {
+      if (!currentPlayer.isPlaying()) currentPlayer.start();
+      queue.add(currentPlayer); // добавить элемент в конце очереди
     }
+
+
+    /* Освободить ресурсы для плеера (когда трек заканчивается) */
+
+    /*
+    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+      @Override
+      public void onCompletion(MediaPlayer mp) {
+        Log.i(TAG, "onCompletion");
+        mp.reset();
+        mp.release();// освободить системные ресурсы, выделенные для плеера
+        mp = null;
+      }
+    });
+    */
   }
 }
