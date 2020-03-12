@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
+import alexrnov.cosmichunter.sound.ExplosionSound;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -125,7 +126,6 @@ public class GameActivity extends AppCompatActivity {
     oglView = findViewById(R.id.oglView);
     oglView.init(this.getApplicationContext(), versionGLES, levelNumber);
     oglView.setGameActivity(this); // передать ссылку на GameActivity объекту oglView и далее объекту SceneRendererGLES30
-
 
     /*
     decorView = getWindow().getDecorView();

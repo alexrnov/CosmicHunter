@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.sound;
 
+import android.media.AsyncPlayer;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,14 +21,23 @@ public class ExplosionSound {
   private MediaPlayer player1;
   private MediaPlayer player2;
   private MediaPlayer player3;
+  private MediaPlayer player4;
+  //private AsyncPlayer player1a;
   //private ArrayDeque<MediaPlayer> queue = new ArrayDeque<>();
   private Queue<MediaPlayer> queue = new LinkedList<>();
 
+
+  private Queue<Integer> queue2 = new LinkedList<>();
+
+
+  private AppCompatActivity activity;
+  private Uri uri;
+
   public ExplosionSound(AppCompatActivity activity) {
     final String musicFile = "explosion";
-    Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
+    uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + "raw" + separator + musicFile);
-
+    this.activity = activity;
     player1 = new MediaPlayer();
     player1.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player1.setVolume(1, 1);
@@ -42,44 +52,102 @@ public class ExplosionSound {
     player3.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player3.setVolume(1, 1);
     player3.setLooping(false);
+
+    player4 = new MediaPlayer();
+    player4.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    player4.setVolume(1, 1);
+    player4.setLooping(false);
+
+    //player1a = new AsyncPlayer("1");
     try {
       player1.setDataSource(activity.getApplicationContext(), uri);
-      player1.prepare(); // асинхронная загрузка мелодии
+      player1.prepareAsync(); // асинхронная загрузка мелодии
 
       player2.setDataSource(activity.getApplicationContext(), uri);
-      player2.prepare(); // асинхронная загрузка мелодии
+      player2.prepareAsync(); // асинхронная загрузка мелодии
 
       player3.setDataSource(activity.getApplicationContext(), uri);
-      player3.prepare(); // асинхронная загрузка мелодии
+      player3.prepareAsync(); // асинхронная загрузка мелодии
+
+      player4.setDataSource(activity.getApplicationContext(), uri);
+      player4.prepareAsync(); // асинхронная загрузка мелодии
 
       queue.add(player1);
       queue.add(player2);
-      //queue.add(player3);
+      queue.add(player3);
+      queue.add(player4);
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
+    //ExplosionSound1.init(activity);
+
+    ExplosionSound1 e1 = new ExplosionSound1();
+    ExplosionSound2 e2 = new ExplosionSound2();
+    ExplosionSound3 e3 = new ExplosionSound3();
+    ExplosionSound4 e4 = new ExplosionSound4();
+    queue2.add(1);
+    queue2.add(2);
+    queue2.add(3);
+    queue2.add(4);
   }
 
   public void createExplosion() {
+
+    //ExplosionSound1.play(activity);
+
+    Integer currentPlayer = queue2.poll();
+    if (currentPlayer != null) {
+      switch (currentPlayer) {
+        case 1: {
+          ExplosionSound1.play(activity);
+          break;
+        }
+        case 2: {
+          ExplosionSound2.play(activity);
+          break;
+        }
+        case 3: {
+          ExplosionSound3.play(activity);
+          break;
+        }
+        case 4: {
+          ExplosionSound4.play(activity);
+          break;
+        }
+      }
+      queue2.add(currentPlayer); // добавить элемент в конце очереди
+
+    }
+    /*
     MediaPlayer currentPlayer = queue.poll(); // извлечь объект из головы очереди
     if (currentPlayer != null) {
-      if (!currentPlayer.isPlaying()) currentPlayer.start();
+      //if (!currentPlayer.isPlaying()) currentPlayer.start();
+
+
+
+
+      //new Thread(() -> {
+        //currentPlayer.start();
+        //queue.add(currentPlayer); // добавить элемент в конце очереди
+      //}).start();
+
+
+      currentPlayer.start();
       queue.add(currentPlayer); // добавить элемент в конце очереди
-    }
+      Log.i("TAG", "music thread = " + Thread.currentThread().getName());
 
+  }
 
-    /* Освободить ресурсы для плеера (когда трек заканчивается) */
+  */
+  }
 
-    /*
-    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-      @Override
-      public void onCompletion(MediaPlayer mp) {
-        Log.i(TAG, "onCompletion");
-        mp.reset();
-        mp.release();// освободить системные ресурсы, выделенные для плеера
-        mp = null;
+  /** Освободить ресурсы для плеера (когда трек заканчивается) */
+  public void freeResourcesForPlayer() {
+    for (MediaPlayer mp: queue) {
+      if (mp != null) {
+        mp.reset(); // освободить системные ресурсы, выделенные для плеера
+        mp.release();
       }
-    });
-    */
+    }
   }
 }
