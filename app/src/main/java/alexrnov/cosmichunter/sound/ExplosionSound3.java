@@ -14,47 +14,47 @@ import static java.io.File.separator;
 
 public class ExplosionSound3 {
 
-  private static MediaPlayer player;
+  private MediaPlayer player3;
   //private static Uri uri;
   //private static AppCompatActivity activity;
 
 
-  public static void play(AppCompatActivity activity) {
+  public void play(AppCompatActivity activity) {
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + "raw" + separator + "explosion");
-    player = new MediaPlayer();
-    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-    player.setVolume(1, 1);
-    player.setLooping(false);
+    player3 = new MediaPlayer();
+    player3.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    player3.setVolume(1, 1);
+    player3.setLooping(false);
 
     try {
-      player.setDataSource(activity.getApplicationContext(), uri);
-      player.prepareAsync(); // асинхронная загрузка мелодии
+      player3.setDataSource(activity.getApplicationContext(), uri);
+      player3.prepareAsync(); // асинхронная загрузка мелодии
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
 
-    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+    player3.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer mp) {
-        player.start();
+        player3.start();
       }
     });
 
-    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+    player3.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
       @Override
       public void onCompletion(MediaPlayer mp) {
-        player.reset();
-        player.release();
+        player3.reset();
+        player3.release();
       }
     });
   }
 
-  public static void stop() {
-    if (player != null) {
-      player.reset();
-      player.release();
-      player = null;
+  public void stop() {
+    if (player3 != null) {
+      player3.reset();
+      player3.release();
+      player3 = null;
     }
   }
 }

@@ -76,45 +76,41 @@ public class ExplosionSound {
       queue.add(player2);
       queue.add(player3);
       queue.add(player4);
+
+      queue2.add(1);
+      queue2.add(2);
+      queue2.add(3);
+      queue2.add(4);
     } catch(IOException e) {
       Log.e(TAG, "Error load music");
     }
-    //ExplosionSound1.init(activity);
-
-    ExplosionSound1 e1 = new ExplosionSound1();
-    ExplosionSound2 e2 = new ExplosionSound2();
-    ExplosionSound3 e3 = new ExplosionSound3();
-    ExplosionSound4 e4 = new ExplosionSound4();
-    queue2.add(1);
-    queue2.add(2);
-    queue2.add(3);
-    queue2.add(4);
   }
 
   public void createExplosion() {
-
-    //ExplosionSound1.play(activity);
-
+    Log.i(TAG, "queue2 = " + queue2.toString());
     Integer currentPlayer = queue2.poll();
     if (currentPlayer != null) {
+      /*
       switch (currentPlayer) {
-        case 1: {
+        case 1:
+          Log.i("TAG", "ExplosionSound = 1");
           ExplosionSound1.play(activity);
           break;
-        }
-        case 2: {
+        case 2:
+          Log.i("TAG", "ExplosionSound = 2");
           ExplosionSound2.play(activity);
           break;
-        }
-        case 3: {
+        case 3:
+          Log.i("TAG", "ExplosionSound = 3");
           ExplosionSound3.play(activity);
           break;
-        }
-        case 4: {
+        case 4:
+          Log.i("TAG", "ExplosionSound = 4");
           ExplosionSound4.play(activity);
           break;
-        }
       }
+
+       */
       queue2.add(currentPlayer); // добавить элемент в конце очереди
 
     }
