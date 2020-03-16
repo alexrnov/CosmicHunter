@@ -17,7 +17,7 @@ public class GunSound {
   private static final String resourceFolder = "raw";
 
   public static void createGun(AppCompatActivity activity) {
-    final String musicFile = "gun";
+    final String musicFile = "gun_sound";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + resourceFolder + separator + musicFile);
     startPlayer(activity, uri);

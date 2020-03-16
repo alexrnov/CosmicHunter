@@ -28,7 +28,7 @@ public class ExplosionSound5 {
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player.setVolume(1, 1);
-    player.setLooping(true);
+    player.setLooping(false);
     try {
       player.setDataSource(activity.getApplicationContext(), uri);
       player.prepareAsync();//асинхронная загрузка мелодии

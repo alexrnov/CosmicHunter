@@ -232,7 +232,7 @@ public class GameActivity extends AppCompatActivity {
     super.onStart();
 
     checkMusicForStartGameActivity(this);
-    //gun(this);
+    //gun_sound(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
 
     // если панель загрузки игры видна

@@ -89,7 +89,7 @@ public class Explosion {
     programObject = linkProgram.get();
 
     if (programObject == 0) {
-      Log.v(TAG, "error program link explosion: " + programObject);
+      Log.v(TAG, "error program link explosion_sound: " + programObject);
     }
 
     lastTimeExplosionLink = GLES20.glGetUniformLocation(programObject, "u_lastTimeExplosion");
