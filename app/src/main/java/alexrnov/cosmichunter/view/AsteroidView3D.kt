@@ -50,6 +50,7 @@ class AsteroidView3D(widthScreen: Int, heightScreen: Int):
     Matrix.translateM(modelMatrix, 0, x, y, z)
     // угол и направления вращения
     Matrix.rotateM(modelMatrix, 0, angle, 0.5f, 0.5f, 0.5f)
+    //Matrix.scaleM(modelMatrix, 0, 1f, 5f, 5f) // увеличить объект
     // комбинировать видовую и модельные матрицы
     Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0)
     // комбинировать модельно-видовую матрицу и проектирующую матрицу

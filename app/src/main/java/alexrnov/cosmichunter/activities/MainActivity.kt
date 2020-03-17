@@ -1,26 +1,29 @@
 package alexrnov.cosmichunter.activities
 
+import alexrnov.cosmichunter.Initialization
+import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
-import android.app.ActivityManager
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity // пакет v7 также поддерживает минимальный уровень API 14 (Android 4.0)
-import android.os.Bundle
-import android.util.Log
-
 import alexrnov.cosmichunter.R
-
-import alexrnov.cosmichunter.Initialization.checkMusicForStartMainActivity
-import alexrnov.cosmichunter.Initialization.checkMusicForStopMainActivity
-import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
+import android.media.SoundPool
 import android.os.AsyncTask
 import android.os.Build
-import android.view.*
+import android.os.Bundle
+import android.util.Log
+import android.util.SparseIntArray
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
@@ -49,6 +52,9 @@ class MainActivity: AppCompatActivity() {
       }
     }
 
+  //private var clickSound: SoundPool? = null
+  //private val soundPoolMap = SparseIntArray()
+
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
     // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
     // повторной перезагрузки активити. Кроме того, не нужно создавать лэйаут для портретной
@@ -74,6 +80,20 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
+
+    /*
+    clickSound = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      SoundPool.Builder()
+              .setMaxStreams(1)
+              .build()
+    } else {
+      @Suppress("DEPRECATION")
+      SoundPool(1, AudioManager.STREAM_MUSIC, 100)
+    }
+    val i: Int = clickSound?.load(this, R.raw.click_sound, 0)?: 0
+    soundPoolMap.put(0, i)
+
+     */
   }
 
   override fun onStart() { // состояние "запущено"
@@ -96,6 +116,12 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun startGame(view: View) {
+
+    /*
+    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
+            0, 0, 1f)
+
+     */
     if (supportOpenGLES != 1) {
       showLoadPanel() // показать панель загрузки
 
@@ -111,6 +137,13 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun selectLevel(view: View) {
+    Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
+            1.0f, 1.0f, 0, 0, 1f)
+    /*
+    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
+            0, 0, 1f)
+
+     */
     if (supportOpenGLES != 1) {
       val intent = Intent(this, LevelsActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
@@ -123,16 +156,34 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun settingsMenu(view: View) {
+    /*
+    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
+            0, 0, 1f)
+
+     */
     val intent = Intent(this, SettingsActivity::class.java)
     startActivity(intent)
   }
 
   fun aboutGame(view: View) {
+    /*
+    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
+            0, 0, 1f)
+
+     */
     val intent = Intent(this, AboutGameActivity::class.java)
     startActivity(intent)
   }
 
-  fun exitFromApplication(view: View) = backToHome(this) // выйти из приложения
+  // выйти из приложения при нажатии кнопки "Выход"
+  fun exitFromApplication(view: View) {
+    /*
+    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
+            0, 0, 1f)
+
+     */
+    backToHome(this)
+  }
 
   /*
    * Если кнопка выхода в навигационном меню, нажата в главном активити, - выйти из приложения, а не

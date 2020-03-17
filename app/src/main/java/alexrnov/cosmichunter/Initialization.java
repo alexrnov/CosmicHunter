@@ -3,8 +3,11 @@ package alexrnov.cosmichunter;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
+import android.util.SparseIntArray;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -34,11 +37,46 @@ public class Initialization extends Application {
   private static String defaultStateSound;
   private static String defaultVibration;
 
+  public static SoundPool clickSound;
+  public static SoundPool explosionSound;
+  public static SoundPool gunSound;
+  // SparseIntArray дает лучшую производительность по сравнению с
+  // HashMap<Integer, Integer>()
+  public static SparseIntArray soundPoolMap = new SparseIntArray();
+
   private LevelDatabase dbLevels;
 
   @Override
   public void onCreate() {
     super.onCreate();
+
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      clickSound = new SoundPool.Builder()
+              .setMaxStreams(2)
+              .build();
+      explosionSound = new SoundPool.Builder()
+              .setMaxStreams(3)
+              .build();
+      gunSound = new SoundPool.Builder()
+              .setMaxStreams(2)
+              .build();
+    } else {
+      clickSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
+      explosionSound = new SoundPool(3, AudioManager.STREAM_MUSIC, 100);
+      gunSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
+    }
+
+
+
+    soundPoolMap.put(0, clickSound.load(this, R.raw.click_sound, 0));
+    soundPoolMap.put(1, explosionSound.load(this, R.raw.explosion_sound, 0));
+    soundPoolMap.put(2, gunSound.load(this, R.raw.gun_sound, 0));
+
+
+
+
 
     final String packageName = this.getApplicationContext().getPackageName();
     sp = this.getSharedPreferences(packageName, MODE_PRIVATE);
@@ -81,7 +119,7 @@ public class Initialization extends Application {
    * @param activity ссылка на main activity
    */
   public static void checkMusicForStartMainActivity(AppCompatActivity activity) {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
 
@@ -113,7 +151,7 @@ public class Initialization extends Application {
    * активити main вызван при остановке приложения - выключить музыку.
    */
   public static void checkMusicForStopMainActivity() {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
     boolean processOpeningGameActivity = sp.getBoolean(GAME_ACTIVITY, false);
@@ -136,7 +174,7 @@ public class Initialization extends Application {
    * @param activity ссылка на неглавный activity
    */
   public static void checkMusicForStartOtherActivity(AppCompatActivity activity) {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
     openingActivity(OTHER_ACTIVITY, true);
@@ -163,7 +201,7 @@ public class Initialization extends Application {
    * неглавного активити вызван при остановке приложения - выключить музыку.
    */
   public static void checkMusicForStopOtherActivity() {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
     boolean processOpeningGameActivity = sp.getBoolean(GAME_ACTIVITY, false);
@@ -188,7 +226,7 @@ public class Initialization extends Application {
    * @param activity ссылка на неглавный activity
    */
   public static void checkMusicForStartGameActivity(AppCompatActivity activity) {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
     openingActivity(GAME_ACTIVITY, true);
@@ -216,7 +254,7 @@ public class Initialization extends Application {
    * остановке приложения, останавливает проигрывание мелодии в игре.
    */
   public static void checkMusicForStopGameActivity() {
-    if (isMusicOff() || isSoundOff()) {
+    if (isMusicOff()) {
       return;
     }
     boolean processOpeningOtherActivity = sp.getBoolean(OTHER_ACTIVITY, false);
