@@ -30,6 +30,7 @@ import androidx.room.Room;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
+import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
@@ -112,6 +113,7 @@ public class LevelsActivity extends AppCompatActivity {
             0, 0, 1f);
 
      */
+    playClick();
     LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
     LevelDao dao = dbLevels.levelDao();
     if (dao.findByNumber(level).isOpen) { // если уровень открыт
@@ -129,7 +131,7 @@ public class LevelsActivity extends AppCompatActivity {
     clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f);
             */
-
+    playClick();
     Intent intent = new Intent(this, MainActivity.class);
     startActivity(intent);
   }

@@ -25,9 +25,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
+import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
+import alexrnov.cosmichunter.Initialization.*;
 
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
@@ -142,17 +144,20 @@ public class SettingsActivity extends AppCompatActivity
     if (button.getId() == vibrationRadioButton.getId()) {
       //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
          //     0, 0, 1f);
+      playClick();
       establishValue("vibration", b ? "off" : "on");
       showSnackbar(view, vibrationText + ": " + (b ? offText : onText));
     } else if (button.getId() == musicRadioButton.getId()) {
       //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
          //     0, 0, 1f);
+      playClick();
       establishValue("music", b ? "off" : "on");
       manageMusic(b);
       showSnackbar(view, musicText + ": "+ (b ? offText : onText));
     } else if (button.getId() == soundRadioButton.getId()) {
       //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
          //     0, 0, 1f);
+      playClick();
       establishValue("sound", b ? "off" : "on");
       showSnackbar(view, soundText + ": " + (b ? offText : onText));
     }
@@ -178,6 +183,7 @@ public class SettingsActivity extends AppCompatActivity
   public void backToMainMenu(View view) {
     //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
        //     0, 0, 1f);
+    playClick();
     Intent intent = new Intent(this, MainActivity.class);
     startActivity(intent);
   }

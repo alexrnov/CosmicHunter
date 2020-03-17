@@ -116,7 +116,7 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun startGame(view: View) {
-
+    playClick()
     /*
     clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f)
@@ -137,8 +137,12 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun selectLevel(view: View) {
+    /*
     Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
             1.0f, 1.0f, 0, 0, 1f)
+    */
+
+    playClick()
     /*
     clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f)
@@ -156,6 +160,7 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun settingsMenu(view: View) {
+    playClick()
     /*
     clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f)
@@ -166,6 +171,7 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun aboutGame(view: View) {
+    playClick()
     /*
     clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f)
@@ -177,6 +183,7 @@ class MainActivity: AppCompatActivity() {
 
   // выйти из приложения при нажатии кнопки "Выход"
   fun exitFromApplication(view: View) {
+    playClick()
     /*
     clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f)

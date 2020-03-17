@@ -50,8 +50,6 @@ public class Initialization extends Application {
   public void onCreate() {
     super.onCreate();
 
-
-
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       clickSound = new SoundPool.Builder()
               .setMaxStreams(2)
@@ -294,6 +292,13 @@ public class Initialization extends Application {
     return stateSound.equalsIgnoreCase("off");
   }
 
+  public static void playClick() {
+    String stateSound = sp.getString("sound", defaultStateSound);
+    if (stateSound.equals("on")) {
+      clickSound.play(soundPoolMap.get(0),
+              1.0f, 1.0f, 0, 0, 1f);
+    }
+  }
   /**
    * Установить ориентацию экрана в соответсвии с настройками для
    * текущего активити.

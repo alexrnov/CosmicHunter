@@ -17,6 +17,7 @@ import alexrnov.cosmichunter.Initialization;
 import alexrnov.cosmichunter.R;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 public class DialogCancelActivity extends Activity {
@@ -54,8 +55,9 @@ public class DialogCancelActivity extends Activity {
   }
 
   public void backToMainMenu(View view) {
-    Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
-            1.0f, 1.0f, 0, 0, 1f);
+    playClick();
+    //Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
+       //     1.0f, 1.0f, 0, 0, 1f);
     /*
     clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f);
@@ -65,8 +67,9 @@ public class DialogCancelActivity extends Activity {
   }
 
   public void cancel(View view) {
-    Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
-            1.0f, 1.0f, 0, 0, 1f);
+    playClick();
+    //Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
+       //     1.0f, 1.0f, 0, 0, 1f);
     /*
     clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
             0, 0, 1f);
