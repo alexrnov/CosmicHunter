@@ -10,13 +10,10 @@ import alexrnov.cosmichunter.utils.showSnackbar
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.media.AudioManager
-import android.media.SoundPool
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.util.SparseIntArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -52,9 +49,6 @@ class MainActivity: AppCompatActivity() {
       }
     }
 
-  //private var clickSound: SoundPool? = null
-  //private val soundPoolMap = SparseIntArray()
-
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
     // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
     // повторной перезагрузки активити. Кроме того, не нужно создавать лэйаут для портретной
@@ -80,20 +74,6 @@ class MainActivity: AppCompatActivity() {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
-
-    /*
-    clickSound = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      SoundPool.Builder()
-              .setMaxStreams(1)
-              .build()
-    } else {
-      @Suppress("DEPRECATION")
-      SoundPool(1, AudioManager.STREAM_MUSIC, 100)
-    }
-    val i: Int = clickSound?.load(this, R.raw.click_sound, 0)?: 0
-    soundPoolMap.put(0, i)
-
-     */
   }
 
   override fun onStart() { // состояние "запущено"
@@ -117,11 +97,6 @@ class MainActivity: AppCompatActivity() {
 
   fun startGame(view: View) {
     playClick()
-    /*
-    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f)
-
-     */
     if (supportOpenGLES != 1) {
       showLoadPanel() // показать панель загрузки
 
@@ -137,17 +112,7 @@ class MainActivity: AppCompatActivity() {
   }
 
   fun selectLevel(view: View) {
-    /*
-    Initialization.clickSound.play(Initialization.soundPoolMap.get(0),
-            1.0f, 1.0f, 0, 0, 1f)
-    */
-
     playClick()
-    /*
-    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f)
-
-     */
     if (supportOpenGLES != 1) {
       val intent = Intent(this, LevelsActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
@@ -161,22 +126,12 @@ class MainActivity: AppCompatActivity() {
 
   fun settingsMenu(view: View) {
     playClick()
-    /*
-    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f)
-
-     */
     val intent = Intent(this, SettingsActivity::class.java)
     startActivity(intent)
   }
 
   fun aboutGame(view: View) {
     playClick()
-    /*
-    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f)
-
-     */
     val intent = Intent(this, AboutGameActivity::class.java)
     startActivity(intent)
   }
@@ -184,11 +139,6 @@ class MainActivity: AppCompatActivity() {
   // выйти из приложения при нажатии кнопки "Выход"
   fun exitFromApplication(view: View) {
     playClick()
-    /*
-    clickSound?.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f)
-
-     */
     backToHome(this)
   }
 

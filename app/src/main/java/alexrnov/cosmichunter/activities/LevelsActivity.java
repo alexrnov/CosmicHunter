@@ -1,8 +1,6 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import alexrnov.cosmichunter.base.LevelDao;
 import alexrnov.cosmichunter.base.LevelDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,9 +48,6 @@ public class LevelsActivity extends AppCompatActivity {
   private Button buttonLevel4;
   private Button buttonLevel5;
 
-  //private SoundPool clickSound;
-  //private SparseIntArray soundPoolMap = new SparseIntArray();
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -74,19 +68,6 @@ public class LevelsActivity extends AppCompatActivity {
     buttonLevel4 = findViewById(R.id.button_level4);
     buttonLevel5 = findViewById(R.id.button_level5);
     activateButtonsForOpenedLevels();
-
-    /*
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      clickSound = new SoundPool.Builder()
-              .setMaxStreams(1)
-              .build();
-    } else {
-      clickSound = new SoundPool(1, AudioManager.STREAM_MUSIC, 100);
-    }
-    soundPoolMap.put(0, clickSound.load(this, R.raw.click_sound, 0));
-
-
-     */
   }
 
   public void startLevel1(View view) { startLevel(1); }
@@ -108,11 +89,6 @@ public class LevelsActivity extends AppCompatActivity {
   }
 
   private void startLevel(int level) {
-    /*
-    clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f);
-
-     */
     playClick();
     LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(), LevelDatabase.class, "levels-database").allowMainThreadQueries().build();
     LevelDao dao = dbLevels.levelDao();
@@ -127,10 +103,6 @@ public class LevelsActivity extends AppCompatActivity {
   }
 
   public void backToMainMenu(View view) {
-    /*
-    clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-            0, 0, 1f);
-            */
     playClick();
     Intent intent = new Intent(this, MainActivity.class);
     startActivity(intent);

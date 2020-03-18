@@ -1,6 +1,7 @@
 package alexrnov.cosmichunter;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -66,12 +67,18 @@ public class Initialization extends Application {
       gunSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
     }
 
-
-
     soundPoolMap.put(0, clickSound.load(this, R.raw.click_sound, 0));
     soundPoolMap.put(1, explosionSound.load(this, R.raw.explosion_sound, 0));
     soundPoolMap.put(2, gunSound.load(this, R.raw.gun_sound, 0));
 
+    AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    float leftVolume = curVolume/maxVolume;
+    float rightVolume = curVolume/maxVolume;
+
+    Log.i(TAG, "curVolume = " + curVolume + ", maxVolume = " + maxVolume);
+    Log.i(TAG, "leftVolume = " + leftVolume + ", rightVolume = " + rightVolume);
 
 
 

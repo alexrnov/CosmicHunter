@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.os.Message;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
-import alexrnov.cosmichunter.sound.ExplosionSound;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;

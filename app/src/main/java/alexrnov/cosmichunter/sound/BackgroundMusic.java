@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.sound;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -33,6 +34,13 @@ public class BackgroundMusic {
   }
 
   private static void startPlayer(AppCompatActivity activity, Uri uri) {
+
+    AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    float leftVolume = curVolume/maxVolume;
+    float rightVolume = curVolume/maxVolume;
+
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player.setVolume(1, 1);

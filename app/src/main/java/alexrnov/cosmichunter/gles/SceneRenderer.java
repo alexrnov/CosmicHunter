@@ -3,7 +3,6 @@ package alexrnov.cosmichunter.gles;
 import android.opengl.GLSurfaceView;
 import org.jetbrains.annotations.NotNull;
 import alexrnov.cosmichunter.activities.GameActivity;
-import alexrnov.cosmichunter.sound.ExplosionSound;
 
 public interface SceneRenderer extends GLSurfaceView.Renderer  {
   /** установить ссылку на gameActivity, чтобы связываться с цифровым табло во время игры */

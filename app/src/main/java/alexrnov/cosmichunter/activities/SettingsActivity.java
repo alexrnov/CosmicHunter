@@ -5,11 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +25,6 @@ import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
-import alexrnov.cosmichunter.Initialization.*;
 
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
@@ -46,9 +41,6 @@ public class SettingsActivity extends AppCompatActivity
   private String musicText = "Music";
   private String onText = "on";
   private String offText = "off";
-
-  //private SoundPool clickSound;
-  //private SparseIntArray soundPoolMap = new SparseIntArray();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +62,6 @@ public class SettingsActivity extends AppCompatActivity
     musicText = getString(R.string.settings_music_label);
     onText = getString(R.string.settings_on);
     offText = getString(R.string.settings_off);
-
-    /*
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      clickSound = new SoundPool.Builder()
-              .setMaxStreams(2)
-              .build();
-    } else {
-      clickSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
-    }
-    soundPoolMap.put(0, clickSound.load(this, R.raw.click_sound, 0));
-  */
   }
 
 
@@ -142,21 +123,15 @@ public class SettingsActivity extends AppCompatActivity
   @Override
   public void onCheckedChanged(CompoundButton button, boolean b) {
     if (button.getId() == vibrationRadioButton.getId()) {
-      //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-         //     0, 0, 1f);
       playClick();
       establishValue("vibration", b ? "off" : "on");
       showSnackbar(view, vibrationText + ": " + (b ? offText : onText));
     } else if (button.getId() == musicRadioButton.getId()) {
-      //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-         //     0, 0, 1f);
       playClick();
       establishValue("music", b ? "off" : "on");
       manageMusic(b);
       showSnackbar(view, musicText + ": "+ (b ? offText : onText));
     } else if (button.getId() == soundRadioButton.getId()) {
-      //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-         //     0, 0, 1f);
       playClick();
       establishValue("sound", b ? "off" : "on");
       showSnackbar(view, soundText + ": " + (b ? offText : onText));
@@ -181,8 +156,6 @@ public class SettingsActivity extends AppCompatActivity
   }
 
   public void backToMainMenu(View view) {
-    //clickSound.play(soundPoolMap.get(0), 1.0f, 1.0f,
-       //     0, 0, 1f);
     playClick();
     Intent intent = new Intent(this, MainActivity.class);
     startActivity(intent);
