@@ -34,7 +34,6 @@ public class BackgroundMusic {
   }
 
   private static void startPlayer(AppCompatActivity activity, Uri uri) {
-
     /*
     // установить громкость приложения в зависимости от текущих настроек громкости в системе
     AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);

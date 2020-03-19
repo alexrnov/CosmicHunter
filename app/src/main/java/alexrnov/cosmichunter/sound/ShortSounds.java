@@ -55,6 +55,11 @@ public class ShortSounds {
   public static void playClick() {
     String stateSound = sp.getString("sound", "on");
     if (stateSound.equals("on")) {
+      /*
+       * Воспроизвести мелодию. Priority - приоритет (0 - самый низкий)
+       * loop - зацикливание (0 - нет зацикливания)
+       * rate - скорость воспроизведения (1 - нормальная скорость)
+       */
       clickSound.play(soundPoolMap.get(0),
               1.0f, 1.0f, 0, 0, 1f);
     }
@@ -69,7 +74,9 @@ public class ShortSounds {
   /** воспроизвести звук пуска ракеты */
   public static void playGun() {
     // проверка вклчения опции звука проводится при запуске рендера
-    gunSound.play(soundPoolMap.get(2), 0.2f, 0.2f, 0, 0, 1f);
+    // для звуков пуска ракет используется пониженный уровень звука,
+    // чтобы сделать его менее явным
+    gunSound.play(soundPoolMap.get(2), 0.5f, 0.5f, 0, 0, 1f);
   }
 
   /**
