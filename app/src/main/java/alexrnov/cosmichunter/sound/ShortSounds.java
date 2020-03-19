@@ -71,4 +71,13 @@ public class ShortSounds {
     // проверка вклчения опции звука проводится при запуске рендера
     gunSound.play(soundPoolMap.get(2), 0.2f, 0.2f, 0, 0, 1f);
   }
+
+  /**
+   * Проверяет, включен ли звук в настройках приложения
+   * @return - возвращает true если звуки включены, false - в обратном случае
+   */
+  public static boolean isSoundOn() {
+    String stateSound = sp.getString("sound", "on");
+    return stateSound.equals("on");
+  }
 }
