@@ -5,6 +5,7 @@ import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
 import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.base.LevelDatabase
+import alexrnov.cosmichunter.sound.ShortSounds.playClick
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.showSnackbar
 import android.app.ActivityManager

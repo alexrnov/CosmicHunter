@@ -27,9 +27,9 @@ import androidx.room.Room;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
-import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 
 public class LevelsActivity extends AppCompatActivity {

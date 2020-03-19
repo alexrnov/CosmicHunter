@@ -21,8 +21,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
-import static alexrnov.cosmichunter.Initialization.playClick;
+
 import static alexrnov.cosmichunter.Initialization.sp;
+import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
 

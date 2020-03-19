@@ -17,6 +17,7 @@ import alexrnov.cosmichunter.base.Level;
 import alexrnov.cosmichunter.base.LevelDao;
 import alexrnov.cosmichunter.base.LevelDatabase;
 import alexrnov.cosmichunter.sound.BackgroundMusic;
+import alexrnov.cosmichunter.sound.ShortSounds;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -35,15 +36,16 @@ public class Initialization extends Application {
   private static final String GAME_ACTIVITY = "game_activity";
 
   private static String defaultStateMusic;
-  private static String defaultStateSound;
   private static String defaultVibration;
 
+  /*
   public static SoundPool clickSound;
   public static SoundPool explosionSound;
   public static SoundPool gunSound;
   // SparseIntArray дает лучшую производительность по сравнению с
   // HashMap<Integer, Integer>()
   public static SparseIntArray soundPoolMap = new SparseIntArray();
+   */
 
   private LevelDatabase dbLevels;
 
@@ -51,43 +53,12 @@ public class Initialization extends Application {
   public void onCreate() {
     super.onCreate();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      clickSound = new SoundPool.Builder()
-              .setMaxStreams(2)
-              .build();
-      explosionSound = new SoundPool.Builder()
-              .setMaxStreams(3)
-              .build();
-      gunSound = new SoundPool.Builder()
-              .setMaxStreams(2)
-              .build();
-    } else {
-      clickSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
-      explosionSound = new SoundPool(3, AudioManager.STREAM_MUSIC, 100);
-      gunSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 100);
-    }
-
-    soundPoolMap.put(0, clickSound.load(this, R.raw.click_sound, 0));
-    soundPoolMap.put(1, explosionSound.load(this, R.raw.explosion_sound, 0));
-    soundPoolMap.put(2, gunSound.load(this, R.raw.gun_sound, 0));
-
-    AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-    float leftVolume = curVolume/maxVolume;
-    float rightVolume = curVolume/maxVolume;
-
-    Log.i(TAG, "curVolume = " + curVolume + ", maxVolume = " + maxVolume);
-    Log.i(TAG, "leftVolume = " + leftVolume + ", rightVolume = " + rightVolume);
-
-
-
+    ShortSounds.init(this);
 
     final String packageName = this.getApplicationContext().getPackageName();
     sp = this.getSharedPreferences(packageName, MODE_PRIVATE);
 
     defaultStateMusic = getResources().getString(R.string.default_music);
-    defaultStateSound = getResources().getString(R.string.default_sound);
     defaultVibration = getResources().getString(R.string.default_vibration);
     //сбросить логические переменные для управления музыкой при
     //навигации по активити в исходное положение. Это необходимо,
@@ -294,34 +265,19 @@ public class Initialization extends Application {
     return stateMusic.equalsIgnoreCase("off");
   }
 
-  private static boolean isSoundOff() {
-    String stateSound = sp.getString("sound", defaultStateSound);
-    return stateSound.equalsIgnoreCase("off");
-  }
-
-  public static void playClick() {
-    String stateSound = sp.getString("sound", defaultStateSound);
-    if (stateSound.equals("on")) {
-      clickSound.play(soundPoolMap.get(0),
-              1.0f, 1.0f, 0, 0, 1f);
-    }
-  }
-  /**
+  /*
    * Установить ориентацию экрана в соответсвии с настройками для
    * текущего активити.
    * @param activity текущий активити, для которого определяется ориентация
-   */
   public static void spotOrientationScreen(AppCompatActivity activity) {
     String currentVibration = sp.getString("vibration", defaultVibration);
-    /*
     if (currentOrientation.equalsIgnoreCase("portrait")) {
       activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     } else {
       activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
-    */
   }
-
+   */
   public static void spotFlagOpenDialogWindow(boolean b) {
     if (sp != null) {
       SharedPreferences.Editor editor;

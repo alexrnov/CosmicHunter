@@ -12,8 +12,8 @@ import android.view.View;
 import alexrnov.cosmichunter.R;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.Initialization.playClick;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
+import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 
 public class DialogCancelActivity extends Activity {
 

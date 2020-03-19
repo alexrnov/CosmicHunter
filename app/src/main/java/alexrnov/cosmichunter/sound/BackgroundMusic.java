@@ -35,12 +35,14 @@ public class BackgroundMusic {
 
   private static void startPlayer(AppCompatActivity activity, Uri uri) {
 
+    /*
+    // установить громкость приложения в зависимости от текущих настроек громкости в системе
     AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
     float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
     float leftVolume = curVolume/maxVolume;
     float rightVolume = curVolume/maxVolume;
-
+    */
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     player.setVolume(1, 1);
