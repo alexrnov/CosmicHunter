@@ -32,7 +32,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
   // ссылка на переменную вершинного шейдера, содержащую значение
   // интенсивности диффузного освещения
   private final int diffuseLightIntensityLink;
-  // обработчик текстуры кирпичной стенки
+  // обработчик текстуры
   private final int textureID;
 
   private final int positionLink; // индекс переменной атрибута для вершин
@@ -205,6 +205,8 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+
     GLES20.glUniform1i(samplerLink, 0);
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,

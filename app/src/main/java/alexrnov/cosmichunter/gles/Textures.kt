@@ -48,6 +48,8 @@ object Textures {
     // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
     // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
     // border - игнорируется.
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+
     GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
     //задать режимы фильтрации
     //третий параметр - фильтр растяжения. GL_LINEAR - будет взято значение,
@@ -66,7 +68,7 @@ object Textures {
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
             GLES20.GL_CLAMP_TO_EDGE)
     // поддержка mip-карты
-    // GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+    //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
     return textureId[0]
   }
 }
