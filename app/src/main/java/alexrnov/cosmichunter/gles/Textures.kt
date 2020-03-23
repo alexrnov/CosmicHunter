@@ -49,8 +49,6 @@ object Textures {
     // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
     // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
     // border - игнорируется.
-
-
     GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
     //задать режимы фильтрации
     //третий параметр - фильтр растяжения. GL_LINEAR - будет взято значение,
@@ -76,6 +74,20 @@ object Textures {
   @JvmStatic
   fun loadTextureWithMipMapFromRaw(context: Context, r: Int): Int {
     val input: InputStream = context.resources.openRawResource(r) ?: return 0
+    val bitmap: Bitmap = BitmapFactory.decodeStream(input)
+    return loadTextureWithMipmap(bitmap)
+  }
+
+  /**
+   * Загружает текстуру из директории asset
+   * [context] контекст приложения
+   * [fileName] имя файла, который расположен в директории asset
+   */
+  @JvmStatic
+  fun loadTextureWithMipMapFromAsset(context: Context, fileName: String): Int {
+    val input: InputStream = try {
+      context.assets.open(fileName)
+    } catch (ioe: IOException) { null } ?: return 0
     val bitmap: Bitmap = BitmapFactory.decodeStream(input)
     return loadTextureWithMipmap(bitmap)
   }

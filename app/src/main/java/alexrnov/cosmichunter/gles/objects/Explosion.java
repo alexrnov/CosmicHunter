@@ -11,6 +11,7 @@ import java.util.Random;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromAsset;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureFromAsset;
 
@@ -98,7 +99,8 @@ public class Explosion {
     colorLink = GLES20.glGetUniformLocation(programObject, "u_color");
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
 
-    textureID = loadTextureFromAsset(context, textureFile);
+    //textureID = loadTextureFromAsset(context, textureFile);
+    textureID = loadTextureWithMipMapFromAsset(context, textureFile);
 
     // получить индексы атрибутов в вершинном шейдере
     lifeTimeLink = GLES20.glGetAttribLocation(programObject, "a_lifeTime");
@@ -197,6 +199,16 @@ public class Explosion {
     // сделать текущей текстуру с дымом
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+
+    // генерировать mipmap
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+
+    // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
+    // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            GLES20.GL_LINEAR_MIPMAP_NEAREST);
+
     // Set the sampler texture unit to 0
     GLES20.glUniform1i(samplerLink, 0);
     // рендеринг частиц. В отличии от треугольников, у точечных спрайтов
