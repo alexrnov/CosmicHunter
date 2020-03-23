@@ -99,7 +99,7 @@ public class Explosion {
     colorLink = GLES20.glGetUniformLocation(programObject, "u_color");
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
 
-    //textureID = loadTextureFromAsset(context, textureFile);
+    // textureID = loadTextureFromAsset(context, textureFile);
     textureID = loadTextureWithMipMapFromAsset(context, textureFile);
 
     // получить индексы атрибутов в вершинном шейдере
@@ -208,6 +208,10 @@ public class Explosion {
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
             GLES20.GL_LINEAR_MIPMAP_NEAREST);
+    // рисовать с трилинейным фильтрованием
+    // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+    // GLES20.GL_LINEAR_MIPMAP_LINEAR);
+
 
     // Set the sampler texture unit to 0
     GLES20.glUniform1i(samplerLink, 0);

@@ -204,9 +204,10 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+
     // генерировать mipmap
     GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
-
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
@@ -214,6 +215,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     // рисовать с трилинейным фильтрованием
     //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
            // GLES20.GL_LINEAR_MIPMAP_LINEAR);
+
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId

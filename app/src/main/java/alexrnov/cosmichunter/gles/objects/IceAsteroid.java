@@ -12,6 +12,7 @@ import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureFromRaw;
+import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class IceAsteroid extends Object3D implements Asteroid {
   private final int programObject;
@@ -85,7 +86,9 @@ public class IceAsteroid extends Object3D implements Asteroid {
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    textureID = loadTextureFromRaw(context, R.raw.ice_texture); //загрузить текстуру
+    //textureID = loadTextureFromRaw(context, R.raw.ice_texture); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, R.raw.ice_texture); //загрузить текстуру
+
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -200,6 +203,8 @@ public class IceAsteroid extends Object3D implements Asteroid {
 
     GLES20.glEnable(GLES20.GL_BLEND);
     //GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
+
+
     GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
@@ -211,6 +216,19 @@ public class IceAsteroid extends Object3D implements Asteroid {
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+
+    // генерировать mipmap
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+    // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
+    // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            GLES20.GL_LINEAR_MIPMAP_NEAREST);
+    // рисовать с трилинейным фильтрованием
+    // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+    // GLES20.GL_LINEAR_MIPMAP_LINEAR);
+
+
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId

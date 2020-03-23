@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
-import android.opengl.GLES30
 import android.opengl.GLUtils
 import java.io.IOException
 import java.io.InputStream
@@ -66,11 +65,14 @@ object Textures {
             GLES20.GL_CLAMP_TO_EDGE)
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
             GLES20.GL_CLAMP_TO_EDGE)
-    // поддержка mip-карты
-    //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
     return textureId[0]
   }
 
+  /**
+   * Загружает текстуру из директории raw с учетом настроек для mipmap
+   * [context] контекст приложения
+   * [r] целочисленный идентификатор ресурса - тектстурного изображения
+   */
   @JvmStatic
   fun loadTextureWithMipMapFromRaw(context: Context, r: Int): Int {
     val input: InputStream = context.resources.openRawResource(r) ?: return 0
@@ -79,7 +81,7 @@ object Textures {
   }
 
   /**
-   * Загружает текстуру из директории asset
+   * Загружает текстуру из директории asset с учетом настроек для mipmap
    * [context] контекст приложения
    * [fileName] имя файла, который расположен в директории asset
    */
@@ -109,10 +111,10 @@ object Textures {
     GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
     // задать режимы фильтрации
     // установить формат фильтрации: первый параметр - тип текстуры
-    GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D,
-            GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_NEAREST_MIPMAP_NEAREST)
-    GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D,
-            GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+            GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST_MIPMAP_NEAREST)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+            GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
     return textureId[0]
   }
 }
