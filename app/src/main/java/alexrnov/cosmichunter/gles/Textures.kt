@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
+import android.opengl.GLES30
 import android.opengl.GLUtils
 import java.io.IOException
 import java.io.InputStream
@@ -48,7 +49,7 @@ object Textures {
     // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
     // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
     // border - игнорируется.
-    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+
 
     GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
     //задать режимы фильтрации
@@ -69,6 +70,37 @@ object Textures {
             GLES20.GL_CLAMP_TO_EDGE)
     // поддержка mip-карты
     //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+    return textureId[0]
+  }
+
+  @JvmStatic
+  fun loadTextureWithMipMapFromRaw(context: Context, r: Int): Int {
+    val input: InputStream = context.resources.openRawResource(r) ?: return 0
+    val bitmap: Bitmap = BitmapFactory.decodeStream(input)
+    return loadTextureWithMipmap(bitmap)
+  }
+
+  private fun loadTextureWithMipmap(bitmap: Bitmap): Int {
+    val textureId = IntArray(1)
+    // создать текстурный объект. Первый параметр - количество текстурных
+    // объектов, которые необходимо создать. Второй параметр - массив,
+    // возвращающий n-чисел(в данном случае 1), идентифицируюших созданные
+    // текстурные объекты
+    GLES20.glGenTextures(1, textureId, 0)
+    // привязать соответствующий текстурный блог к типу текстуры
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[0])
+    // включить поддержку mipmap (работает даже если не указывать эту команду здесь)
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+    // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
+    // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
+    // border - игнорируется.
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
+    // задать режимы фильтрации
+    // установить формат фильтрации: первый параметр - тип текстуры
+    GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D,
+            GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_NEAREST_MIPMAP_NEAREST)
+    GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D,
+            GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
     return textureId[0]
   }
 }
