@@ -87,8 +87,8 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
-    //textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.metal_texture); //загрузить текстуру
+    textureID = loadTextureFromRaw(context, R.raw.metal_texture); //загрузить текстуру
+    //textureID = loadTextureWithMipMapFromRaw(context, R.raw.metal_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject, "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject, "u_ambientLight.intensity");
     diffuseLightColorLink = GLES20.glGetUniformLocation(programObject, "u_diffuseLight.color");
@@ -207,6 +207,7 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
 
+    /*
     // генерировать mipmap
     GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
@@ -217,6 +218,8 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
 
+
+     */
 
 
     // установить текстурную единицу семплера в 0, что означает, что

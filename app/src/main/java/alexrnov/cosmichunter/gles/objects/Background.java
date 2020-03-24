@@ -11,6 +11,7 @@ import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class Background extends Object3D {
   private final int programObject;
@@ -52,7 +53,10 @@ public class Background extends Object3D {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
+
     textureID = Textures.loadTextureFromRaw(context, textureIDResource); //загрузить текстуру
+    //textureID = loadTextureWithMipMapFromRaw(context, textureIDResource); //загрузить текстуру
+
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
@@ -135,6 +139,19 @@ public class Background extends Object3D {
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+    /*
+    // генерировать mipmap
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+    // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
+    // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            GLES20.GL_LINEAR_MIPMAP_NEAREST);
+    // рисовать с трилинейным фильтрованием
+    // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+    // GLES20.GL_LINEAR_MIPMAP_LINEAR);
+
+     */
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId

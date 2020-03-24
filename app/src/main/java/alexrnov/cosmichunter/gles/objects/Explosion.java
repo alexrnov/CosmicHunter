@@ -99,8 +99,8 @@ public class Explosion {
     colorLink = GLES20.glGetUniformLocation(programObject, "u_color");
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
 
-    // textureID = loadTextureFromAsset(context, textureFile);
-    textureID = loadTextureWithMipMapFromAsset(context, textureFile);
+    textureID = loadTextureFromAsset(context, textureFile);
+    //textureID = loadTextureWithMipMapFromAsset(context, textureFile);
 
     // получить индексы атрибутов в вершинном шейдере
     lifeTimeLink = GLES20.glGetAttribLocation(programObject, "a_lifeTime");
@@ -200,7 +200,7 @@ public class Explosion {
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
 
-
+    /*
     // генерировать mipmap
     GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
 
@@ -213,6 +213,8 @@ public class Explosion {
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
 
 
+
+     */
     // Set the sampler texture unit to 0
     GLES20.glUniform1i(samplerLink, 0);
     // рендеринг частиц. В отличии от треугольников, у точечных спрайтов
