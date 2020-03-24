@@ -207,11 +207,13 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
 
 
     // генерировать mipmap
-    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+    //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
             GLES20.GL_LINEAR_MIPMAP_NEAREST);
+
+
     // рисовать с трилинейным фильтрованием
     //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
            // GLES20.GL_LINEAR_MIPMAP_LINEAR);

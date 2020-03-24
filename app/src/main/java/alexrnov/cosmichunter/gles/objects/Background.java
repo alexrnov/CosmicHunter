@@ -54,8 +54,8 @@ public class Background extends Object3D {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
 
-    textureID = Textures.loadTextureFromRaw(context, textureIDResource); //загрузить текстуру
-    //textureID = loadTextureWithMipMapFromRaw(context, textureIDResource); //загрузить текстуру
+    //textureID = Textures.loadTextureFromRaw(context, textureIDResource); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, textureIDResource); //загрузить текстуру
 
 
     // получить индексы атрибутов в вершинном шейдере
@@ -140,9 +140,9 @@ public class Background extends Object3D {
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
 
-    /*
+
     // генерировать mipmap
-    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+    //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
@@ -151,7 +151,7 @@ public class Background extends Object3D {
     // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
 
-     */
+
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId

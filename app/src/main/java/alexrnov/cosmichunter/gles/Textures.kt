@@ -103,8 +103,6 @@ object Textures {
     GLES20.glGenTextures(1, textureId, 0)
     // привязать соответствующий текстурный блок к типу текстуры
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[0])
-    // включить поддержку mipmap (работает даже если не указывать эту команду здесь)
-    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
     // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
     // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
     // border - игнорируется.
@@ -115,6 +113,8 @@ object Textures {
             GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST_MIPMAP_NEAREST)
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
             GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
+    // включить поддержку mipmap (работает даже если не указывать эту команду здесь)
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
     return textureId[0]
   }
 }
