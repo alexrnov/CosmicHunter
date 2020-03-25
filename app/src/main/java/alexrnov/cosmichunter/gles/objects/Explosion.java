@@ -164,8 +164,10 @@ public class Explosion {
     if (createExplosion) { // если взрыв только-что создан
       createExplosion = false;
       GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
+
       GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
       GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
+      //GLES20.glUniform1f(sizeSpriteLink, 200.0f);
     }
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
