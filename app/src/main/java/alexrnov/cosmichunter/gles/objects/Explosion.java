@@ -19,7 +19,7 @@ public class Explosion {
   private final byte NUM_COORDINATES = 3; // количество координат - 3 т.е. x, y, z
   private final byte FLOAT_SIZE = 4; // количество байт на тип float
 
-  public float x, y = 0.0f; // координаты для центра взрыва
+  public float x, y, z = 0.0f; // координаты для центра взрыва
   private final Random random = new Random();
   private final int programObject;
 
@@ -53,22 +53,27 @@ public class Explosion {
 
   private final float startRadius; // начальный радиус взрыва
   private final float endRadius; // конечный радиус взрыва
-  private final float sizeSprite; // размер точечного спрайта
   private final int numberParticles; // количество частиц
   private final float[] color; // цвет взрыва
 
   private List<Explosion> explosions;
 
+  private final float sizeSprite2 = 1200f;
+
   public Explosion(double versionGL, Context context, String textureFile) {
     this(versionGL, context, textureFile, 0.05f,
-            0.6f, 100.0f, 150, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
+            0.6f, 150, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
+  }
+
+  public Explosion(double versionGL, Context context, String textureFile, float[] color) {
+    this(versionGL, context, textureFile, 0.05f,
+            0.6f, 150, color);
   }
 
   public Explosion(double versionGL, Context context, String textureFile, float startRadius,
-                   float endRadius, float sizeSprite, int numberParticles, float[] color) {
+                   float endRadius, int numberParticles, float[] color) {
     this.startRadius = startRadius;
     this.endRadius = endRadius;
-    this.sizeSprite = sizeSprite;
     this.numberParticles = numberParticles;
     this.color = color;
 
@@ -164,10 +169,10 @@ public class Explosion {
     if (createExplosion) { // если взрыв только-что создан
       createExplosion = false;
       GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-
+      float f = sizeSprite2 / Math.abs(z);
+      Log.i(TAG, "z = " + z + ", f = " + f);
       GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
-      //GLES20.glUniform1f(sizeSpriteLink, 200.0f);
+      GLES20.glUniform1f(sizeSpriteLink, f);
     }
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
@@ -236,11 +241,12 @@ public class Explosion {
   }
 
   /** создает новый взрыв */
-  public void create(float x, float y) {
+  public void create(float x, float y, float z) {
     lastTimeExplosion = 0.0f;
     createExplosion = true;
     this.x = x;
     this.y = y;
+    this.z = z;
   }
 
   // возвращает случайные координаты для точки, расположенной внутри сферы

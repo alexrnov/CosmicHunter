@@ -43,9 +43,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
   private AsteroidView3D view;
   private final int[] VBO = new int[4];
 
-  private Explosion bigExplosion;
-  private Explosion middleExplosion;
-  private Explosion smallExplosion;
+  private Explosion explosion;
 
   public BasaltAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
     super(context, scale, "objects/asteroid1.obj");
@@ -244,32 +242,12 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
   }
 
   @Override
-  public void setBigExplosion(Explosion explosion) {
-    bigExplosion = explosion;
+  public void setExplosion(Explosion explosion) {
+    this.explosion = explosion;
   }
 
   @Override
-  public Explosion getBigExplosion() {
-    return bigExplosion;
-  }
-
-  @Override
-  public void setMiddleExplosion(Explosion explosion) {
-    middleExplosion = explosion;
-  }
-
-  @Override
-  public Explosion getMiddleExplosion() {
-    return middleExplosion;
-  }
-
-  @Override
-  public void setSmallExplosion(Explosion explosion) {
-    smallExplosion = explosion;
-  }
-
-  @Override
-  public Explosion getSmallExplosion() {
-    return smallExplosion;
+  public Explosion getExplosion() {
+    return explosion;
   }
 }

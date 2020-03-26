@@ -34,64 +34,30 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
 
 
 
-  enum TypeExplosion { ROCK_BIG, ROCK_MIDDLE, ROCK_SMALL, ICE_BIG,
-    ICE_MIDDLE, ICE_SMALL, METAL_BIG, METAL_MIDDLE, METAL_SMALL }
+  enum TypeExplosion { ROCK, ICE, METAL }
 
 
 
-  /* К каждому астероиду привязать по три взрыва (большой, средний, маленький) */
+  /* К каждому астероиду привязать взрыв */
   default void bindExplosions(Asteroid asteroid, List<Explosion> activeExplosions,
                               double versionGL, Context context) {
     if (asteroid instanceof BasaltAsteroid) {
-      asteroid.setBigExplosion(createExplosion(TypeExplosion.ROCK_BIG, versionGL, context));
-      asteroid.setMiddleExplosion(createExplosion(TypeExplosion.ROCK_MIDDLE, versionGL, context));
-      asteroid.setSmallExplosion(createExplosion(TypeExplosion.ROCK_SMALL, versionGL, context));
+      asteroid.setExplosion(createExplosion(TypeExplosion.ROCK, versionGL, context));
     } else if (asteroid instanceof MetalAsteroid) {
-      asteroid.setBigExplosion(createExplosion(TypeExplosion.METAL_BIG, versionGL, context));
-      asteroid.setMiddleExplosion(createExplosion(TypeExplosion.METAL_MIDDLE, versionGL, context));
-      asteroid.setSmallExplosion(createExplosion(TypeExplosion.METAL_SMALL, versionGL, context));
+      asteroid.setExplosion(createExplosion(TypeExplosion.METAL, versionGL, context));
     } else {
-      asteroid.setBigExplosion(createExplosion(TypeExplosion.ICE_BIG, versionGL, context));
-      asteroid.setMiddleExplosion(createExplosion(TypeExplosion.ICE_MIDDLE, versionGL, context));
-      asteroid.setSmallExplosion(createExplosion(TypeExplosion.ICE_SMALL, versionGL, context));
+      asteroid.setExplosion(createExplosion(TypeExplosion.ICE, versionGL, context));
     }
-    asteroid.getBigExplosion().setExplosions(activeExplosions);
-    asteroid.getMiddleExplosion().setExplosions(activeExplosions);
-    asteroid.getSmallExplosion().setExplosions(activeExplosions);
+    asteroid.getExplosion().setExplosions(activeExplosions);
   }
 
   default Explosion createExplosion(TypeExplosion type, double versionGL, Context context) {
     switch (type) {
-      case ROCK_BIG:
-        return new Explosion(versionGL, context, "explosion/rock.png");
-      case ROCK_MIDDLE:
-        return new Explosion(versionGL, context, "explosion/rock.png", 0.001f,
-                0.4f, 80.0f, 120, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
-      case ROCK_SMALL:
-        return new Explosion(versionGL, context, "explosion/rock.png", 0.005f,
-                0.2f, 60.0f, 110, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
-      case ICE_BIG:
-        return new Explosion(versionGL, context, "explosion/ice.png", 0.05f,
-                0.6f, 100.0f, 150, new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
-      case ICE_MIDDLE:
-        return new Explosion(versionGL, context, "explosion/ice.png", 0.001f,
-                0.4f, 80.0f, 120, new float[] {0.1f, 0.4f, 1.0f, 1.0f});
-      case ICE_SMALL:
-        return new Explosion(versionGL, context, "explosion/ice.png", 0.005f,
-                0.2f, 60.0f, 110, new float[] {0.1f, 0.4f, 1.0f, 1.0f});
-      case METAL_BIG:
-        return new Explosion(versionGL,context, "explosion/metal.png", 0.05f,
-                0.6f, 100.0f, 150, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
-      case METAL_MIDDLE:
-        return new Explosion(versionGL, context, "explosion/metal.png", 0.001f,
-                0.4f, 80.0f, 120, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
-      case METAL_SMALL:
-        return new Explosion(versionGL, context, "explosion/metal.png", 0.005f,
-                0.2f, 60.0f, 110, new float[] {0.3f, 1.0f, 0.3f, 1.0f});
-      default:
-        return null;
+      case ROCK: return new Explosion(versionGL, context, "explosion/rock.png");
+      case ICE: return new Explosion(versionGL, context, "explosion/ice.png", new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
+      case METAL: return new Explosion(versionGL,context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
+      default: return null;
     }
   }
 
-
-  }
+}

@@ -46,9 +46,7 @@ public class MetalAsteroid extends Object3D implements Asteroid {
   private AsteroidView3D view;
   private final int[] VBO = new int[4];
 
-  private Explosion bigExplosion;
-  private Explosion middleExplosion;
-  private Explosion smallExplosion;
+  private Explosion explosion;
 
   public MetalAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
     super(context, scale, "objects/asteroid1.obj");
@@ -246,33 +244,15 @@ public class MetalAsteroid extends Object3D implements Asteroid {
     //GLES30.glFinish();
   }
 
+
   @Override
-  public void setBigExplosion(Explosion explosion) {
-    bigExplosion = explosion;
+  public void setExplosion(Explosion explosion) {
+    this.explosion = explosion;
   }
 
   @Override
-  public Explosion getBigExplosion() {
-    return bigExplosion;
+  public Explosion getExplosion() {
+    return explosion;
   }
 
-  @Override
-  public void setMiddleExplosion(Explosion explosion) {
-    middleExplosion = explosion;
-  }
-
-  @Override
-  public Explosion getMiddleExplosion() {
-    return middleExplosion;
-  }
-
-  @Override
-  public void setSmallExplosion(Explosion explosion) {
-    smallExplosion = explosion;
-  }
-
-  @Override
-  public Explosion getSmallExplosion() {
-    return smallExplosion;
-  }
 }

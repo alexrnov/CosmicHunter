@@ -7,13 +7,8 @@ public interface Asteroid {
   AsteroidView3D getView();
   void setView(View3D view);
 
-  void setBigExplosion(Explosion explosion);
-  void setMiddleExplosion(Explosion explosion);
-  void setSmallExplosion(Explosion explosion);
-
-  Explosion getBigExplosion();
-  Explosion getMiddleExplosion();
-  Explosion getSmallExplosion();
+  void setExplosion(Explosion explosion);
+  Explosion getExplosion();
 
   void draw();
 }
