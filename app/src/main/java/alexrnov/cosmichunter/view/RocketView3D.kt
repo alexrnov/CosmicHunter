@@ -12,6 +12,9 @@ class RocketView3D(widthScreen: Int, heightScreen: Int):
         View3D(widthScreen, heightScreen) {
   private var kx: Float = 0.23f
   private var ky: Float = 0.23f
+
+
+
   private var angleX: Float = 0f // угол поворота ракеты по оси X
   private var angleY: Float = 0f // угол поворота ракеты по оси Y
   private val k = 16 // коэффициент влияет на угол поворота ракеты
@@ -45,7 +48,8 @@ class RocketView3D(widthScreen: Int, heightScreen: Int):
     fly = true // запустить ракету
     x = xPass * aspect * 4 // значение 4 подобрано эмпирически
     y = yPass * 4 // значение 4 подобрано эмпирически
-    z = 0f
+    //z = 0f
+    z = -4f
     kx = x / 10
     ky = y / 10
     angleX = if (x > 0.0f) 360 - abs(x * k) else abs(x * k)

@@ -29,8 +29,14 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
     // eyeX, eyeY, eyeZ - позиция камеры(отодвинута на 4 единицы назад (к наблюдателю))
     // centerX, centerY, centerZ - координаты точки, куда смотрит камера
     // upX, upY, upZ - поворот камеры (обычно менять эти значения не нужно)
-    Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 4f,
-            0f, 0f, 0f, 0f, 1.0f, 0.0f)
+    //Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 4f,
+       //     0f, 0f, 0f, 0f, 1.0f, 0.0f)
+
+    // приблизил камеру к объектам, чтобы объекты не приближались ближе
+    // чем z = -1, это позволяет избежать лишней проверки if, когда объект
+    // мог приблизится на z = 0.9-0.0 и привести к очень большому размеру спрайта
+    Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 0f,
+            0f, 0f, -4f, 0f, 1.0f, 0.0f)
     setPerspectiveProjection()
   }
 

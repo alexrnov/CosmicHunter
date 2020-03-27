@@ -62,12 +62,12 @@ public class Explosion {
 
   public Explosion(double versionGL, Context context, String textureFile) {
     this(versionGL, context, textureFile, 0.05f,
-            0.6f, 150, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
+            0.6f, 500, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
   }
 
   public Explosion(double versionGL, Context context, String textureFile, float[] color) {
     this(versionGL, context, textureFile, 0.05f,
-            0.6f, 150, color);
+            0.6f, 500, color);
   }
 
   public Explosion(double versionGL, Context context, String textureFile, float startRadius,
