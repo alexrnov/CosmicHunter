@@ -55,7 +55,7 @@ class AsteroidView3D(widthScreen: Int, heightScreen: Int):
     Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0)
     // комбинировать модельно-видовую матрицу и проектирующую матрицу
     Matrix.multiplyMM(mvpMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0)
-    if (z > -1) beginning() // проверяется факт что астероид почти достиг экрана (камеры)"
+    if (z > -2) beginning() // проверяется факт что астероид почти достиг экрана (камеры)"
   }
 
   /**

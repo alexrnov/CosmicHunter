@@ -51,30 +51,18 @@ public class Explosion {
   // чтобы установить координаты центра взрыва
   private boolean createExplosion = false;
 
-  private final float startRadius; // начальный радиус взрыва
-  private final float endRadius; // конечный радиус взрыва
-  private final int numberParticles; // количество частиц
+  private final int numberParticles = 10000; // количество частиц
   private final float[] color; // цвет взрыва
 
   private List<Explosion> explosions;
 
-  private final float sizeSprite2 = 1200f;
-
   public Explosion(double versionGL, Context context, String textureFile) {
-    this(versionGL, context, textureFile, 0.05f,
-            0.6f, 500, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
+    this(versionGL, context, textureFile, new float[] {1.0f, 0.7f, 0.1f, 1.0f});
   }
+
+
 
   public Explosion(double versionGL, Context context, String textureFile, float[] color) {
-    this(versionGL, context, textureFile, 0.05f,
-            0.6f, 500, color);
-  }
-
-  public Explosion(double versionGL, Context context, String textureFile, float startRadius,
-                   float endRadius, int numberParticles, float[] color) {
-    this.startRadius = startRadius;
-    this.endRadius = endRadius;
-    this.numberParticles = numberParticles;
     this.color = color;
 
     lifeTimeData = new float[numberParticles];
@@ -127,7 +115,7 @@ public class Explosion {
    * @param height - высота экрана
    */
   public void createDataVertex(int width, int height) {
-    GLES20.glViewport(0, 0, width, height);
+    //GLES20.glViewport(0, 0, width, height);
     float aspect = (float) height / (float) width;
 
     // генерация времени жизни для частиц
@@ -137,8 +125,10 @@ public class Explosion {
       lifeTimeData[i] = random.nextFloat() * maxLifeTime;
     }
 
-    // генерация начальных и конечных координат для частиц
+    /* генерация начальных и конечных координат для частиц */
     float[] xyz;
+    float startRadius = 0.15f; // начальный радиус взрыва
+    float endRadius = 0.4f; // конечный радиус взрыва
     for (int i = 0; i < numberParticles * NUM_COORDINATES; i += NUM_COORDINATES) {
       xyz = getPointForSphere(startRadius); // начальная позиция частицы
       startPositionData[i] = xyz[0] * aspect;
@@ -169,10 +159,10 @@ public class Explosion {
     if (createExplosion) { // если взрыв только-что создан
       createExplosion = false;
       GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-      float f = sizeSprite2 / Math.abs(z);
-      Log.i(TAG, "z = " + z + ", f = " + f);
+      float sizeSprite = 120f / Math.abs(z); // размер спрайта зависит от расстояния до астероида
+      Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
       GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      GLES20.glUniform1f(sizeSpriteLink, f);
+      GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
     }
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
@@ -218,9 +208,6 @@ public class Explosion {
     // рисовать с трилинейным фильтрованием
     // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
-
-
-
 
     // Set the sampler texture unit to 0
     GLES20.glUniform1i(samplerLink, 0);
