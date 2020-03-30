@@ -161,10 +161,10 @@ public class Explosion {
     if (createExplosion) { // если взрыв только-что создан
       createExplosion = false;
       GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-      float sizeSprite = 100f / Math.abs(z) + 23; // размер спрайта зависит от расстояния до астероида
+      float sizeSprite = 150f / Math.abs(z) + 21; // размер спрайта зависит от расстояния до астероида
       Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
       GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      GLES20.glUniform1f(sizeSpriteLink, 50f);
+      GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
     }
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
