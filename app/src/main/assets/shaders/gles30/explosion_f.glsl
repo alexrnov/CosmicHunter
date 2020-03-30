@@ -15,6 +15,7 @@ void main()
     vec4 texColor = texture(s_texture, gl_PointCoord);
     // texColor = texture(s_texture, vec2(gl_PointCoord.x, gl_PointCoord.y));
     fragColor = u_color * texColor;
+    //fragColor = u_color;
     // увеличить прозрачность спрайта, чем ближе конец жизненного
     // цикла, тем больше прозрачность частицы
     fragColor.a *= v_lifeTime;

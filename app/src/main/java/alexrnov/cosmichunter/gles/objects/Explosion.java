@@ -11,6 +11,7 @@ import java.util.Random;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.gles.Textures.loadTextureNearestFromAsset;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromAsset;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureFromAsset;
@@ -51,7 +52,7 @@ public class Explosion {
   // чтобы установить координаты центра взрыва
   private boolean createExplosion = false;
 
-  private final int numberParticles = 10000; // количество частиц
+  private final int numberParticles = 500; // количество частиц
   private final float[] color; // цвет взрыва
 
   private List<Explosion> explosions;
@@ -94,6 +95,7 @@ public class Explosion {
 
     //textureID = loadTextureFromAsset(context, textureFile);
     textureID = loadTextureWithMipMapFromAsset(context, textureFile);
+    //textureID = loadTextureNearestFromAsset(context, textureFile);
 
     // получить индексы атрибутов в вершинном шейдере
     lifeTimeLink = GLES20.glGetAttribLocation(programObject, "a_lifeTime");
@@ -127,8 +129,8 @@ public class Explosion {
 
     /* генерация начальных и конечных координат для частиц */
     float[] xyz;
-    float startRadius = 0.15f; // начальный радиус взрыва
-    float endRadius = 0.4f; // конечный радиус взрыва
+    final float startRadius = 0.15f; // начальный радиус взрыва
+    final float endRadius = 0.4f; // конечный радиус взрыва
     for (int i = 0; i < numberParticles * NUM_COORDINATES; i += NUM_COORDINATES) {
       xyz = getPointForSphere(startRadius); // начальная позиция частицы
       startPositionData[i] = xyz[0] * aspect;
@@ -159,10 +161,10 @@ public class Explosion {
     if (createExplosion) { // если взрыв только-что создан
       createExplosion = false;
       GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-      float sizeSprite = 20f / Math.abs(z) + 5; // размер спрайта зависит от расстояния до астероида
+      float sizeSprite = 100f / Math.abs(z) + 23; // размер спрайта зависит от расстояния до астероида
       Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
       GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
+      GLES20.glUniform1f(sizeSpriteLink, 50f);
     }
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
@@ -203,11 +205,21 @@ public class Explosion {
 
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-            GLES20.GL_LINEAR_MIPMAP_NEAREST);
+    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+       //     GLES20.GL_LINEAR_MIPMAP_NEAREST);
     // рисовать с трилинейным фильтрованием
     // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
+
+    // берется одно значение из ближайшего уровня пирамиды
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            GLES20.GL_NEAREST_MIPMAP_NEAREST);
+    // берется одно значение из текстуры, соответствующее
+    // ближайшей текстурной координате
+    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+       //     GLES20.GL_NEAREST);
+    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
+       //     GLES20.GL_NEAREST);
 
     // Set the sampler texture unit to 0
     GLES20.glUniform1i(samplerLink, 0);

@@ -113,8 +113,61 @@ object Textures {
             GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST_MIPMAP_NEAREST)
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
             GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
-    // включить поддержку mipmap (работает даже если не указывать эту команду здесь)
+    // включить поддержку mipmap
     GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
+    return textureId[0]
+  }
+
+
+
+
+
+  /**
+   * Загружает текстуру из директории asset
+   * [context] контекст приложения
+   * [fileName] имя файла, который расположен в директории asset
+   */
+  @JvmStatic
+  fun loadTextureNearestFromAsset(context: Context, fileName: String): Int {
+    val input: InputStream = try {
+      context.assets.open(fileName)
+    } catch (ioe: IOException) { null } ?: return 0
+    val bitmap: Bitmap = BitmapFactory.decodeStream(input)
+    return loadTextureNearest(bitmap)
+  }
+
+  private fun loadTextureNearest(bitmap: Bitmap): Int {
+    val textureId = IntArray(1)
+    // создать текстурный объект. Первый параметр - количество текстурных
+    // объектов, которые необходимо создать. Второй параметр - массив,
+    // возвращающий n-чисел(в данном случае 1), идентифицируюших созданные
+    // текстурные объекты
+    GLES20.glGenTextures(1, textureId, 0)
+    // привязать соответствующий текстурный блок к типу текстуры
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[0])
+    // загрузка изображения двумерной текстуры. Первый параметр - тип текстуры
+    // второй параметр - задает загружаемый уровень в пирамиде. Первый уровень - 0
+    // border - игнорируется.
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0)
+
+
+    //задать режимы фильтрации
+    // третий параметр - фильтр растяжения. GL_NEAREST - берется одно значение
+    // из текстуры, соответствующее ближайшей текстурной координате
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            GLES20.GL_NEAREST)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
+            GLES20.GL_NEAREST)
+
+    //задать режимы отсечения текстурных координат, используются для
+    //задания поведения в том случае, когда текстурная координата
+    //оказывается вне диапазона [0.0, 1.0]
+    //GL_CLAMP_TO_EDGE - привести к границе текстуры
+    //другие варианты - GL_REPEAT, GL_MIRRORED_REPEAT
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
+            GLES20.GL_REPEAT)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
+            GLES20.GL_REPEAT)
     return textureId[0]
   }
 }
