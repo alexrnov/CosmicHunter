@@ -154,6 +154,7 @@ object Textures {
     //задать режимы фильтрации
     // третий параметр - фильтр растяжения. GL_NEAREST - берется одно значение
     // из текстуры, соответствующее ближайшей текстурной координате
+
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
             GLES20.GL_NEAREST)
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER,
@@ -164,10 +165,12 @@ object Textures {
     //оказывается вне диапазона [0.0, 1.0]
     //GL_CLAMP_TO_EDGE - привести к границе текстуры
     //другие варианты - GL_REPEAT, GL_MIRRORED_REPEAT
+    /*
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S,
             GLES20.GL_REPEAT)
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
             GLES20.GL_REPEAT)
+    */
     return textureId[0]
   }
 }

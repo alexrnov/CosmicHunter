@@ -50,9 +50,9 @@ public class Explosion {
   private float lastTimeExplosion = 2.0f;
   // флаг определяет произошел ли взрыв только что. Это нужно для того
   // чтобы установить координаты центра взрыва
-  private boolean createExplosion = false;
+  //private boolean createExplosion = false;
 
-  private final int numberParticles = 500; // количество частиц
+  private final int numberParticles = 300; // количество частиц
   private final float[] color; // цвет взрыва
 
   private List<Explosion> explosions;
@@ -94,8 +94,8 @@ public class Explosion {
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
 
     //textureID = loadTextureFromAsset(context, textureFile);
-    textureID = loadTextureWithMipMapFromAsset(context, textureFile);
-    //textureID = loadTextureNearestFromAsset(context, textureFile);
+    //textureID = loadTextureWithMipMapFromAsset(context, textureFile);
+    textureID = loadTextureNearestFromAsset(context, textureFile);
 
     // получить индексы атрибутов в вершинном шейдере
     lifeTimeLink = GLES20.glGetAttribLocation(programObject, "a_lifeTime");
@@ -106,6 +106,7 @@ public class Explosion {
             "lastTimeExplosionLink: " + lastTimeExplosionLink + "; centerPositionLink: " +
             centerPositionLink + "; sizeSpriteLink: " + sizeSpriteLink + "; colorLink: " +
             colorLink + "; samplerLink: " + samplerLink + "; textureID: " + textureID);
+
   }
 
   /**
@@ -130,7 +131,7 @@ public class Explosion {
     /* генерация начальных и конечных координат для частиц */
     float[] xyz;
     final float startRadius = 0.15f; // начальный радиус взрыва
-    final float endRadius = 0.4f; // конечный радиус взрыва
+    final float endRadius = 0.2f; // конечный радиус взрыва
     for (int i = 0; i < numberParticles * NUM_COORDINATES; i += NUM_COORDINATES) {
       xyz = getPointForSphere(startRadius); // начальная позиция частицы
       startPositionData[i] = xyz[0] * aspect;
@@ -148,24 +149,18 @@ public class Explosion {
   }
 
   public void draw(float delta) {
-    if (lastTimeExplosion > 1.0) {
-      // удалить данный взрыв из списка активных взрывов, чтобы условие
-      // (lastTimeExplosion > 1.0) не проверялось при прорисовке каждого кадра
-      explosions.remove(this);
-      return;
-    }
     lastTimeExplosion += delta * 0.011f; // единица получается примерно через три секунды
     // отключить тест глубины - чтобы взрыв отображался правильно
     GLES20.glDisable(GLES20.GL_DEPTH_TEST);
     GLES20.glUseProgram(programObject);
-    if (createExplosion) { // если взрыв только-что создан
-      createExplosion = false;
-      GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-      float sizeSprite = 150f / Math.abs(z) + 21; // размер спрайта зависит от расстояния до астероида
-      Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
-      GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
-    }
+    //if (createExplosion) { // если взрыв только-что создан
+      //createExplosion = false;
+      //GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
+      //float sizeSprite = 150f / Math.abs(z) + 21; // размер спрайта зависит от расстояния до астероида
+      //Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+      //GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
+      //GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
+    //}
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
 
     // передать в вершинный шейдер атрибуты из вершинных буферов
@@ -206,14 +201,14 @@ public class Explosion {
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-       //     GLES20.GL_LINEAR_MIPMAP_NEAREST);
+           // GLES20.GL_LINEAR_MIPMAP_NEAREST);
     // рисовать с трилинейным фильтрованием
     // GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
     // GLES20.GL_LINEAR_MIPMAP_LINEAR);
 
     // берется одно значение из ближайшего уровня пирамиды
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-            GLES20.GL_NEAREST_MIPMAP_NEAREST);
+    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
+            //GLES20.GL_NEAREST_MIPMAP_NEAREST);
     // берется одно значение из текстуры, соответствующее
     // ближайшей текстурной координате
     //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
@@ -237,15 +232,30 @@ public class Explosion {
     // включить тест глубины - чтобы после взрыва ракеты не отображались
     // позади астероидов
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
+
+    if (lastTimeExplosion > 1.0) {
+      // удалить данный взрыв из списка активных взрывов, чтобы условие
+      // (lastTimeExplosion > 1.0) не проверялось при прорисовке каждого кадра
+      explosions.remove(this);
+      //return;
+    }
   }
 
   /** создает новый взрыв */
   public void create(float x, float y, float z) {
     lastTimeExplosion = 0.0f;
-    createExplosion = true;
+    //createExplosion = true;
     this.x = x;
     this.y = y;
     this.z = z;
+
+    GLES20.glUseProgram(programObject);
+    GLES20.glUniform3f(centerPositionLink, x, y, 0.0f);
+    float sizeSprite = 150f / Math.abs(z) + 5; // размер спрайта зависит от расстояния до астероида
+    Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+    GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
+    GLES20.glUniform1f(sizeSpriteLink, 10f);
   }
 
   // возвращает случайные координаты для точки, расположенной внутри сферы
