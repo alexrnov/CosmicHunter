@@ -10,7 +10,6 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.gles.Textures.loadTextureFromRaw;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class MetalAsteroid extends Object3D implements Asteroid {

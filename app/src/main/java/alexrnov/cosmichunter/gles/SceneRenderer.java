@@ -10,6 +10,8 @@ import alexrnov.cosmichunter.activities.GameActivity;
 import alexrnov.cosmichunter.gles.objects.Asteroid;
 import alexrnov.cosmichunter.gles.objects.BasaltAsteroid;
 import alexrnov.cosmichunter.gles.objects.Explosion;
+import alexrnov.cosmichunter.gles.objects.ExplosionGLES20;
+import alexrnov.cosmichunter.gles.objects.ExplosionGLES30;
 import alexrnov.cosmichunter.gles.objects.MetalAsteroid;
 
 public interface SceneRenderer extends GLSurfaceView.Renderer  {
@@ -31,12 +33,7 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
    */
   boolean isLoadGame();
 
-
-
-
   enum TypeExplosion { ROCK, ICE, METAL }
-
-
 
   /* К каждому астероиду привязать взрыв */
   default void bindExplosions(Asteroid asteroid, List<Explosion> activeExplosions,
@@ -53,11 +50,16 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
 
   default Explosion createExplosion(TypeExplosion type, double versionGL, Context context) {
     switch (type) {
-      case ROCK: return new Explosion(versionGL, context, "explosion/rock.png");
-      case ICE: return new Explosion(versionGL, context, "explosion/ice.png", new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
-      case METAL: return new Explosion(versionGL,context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
+      case ROCK:
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/rock.png");
+        else return new ExplosionGLES20(context, "explosion/rock.png");
+      case ICE:
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/ice.png", new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
+        else return new ExplosionGLES20(context, "explosion/ice.png", new float[] {0.1f, 0.4f, 1.0f, 1.0f}); // синий
+      case METAL:
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
+        else return new ExplosionGLES20(context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
       default: return null;
     }
   }
-
 }
