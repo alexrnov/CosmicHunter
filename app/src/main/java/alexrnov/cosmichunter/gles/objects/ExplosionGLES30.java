@@ -276,7 +276,6 @@ public class ExplosionGLES30 implements Explosion {
             FLOAT_SIZE * NUM_COORDINATES * numberParticles,
             endPositionAsFloatBuffer, GLES20.GL_STATIC_DRAW);
 
-
     //первый параметр - количество VAO, которые нужно вернуть
     GLES30.glGenVertexArrays(1, mVAOId, 0);
     //Связать VAO и затем установить вершинные атрибуты
@@ -286,19 +285,21 @@ public class ExplosionGLES30 implements Explosion {
     //влиять на текущий VAO.
     GLES30.glBindVertexArray(mVAOId[0]);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
     GLES20.glEnableVertexAttribArray(lifeTimeLink);
-    GLES20.glEnableVertexAttribArray(startPositionLink);
-    GLES20.glEnableVertexAttribArray(endPositionLink);
     GLES20.glVertexAttribPointer(lifeTimeLink, 1, GLES20.GL_FLOAT, false, 4, 0);
+
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
+    GLES20.glEnableVertexAttribArray(startPositionLink);
     GLES20.glVertexAttribPointer(startPositionLink, NUM_COORDINATES, GLES20.GL_FLOAT,
             false, FLOAT_SIZE * NUM_COORDINATES, 0);
+
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
+    GLES20.glEnableVertexAttribArray(endPositionLink);
     GLES20.glVertexAttribPointer(endPositionLink, NUM_COORDINATES, GLES20.GL_FLOAT,
             false, FLOAT_SIZE * NUM_COORDINATES, 0);
     //Сбросить к VAO по умолчанию
     GLES30.glBindVertexArray(0);
-    GLES30.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+    //GLES30.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
   }
 
   public void setExplosions(List<Explosion> explosions) {
