@@ -242,7 +242,8 @@ public class ExplosionGLES20 implements Explosion {
     GLES20.glUseProgram(programObject);
     GLES20.glUniform3f(centerPositionLink, x, y, 0.0f);
     float sizeSprite = 50f / Math.abs(z) + 17f; // размер спрайта зависит от расстояния до астероида
-    Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+    //Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+    // передать эти uniform-переменные только при создании взрыва
     GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
     GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
   }

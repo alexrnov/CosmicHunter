@@ -45,7 +45,7 @@ public class ExplosionGLES30 implements Explosion {
   private FloatBuffer endPositionAsFloatBuffer;
 
   private final int[] VBO = new int[3]; // массив буферов вершинных атрибутов
-  private int[] mVAOId = new int[1];//VertexArrayObject Id
+  private int[] VAO = new int[1]; // объект состояния вершинных буферов
   // время, прошедшее с начала взрыва. При инициализации сделать его
   // значение больше чем время взрыва, чтобы взрыв не рендерился при
   // запуске приложения
@@ -148,38 +148,8 @@ public class ExplosionGLES30 implements Explosion {
     // отключить тест глубины - чтобы взрыв отображался правильно
     GLES20.glDisable(GLES20.GL_DEPTH_TEST);
     GLES20.glUseProgram(programObject);
-    //if (createExplosion) { // если взрыв только-что создан
-      //createExplosion = false;
-      //GLES20.glUniform3f(centerPositionLink, x, y, 0.0f); // установить центр взрыва
-      //float sizeSprite = 150f / Math.abs(z) + 21; // размер спрайта зависит от расстояния до астероида
-      //Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
-      //GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
-      //GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
-    //}
     GLES20.glUniform1f(lastTimeExplosionLink, lastTimeExplosion);
-    // Set the sampler texture unit to 0
-    GLES20.glUniform1i(samplerLink, 0);
-
-    /*
-    // передать в вершинный шейдер атрибуты из вершинных буферов
-    GLES20.glEnableVertexAttribArray(lifeTimeLink);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
-    GLES20.glVertexAttribPointer(lifeTimeLink, 1, GLES20.GL_FLOAT, false, 4, 0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
-    GLES20.glEnableVertexAttribArray(startPositionLink);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
-    GLES20.glVertexAttribPointer(startPositionLink, NUM_COORDINATES, GLES20.GL_FLOAT,
-            false, FLOAT_SIZE * NUM_COORDINATES, 0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
-    GLES20.glEnableVertexAttribArray(endPositionLink);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
-    GLES20.glVertexAttribPointer(endPositionLink, NUM_COORDINATES, GLES20.GL_FLOAT,
-            false, FLOAT_SIZE * NUM_COORDINATES, 0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
-     */
+    GLES20.glUniform1i(samplerLink, 0); // Set the sampler texture unit to 0
     // Разрешить приложению альфа-блендинг с использованием следующей
     // функции для смешивания цветов. В результате этого кода значение альфа,
     // полученное во фрагментном шейдере, умножается на цвет фрагмента.
@@ -192,33 +162,22 @@ public class ExplosionGLES30 implements Explosion {
     // сделать текущей текстуру с дымом
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
-
-    //Связать VAO(сделать его активным)
-    GLES30.glBindVertexArray(mVAOId[0]);
+    GLES30.glBindVertexArray(VAO[0]); // связать VAO(сделать его активным)
     // рендеринг частиц. В отличии от треугольников, у точечных спрайтов
     // нет ни какой связанности, поэтому использование glDrawElements не
     // дало бы никакого выигрыша в этом примере.
     GLES20.glDrawArrays(GLES20.GL_POINTS, 0, numberParticles);
-    //Вернуть VAO к исходному состоянию
-    GLES30.glBindVertexArray(0);
+    GLES30.glBindVertexArray(0); // вернуть VAO к исходному состоянию
     // отключить прозрачность, чтобы все объекты сцены не были прозрачными
     GLES20.glDisable(GLES20.GL_BLEND);
-
-    /*
-    GLES20.glDisableVertexAttribArray(lifeTimeLink); // отключить атрибут времени жизни
-    GLES20.glDisableVertexAttribArray(startPositionLink); // отключить атрибут начальных координат
-    GLES20.glDisableVertexAttribArray(endPositionLink); // отключить атрибут конечных координат
-    */
     // включить тест глубины - чтобы после взрыва ракеты не отображались
     // позади астероидов
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-
 
     if (lastTimeExplosion > 1.0) {
       // удалить данный взрыв из списка активных взрывов, чтобы условие
       // (lastTimeExplosion > 1.0) не проверялось при прорисовке каждого кадра
       explosions.remove(this);
-      //return;
     }
   }
 
@@ -233,7 +192,8 @@ public class ExplosionGLES30 implements Explosion {
     GLES20.glUseProgram(programObject);
     GLES20.glUniform3f(centerPositionLink, x, y, 0.0f);
     float sizeSprite = 50f / Math.abs(z) + 17f; // размер спрайта зависит от расстояния до астероида
-    Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+    //Log.i(TAG, "z = " + z + ", sizeSprite = " + sizeSprite);
+    // передать эти uniform-переменные только при создании взрыва
     GLES20.glUniform4f(colorLink, color[0], color[1], color[2], color[3]); // оранжевый
     GLES20.glUniform1f(sizeSpriteLink, sizeSprite);
   }
@@ -277,13 +237,13 @@ public class ExplosionGLES30 implements Explosion {
             endPositionAsFloatBuffer, GLES20.GL_STATIC_DRAW);
 
     //первый параметр - количество VAO, которые нужно вернуть
-    GLES30.glGenVertexArrays(1, mVAOId, 0);
+    GLES30.glGenVertexArrays(1, VAO, 0);
     //Связать VAO и затем установить вершинные атрибуты
     //после привязки VAO, все вызовы, изменяющие состояние настроек для
     //использования буферов (glBindBuffer, glVertexAttribPointer,
     //glEnableVertexAttribArray и glDisableVertexAttribArray), будут
     //влиять на текущий VAO.
-    GLES30.glBindVertexArray(mVAOId[0]);
+    GLES30.glBindVertexArray(VAO[0]);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
     GLES20.glEnableVertexAttribArray(lifeTimeLink);
     GLES20.glVertexAttribPointer(lifeTimeLink, 1, GLES20.GL_FLOAT, false, 4, 0);
@@ -297,8 +257,7 @@ public class ExplosionGLES30 implements Explosion {
     GLES20.glEnableVertexAttribArray(endPositionLink);
     GLES20.glVertexAttribPointer(endPositionLink, NUM_COORDINATES, GLES20.GL_FLOAT,
             false, FLOAT_SIZE * NUM_COORDINATES, 0);
-    //Сбросить к VAO по умолчанию
-    GLES30.glBindVertexArray(0);
+    GLES30.glBindVertexArray(0); // сбросить к VAO по умолчанию
     //GLES30.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
   }
 
