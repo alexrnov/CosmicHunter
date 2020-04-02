@@ -38,6 +38,7 @@ import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 
 public class GameActivity extends AppCompatActivity {
   private OGLView oglView; // используется в случае вывода рендера в отдельный компонент интерфейса
@@ -211,6 +212,7 @@ public class GameActivity extends AppCompatActivity {
     // используется в различных примерах, но эффект от этого метода не определил
     //surfaceView.onResume(); // полноэкранный режим
     //oglView.onResume(); // рендер в  компонент
+    changeHeaderColorInRecentApps(this);
   }
 
   @Override

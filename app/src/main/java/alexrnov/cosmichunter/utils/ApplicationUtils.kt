@@ -4,6 +4,7 @@ import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -18,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.WindowManager
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.util.Log
 
 /**
@@ -153,3 +155,17 @@ fun backToHome(activity : AppCompatActivity) {
     else activity.finish()
     System.exit(0)
   }
+
+/**
+ * Изменить цвет для верхней панели окна в меню недавних приложений
+ * https://stackoverflow.com/questions/26899820/android-5-0-how-to-change-recent-apps-title-color
+ */
+fun changeHeaderColorInRecentApps(app:AppCompatActivity) {
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    val bm = BitmapFactory.decodeResource(app.resources, R.mipmap.ic_launcher_round)
+    val taskDescription = ActivityManager.TaskDescription(
+            app.getString(R.string.app_name), bm,
+            app.resources.getColor(R.color.noActivityButtonSolidStartEnd))
+    app.setTaskDescription(taskDescription)
+  }
+}

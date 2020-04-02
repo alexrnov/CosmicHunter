@@ -25,6 +25,7 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivit
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
 
 /** Активити-класс управляет отображением и поведением меню настроек */
@@ -172,6 +173,11 @@ public class SettingsActivity extends AppCompatActivity
   protected void onStop() {
     super.onStop();
     checkMusicForStopOtherActivity();
+  }
+
+  protected void onResume() {
+    super.onResume();
+    changeHeaderColorInRecentApps(this);
   }
 
   /** Слушатель для правой кнопки activity bar */

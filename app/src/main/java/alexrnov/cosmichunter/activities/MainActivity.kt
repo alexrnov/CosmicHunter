@@ -7,10 +7,12 @@ import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.sound.ShortSounds.playClick
 import alexrnov.cosmichunter.utils.backToHome
+import alexrnov.cosmichunter.utils.changeHeaderColorInRecentApps
 import alexrnov.cosmichunter.utils.showSnackbar
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -232,5 +234,10 @@ class MainActivity: AppCompatActivity() {
     loadImage.setBackgroundResource(R.drawable.animation_process)
     // отобразить окно загрузки в отдельном AsyncTask
     LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    changeHeaderColorInRecentApps(this)
   }
 }

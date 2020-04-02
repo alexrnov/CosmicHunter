@@ -2,6 +2,7 @@ package alexrnov.cosmichunter.activities
 
 import alexrnov.cosmichunter.R
 import alexrnov.cosmichunter.utils.backToHome
+import alexrnov.cosmichunter.utils.changeHeaderColorInRecentApps
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.os.Bundle
@@ -158,5 +159,10 @@ class AboutGameActivity: AppCompatActivity() {
     // Inflate the menu; this adds items to the action bar if it is present.
     menuInflater.inflate(R.menu.menu_layout, menu)
     return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    changeHeaderColorInRecentApps(this)
   }
 }

@@ -31,6 +31,7 @@ import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -120,6 +121,7 @@ public class LevelsActivity extends AppCompatActivity {
   protected void onResume() {
     Log.i(TAG, className + "onResume()");
     super.onResume();
+    changeHeaderColorInRecentApps(this);
   }
 
   @Override

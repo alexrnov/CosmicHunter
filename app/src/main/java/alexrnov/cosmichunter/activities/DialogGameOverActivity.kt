@@ -17,5 +17,4 @@ class DialogGameOverActivity: Activity() {
     button_continue_game.text = ""
     Log.i(TAG, "$className onCreate()")
   }
-
 }
