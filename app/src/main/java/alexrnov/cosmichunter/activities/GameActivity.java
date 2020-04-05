@@ -232,7 +232,8 @@ public class GameActivity extends AppCompatActivity {
     Log.i(TAG, className + "onStart()");
     super.onStart();
 
-    checkMusicForStartGameActivity(this);
+    int levelNumber = getIntent().getIntExtra("Level", 1);
+    checkMusicForStartGameActivity(this, levelNumber);
     //gun_sound(this);
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
 

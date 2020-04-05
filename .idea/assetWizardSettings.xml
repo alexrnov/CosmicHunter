@@ -131,6 +131,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="412053" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
                                     </map>
                                   </option>
@@ -179,11 +180,6 @@
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

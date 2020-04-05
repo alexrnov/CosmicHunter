@@ -201,7 +201,7 @@ public class Initialization extends Application {
    * возвращение в приложение) включает музыку для игры.
    * @param activity ссылка на неглавный activity
    */
-  public static void checkMusicForStartGameActivity(AppCompatActivity activity) {
+  public static void checkMusicForStartGameActivity(AppCompatActivity activity, int levelNumber) {
     if (isMusicOff()) {
       return;
     }
@@ -219,7 +219,7 @@ public class Initialization extends Application {
       }
     }
     //при любом условии включить музыку для игры
-    BackgroundMusic.createGamePlayer(activity);
+    BackgroundMusic.createGamePlayer(activity, levelNumber);
   }
 
   /**
