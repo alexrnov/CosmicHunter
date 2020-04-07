@@ -53,6 +53,7 @@ public class ShortSounds {
 
   /** воспризвести звук нажатия на кнопку меню */
   public static void playClick() {
+
     String stateSound = sp.getString("sound", "on");
     if (stateSound.equals("on")) {
       /*
@@ -68,7 +69,7 @@ public class ShortSounds {
   /** воспроизвести звук взрыва */
   public static void playExplosion() {
     // проверка вклчения опции звука проводится при запуске рендера
-    explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 0, 1f);
+    explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 1, 10.5f);
   }
 
   /** воспроизвести звук пуска ракеты */

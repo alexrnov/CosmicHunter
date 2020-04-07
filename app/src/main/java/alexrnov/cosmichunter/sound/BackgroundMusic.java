@@ -19,7 +19,7 @@ public class BackgroundMusic {
 
   /** Запускает мелодию в меню */
   public static void createMenuPlayer(AppCompatActivity activity) {
-    final String musicFile = "crystal_waters";
+    final String musicFile = "menu_music";
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator
             + resourceFolder + separator + musicFile);
     startPlayer(activity, uri);
