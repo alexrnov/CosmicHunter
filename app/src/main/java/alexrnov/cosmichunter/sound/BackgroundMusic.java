@@ -29,29 +29,21 @@ public class BackgroundMusic {
   public static void createGamePlayer(AppCompatActivity activity, int levelNumber) {
     final String musicFile;
     switch (levelNumber) {
-      case 1: {
-        musicFile = "level1_music";
-        break;
-      }
-      case 2: {
+      case 2:
         musicFile = "level2_music";
         break;
-      }
-      case 3: {
+      case 3:
         musicFile = "level3_music";
         break;
-      }
-      case 4: {
+      case 4:
         musicFile = "level4_music";
         break;
-      }
-      case 5: {
+      case 5:
         musicFile = "level5_music";
         break;
-      }
-      default: {
+      default:
         musicFile = "level1_music";
-      }
+        break;
     }
 
     Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + separator

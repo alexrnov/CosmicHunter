@@ -69,7 +69,7 @@ public class ShortSounds {
   /** воспроизвести звук взрыва */
   public static void playExplosion() {
     // проверка вклчения опции звука проводится при запуске рендера
-    explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 1, 10.5f);
+    explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 1, 1f);
   }
 
   /** воспроизвести звук пуска ракеты */
