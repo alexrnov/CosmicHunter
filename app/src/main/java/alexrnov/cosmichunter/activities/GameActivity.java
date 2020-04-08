@@ -274,8 +274,13 @@ public class GameActivity extends AppCompatActivity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
-      startActivity(new Intent(this, DialogCancelActivity.class));
+      //startActivity(new Intent(this, DialogCancelActivity.class));
+      startActivity(new Intent(this, DialogGameOverActivity.class));
+
+
       spotFlagOpenDialogWindow(true);
+
+
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -338,26 +343,21 @@ public class GameActivity extends AppCompatActivity {
   @SuppressLint("SetTextI18n")
   private void setNumberRocketsForLevel(TextView rockets, int level) {
     switch(level) {
-      case 1: {
+      case 1:
         rockets.setText("r:300");
         break;
-      }
-      case 2: {
+      case 2:
         rockets.setText("r:200");
         break;
-      }
-      case 3: {
+      case 3:
         rockets.setText("r:150");
         break;
-      }
-      case 4: {
+      case 4:
         rockets.setText("r:100");
         break;
-      }
-      case 5: {
+      case 5:
         rockets.setText("r:70");
         break;
-      }
     }
   }
 
