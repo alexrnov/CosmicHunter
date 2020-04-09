@@ -30,10 +30,7 @@ class DialogGameOverActivity: Activity() { // AppCompatActivity()
     } else {
       window.setLayout((width * .5).toInt(), (height * .7).toInt())
     }
-
     Log.i(TAG, "$className onCreate()")
-
-
   }
 
   override fun onStop() {
@@ -49,10 +46,10 @@ class DialogGameOverActivity: Activity() { // AppCompatActivity()
     //showLoadPanel(1)
 
     val intent = Intent(this, GameActivity::class.java)
-    intent.putExtra("versionGLES", 3.0)
-    intent.putExtra("Level", 1)
-    startActivity(intent)
-
+    val versionGLES = getIntent().getIntExtra("versionGLES", 2)
+    val levelNumber = getIntent().getIntExtra("Level", 1)
+    intent.putExtra("versionGLES", versionGLES)
+    intent.putExtra("Level", levelNumber)
     startActivity(intent)
   }
 
@@ -71,32 +68,9 @@ class DialogGameOverActivity: Activity() { // AppCompatActivity()
     return super.onKeyDown(keyCode, event)
   }
 
-
   // не реагировать на прикосновение пальцев, чтобы диалог не скрывался
   // когда нажимаешь на экран за пределами фрейма диалога
   override fun onTouchEvent(event: MotionEvent?): Boolean {
     return false
   }
-
-  /*
-  private fun showLoadPanel(level: Int) {
-    // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
-    // для ранних версий панель загрузки отображается в GameActivity
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return
-    // убрать строку статуса вверху
-    this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    loadPanel.bringToFront() // переместить панель загрузки на передний план
-    loadPanel.requestLayout() // чтобы работало на Android 4.1.1
-    toolbar.setVisibility(View.INVISIBLE) // сделать тулбар невидимым
-
-    // установить для надписи загружаемого уровня - текущий уровень
-    val loadLevelText = findViewById<TextView>(R.id.load_level_text)
-    val currentLevel = getString(R.string.level) + " " + level
-    loadLevelText.text = currentLevel // вывести на экран загрузки название текущего уровня
-    val loadImage = findViewById<ImageView>(R.id.image_process)
-    loadImage.setBackgroundResource(R.drawable.animation_process)
-    // отобразить окно загрузки в отдельном AsyncTask
-    LoadingPanel(this, loadPanel, loadImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-  }
-   */
 }

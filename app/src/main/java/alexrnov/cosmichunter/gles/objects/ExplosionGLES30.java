@@ -120,6 +120,7 @@ public class ExplosionGLES30 implements Explosion {
     for (int i = 0; i < numberParticles; i ++) {
       //время жизни частицы - случайное значение (0 - 3 секунды)
       lifeTimeData[i] = random.nextFloat() * maxLifeTime;
+      //lifeTimeData[i] = 3.0f;
     }
 
     /* генерация начальных и конечных координат для частиц */

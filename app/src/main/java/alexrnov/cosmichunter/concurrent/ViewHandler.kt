@@ -9,10 +9,15 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 
+/** Количество попаданий */
 const val HITS_CODE = 0
+/** Количество оставшихся ракет */
 const val ROCKETS_CODE = 1
+/** Сообщение внизу экрана уровень пройден или уровень не пройден */
 const val MESSAGE_CODE = 2
+/** Оставшееся время */
 const val TIME_CODE = 3
+/** Панель загрузки */
 const val LOAD_GAME_CODE = 4
 
 class ViewHandler(
@@ -32,7 +37,7 @@ class ViewHandler(
   override fun handleMessage(inputMessage: Message) {
     // получение значения из входящего сообщения
     val text: String = inputMessage.obj as String
-    // обновить один из объектов интерфейса
+    // обновить один из объектов пользовательского интерфейса
     when (inputMessage.what) {
       HITS_CODE -> hits.text = "h:$text/50" // обновить количество попаданий
       ROCKETS_CODE -> rockets.text = "r:$text" // обновить количество оставшихся ракет

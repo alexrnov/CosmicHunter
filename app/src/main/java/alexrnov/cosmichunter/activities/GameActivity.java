@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -52,13 +53,14 @@ public class GameActivity extends AppCompatActivity {
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
 
-
+  private int versionGLES;
+  private int levelNumber;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
-    int versionGLES = getIntent().getIntExtra("versionGLES", 2);
-    int levelNumber = getIntent().getIntExtra("Level", 1);
+    versionGLES = getIntent().getIntExtra("versionGLES", 2);
+    levelNumber = getIntent().getIntExtra("Level", 1);
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
     // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
@@ -155,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
     decorView.setSystemUiVisibility(ioOptions);
-    */
+
     boolean hasMenuKey = ViewConfiguration.get(this.getBaseContext()).hasPermanentMenuKey();
     boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
     // проверить имеет ли девайс навигационную панель
@@ -164,6 +166,7 @@ public class GameActivity extends AppCompatActivity {
     } else {
       Log.i(TAG, "the device has not a navigation bar");
     }
+    */
   }
 
   @Override
@@ -264,7 +267,7 @@ public class GameActivity extends AppCompatActivity {
   }
 
   @Override
-  public void onSaveInstanceState(Bundle savedInstanceState) {
+  public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
     Log.i(TAG, className + "onSaveInstanceState()");
     super.onSaveInstanceState(savedInstanceState);
   }
@@ -275,12 +278,14 @@ public class GameActivity extends AppCompatActivity {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
       //startActivity(new Intent(this, DialogCancelActivity.class));
-      startActivity(new Intent(this, DialogGameOverActivity.class));
+
+      Intent intent = new Intent(this, DialogGameOverActivity.class);
+      intent.putExtra("versionGLES", versionGLES);
+      intent.putExtra("Level", levelNumber);
+      startActivity(intent);
 
 
       spotFlagOpenDialogWindow(true);
-
-
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -292,6 +297,11 @@ public class GameActivity extends AppCompatActivity {
    * @param message - сообщение
    */
   public synchronized void handleState(int state, String message) {
+    // если ракеты закончились
+    if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
+
+    }
+    /*
     if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
       Log.i(TAG, "message = " + message);
       startActivity(new Intent(this, DialogCancelActivity.class));
@@ -300,6 +310,8 @@ public class GameActivity extends AppCompatActivity {
     if (state == TIME_CODE && message.equals("00:00")) {
       startActivity(new Intent(this, DialogCancelActivity.class));
     }
+    */
+
 
     Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();
@@ -366,12 +378,4 @@ public class GameActivity extends AppCompatActivity {
     Log.i("P", "hasFocus = " + hasFocus);
     super.onWindowFocusChanged(hasFocus);
   }
-
-
-
-
-
-
-
-
 }
