@@ -283,6 +283,7 @@ public class GameActivity extends AppCompatActivity {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
 
+      Log.i(TAG, "statusGame = " + statusGame);
       Intent intent;
       switch (statusGame) {
         case VAGUE:

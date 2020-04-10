@@ -19,7 +19,7 @@ class DialogCompleteActivity: Activity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_gameover_dialog)
+    setContentView(R.layout.activity_complete_dialog)
 
     val dm = DisplayMetrics()
     windowManager.defaultDisplay.getMetrics(dm)
