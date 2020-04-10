@@ -103,7 +103,6 @@ public class GameActivity extends AppCompatActivity {
     //surfaceView = new SurfaceView(this);
     //setContentView(surfaceView);
 
-
     // выводить рендер OpenGL в отдельном компоненте
     setContentView(R.layout.activity_gl); // загрузка ресурса XML
 
@@ -198,7 +197,6 @@ public class GameActivity extends AppCompatActivity {
       executor.execute(sr);
       executor.execute(sr);
 
-
       // запустить отдельный поток для таймера
       timer = new Timer(true); // true - запустить поток как демон
       timer.schedule(new TimerTask() {
@@ -209,7 +207,9 @@ public class GameActivity extends AppCompatActivity {
           int sec = time % 60; // получить количество секунд
           // для создания формата времени 00:00, вместо String.format()
           // используется тернарный оператор (в целях производительности)
-          handleState(TIME_CODE, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+          //handleState(TIME_CODE, ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+          handleStateTime(((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
+
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
@@ -318,19 +318,9 @@ public class GameActivity extends AppCompatActivity {
     return super.onKeyDown(keyCode, event);
   }
 
-  /**
-   * Принимает сообщения из других потоков и передает их обработчику,
-   * который управляет отображением элементов интерфейса
-   * @param state - код сообщения
-   * @param message - сообщение
-   */
-  public synchronized void handleState(int state, String message) {
-    /*
-    // если ракеты закончились
-    if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
-    */
+  private void handleStateTime(String message) {
     // если время вышло
-    if (state == TIME_CODE && message.equals("00:00")) {
+    if (message.equals("00:00")) {
       Intent intent;
       switch(statusGame) {
         case VAGUE:
@@ -358,17 +348,28 @@ public class GameActivity extends AppCompatActivity {
           break;
       }
     }
-
-    // если уровень пройден
-    if (state == MESSAGE_CODE) {
-      if (message.equals("уровень пройден")) statusGame = StatusGame.COMPLETE;
-      else statusGame = StatusGame.LOSE;
-    }
-
+    Message completeMessage = handler.obtainMessage(TIME_CODE, message);
+    completeMessage.sendToTarget();
+  }
+  /**
+   * Принимает сообщения из других потоков и передает их обработчику,
+   * который управляет отображением элементов интерфейса
+   * @param state - код сообщения
+   * @param message - сообщение
+   */
+  public synchronized void handleState(int state, String message) {
     Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();
   }
 
+  public synchronized void handleStateMessage(String message) {
+    // если уровень пройден
+    if (message.equals("уровень пройден")) statusGame = StatusGame.COMPLETE;
+    else statusGame = StatusGame.LOSE;
+
+    Message completeMessage = handler.obtainMessage(MESSAGE_CODE, message);
+    completeMessage.sendToTarget();
+  }
   /*
   * Перемещает элементы интерфейса на передний план - чтобы они были
   * размещены перед слоем openGL. Вообще эти элементы и так размещаются
