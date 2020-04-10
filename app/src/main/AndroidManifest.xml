@@ -102,6 +102,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+
         <activity
             android:name=".activities.SettingsActivity"
             android:parentActivityName=".activities.MainActivity"
@@ -112,6 +113,7 @@ these attributes so there is no effect on your APK size or runtime behavior -->
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+
         <activity
             android:name=".activities.LevelsActivity"
             android:parentActivityName=".activities.MainActivity"
@@ -128,6 +130,10 @@ these attributes so there is no effect on your APK size or runtime behavior -->
         </activity>
 
         <activity android:name=".activities.DialogGameOverActivity"
+            android:theme="@style/AppTheme.Dialog">
+        </activity>
+
+        <activity android:name=".activities.DialogCompleteActivity"
             android:theme="@style/AppTheme.Dialog">
         </activity>
 

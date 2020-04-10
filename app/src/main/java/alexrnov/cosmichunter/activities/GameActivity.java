@@ -37,6 +37,8 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.HITS_CODE;
+import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
@@ -48,13 +50,16 @@ public class GameActivity extends AppCompatActivity {
   private Handler handler;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
-  private int time = 600;
+  private int time = 600; // десять минут
   private View decorView;
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
 
   private int versionGLES;
   private int levelNumber;
+
+  private enum StatusGame {VAGUE, COMPLETE, LOSE}
+  private StatusGame statusGame = StatusGame.VAGUE;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -277,13 +282,36 @@ public class GameActivity extends AppCompatActivity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
-      //startActivity(new Intent(this, DialogCancelActivity.class));
 
-      Intent intent = new Intent(this, DialogGameOverActivity.class);
-      intent.putExtra("versionGLES", versionGLES);
-      intent.putExtra("Level", levelNumber);
-      startActivity(intent);
-
+      Intent intent;
+      switch (statusGame) {
+        case VAGUE:
+          // если статус игры неопределен вывести обычное диалоговое окно выхода в меню
+          intent = new Intent(this, DialogCancelActivity.class);
+          startActivity(intent);
+          break;
+        case COMPLETE:
+          // если игра пройдена
+          if (levelNumber < 5) {
+            // вывести диалог для предложения играть в следующий уровень
+            intent = new Intent(this, DialogCompleteActivity.class);
+            intent.putExtra("versionGLES", versionGLES);
+            intent.putExtra("Level", levelNumber);
+            startActivity(intent);
+          } else {
+            // если это пятый уровень - применить обычное диалоговое окно
+            // выхода в меню, т.к. нет следующего уровня
+            intent = new Intent(this, DialogCancelActivity.class);
+            startActivity(intent);
+          }
+          break;
+        case LOSE:
+          intent = new Intent(this, DialogGameOverActivity.class);
+          intent.putExtra("versionGLES", versionGLES);
+          intent.putExtra("Level", levelNumber);
+          startActivity(intent);
+          break;
+      }
 
       spotFlagOpenDialogWindow(true);
     }
@@ -297,21 +325,45 @@ public class GameActivity extends AppCompatActivity {
    * @param message - сообщение
    */
   public synchronized void handleState(int state, String message) {
+    /*
     // если ракеты закончились
     if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
-
-    }
-    /*
-    if (state == ROCKETS_CODE && Integer.valueOf(message) == 0) {
-      Log.i(TAG, "message = " + message);
-      startActivity(new Intent(this, DialogCancelActivity.class));
-    }
-
-    if (state == TIME_CODE && message.equals("00:00")) {
-      startActivity(new Intent(this, DialogCancelActivity.class));
-    }
     */
+    // если время вышло
+    if (state == TIME_CODE && message.equals("00:00")) {
+      Intent intent;
+      switch(statusGame) {
+        case VAGUE:
+        case LOSE:
+          // если статус игры остался неопределенным или игра проиграна
+          // вывести диалог с предложением сыграть снова
+          intent = new Intent(this, DialogGameOverActivity.class);
+          intent.putExtra("versionGLES", versionGLES);
+          intent.putExtra("Level", levelNumber);
+          startActivity(intent);
+          break;
+        case COMPLETE:
+          if (levelNumber < 5) {
+            // вывести диалог для предложения играть в следующий уровень
+            intent = new Intent(this, DialogCompleteActivity.class);
+            intent.putExtra("versionGLES", versionGLES);
+            intent.putExtra("Level", levelNumber);
+            startActivity(intent);
+          } else {
+            // если это пятый уровень - применить обычное диалоговое окно
+            // выхода в меню, т.к. нет следующего уровня
+            intent = new Intent(this, DialogCancelActivity.class);
+            startActivity(intent);
+          }
+          break;
+      }
+    }
 
+    // если уровень пройден
+    if (state == MESSAGE_CODE) {
+      if (message.equals("уровень пройден")) statusGame = StatusGame.COMPLETE;
+      else statusGame = StatusGame.LOSE;
+    }
 
     Message completeMessage = handler.obtainMessage(state, message);
     completeMessage.sendToTarget();

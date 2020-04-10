@@ -42,8 +42,9 @@ class ViewHandler(
       HITS_CODE -> hits.text = "h:$text/50" // обновить количество попаданий
       ROCKETS_CODE -> rockets.text = "r:$text" // обновить количество оставшихся ракет
       MESSAGE_CODE -> {
-        message.text = text
-        message.setTextColor(Color.parseColor("#00a8f3"))
+        message.text = text // текст - уровень пройден или уровень не пройден
+        if (text == "уровень пройден") message.setTextColor(Color.parseColor("#00a8f3")) // синий цвет
+        else message.setTextColor(Color.parseColor("#f37500")) // если уровень не пройден - выделить текст красным цветом
       }
       TIME_CODE -> time.text = text // обновить показатели времени
       LOAD_GAME_CODE -> {

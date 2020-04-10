@@ -23,7 +23,7 @@ public class DialogCancelActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.i(TAG, "DIALOG onCreate()");
-    setContentView(R.layout.activity_dialog);
+    setContentView(R.layout.activity_cancel_dialog);
     DisplayMetrics dm = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(dm);
     int width = dm.widthPixels;
