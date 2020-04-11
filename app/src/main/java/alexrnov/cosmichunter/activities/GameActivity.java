@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
   private Handler handler;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
-  private int time = 600; // десять минут
+  private int time = 10; // десять минут 600
   private View decorView;
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
@@ -58,9 +58,8 @@ public class GameActivity extends AppCompatActivity {
   private int versionGLES;
   private int levelNumber;
 
-  private enum StatusGame {VAGUE, COMPLETE, LOSE}
-  private StatusGame statusGame = StatusGame.VAGUE;
-
+  private boolean completeGame = false;
+  public volatile boolean timeOver = false;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -213,6 +212,7 @@ public class GameActivity extends AppCompatActivity {
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
+          Log.i(TAG, "timer = " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
         }
       }, 1000, 1000); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
     }
@@ -283,37 +283,8 @@ public class GameActivity extends AppCompatActivity {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
 
-      Log.i(TAG, "statusGame = " + statusGame);
-      Intent intent;
-      switch (statusGame) {
-        case VAGUE:
-          // если статус игры неопределен вывести обычное диалоговое окно выхода в меню
-          intent = new Intent(this, DialogCancelActivity.class);
-          startActivity(intent);
-          break;
-        case COMPLETE:
-          // если игра пройдена
-          if (levelNumber < 5) {
-            // вывести диалог для предложения играть в следующий уровень
-            intent = new Intent(this, DialogCompleteActivity.class);
-            intent.putExtra("versionGLES", versionGLES);
-            intent.putExtra("Level", levelNumber);
-            startActivity(intent);
-          } else {
-            // если это пятый уровень - применить обычное диалоговое окно
-            // выхода в меню, т.к. нет следующего уровня
-            intent = new Intent(this, DialogCancelActivity.class);
-            startActivity(intent);
-          }
-          break;
-        case LOSE:
-          intent = new Intent(this, DialogGameOverActivity.class);
-          intent.putExtra("versionGLES", versionGLES);
-          intent.putExtra("Level", levelNumber);
-          startActivity(intent);
-          break;
-      }
-
+      Intent intent = new Intent(this, DialogCancelActivity.class);
+      startActivity(intent);
       spotFlagOpenDialogWindow(true);
     }
     return super.onKeyDown(keyCode, event);
@@ -322,31 +293,11 @@ public class GameActivity extends AppCompatActivity {
   private void handleStateTime(String message) {
     // если время вышло
     if (message.equals("00:00")) {
-      Intent intent;
-      switch(statusGame) {
-        case VAGUE:
-        case LOSE:
-          // если статус игры остался неопределенным или игра проиграна
-          // вывести диалог с предложением сыграть снова
-          intent = new Intent(this, DialogGameOverActivity.class);
-          intent.putExtra("versionGLES", versionGLES);
-          intent.putExtra("Level", levelNumber);
-          startActivity(intent);
-          break;
-        case COMPLETE:
-          if (levelNumber < 5) {
-            // вывести диалог для предложения играть в следующий уровень
-            intent = new Intent(this, DialogCompleteActivity.class);
-            intent.putExtra("versionGLES", versionGLES);
-            intent.putExtra("Level", levelNumber);
-            startActivity(intent);
-          } else {
-            // если это пятый уровень - применить обычное диалоговое окно
-            // выхода в меню, т.к. нет следующего уровня
-            intent = new Intent(this, DialogCancelActivity.class);
-            startActivity(intent);
-          }
-          break;
+      timer.cancel();
+      timeOver = true;
+      if (!completeGame) {
+        Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "уровень не пройден");
+        completeMessage.sendToTarget();
       }
     }
     Message completeMessage = handler.obtainMessage(TIME_CODE, message);
@@ -364,13 +315,13 @@ public class GameActivity extends AppCompatActivity {
   }
 
   public synchronized void handleStateMessage(String message) {
-    // если уровень пройден
-    if (message.equals("уровень пройден")) statusGame = StatusGame.COMPLETE;
-    else statusGame = StatusGame.LOSE;
-
-    Message completeMessage = handler.obtainMessage(MESSAGE_CODE, message);
-    completeMessage.sendToTarget();
+    completeGame = true;
+    if (!timeOver) {
+      Message completeMessage = handler.obtainMessage(MESSAGE_CODE, message);
+      completeMessage.sendToTarget();
+    }
   }
+
   /*
   * Перемещает элементы интерфейса на передний план - чтобы они были
   * размещены перед слоем openGL. Вообще эти элементы и так размещаются
