@@ -209,7 +209,6 @@ public class GameActivity extends AppCompatActivity {
           //String minS = String.format("%02d", min);
           //String secS = String.format("%02d", sec);
           time--;
-          Log.i(TAG, "timer = " + ((min < 10) ? "0" : "") + min + ":" + ((sec < 10) ? "0" : "") + sec);
         }
       }, 1000, 1000); // delay = 1000, чтобы после возврата к приложению время сразу не уменьшалось на секунду
     }
@@ -282,6 +281,11 @@ public class GameActivity extends AppCompatActivity {
       Intent intent = new Intent(this, DialogCancelActivity.class);
       startActivity(intent);
       spotFlagOpenDialogWindow(true);
+    }
+    if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
+      Log.i(TAG, "KEY_VOLUME_DOWN");
+    } else if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+      Log.i(TAG, "KEY_VOLUME_UP");
     }
     return super.onKeyDown(keyCode, event);
   }
