@@ -13,10 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -37,9 +35,7 @@ import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.HITS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
-import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.ROCKETS_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 
@@ -50,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
   private Handler handler;
   private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
-  private int time = 10; // десять минут 600
+  private int time = 900; // десять минут 600
   private View decorView;
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
@@ -59,7 +55,8 @@ public class GameActivity extends AppCompatActivity {
   private int levelNumber;
 
   private boolean completeGame = false;
-  public volatile boolean timeOver = false;
+  public volatile boolean timeOver = false; // переменная определяет закончено ли время
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, className + "onCreate()");
@@ -282,7 +279,6 @@ public class GameActivity extends AppCompatActivity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
       Log.i(TAG, className + "onKeyDown()");
-
       Intent intent = new Intent(this, DialogCancelActivity.class);
       startActivity(intent);
       spotFlagOpenDialogWindow(true);
@@ -293,8 +289,10 @@ public class GameActivity extends AppCompatActivity {
   private void handleStateTime(String message) {
     // если время вышло
     if (message.equals("00:00")) {
-      timer.cancel();
+      timer.cancel(); // остановить таймер
       timeOver = true;
+      // если к моменту окончания времени игра не была пройдена вывести
+      // сообщение о том, что игра не была выполнена
       if (!completeGame) {
         Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "уровень не пройден");
         completeMessage.sendToTarget();
@@ -314,10 +312,14 @@ public class GameActivity extends AppCompatActivity {
     completeMessage.sendToTarget();
   }
 
-  public synchronized void handleStateMessage(String message) {
+  /**
+   * Принимает сообщения о прохождении уровня из других потоков и передает их
+   * обработчику, который управляет отображением элементов интерфейса
+   */
+  public synchronized void handleStateCompleteLevel() {
     completeGame = true;
     if (!timeOver) {
-      Message completeMessage = handler.obtainMessage(MESSAGE_CODE, message);
+      Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "уровень пройден");
       completeMessage.sendToTarget();
     }
   }
