@@ -1,13 +1,16 @@
 package alexrnov.cosmichunter.sound;
 
 import android.app.Application;
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import alexrnov.cosmichunter.R;
 
+import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.sp;
 
 /**
@@ -23,13 +26,15 @@ public class ShortSounds {
   // SparseIntArray дает лучшую производительность по сравнению с
   // HashMap<Integer, Integer>()
   private static SparseIntArray soundPoolMap = new SparseIntArray();
-
+  //private static Application app;
   /**
    * Инициализация и загрузка треков для коротких звуков
    * @param application - экземпляр класса, который запускается при
    * инициализации приложения
    */
   public static void init(Application application) {
+    //app = application;
+    //getVolume();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       clickSound = new SoundPool.Builder()
               .setMaxStreams(2) // для кликов достаточно двух потоков
@@ -68,13 +73,13 @@ public class ShortSounds {
 
   /** воспроизвести звук взрыва */
   public static void playExplosion() {
-    // проверка вклчения опции звука проводится при запуске рендера
+    // проверка включения опции звука проводится при запуске рендера
     explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 0, 1f);
   }
 
   /** воспроизвести звук пуска ракеты */
   public static void playGun() {
-    // проверка вклчения опции звука проводится при запуске рендера
+    // проверка включения опции звука проводится при запуске рендера
     // для звуков пуска ракет используется пониженный уровень звука,
     // чтобы сделать его менее явным
     gunSound.play(soundPoolMap.get(2), 0.3f, 0.3f, 0, 0, 1f);
@@ -88,4 +93,16 @@ public class ShortSounds {
     String stateSound = sp.getString("sound", "on");
     return stateSound.equals("on");
   }
+
+  /*
+  private static void getVolume() {
+    // установить громкость приложения в зависимости от текущих настроек громкости в системе
+    AudioManager audioManager = (AudioManager) app.getSystemService(Context.AUDIO_SERVICE);
+    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    float leftVolume = curVolume/maxVolume;
+    float rightVolume = curVolume/maxVolume;
+    Log.i(TAG, "leftVolume = " + leftVolume + ", rightVolume = " + rightVolume);
+  }
+  */
 }

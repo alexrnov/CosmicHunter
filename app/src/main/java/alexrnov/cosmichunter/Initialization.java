@@ -37,16 +37,6 @@ public class Initialization extends Application {
 
   private static String defaultStateMusic;
   private static String defaultVibration;
-
-  /*
-  public static SoundPool clickSound;
-  public static SoundPool explosionSound;
-  public static SoundPool gunSound;
-  // SparseIntArray дает лучшую производительность по сравнению с
-  // HashMap<Integer, Integer>()
-  public static SparseIntArray soundPoolMap = new SparseIntArray();
-   */
-
   private LevelDatabase dbLevels;
 
   @Override

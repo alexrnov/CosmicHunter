@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import alexrnov.cosmichunter.R;
@@ -62,7 +63,16 @@ public class LevelsActivity extends AppCompatActivity {
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); // enable the Up button
     getSupportActionBar().setTitle("");
 
-    versionGLES = getIntent().getIntExtra("versionGLES", 2);
+    Intent intent = getIntent();
+    versionGLES = intent.getIntExtra("versionGLES", 2);
+    @SuppressWarnings("unchecked")
+    HashMap<String, Boolean> hashMap = (HashMap<String, Boolean>) intent.getSerializableExtra("levels");
+    Log.i(TAG, "hashMap = "
+            + hashMap.get("level2") + " "
+            + hashMap.get("level3") + " "
+            + hashMap.get("level4") + " "
+            + hashMap.get("level5") + " ");
+
 
     buttonLevel2 = findViewById(R.id.button_level2);
     buttonLevel3 = findViewById(R.id.button_level3);

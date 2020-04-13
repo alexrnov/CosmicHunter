@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.activities
 
+import alexrnov.cosmichunter.DefineOpenLevels
 import alexrnov.cosmichunter.Initialization
 import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
@@ -51,6 +52,8 @@ class MainActivity: AppCompatActivity() {
         else -> 1
       }
     }
+
+  private var defineOpenLevels: DefineOpenLevels = DefineOpenLevels()
 
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
     // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
@@ -117,8 +120,21 @@ class MainActivity: AppCompatActivity() {
   fun selectLevel(view: View) {
     playClick()
     if (supportOpenGLES != 1) {
+
+      val hashMap = HashMap<String, Boolean>()
+      hashMap["level2"] = false
+      hashMap["level3"] = false
+      hashMap["level4"] = false
+      hashMap["level5"] = false
+
+      if (defineOpenLevels.status == AsyncTask.Status.FINISHED) {
+        Log.i(TAG, "defineOpenLevels = FINISHED")
+      }
+
       val intent = Intent(this, LevelsActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
+
+      intent.putExtra("levels", hashMap)
       startActivity(intent)
     } else {
       showSnackbar(view, getString(R.string.opengl_not_support))
@@ -238,6 +254,8 @@ class MainActivity: AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    defineOpenLevels = DefineOpenLevels()
+    defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
     changeHeaderColorInRecentApps(this)
   }
 }
