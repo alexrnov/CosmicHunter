@@ -29,12 +29,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.Room
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), AsyncResponse {
   private val className = this.javaClass.simpleName + ".class: "
   private var toolbar: Toolbar? = null
+
   // окно с черным фоном, в котором отображаются надписи и
   // анимированное изображение загрузки
   private var loadPanel: ConstraintLayout? = null
+
   // Проверка версии OpenGL на устройстве в рантайме. В манифесте объявляется поддержка
   // OpenGL 2, которая по умолчанию подразумевает поддержку OpenGL 2 и OpenGL 1.
   // Поскольку на самом деле, данное приложение поддерживает OpenGL 2 и OpenGL 3,
@@ -53,7 +55,8 @@ class MainActivity: AppCompatActivity() {
       }
     }
 
-  private var defineOpenLevels: DefineOpenLevels = DefineOpenLevels()
+  private var defineOpenLevels: DefineOpenLevels = DefineOpenLevels(this)
+  var levels = HashMap<String, Boolean>()
 
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
     // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
@@ -68,7 +71,7 @@ class MainActivity: AppCompatActivity() {
     toolbar = findViewById(R.id.toolbar_main_menu)
 
     setSupportActionBar(toolbar)
-    supportActionBar?.title="" // текст и стиль заголовка определяется в лэйауте
+    supportActionBar?.title = "" // текст и стиль заголовка определяется в лэйауте
     // программно изменить цвет текст в activity bar
     /*
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -121,12 +124,6 @@ class MainActivity: AppCompatActivity() {
     playClick()
     if (supportOpenGLES != 1) {
 
-      val hashMap = HashMap<String, Boolean>()
-      hashMap["level2"] = false
-      hashMap["level3"] = false
-      hashMap["level4"] = false
-      hashMap["level5"] = false
-
       if (defineOpenLevels.status == AsyncTask.Status.FINISHED) {
         Log.i(TAG, "defineOpenLevels = FINISHED")
       }
@@ -134,7 +131,7 @@ class MainActivity: AppCompatActivity() {
       val intent = Intent(this, LevelsActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
 
-      intent.putExtra("levels", hashMap)
+      intent.putExtra("levels", levels)
       startActivity(intent)
     } else {
       showSnackbar(view, getString(R.string.opengl_not_support))
@@ -203,10 +200,19 @@ class MainActivity: AppCompatActivity() {
   }
 
   /** При нажатии на кнопку начала игры будет загружаться максимальный открытый уровень */
-  private fun getCurrentOpenLevel(): Int {
+  private fun getCurrentOpenLevel() = when {
+    levels["level5"] == true -> 5
+    levels["level4"] == true -> 4
+    levels["level3"] == true -> 3
+    levels["level2"] == true -> 2
+    else -> 1
+  }
+    /*
     // подключиться к базе в потоке пользовательского интерфейса
     val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
     val dao = dbLevels.levelDao()
+    */
+    /*
     return when {
       dao.findByNumber(5).isOpen -> 5
       dao.findByNumber(4).isOpen -> 4
@@ -215,7 +221,8 @@ class MainActivity: AppCompatActivity() {
       dao.findByNumber(1).isOpen -> 1
       else -> 1
     }
-  }
+     */
+
 
   private fun hideLoadPanel() {
     // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
@@ -254,8 +261,16 @@ class MainActivity: AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
-    defineOpenLevels = DefineOpenLevels()
+    defineOpenLevels = DefineOpenLevels(this)
     defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
     changeHeaderColorInRecentApps(this)
+  }
+
+  override fun processFinish(levels: HashMap<String, Boolean>) {
+    this.levels = levels
+  }
+
+  override fun getContext(): Context {
+    return this.applicationContext
   }
 }

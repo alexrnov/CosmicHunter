@@ -1,4 +1,6 @@
-package alexrnov.cosmichunter;
+package alexrnov.cosmichunter.activities;
+
+import android.content.Context;
 
 import java.util.HashMap;
 
@@ -8,4 +10,5 @@ import java.util.HashMap;
  */
 public interface AsyncResponse {
   void processFinish(HashMap<String, Boolean> levels);
+  Context getContext();
 }

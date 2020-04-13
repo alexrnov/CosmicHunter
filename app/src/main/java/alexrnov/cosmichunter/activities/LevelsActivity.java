@@ -66,19 +66,19 @@ public class LevelsActivity extends AppCompatActivity {
     Intent intent = getIntent();
     versionGLES = intent.getIntExtra("versionGLES", 2);
     @SuppressWarnings("unchecked")
-    HashMap<String, Boolean> hashMap = (HashMap<String, Boolean>) intent.getSerializableExtra("levels");
+    HashMap<String, Boolean> levels =
+            (HashMap<String, Boolean>) intent.getSerializableExtra("levels");
     Log.i(TAG, "hashMap = "
-            + hashMap.get("level2") + " "
-            + hashMap.get("level3") + " "
-            + hashMap.get("level4") + " "
-            + hashMap.get("level5") + " ");
-
+            + levels.get("level2") + " "
+            + levels.get("level3") + " "
+            + levels.get("level4") + " "
+            + levels.get("level5") + " ");
 
     buttonLevel2 = findViewById(R.id.button_level2);
     buttonLevel3 = findViewById(R.id.button_level3);
     buttonLevel4 = findViewById(R.id.button_level4);
     buttonLevel5 = findViewById(R.id.button_level5);
-    activateButtonsForOpenedLevels();
+    activateButtonsForOpenedLevels(levels);
   }
 
   public void startLevel1(View view) { startLevel(1); }
@@ -165,30 +165,23 @@ public class LevelsActivity extends AppCompatActivity {
   }
 
   /** активировать кнопки выбора уровней, если уровни открыты */
-  private void activateButtonsForOpenedLevels() {
+  private void activateButtonsForOpenedLevels(HashMap<String, Boolean> levels) {
+    if (Objects.requireNonNull(levels.get("level2"))) buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape);
+    if (Objects.requireNonNull(levels.get("level3"))) buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape);
+    if (Objects.requireNonNull(levels.get("level4"))) buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape);
+    if (Objects.requireNonNull(levels.get("level5"))) buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape);
+    /*
     AsyncTask.execute(() -> {
       LevelDatabase dbLevels = Room.databaseBuilder(this.getApplicationContext(),
               LevelDatabase.class, "levels-database").build();
       LevelDao dao = dbLevels.levelDao();
-
-      if (dao.findByNumber(2).isOpen) {
-        // изменить фон кнопки в потоке пользовательского интерфейса
-        runOnUiThread(() -> buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape));
-      }
-
-      if (dao.findByNumber(3).isOpen) {
-        runOnUiThread(() -> buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape));
-      }
-
-      if (dao.findByNumber(4).isOpen) {
-        runOnUiThread(() -> buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape));
-      }
-
-      if (dao.findByNumber(5).isOpen) {
-        runOnUiThread(() -> buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape));
-      }
-  });
-
+      // изменить фон кнопки в потоке пользовательского интерфейса
+      if (dao.findByNumber(2).isOpen) runOnUiThread(() -> buttonLevel2.setBackgroundResource(R.drawable.toggle_button_shape));
+      if (dao.findByNumber(3).isOpen) runOnUiThread(() -> buttonLevel3.setBackgroundResource(R.drawable.toggle_button_shape));
+      if (dao.findByNumber(4).isOpen) runOnUiThread(() -> buttonLevel4.setBackgroundResource(R.drawable.toggle_button_shape));
+      if (dao.findByNumber(5).isOpen) runOnUiThread(() -> buttonLevel5.setBackgroundResource(R.drawable.toggle_button_shape));
+    });
+    */
   }
 
   private void hideLoadPanel() {
