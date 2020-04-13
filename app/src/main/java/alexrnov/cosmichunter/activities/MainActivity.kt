@@ -109,6 +109,11 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     if (supportOpenGLES != 1) {
       showLoadPanel() // показать панель загрузки
 
+      // выполнять пока не завершилось выполнение асинхронной
+      // задачи доступа к базе данных
+      while (defineOpenLevels.status != AsyncTask.Status.FINISHED) {
+        Log.i(TAG, "defineOpenLevels AsyncTask no finish")
+      }
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
       intent.putExtra("Level", getCurrentOpenLevel())
@@ -124,8 +129,10 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     playClick()
     if (supportOpenGLES != 1) {
 
-      if (defineOpenLevels.status == AsyncTask.Status.FINISHED) {
-        Log.i(TAG, "defineOpenLevels = FINISHED")
+      // выполнять пока не завершилось выполнение асинхронной
+      // задачи доступа к базе данных
+      while (defineOpenLevels.status != AsyncTask.Status.FINISHED) {
+        Log.i(TAG, "defineOpenLevels AsyncTask no finish")
       }
 
       val intent = Intent(this, LevelsActivity::class.java)
