@@ -1,11 +1,9 @@
 package alexrnov.cosmichunter.activities
 
 import alexrnov.cosmichunter.DefineOpenLevels
-import alexrnov.cosmichunter.Initialization
 import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
 import alexrnov.cosmichunter.R
-import alexrnov.cosmichunter.base.LevelDatabase
 import alexrnov.cosmichunter.sound.ShortSounds.playClick
 import alexrnov.cosmichunter.utils.backToHome
 import alexrnov.cosmichunter.utils.changeHeaderColorInRecentApps
@@ -13,7 +11,6 @@ import alexrnov.cosmichunter.utils.showSnackbar
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -27,7 +24,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.room.Room
 
 class MainActivity: AppCompatActivity(), AsyncResponse {
   private val className = this.javaClass.simpleName + ".class: "
@@ -214,22 +210,6 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     levels["level2"] == true -> 2
     else -> 1
   }
-    /*
-    // подключиться к базе в потоке пользовательского интерфейса
-    val dbLevels = Room.databaseBuilder(this.applicationContext, LevelDatabase::class.java, "levels-database").allowMainThreadQueries().build()
-    val dao = dbLevels.levelDao()
-    */
-    /*
-    return when {
-      dao.findByNumber(5).isOpen -> 5
-      dao.findByNumber(4).isOpen -> 4
-      dao.findByNumber(3).isOpen -> 3
-      dao.findByNumber(2).isOpen -> 2
-      dao.findByNumber(1).isOpen -> 1
-      else -> 1
-    }
-     */
-
 
   private fun hideLoadPanel() {
     // не работать с панелью загрузки в MainActivity для API 14-23, поскольку
@@ -268,6 +248,8 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
 
   override fun onResume() {
     super.onResume()
+    val s: Int = intent.getIntExtra("game", 0)
+    Log.i(TAG, "s resume = " + s)
     defineOpenLevels = DefineOpenLevels(this)
     defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
     changeHeaderColorInRecentApps(this)

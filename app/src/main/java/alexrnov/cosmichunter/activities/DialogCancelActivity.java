@@ -37,7 +37,10 @@ public class DialogCancelActivity extends Activity {
 
   public void backToMainMenu(View view) {
     playClick();
-    startActivity(new Intent(this, MainActivity.class));
+
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.putExtra("game", 1);
+    startActivity(intent);
   }
 
   public void cancel(View view) {
