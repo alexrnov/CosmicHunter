@@ -52,7 +52,8 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     }
 
   private var defineOpenLevels: DefineOpenLevels = DefineOpenLevels(this)
-  var levels = HashMap<String, Boolean>()
+  private var levels = HashMap<String, Boolean>()
+  private var fromGame = false
 
   override fun onCreate(savedInstanceState: Bundle?) { //состояние "создано"
     // ориентация экрана определяется в файле манифеста, а не в коде - это позволяет избежать
@@ -79,6 +80,9 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
       supportActionBar?.title = Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>")
     }
     */
+    // при входе в приложение произвести доступ к азе данных и определить
+    // статус уровней (закрыты/открыты)
+    defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
   }
 
   override fun onStart() { // состояние "запущено"
@@ -248,10 +252,12 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
 
   override fun onResume() {
     super.onResume()
-    val s: Int = intent.getIntExtra("game", 0)
-    Log.i(TAG, "s resume = " + s)
-    defineOpenLevels = DefineOpenLevels(this)
-    defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+    // если возобновление активити главного меню произошло после выхода
+    // из активити DialogCancelActivity - проверить был ли открыт новый уровень
+    if (fromGame) {
+      defineOpenLevels = DefineOpenLevels(this)
+      defineOpenLevels.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+    }
     changeHeaderColorInRecentApps(this)
   }
 
@@ -261,5 +267,18 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
 
   override fun getContext(): Context {
     return this.applicationContext
+  }
+
+  /**
+   * Извлечь значение from_game из этого метода, потому что если
+   * извлекать его из метода onResume(), будет возвращено null
+   */
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    val s:String? = intent.getStringExtra("from_game")
+    if (s != null && s == "yes") {
+      fromGame = true
+    } else fromGame = false
+    Log.i(TAG, "fromGame = $fromGame")
   }
 }

@@ -37,9 +37,10 @@ public class DialogCancelActivity extends Activity {
 
   public void backToMainMenu(View view) {
     playClick();
-
     Intent intent = new Intent(this, MainActivity.class);
-    intent.putExtra("game", 1);
+    // добавить это значение - чтобы в главном меню выполнить доступ
+    // к базе данных для проверки на предмет открытия нового уровня
+    intent.putExtra("from_game", "yes");
     startActivity(intent);
   }
 
