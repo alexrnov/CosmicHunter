@@ -275,7 +275,8 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
    */
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
-    val s:String? = intent.getStringExtra("from_game")
+    val s: String? = intent.getStringExtra("from_game")
+
     if (s != null && s == "yes") {
       fromGame = true
     } else fromGame = false
