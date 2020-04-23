@@ -7,7 +7,7 @@ class BackgroundView3D(widthScreen: Int, heightScreen: Int):
         View3D(widthScreen, heightScreen) {
 
   init {
-    z = -100f
+    z = -110f
   }
   /**
    * Метод вызывается при перересовке каждого кадра, и определяет

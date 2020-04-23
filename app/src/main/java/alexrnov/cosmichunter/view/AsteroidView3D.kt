@@ -91,7 +91,7 @@ class AsteroidView3D(widthScreen: Int, heightScreen: Int):
     yDirection = if (r.nextBoolean()) -1f else 1f
     x = r.nextInt(50) * xDirection
     y = r.nextInt(30) * yDirection
-    z = -120f
+    z = -105f
     angle = r.nextInt(360).toFloat()
   }
 }

@@ -34,7 +34,7 @@ class RocketView3D(widthScreen: Int, heightScreen: Int):
     Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0)
     // комбинировать модельно-видовую матрицу и проектирующую матрицу
     Matrix.multiplyMM(mvpMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0)
-    if (z < -95) { // если объект достаточно удалился - перестать отрисовывать его
+    if (z < -105) { // если объект достаточно удалился - перестать отрисовывать его
       fly = false
     }
   }
