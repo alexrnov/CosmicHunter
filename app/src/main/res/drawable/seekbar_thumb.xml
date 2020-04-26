@@ -3,12 +3,15 @@
     android:shape="oval" >
 
     <gradient
-        android:angle="270"
-        android:endColor="#E5492A"
-        android:startColor="#E5492A" />
+        android:type="radial"
+        android:gradientRadius="20dp"
+        android:centerColor="@color/buttonPressSolidCenter"
+        android:endColor="@color/buttonPressSolidStartEnd"
+        android:startColor="@color/buttonPressSolidCenter"
+        />
 
     <size
-        android:height="20dp"
-        android:width="20dp" />
+        android:height="40dp"
+        android:width="40dp" />
 
 </shape>
