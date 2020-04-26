@@ -7,11 +7,16 @@
         android:gradientRadius="20dp"
         android:centerColor="@color/buttonPressSolidCenter"
         android:endColor="@color/buttonPressSolidStartEnd"
-        android:startColor="@color/buttonPressSolidCenter"
+        android:startColor="@color/white"
+        android:innerRadius="10dp"
         />
 
     <size
         android:height="40dp"
         android:width="40dp" />
+
+    <stroke 
+        android:width="3dp" android:color="@color/buttonDefaultCenter" />
+
 
 </shape>

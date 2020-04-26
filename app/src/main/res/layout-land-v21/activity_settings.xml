@@ -308,8 +308,10 @@ Here, the default resource is not needed, since the screen orientation is define
 
         <SeekBar
             android:id="@+id/number_particle"
-            android:layout_width="200dp"
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
+            android:splitTrack="false"
+            android:thumbOffset="-0dp"
             android:layout_marginStart="116dp"
             android:layout_marginLeft="116dp"
             android:layout_marginBottom="76dp"
