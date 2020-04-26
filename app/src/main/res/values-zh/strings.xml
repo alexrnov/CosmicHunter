@@ -11,6 +11,7 @@
     <string name="settings_music_label">音乐</string>
     <string name="settings_on">打开</string>
     <string name="settings_off">断线</string>
+    <string name="particles_level">Particle level</string>
     <string name="back">背部</string>
 
     <string name="level">级</string>

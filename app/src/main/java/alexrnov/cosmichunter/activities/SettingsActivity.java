@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 
 import java.util.Objects;
 
@@ -27,7 +29,7 @@ import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
-
+import static alexrnov.cosmichunter.Initialization.TAG;
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
         implements CompoundButton.OnCheckedChangeListener {
@@ -35,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity
   private RadioButton vibrationRadioButton;
   private RadioButton soundRadioButton;
   private RadioButton musicRadioButton;
+  private SeekBar seekBar;
 
   private View view;
 
@@ -120,6 +123,28 @@ public class SettingsActivity extends AppCompatActivity
     if (musicRadioButton != null) {
       musicRadioButton.setOnCheckedChangeListener(this);
     }
+    seekBar = findViewById(R.id.number_particle);
+    seekBar.setProgress(300);
+    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      private double i;
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        Log.i(TAG, "progress = " + progress);
+        i = 100 + progress * 0.9667;
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {
+        Log.i(TAG, "seekbar is starter");
+      }
+
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {
+        Log.i(TAG, "seekbar is stopped");
+        i = Math.round(i);
+        showSnackbar(view, "progress = " + (int)i);
+      }
+    });
   }
 
   @Override

@@ -11,6 +11,7 @@
     <string name="settings_music_label">موسيقى</string>
     <string name="settings_on">مكن</string>
     <string name="settings_off">أطفئ</string>
+    <string name="particles_level">Particle level</string>
     <string name="back">عودة</string>
 
     <string name="level">المستوى</string>

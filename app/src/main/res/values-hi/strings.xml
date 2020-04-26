@@ -11,6 +11,7 @@
     <string name="settings_music_label">संगीत</string>
     <string name="settings_on">सक्षम</string>
     <string name="settings_off">बंद</string>
+    <string name="particles_level">Particle level</string>
     <string name="back">वापस</string>
 
     <string name="level">स्तर</string>

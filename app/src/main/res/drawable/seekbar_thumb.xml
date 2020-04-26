@@ -4,19 +4,16 @@
 
     <gradient
         android:type="radial"
-        android:gradientRadius="20dp"
+        android:gradientRadius="50%p"
         android:centerColor="@color/buttonPressSolidCenter"
         android:endColor="@color/buttonPressSolidStartEnd"
         android:startColor="@color/white"
-        android:innerRadius="10dp"
         />
 
     <size
         android:height="40dp"
         android:width="40dp" />
 
-    <stroke 
+    <stroke
         android:width="3dp" android:color="@color/buttonDefaultCenter" />
-
-
 </shape>

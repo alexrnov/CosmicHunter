@@ -12,5 +12,4 @@
     <stroke android:radius="20dp"
         android:width="3dp" android:color="@color/buttonDefaultCenter" />
 
-
 </shape>

@@ -11,6 +11,7 @@
     <string name="settings_music_label">Musik</string>
     <string name="settings_on">auf</string>
     <string name="settings_off">aus</string>
+    <string name="particles_level">Particle level</string>
     <string name="back">Zurück</string>
 
     <string name="level">Niveau</string>

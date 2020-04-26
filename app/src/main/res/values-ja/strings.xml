@@ -12,6 +12,7 @@
     <string name="settings_music_label">音楽</string>
     <string name="settings_on">つける</string>
     <string name="settings_off">消す</string>
+    <string name="particles_level">Particle level</string>
     <string name="back">バック</string>
 
     <string name="level">レベル</string>
