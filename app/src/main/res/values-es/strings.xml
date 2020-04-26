@@ -11,7 +11,7 @@
     <string name="settings_music_label">Música</string>
     <string name="settings_on">enc.</string> <!-- encender -->
     <string name="settings_off">apag.</string> <!-- apagar -->
-    <string name="particles_level">Particle level</string>
+    <string name="particles_level">Nivel de partícula</string>
     <string name="back">espalda</string>
 
     <string name="level">Nivel</string>

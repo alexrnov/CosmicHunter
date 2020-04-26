@@ -11,7 +11,7 @@
     <string name="settings_music_label">La musique</string>
     <string name="settings_on">act.</string> <!-- activer -->
     <string name="settings_off">ét.</string> <!-- éteindre -->
-    <string name="particles_level">Particle level</string>
+    <string name="particles_level">Niveau de particules</string>
     <string name="back">retour</string>
 
     <string name="level">Niveau</string>

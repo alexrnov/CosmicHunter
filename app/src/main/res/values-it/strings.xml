@@ -11,7 +11,7 @@
     <string name="settings_music_label">Musica</string>
     <string name="settings_on">perm.</string>
     <string name="settings_off">speg.</string>
-    <string name="particles_level">Particle level</string>
+    <string name="particles_level">Livello di particelle</string>
     <string name="back">indietro</string>
 
     <string name="level">Livello</string>

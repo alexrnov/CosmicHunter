@@ -11,7 +11,7 @@
     <string name="settings_music_label">Музыка</string>
     <string name="settings_on">вкл.</string>
     <string name="settings_off">откл.</string>
-    <string name="particles_level">Particle level</string>
+    <string name="particles_level">Уровень частиц</string>
     <string name="back">Назад</string>
 
     <string name="level">Уровень</string>
