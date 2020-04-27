@@ -14,6 +14,7 @@ import alexrnov.cosmichunter.gles.LinkedProgram;
 import androidx.annotation.RequiresApi;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureNearestFromAsset;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
 
@@ -54,7 +55,7 @@ public class ExplosionGLES30 implements Explosion {
   // чтобы установить координаты центра взрыва
   //private boolean createExplosion = false;
 
-  private final int numberParticles = 300; // количество частиц
+  private final int numberParticles; // количество частиц
   private final float[] color; // цвет взрыва
 
   private List<Explosion> explosions;
@@ -66,6 +67,7 @@ public class ExplosionGLES30 implements Explosion {
   public ExplosionGLES30(Context context, String textureFile, float[] color) {
     this.color = color;
 
+    numberParticles = sp.getInt("particles", 300);
     lifeTimeData = new float[numberParticles];
     startPositionData = new float[numberParticles * NUM_COORDINATES];
     endPositionData = new float[numberParticles * NUM_COORDINATES];

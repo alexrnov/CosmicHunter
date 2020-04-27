@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.Objects;
 
@@ -37,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity
   private RadioButton vibrationRadioButton;
   private RadioButton soundRadioButton;
   private RadioButton musicRadioButton;
+  private TextView particlesLabel;
   private SeekBar seekBar;
 
   private View view;
@@ -46,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity
   private String musicText = "Music";
   private String onText = "on";
   private String offText = "off";
+  private String particlesText = "Particles level";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,11 @@ public class SettingsActivity extends AppCompatActivity
     getSupportActionBar().setTitle("");
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+    particlesText = getString(R.string.particles_level);
+    particlesLabel = findViewById(R.id.particles_label);
+
+
     defineViewRadioButtons();
     addListeners();
 
@@ -67,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity
     musicText = getString(R.string.settings_music_label);
     onText = getString(R.string.settings_on);
     offText = getString(R.string.settings_off);
+
   }
 
 
@@ -123,14 +132,21 @@ public class SettingsActivity extends AppCompatActivity
     if (musicRadioButton != null) {
       musicRadioButton.setOnCheckedChangeListener(this);
     }
+
+
+    int particlesValue = sp.getInt("particles", 300);
+    String s = particlesText + ": " + particlesValue;
+    particlesLabel.setText(s);
     seekBar = findViewById(R.id.number_particle);
-    seekBar.setProgress(300);
+    seekBar.setProgress(particlesValue); // установить текущее значение seekbar
     seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-      private double i;
+      private double currentValue;
       @Override
       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         Log.i(TAG, "progress = " + progress);
-        i = 100 + progress * 0.9667;
+        currentValue = 100 + progress * 0.9667;
+        String s = particlesText + ": " + (int) currentValue;
+        particlesLabel.setText(s);
       }
 
       @Override
@@ -141,8 +157,18 @@ public class SettingsActivity extends AppCompatActivity
       @Override
       public void onStopTrackingTouch(SeekBar seekBar) {
         Log.i(TAG, "seekbar is stopped");
-        i = Math.round(i);
-        showSnackbar(view, "progress = " + (int)i);
+        currentValue = Math.round(currentValue);
+
+        int i = (int) currentValue;
+        if (sp != null) {
+          SharedPreferences.Editor editor;
+          editor = sp.edit();
+          editor.putInt("particles", i);
+          editor.apply();
+        }
+        String s = particlesText + ": " + i;
+        particlesLabel.setText(s);
+        showSnackbar(view, particlesText + ": " + i);
       }
     });
   }
