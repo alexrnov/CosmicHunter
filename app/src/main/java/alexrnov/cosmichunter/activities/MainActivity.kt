@@ -1,5 +1,6 @@
 package alexrnov.cosmichunter.activities
 
+import alexrnov.cosmichunter.Class23
 import alexrnov.cosmichunter.DefineOpenLevels
 import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
@@ -63,6 +64,9 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     Log.i(TAG, className + "onCreate()")
 
     setContentView(R.layout.activity_main)
+
+    val class23 = Class23()
+    class23.f()
 
     loadPanel = findViewById(R.id.load_panel_main)
     toolbar = findViewById(R.id.toolbar_main_menu)

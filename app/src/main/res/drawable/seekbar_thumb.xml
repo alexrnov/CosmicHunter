@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval" >
 
+    <!-- android:gradientRadius="50%p -->
     <gradient
         android:type="radial"
         android:gradientRadius="50%p"
@@ -17,3 +20,5 @@
     <stroke
         android:width="3dp" android:color="@color/buttonDefaultCenter" />
 </shape>
+    </item>
+</layer-list>
