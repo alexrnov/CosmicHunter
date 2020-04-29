@@ -1,24 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval" >
-
-    <!-- android:gradientRadius="50%p -->
-    <gradient
-        android:type="radial"
-        android:gradientRadius="50%p"
-        android:centerColor="@color/buttonPressSolidCenter"
-        android:endColor="@color/buttonPressSolidStartEnd"
-        android:startColor="@color/white"
-        />
-
-    <size
-        android:height="40dp"
-        android:width="40dp" />
-
-    <stroke
-        android:width="3dp" android:color="@color/buttonDefaultCenter" />
-</shape>
+        <shape android:shape="oval" >
+            <solid android:color="@color/buttonPressSolidCenter"/>
+            <size
+                android:height="40dp"
+                android:width="40dp" />
+        </shape>
     </item>
+
+    <item>
+        <shape android:shape="oval" >
+            <solid android:color="@color/radioButtonBaseSolidOld"/>
+            <size
+                android:height="35dp"
+                android:width="35dp" />
+            <stroke
+                android:width="5dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval" >
+            <solid android:color="#37887d"/>
+            <size
+                android:height="22dp"
+                android:width="22dp" />
+            <stroke
+                android:width="18dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval" >
+            <solid android:color="@color/radioButtonBaseSolidOld"/>
+            <size
+                android:height="17dp"
+                android:width="17dp" />
+            <stroke
+                android:width="23dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval" >
+            <solid android:color="#37887d"/>
+            <size
+                android:height="11dp"
+                android:width="11dp" />
+            <stroke
+                android:width="29dp" android:color="@color/transparent" />
+        </shape>
+    </item>
+
 </layer-list>

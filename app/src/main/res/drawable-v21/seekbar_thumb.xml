@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="oval" >
+
+            <!-- android:gradientRadius="50%p -->
+            <gradient
+                android:type="radial"
+                android:gradientRadius="50%p"
+                android:centerColor="@color/buttonPressSolidCenter"
+                android:endColor="@color/buttonPressSolidStartEnd"
+                android:startColor="@color/white"
+                />
+
+            <size
+                android:height="40dp"
+                android:width="40dp" />
+
+            <stroke
+                android:width="3dp" android:color="@color/buttonDefaultCenter" />
+        </shape>
+    </item>
+</layer-list>
