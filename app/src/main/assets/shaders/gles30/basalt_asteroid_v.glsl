@@ -4,7 +4,6 @@
 precision lowp float; // низкая точность для всех переменных, основанных на типе float
 uniform mat4 u_mvpMatrix; // модельно-видо-проекционная матрица
 uniform mat4 u_mvMatrix; // модельно-видовая матрица
-uniform mat4 u_vMatrix;
 // атрибуты(переменные вершин) принимают значения, задаваемые для выводимых
 // вершин. Обычно атрибуты хранят такие данные, как положение, нормаль,
 // текстурные координаты и цвета. Описатель layout в начале используется
@@ -24,7 +23,6 @@ in vec3 a_normal; // сюда загружаются нормали
 // размещения(layout)
 out vec2 v_textureCoordinates; //out - вместо varying в OpenGL 2.0/GLSL 1.00
 
-//smooth out vec4 v_eye_space_position;
 smooth out float v_fog_factor;
 // smooth - описатель интерполяции. Smooth(линейная интерполяция вдоль примитива)
 // - используется по умолчанию. Другие возможные варианты flat(плоское закрашивние)
@@ -62,11 +60,15 @@ void main() {
     // calculate eye space position of every vertex
     vec4 v_eye_space_position = u_mvMatrix * a_position;
     // obtain cartesian coordinate z
-    float fogCoord = abs(v_eye_space_position.z / v_eye_space_position.w);
+    // this function gives the same results as length()
+    //float fogCoord = abs(v_eye_space_position.z / v_eye_space_position.w);
 
-    float v_eyeDistance = distance(v_eye_space_position.xyz, eye.xyz);
+    // this function is used instead distance(), when eye pos = 0, 0, 0
+    //float fogCoord = length(v_eye_space_position);
 
-    v_fog_factor = getFogFactor(v_eyeDistance);
+    float fogCoord = distance(v_eye_space_position.xyz, eye.xyz);
+
+    v_fog_factor = getFogFactor(fogCoord);
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
     // преобразовать ориентацию нормали в пространство глаза
