@@ -340,7 +340,7 @@ Here, the default resource is not needed, since the screen orientation is define
                     android:id="@+id/number_particle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:max="3000"
+                    android:max="700"
                     android:progressDrawable="@drawable/seekbar_progress"
                     android:splitTrack="false"
                     android:thumb="@drawable/seekbar_thumb"

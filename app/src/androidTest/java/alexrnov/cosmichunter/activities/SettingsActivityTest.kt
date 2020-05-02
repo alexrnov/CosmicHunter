@@ -5,10 +5,6 @@ import alexrnov.cosmichunter.R
 import android.util.Log
 import android.widget.SeekBar
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.GeneralClickAction
-import androidx.test.espresso.action.GeneralLocation
-import androidx.test.espresso.action.Press
-import androidx.test.espresso.action.Tap
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -20,7 +16,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 @RunWith(AndroidJUnit4::class)
 class SettingsActivityTest {
@@ -109,7 +104,7 @@ class SettingsActivityTest {
   fun seekBarTest() {
     fun checkLabel(seekBar: SeekBar, progressValue: Int) {
       seekBar.progress = progressValue
-      val currentValue = 100 + progressValue * 0.9667
+      val currentValue = 100 + progressValue * 0.857
       val s = particle + ": " + currentValue.toInt()
       onView(withId(R.id.particles_label)).check(matches(withText(s)))
     }
@@ -117,17 +112,17 @@ class SettingsActivityTest {
     // проверить значение по умолчанию
     onView(withId(R.id.particles_label)).check(matches(withText("$particle: 300")))
     val seekBar: SeekBar = activityRule.activity.findViewById(R.id.number_particle)
-    // клик будет произвелен в середине snackbar, поэтому значение будет 1550
+    // клик будет произвелен в середине snackbar, поэтому значение будет 350
     onView(withId(R.id.number_particle)).perform(click())
     onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(withText("$particle: 1550" )))
+            .check(matches(withText("$particle: 350" )))
 
     checkLabel(seekBar, 100)
+    checkLabel(seekBar, 150)
     checkLabel(seekBar, 500)
-    checkLabel(seekBar, 1000)
-    checkLabel(seekBar, 3000)
+    checkLabel(seekBar, 700)
   }
 
 }

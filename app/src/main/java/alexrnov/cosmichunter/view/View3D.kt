@@ -32,9 +32,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
     //Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 4f,
        //     0f, 0f, 0f, 0f, 1.0f, 0.0f)
 
-    // приблизил камеру к объектам, чтобы объекты не приближались ближе
-    // чем z = -1, это позволяет избежать лишней проверки if, когда объект
-    // мог приблизится на z = 0.9-0.0 и привести к очень большому размеру спрайта
+    // камера установлена в координаты 0;0;0, и направлена в сторону оси -z, т.е. в даль
     Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 0f,
             0f, 0f, -4f, 0f, 1.0f, 0.0f)
     setPerspectiveProjection()
@@ -87,4 +85,6 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
   fun getMVMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(modelViewMatrix)
 
   fun getVMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(viewMatrix)
+
+  fun getPMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(projectionMatrix)
 }

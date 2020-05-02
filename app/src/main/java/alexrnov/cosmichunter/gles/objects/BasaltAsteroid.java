@@ -18,6 +18,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
   private final int mvpMatrixLink;
   // ссылка на переменную вершинного шейдера, содержащую модельно-видовую матрицу
   private final int mvMatrixLink;
+  private final int vMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
   // ссылка на переменную вершинного шейдера, содержащую вектор цвета
@@ -79,6 +80,7 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
+    vMatrixLink = GLES20.glGetUniformLocation(programObject, "u_vMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
@@ -99,8 +101,8 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
 
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
-            mvMatrixLink + "; s_texture id: " + samplerLink +
-            "; u_ambientLight.color id: " + ambientLightColorLink +
+            mvMatrixLink + "; s_texture id: "
+            + samplerLink + "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; textureID: " + textureID);
@@ -226,6 +228,10 @@ public class BasaltAsteroid extends Object3D implements Asteroid {
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
+
+    GLES20.glUniformMatrix4fv(vMatrixLink, 1, false,
+            view.getVMatrixAsFloatBuffer());
+
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.
     // второй параметр - количество индексов, которое необходимо вывести.

@@ -140,12 +140,13 @@ public class SettingsActivity extends AppCompatActivity
     seekBar = findViewById(R.id.number_particle);
     seekBar.setProgress(particlesValue); // установить текущее значение seekbar
     seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-      private double currentValue;
+      private int currentValue;
       @Override
       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         Log.i(TAG, "progress = " + progress);
-        currentValue = 100 + progress * 0.9667;
-        String s = particlesText + ": " + (int) currentValue;
+        double d = Math.round(100 + progress * 0.857);
+        currentValue = (int) d;
+        String s = particlesText + ": " + currentValue;
         particlesLabel.setText(s);
       }
 
@@ -157,18 +158,17 @@ public class SettingsActivity extends AppCompatActivity
       @Override
       public void onStopTrackingTouch(SeekBar seekBar) {
         Log.i(TAG, "seekbar is stopped");
-        currentValue = Math.round(currentValue);
-
-        int i = (int) currentValue;
+        //currentValue = Math.round(currentValue);
+        //int i = (int) currentValue;
         if (sp != null) {
           SharedPreferences.Editor editor;
           editor = sp.edit();
-          editor.putInt("particles", i);
+          editor.putInt("particles", currentValue);
           editor.apply();
         }
-        String s = particlesText + ": " + i;
+        String s = particlesText + ": " + currentValue;
         particlesLabel.setText(s);
-        showSnackbar(view, particlesText + ": " + i);
+        showSnackbar(view, particlesText + ": " + currentValue);
       }
     });
   }
