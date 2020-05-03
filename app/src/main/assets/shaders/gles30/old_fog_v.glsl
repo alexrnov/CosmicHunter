@@ -44,8 +44,8 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
 
-const float startFog = 110.0; //100 100 110 110
-const float endFog = 136.0; //140 130 120 120
+const float startFog = 10.0;
+const float endFog = 140.0;
 const vec3 eye = vec3(0.0, 0.0, 0.0);
 const float density = 0.006;
 float getFogFactor(float fogCoord)
@@ -68,9 +68,8 @@ void main() {
     //float fogCoord = length(v_eye_space_position);
 
     float fogCoord = distance(v_eye_space_position.xyz, eye);
-    //float f = 50 - v_eye_space_position.y;
-    float f = distance(v_eye_space_position.xyz, vec3(v_eye_space_position.x, 100.0, v_eye_space_position.z));
-    v_fog_factor = getFogFactor(f);
+    //float f = 50.0 - v_eye_space_position.y;
+    v_fog_factor = getFogFactor(fogCoord);
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
     // преобразовать ориентацию нормали в пространство глаза
