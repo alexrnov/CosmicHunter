@@ -26,6 +26,8 @@ in vec3 a_normal; // сюда загружаются нормали
 // и centroid(интерполяция внутри примитива)
 smooth out vec4 v_commonLight; //интерполятор для общего освещения(фоновое + диффузное)
 
+smooth out float v_fog_factor;
+
 struct AmbientLight { // структура для внешнего освещения
     vec3 color; // цвет внешнего освещения
     float intensity; // интенсивность внешнего освещения
@@ -41,7 +43,25 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightDirection = vec3(0.5, 0.0, -1.0); // вектор направленного освещения
 
+const float startFog = 120.0; //100 100 110 110
+const float endFog = 216.0; //140 130 120 120
+float getFogFactor(float fogCoord)
+{
+    //float factor = exp(-density*fogCoord); // экспоненциальный туман exp
+    //float factor = exp(-pow(0.01*fogCoord, 2.0)); // экспоненциальный туман exp2
+    float factor = (endFog - fogCoord) / (endFog - startFog); // линейный туман
+    factor = 1.0 - clamp(factor, 0.0, 1.0);
+    return factor;
+}
+
 void main() {
+
+    vec4 v_eye_space_position = u_mvMatrix * a_position;
+
+    //float f = 50 - v_eye_space_position.y;
+    float f = distance(v_eye_space_position.xyz, vec3(v_eye_space_position.x, 100.0, v_eye_space_position.z));
+    v_fog_factor = getFogFactor(f);
+
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
     vec3 modelViewNormal = vec3(u_mvMatrix * vec4(a_normal, 0.0));

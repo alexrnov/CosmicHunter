@@ -4,6 +4,7 @@ precision lowp float;
 // текстурные координаты(входной параметр из вершинного шейдера)
 // фрагментный шейдер использует их для чтения из текстуры
 in vec2 v_textureCoordinates; //in - вместо varying в OpenGL 2.0/GLSL 1.00
+smooth in float v_fog_factor;
 smooth in vec4 v_commonLight;
 out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
 // сэмплер - специальный тип uniform-переменных, используемых для
@@ -12,6 +13,8 @@ out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 
 // к текстурным блокам при помощи функции glActiveTexture
 uniform sampler2D s_texture;
 
+const vec4 fogColor = vec4(1.0, 1.0, 1.0, 1.0);
+
 void main() {
     // встроенная функция texture для чтения значений из текстуры.
     // первый параметр - семплер, задающий к какому текстурному блоку
@@ -19,5 +22,7 @@ void main() {
     // второй параметр - двухмерные текстурные координаты, используемыя
     // для чтения из текстуры возвращает значение типа vec4,
     // представляющее цвет, прочитанный из текстуры.
-    outColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
+    vec4 baseColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
+
+    outColor = mix(baseColor, fogColor, v_fog_factor);
 }
