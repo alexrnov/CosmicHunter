@@ -392,5 +392,22 @@ Here, the default resource is not needed, since the screen orientation is define
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/particles_panel_layout" />
 
+        <CheckBox
+            android:id="@+id/smog_checkbox"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:gravity="center"
+
+
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="40dp"
+            android:text="S"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
