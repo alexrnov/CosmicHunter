@@ -14,7 +14,7 @@
     <item>
         <shape android:shape="rectangle" >
             <corners android:radius="0dp" />
-            <solid android:color="@color/buttonPressSolidCenter"/>
+            <solid android:color="#37887d"/>
             <size
                 android:height="20dp"
                 android:width="20dp" />

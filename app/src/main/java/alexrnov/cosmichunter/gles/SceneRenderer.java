@@ -12,6 +12,7 @@ import alexrnov.cosmichunter.gles.objects.BasaltAsteroid;
 import alexrnov.cosmichunter.gles.objects.Explosion;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES20;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES30;
+import alexrnov.cosmichunter.gles.objects.IceAsteroid;
 import alexrnov.cosmichunter.gles.objects.MetalAsteroid;
 
 public interface SceneRenderer extends GLSurfaceView.Renderer  {
@@ -33,7 +34,7 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
    */
   boolean isLoadGame();
 
-  enum TypeExplosion { ROCK, ICE, METAL }
+  enum TypeExplosion { ROCK, ICE, METAL, VULCAN }
 
   /* К каждому астероиду привязать взрыв */
   default void bindExplosions(Asteroid asteroid, List<Explosion> activeExplosions,
@@ -42,8 +43,10 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
       asteroid.setExplosion(createExplosion(TypeExplosion.ROCK, versionGL, context));
     } else if (asteroid instanceof MetalAsteroid) {
       asteroid.setExplosion(createExplosion(TypeExplosion.METAL, versionGL, context));
-    } else {
+    } else if (asteroid instanceof IceAsteroid) {
       asteroid.setExplosion(createExplosion(TypeExplosion.ICE, versionGL, context));
+    } else {
+      asteroid.setExplosion(createExplosion(TypeExplosion.VULCAN, versionGL, context));
     }
     asteroid.getExplosion().setExplosions(activeExplosions);
   }
@@ -59,6 +62,9 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
       case METAL:
         if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
         else return new ExplosionGLES20(context, "explosion/metal.png", new float[] {0.3f, 1.0f, 0.3f, 1.0f});
+      case VULCAN:
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/rock.png");
+        else return new ExplosionGLES20(context, "explosion/rock.png");
       default: return null;
     }
   }
