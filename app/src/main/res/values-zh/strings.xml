@@ -12,6 +12,7 @@
     <string name="settings_on">打开</string>
     <string name="settings_off">断线</string>
     <string name="particles_level">粒子水平</string>
+    <string name="fog_label">大气层</string>
     <string name="back">背部</string>
 
     <string name="level">级</string>

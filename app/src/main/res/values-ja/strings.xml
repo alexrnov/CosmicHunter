@@ -13,6 +13,7 @@
     <string name="settings_on">つける</string>
     <string name="settings_off">消す</string>
     <string name="particles_level">粒子レベル</string>
+    <string name="fog_label">雰囲気</string>
     <string name="back">バック</string>
 
     <string name="level">レベル</string>

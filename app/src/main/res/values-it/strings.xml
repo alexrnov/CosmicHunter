@@ -12,6 +12,7 @@
     <string name="settings_on">perm.</string>
     <string name="settings_off">speg.</string>
     <string name="particles_level">Livello di particelle</string>
+    <string name="fog_label">Atmosfera</string>
     <string name="back">indietro</string>
 
     <string name="level">Livello</string>

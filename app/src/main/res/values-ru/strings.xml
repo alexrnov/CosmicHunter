@@ -12,6 +12,7 @@
     <string name="settings_on">вкл.</string>
     <string name="settings_off">откл.</string>
     <string name="particles_level">Уровень частиц</string>
+    <string name="fog_label">Атмосфера</string>
     <string name="back">Назад</string>
 
     <string name="level">Уровень</string>

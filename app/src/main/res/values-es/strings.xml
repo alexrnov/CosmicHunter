@@ -12,6 +12,7 @@
     <string name="settings_on">enc.</string> <!-- encender -->
     <string name="settings_off">apag.</string> <!-- apagar -->
     <string name="particles_level">Nivel de partícula</string>
+    <string name="fog_label">Atmósfera</string>
     <string name="back">espalda</string>
 
     <string name="level">Nivel</string>

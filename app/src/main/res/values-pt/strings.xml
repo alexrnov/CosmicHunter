@@ -12,6 +12,7 @@
     <string name="settings_on">Ativ.</string>
     <string name="settings_off">Des.</string>
     <string name="particles_level">Nível de partícula</string>
+    <string name="fog_label">Atmosfera</string>
     <string name="back">costas</string>
 
     <string name="level">Nível</string>

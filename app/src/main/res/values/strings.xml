@@ -30,6 +30,7 @@
     <string name="settings_on">on</string>
     <string name="settings_off">off</string>
     <string name="particles_level">Particles level</string>
+    <string name="fog_label">Atmosphere</string>
     <string name="back">back</string>
 
     <string name="level">Level</string>

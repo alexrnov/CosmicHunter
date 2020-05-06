@@ -12,6 +12,7 @@
     <string name="settings_on">auf</string>
     <string name="settings_off">aus</string>
     <string name="particles_level">Partikelebene</string>
+    <string name="fog_label">Atmosphäre</string>
     <string name="back">Zurück</string>
 
     <string name="level">Niveau</string>

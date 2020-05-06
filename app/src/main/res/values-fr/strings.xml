@@ -12,6 +12,7 @@
     <string name="settings_on">act.</string> <!-- activer -->
     <string name="settings_off">ét.</string> <!-- éteindre -->
     <string name="particles_level">Niveau de particules</string>
+    <string name="fog_label">Atmosphère</string>
     <string name="back">retour</string>
 
     <string name="level">Niveau</string>

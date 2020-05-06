@@ -12,6 +12,7 @@
     <string name="settings_on">on</string>
     <string name="settings_off">off</string>
     <string name="particles_level">Tahap zarah</string>
+    <string name="fog_label">Suasana</string>
     <string name="back">belakang</string>
 
     <string name="level">Tahap</string>
