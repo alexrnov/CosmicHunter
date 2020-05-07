@@ -24,5 +24,5 @@ void main() {
 
     //gl_FragColor = texture2D(s_texture, v_textureCoordinates) * v_commonLight;
 
-    gl_FragColor = vec4(refractColor + v_commonLight.xyz, 1.0);
+    gl_FragColor = vec4(refractColor, 1.0) * v_commonLight;
 }
