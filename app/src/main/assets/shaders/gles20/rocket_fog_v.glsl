@@ -21,7 +21,7 @@ attribute vec3 a_normal; // сюда загружаются нормали
 // и centroid(интерполяция внутри примитива)
 varying vec4 v_commonLight; //интерполятор для общего освещения(фоновое + диффузное)
 
-smooth varying float v_fog_factor;
+varying float v_fog_factor;
 
 struct AmbientLight { // структура для внешнего освещения
     vec3 color; // цвет внешнего освещения

@@ -42,6 +42,7 @@ public class Rocket extends Object3D {
 
     boolean fog = sp.getBoolean("fog", true);
     if (versionGL == 2.0) {
+      Log.i(TAG, "version = 2");
       if (fog) {
         linkProgram = new LinkedProgram(context,
                 "shaders/gles20/rocket_fog_v.glsl",
@@ -52,6 +53,7 @@ public class Rocket extends Object3D {
                 "shaders/gles20/rocket_f.glsl");
       }
     } else if (versionGL == 3.0) {
+      Log.i(TAG, "version = 3");
       if (fog) {
         linkProgram = new LinkedProgram(context,
                 "shaders/gles30/rocket_fog_v.glsl",

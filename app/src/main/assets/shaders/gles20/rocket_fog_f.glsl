@@ -3,7 +3,7 @@
 precision lowp float;
 const vec4 colorRocket = vec4(0.7, 0.1, 0.3, 0.7); // цвет и прозрачность ракеты
 varying vec4 v_commonLight;
-smooth varying float v_fog_factor;
+varying float v_fog_factor;
 //out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
 //mediump vec4 gl_FragColor;
 const vec4 fogColor = vec4(1.0, 1.0, 1.0, 1.0);
