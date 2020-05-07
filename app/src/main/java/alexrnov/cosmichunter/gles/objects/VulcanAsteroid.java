@@ -45,7 +45,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
   private Explosion explosion;
 
   public VulcanAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
-    super(context, scale, "objects/asteroid1.obj");
+    super(context, scale, "objects/vulcan_asteroid.obj");
 
     //загрузка шейдеров из каталога raw
     //LinkedProgram linkedProgramGL = new LinkedProgram(context,
@@ -61,7 +61,6 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
               "shaders/gles30/vulcan_asteroid_v.glsl",
               "shaders/gles30/vulcan_asteroid_f.glsl");
     }
-
 
     final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
@@ -82,7 +81,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.dolerite_texture); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, R.raw.vulcan_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,

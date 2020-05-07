@@ -6,6 +6,7 @@ precision lowp float;
 in vec2 v_textureCoordinates; //in - вместо varying в OpenGL 2.0/GLSL 1.00
 smooth in vec4 v_commonLight;
 in mediump vec2 RefractCoord;
+
 out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
 // сэмплер - специальный тип uniform-переменных, используемых для
 // чтения из текстуры. В эту переменную записывается номер текстурного
@@ -23,6 +24,6 @@ void main() {
     // представляющее цвет, прочитанный из текстуры.
     //outColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
     //outColor = vec4(refractColor + v_commonLight.xyz, 1.0);
-    outColor = vec4(refractColor, 1.0) *  v_commonLight;
+    outColor = vec4(refractColor, 1.0) * v_commonLight;
 
 }

@@ -44,8 +44,7 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
 
-const mediump float  cShininess = 3.0;
-const mediump float  cRIR = 0.95;
+const mediump float eta = 0.5;
 void main() {
 
 
@@ -53,13 +52,11 @@ void main() {
 
     mediump vec3 eyeDirModel = normalize(a_position.xyz - EyePosModel.xyz);
 
-    mediump vec3 refractDir = refract(eyeDirModel, a_normal, cRIR);
+    mediump vec3 refractDir = refract(eyeDirModel, a_normal, eta);
 
     refractDir = (u_mvpMatrix * vec4(refractDir, 0.0)).xyw;
 
     RefractCoord = 0.5 * (refractDir.xy / refractDir.z) + 0.5;
-
-
 
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
