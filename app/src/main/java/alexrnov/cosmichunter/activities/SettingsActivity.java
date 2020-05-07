@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity
   private RadioButton musicRadioButton;
   private TextView particlesLabel;
   private SeekBar seekBar;
+  private CheckBox checkBox;
 
   private View view;
 
@@ -65,8 +67,12 @@ public class SettingsActivity extends AppCompatActivity
     particlesText = getString(R.string.particles_level);
     particlesLabel = findViewById(R.id.particles_label);
 
-
     defineViewRadioButtons();
+
+    checkBox = (CheckBox) findViewById(R.id.smog_checkbox);
+    boolean fogChecked = sp.getBoolean("fog", true);
+    checkBox.setChecked(fogChecked);
+
     addListeners();
 
     view = findViewById(R.id.background_settings);
@@ -171,6 +177,30 @@ public class SettingsActivity extends AppCompatActivity
         showSnackbar(view, particlesText + ": " + currentValue);
       }
     });
+
+
+    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        boolean check;
+        if (buttonView.isChecked()) {
+          Log.i(TAG, "checked");
+          check = true;
+        } else {
+          Log.i(TAG, "non checked");
+          check = false;
+        }
+
+        if (sp != null) {
+          SharedPreferences.Editor editor;
+          editor = sp.edit();
+          editor.putBoolean("fog", check);
+          editor.apply();
+        }
+      }
+    });
+
   }
 
   @Override

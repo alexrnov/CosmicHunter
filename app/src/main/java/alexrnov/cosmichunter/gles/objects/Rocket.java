@@ -10,6 +10,7 @@ import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.Initialization.sp;
 
 public class Rocket extends Object3D {
   private final int programObject;
@@ -38,14 +39,29 @@ public class Rocket extends Object3D {
   public Rocket(double versionGL, Context context, float scale) {
     super(context, scale, R.raw.simple_rocket);
     LinkedProgram linkProgram = null;
+
+    boolean fog = sp.getBoolean("fog", true);
     if (versionGL == 2.0) {
-      linkProgram = new LinkedProgram(context,
-              "shaders/gles20/rocket_v.glsl",
-              "shaders/gles20/rocket_f.glsl");
+      if (fog) {
+        linkProgram = new LinkedProgram(context,
+                "shaders/gles20/rocket_fog_v.glsl",
+                "shaders/gles20/rocket_fog_f.glsl");
+      } else {
+        linkProgram = new LinkedProgram(context,
+                "shaders/gles20/rocket_v.glsl",
+                "shaders/gles20/rocket_f.glsl");
+      }
     } else if (versionGL == 3.0) {
-      linkProgram = new LinkedProgram(context,
-              "shaders/gles30/rocket_v.glsl",
-              "shaders/gles30/rocket_f.glsl");
+      if (fog) {
+        linkProgram = new LinkedProgram(context,
+                "shaders/gles30/rocket_fog_v.glsl",
+                "shaders/gles30/rocket_fog_f.glsl");
+      } else {
+        linkProgram = new LinkedProgram(context,
+                "shaders/gles30/rocket_v.glsl",
+                "shaders/gles30/rocket_f.glsl");
+      }
+
     }
 
     final String className = this.getClass().getSimpleName();
