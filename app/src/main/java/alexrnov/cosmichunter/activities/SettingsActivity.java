@@ -184,11 +184,8 @@ public class SettingsActivity extends AppCompatActivity
 
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-          showSnackbar(view, fogText + ": " + onText);
-        } else {
-          showSnackbar(view, fogText + ": " + offText);
-        }
+        String s = fogText + ": ";
+        showSnackbar(view, isChecked ? s + onText : s + offText);
         if (sp != null) {
           SharedPreferences.Editor editor;
           editor = sp.edit();

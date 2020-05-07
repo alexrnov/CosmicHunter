@@ -125,5 +125,17 @@ class SettingsActivityTest {
     checkLabel(seekBar, 700)
   }
 
+  @Test
+  fun checkBoxTest() {
+    // по умолчанию checkbox отмечен
+    onView(withId(R.id.smog_checkbox)).check(matches(isChecked()))
+    // проверить появление snackbar при нажатии на checkbar
+    onView(withId(R.id.smog_checkbox)).perform(click())
+    onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+    // checkbox не отмечен
+    onView(withId(R.id.smog_checkbox)).check(matches(isNotChecked()))
+  }
+
 }
 
