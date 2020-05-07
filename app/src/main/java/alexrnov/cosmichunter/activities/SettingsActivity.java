@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity
   private String onText = "on";
   private String offText = "off";
   private String particlesText = "Particles level";
+  private String fogText = "Atmosphere";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity
     checkBox = (CheckBox) findViewById(R.id.smog_checkbox);
     boolean fogChecked = sp.getBoolean("fog", true);
     checkBox.setChecked(fogChecked);
-
+    fogText = getString(R.string.fog_label);
     addListeners();
 
     view = findViewById(R.id.background_settings);
@@ -182,20 +183,16 @@ public class SettingsActivity extends AppCompatActivity
     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
       @Override
-      public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-        boolean check;
-        if (buttonView.isChecked()) {
-          Log.i(TAG, "checked");
-          check = true;
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+          showSnackbar(view, fogText + ": " + onText);
         } else {
-          Log.i(TAG, "non checked");
-          check = false;
+          showSnackbar(view, fogText + ": " + offText);
         }
-
         if (sp != null) {
           SharedPreferences.Editor editor;
           editor = sp.edit();
-          editor.putBoolean("fog", check);
+          editor.putBoolean("fog", isChecked);
           editor.apply();
         }
       }
