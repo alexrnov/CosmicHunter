@@ -10,6 +10,7 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.gles.Textures.createSimpleTextureCubemap;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class VulcanAsteroid extends Object3D implements Asteroid {
@@ -36,11 +37,10 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
   private final int textureID;
 
   private final int positionLink; // индекс переменной атрибута для вершин
-  private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
   private final int normalLink; // индекс переменной атрибута для нормали
 
   private AsteroidView3D view;
-  private final int[] VBO = new int[4];
+  private final int[] VBO = new int[3];
 
   private Explosion explosion;
 
@@ -81,7 +81,9 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.vulcan_texture); //загрузить текстуру
+    //textureID = loadTextureWithMipMapFromRaw(context, R.raw.vulcan_texture); //загрузить текстуру
+    textureID = createSimpleTextureCubemap(context, R.raw.pic, R.raw.pic);
+
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -93,7 +95,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
-    textureCoordinatesLink = GLES20.glGetAttribLocation(programObject, "a_textureCoordinates");
+
     normalLink = GLES20.glGetAttribLocation(programObject, "a_normal");
 
     Log.v(TAG, className +
@@ -110,26 +112,20 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     VBO[0] = 0;
     VBO[1] = 0;
     VBO[2] = 0;
-    VBO[3] = 0;
 
-    GLES20.glGenBuffers(4, VBO, 0);
+    GLES20.glGenBuffers(3, VBO, 0);
     bufferVertices.position(0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[0]);
     GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_VERTICES,
             bufferVertices, GLES20.GL_STATIC_DRAW);
 
-    bufferTextureCoordinates.position(0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
-    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, TEXTURE_STRIDE * NUMBERS_TEXTURES,
-            bufferTextureCoordinates, GLES20.GL_STATIC_DRAW);
-
     bufferNormals.position(0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, VERTEX_STRIDE * NUMBER_NORMALS,
             bufferNormals, GLES20.GL_STATIC_DRAW);
 
     bufferIndices.position(0);
-    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
     GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, INT_SIZE * NUMBER_INDICES,
             bufferIndices, GLES20.GL_STATIC_DRAW);
   }
@@ -164,16 +160,9 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
             false, VERTEX_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
-    //включение массива текстурных координат для атрибута(in vec4 a_position)
-    GLES20.glEnableVertexAttribArray(textureCoordinatesLink);//разрешить атрибут координат текстуры
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
-    //загрузить текстурные координаты (location = 1)
-    GLES20.glVertexAttribPointer(textureCoordinatesLink, TEXTURE_COMPONENT, GLES20.GL_FLOAT,
-            false, TEXTURE_STRIDE, 0);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
     GLES20.glEnableVertexAttribArray(normalLink);
-    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[2]);
+    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, VBO[1]);
     // индекс переменной атрибута можно получить следущим образом
     // int a_normal_Handle = GLES30.glGetAttribLocation(programObject, "a_Normal");
     // но мы просто указываем индекс 2, поскольку в шейдере он обазначен
@@ -199,15 +188,13 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     // GL_TEXTURE1,..., GL_TEXTURE31.
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
     //привязать текстуру к активному текстурному блоку
-    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureID);
 
 
     // генерировать mipmap
     //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-            GLES20.GL_LINEAR_MIPMAP_NEAREST);
 
 
     // рисовать с трилинейным фильтрованием
@@ -226,7 +213,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
 
-    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[3]);
+    GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.
     // второй параметр - количество индексов, которое необходимо вывести.
     // третий параметр - тип индексов (другие варианты UNSIGNED_SHORT и UNSIGNED_BYTE)
@@ -234,7 +221,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
     GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
-    GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
+    //GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
     GLES20.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
 
     //GLES30.glFinish();

@@ -12,16 +12,9 @@ uniform mat4 u_mvMatrix; // модельно-видовая матрица
 // layout(location = 1) in vec2 a_textureCoordinates; // сюда загружаются двухкомпонентные текстурные координаты
 // layout(location = 2) in vec3 a_normal; // сюда загружаются нормали
 in vec4 a_position; // сюда загружаются данные вершин
-in vec2 a_textureCoordinates; // сюда загружаются двухкомпонентные текстурные координаты
 in vec3 a_normal; // сюда загружаются нормали
 
-// выходные переменные вершинного шейдера описываются ключевым словом out
-// эти переменные будут также описаны во фрагментном шейдере с помощью
-// ключевого слова in(и теми же типами) и будут линейно проинтерполированы
-// вдоль примитива во время растеризации. Для выходных переменных вершинного
-// шейдера/входных переменных фрагментного шейдера не могут иметь описателей
-// размещения(layout)
-out vec2 v_textureCoordinates; //out - вместо varying в OpenGL 2.0/GLSL 1.00
+
 
 out mediump vec2 RefractCoord;
 // smooth - описатель интерполяции. Smooth(линейная интерполяция вдоль примитива)
@@ -46,11 +39,9 @@ const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направл
 
 const mediump float eta = 0.5;
 void main() {
-
-
     vec4 EyePosModel = u_mvMatrix * a_position;
 
-    mediump vec3 eyeDirModel = normalize(a_position.xyz - EyePosModel.xyz);
+    mediump vec3 eyeDirModel = normalize(-EyePosModel.xyz);
 
     mediump vec3 refractDir = refract(eyeDirModel, a_normal, eta);
 
@@ -67,7 +58,6 @@ void main() {
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
 
     v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
-    v_textureCoordinates = a_textureCoordinates;
     gl_Position = u_mvpMatrix * a_position;
 }
 //Фактически любой параметр в шейдере, который остается неизменным

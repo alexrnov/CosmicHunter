@@ -1,9 +1,7 @@
 #version 100
 // во фрагментном шейдере точность по умолчанию должна быть указана явно
 precision lowp float;
-// текстурные координаты(входной параметр из вершинного шейдера)
-// фрагментный шейдер использует их для чтения из текстуры
-varying vec2 v_textureCoordinates; //in - вместо varying в OpenGL 2.0/GLSL 1.00
+
 varying vec4 v_commonLight;
 varying mediump vec2 RefractCoord;
 //out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00

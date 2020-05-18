@@ -1,12 +1,15 @@
 package alexrnov.cosmichunter.gles
 
+import alexrnov.cosmichunter.Initialization
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLUtils
+import android.util.Log
 import java.io.IOException
 import java.io.InputStream
+import java.nio.ByteBuffer
 
 object Textures {
 
@@ -171,6 +174,52 @@ object Textures {
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
             GLES20.GL_REPEAT)
     */
+    return textureId[0]
+  }
+
+
+
+  //Создает простую кубическую текстуру с поверхностью 1x1 с
+  //с различным цветом для каждой поверхности
+  @JvmStatic
+  fun createSimpleTextureCubemap(context: Context, r: Int, r2: Int): Int {
+    val input: InputStream = context.resources.openRawResource(r)
+    val bitmap: Bitmap = BitmapFactory.decodeStream(input)
+    Log.i(Initialization.TAG, "bitmap width = " + bitmap.width + ", height = " + bitmap.height)
+
+    val input2: InputStream = context.resources.openRawResource(r2)
+    val bitmap2: Bitmap = BitmapFactory.decodeStream(input2)
+
+    val textureId = IntArray(1)
+
+    //генерация объекта-текстуры
+    //первый параметр - количество текстурных объектов, которые
+    //нужно создать. Второй параметр - массив, в котором будут возвращены
+    //n чисел, идентифицирующих созданные текстурные объекты. В момент
+    //создания текстурный объект является пустым контейнером, который
+    //будет использован для загрузки изображения и параметров текстуры
+    GLES20.glGenTextures(1, textureId, 0)
+    //связать объект-текстуру
+    //После того как идентификатор текстурного объекта был создан при
+    //помощи glGenTextures, приложение должно привязать соответствующий
+    //текстурный объект для работы с ним (привязать объект к цели).
+    //Первый параметр - привязывает текстурный объект к типу текстуры.
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureId[0])
+
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, bitmap, 0)
+
+    //установить метод фильтрования
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP,
+            GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP,
+            GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
+
+    GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D)
     return textureId[0]
   }
 }
