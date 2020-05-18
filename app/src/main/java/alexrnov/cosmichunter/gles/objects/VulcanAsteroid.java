@@ -82,7 +82,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
     //textureID = loadTextureWithMipMapFromRaw(context, R.raw.vulcan_texture); //загрузить текстуру
-    textureID = createSimpleTextureCubemap(context, R.raw.pic, R.raw.pic);
+    textureID = createSimpleTextureCubemap(context, R.raw.vulcan_texture, R.raw.vulcan_texture);
 
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
