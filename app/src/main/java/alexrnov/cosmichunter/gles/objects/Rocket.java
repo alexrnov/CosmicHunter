@@ -169,16 +169,18 @@ public class Rocket extends Object3D {
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 0.6f);
 
-    // включить прозрачность
-    GLES20.glEnable(GLES20.GL_BLEND);
-    // GLES20.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
-    GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false, view.getMVMatrixAsFloatBuffer());
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
+
+    // включить прозрачность
+    GLES20.glEnable(GLES20.GL_BLEND);
+    // GLES20.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
+    GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
 
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.

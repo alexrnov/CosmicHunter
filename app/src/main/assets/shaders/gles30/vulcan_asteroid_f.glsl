@@ -26,7 +26,7 @@ void main() {
 
     vec4 glassColor = texture(s_texture, vec3(refractCoord, 1.0));
     outColor = glassColor + v_commonLight;
-
+    outColor.a = 0.3;
     //outColor = vec4(refractColor, 1.0) * v_commonLight;
 
 }

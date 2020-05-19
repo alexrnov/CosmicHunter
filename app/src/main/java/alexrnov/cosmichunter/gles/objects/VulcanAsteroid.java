@@ -179,6 +179,14 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 0.3f);
+
+    GLES20.glEnable(GLES20.GL_BLEND);
+
+    GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -209,6 +217,8 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     GLES20.glDrawElements(GLES20.GL_TRIANGLES, NUMBER_INDICES, GLES20.GL_UNSIGNED_INT, 0);
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
+
+    GLES20.glDisable(GLES20.GL_BLEND);
     GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
     //GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
     GLES20.glDisableVertexAttribArray(normalLink); // отключить атрибут нормалей
