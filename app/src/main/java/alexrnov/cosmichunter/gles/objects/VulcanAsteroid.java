@@ -10,8 +10,7 @@ import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
-import static alexrnov.cosmichunter.gles.Textures.createSimpleTextureCubemap;
-import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
+import static alexrnov.cosmichunter.gles.Textures.createCubemapTexture;
 
 public class VulcanAsteroid extends Object3D implements Asteroid {
   private final int programObject;
@@ -82,7 +81,8 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
     //textureID = loadTextureWithMipMapFromRaw(context, R.raw.vulcan_texture); //загрузить текстуру
-    textureID = createSimpleTextureCubemap(context, R.raw.vulcan_texture, R.raw.vulcan_texture);
+    textureID = createCubemapTexture(context, R.raw.vulcan_x_positive, R.raw.vulcan_x_negative,
+            R.raw.vulcan_y_positive, R.raw.vulcan_y_negative, R.raw.vulcan_z_positive, R.raw.vulcan_z_negative);
 
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
@@ -175,10 +175,10 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     // окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.2f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.01f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 1.5f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 0.3f);
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -187,19 +187,8 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     // станет активным, принимает значения GL_TEXTURE0,
     // GL_TEXTURE1,..., GL_TEXTURE31.
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-    //привязать текстуру к активному текстурному блоку
+    // привязать кубическую текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureID);
-
-
-    // генерировать mipmap
-    //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
-    // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
-    // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
-
-
-    // рисовать с трилинейным фильтрованием
-    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
-    // GLES20.GL_LINEAR_MIPMAP_LINEAR);
 
     // установить текстурную единицу семплера в 0, что означает, что
     // будет использоваться текстурный блок GL_TEXTURE0, к которой

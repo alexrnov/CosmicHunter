@@ -1,15 +1,12 @@
 package alexrnov.cosmichunter.gles
 
-import alexrnov.cosmichunter.Initialization
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLUtils
-import android.util.Log
 import java.io.IOException
 import java.io.InputStream
-import java.nio.ByteBuffer
 
 object Textures {
 
@@ -178,17 +175,35 @@ object Textures {
   }
 
 
-
-  //Создает простую кубическую текстуру с поверхностью 1x1 с
-  //с различным цветом для каждой поверхности
+  /**
+   * Создает кубическую текстуру с различными изображениями для каждой из сторон
+   * [xPos] raw-ресурс для GL_TEXTURE_CUBE_MAP_POSITIVE_X
+   * [xNeg] raw-ресурс для GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+   * [yPos] raw-ресурс для GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+   * [yNeg] raw-ресурс для GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+   * [zPos] raw-ресурс для GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+   * [zNeg] raw-ресурс для GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+   */
   @JvmStatic
-  fun createSimpleTextureCubemap(context: Context, r: Int, r2: Int): Int {
-    val input: InputStream = context.resources.openRawResource(r)
-    val bitmap: Bitmap = BitmapFactory.decodeStream(input)
-    Log.i(Initialization.TAG, "bitmap width = " + bitmap.width + ", height = " + bitmap.height)
+  fun createCubemapTexture(context: Context, xPos: Int, xNeg: Int,
+                           yPos: Int, yNeg: Int, zPos: Int, zNeg: Int): Int {
+    var input: InputStream = context.resources.openRawResource(xPos)
+    val positiveX: Bitmap = BitmapFactory.decodeStream(input)
 
-    val input2: InputStream = context.resources.openRawResource(r2)
-    val bitmap2: Bitmap = BitmapFactory.decodeStream(input2)
+    input = context.resources.openRawResource(xNeg)
+    val negativeX: Bitmap = BitmapFactory.decodeStream(input)
+
+    input = context.resources.openRawResource(yPos)
+    val positiveY: Bitmap = BitmapFactory.decodeStream(input)
+
+    input = context.resources.openRawResource(yNeg)
+    val negativeY: Bitmap = BitmapFactory.decodeStream(input)
+
+    input = context.resources.openRawResource(zPos)
+    val positiveZ: Bitmap = BitmapFactory.decodeStream(input)
+
+    input = context.resources.openRawResource(zNeg)
+    val negativeZ: Bitmap = BitmapFactory.decodeStream(input)
 
     val textureId = IntArray(1)
 
@@ -206,12 +221,12 @@ object Textures {
     //Первый параметр - привязывает текстурный объект к типу текстуры.
     GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureId[0])
 
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, bitmap, 0)
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, bitmap, 0)
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, bitmap, 0)
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, bitmap, 0)
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, bitmap, 0)
-    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, bitmap, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, positiveX, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, negativeX, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, positiveY, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, negativeY, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, positiveZ, 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, negativeZ, 0)
 
     //установить метод фильтрования
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP,

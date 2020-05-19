@@ -22,6 +22,9 @@ out mediump vec2 RefractCoord;
 // и centroid(интерполяция внутри примитива)
 smooth out vec4 v_commonLight; //интерполятор для общего освещения(фоновое + диффузное)
 
+out vec3 v_normal;
+out vec3 v_eyeDirectModel;
+
 struct AmbientLight { // структура для внешнего освещения
     vec3 color; // цвет внешнего освещения
     float intensity; // интенсивность внешнего освещения
@@ -37,17 +40,14 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
 
-const mediump float eta = 0.5;
+const mediump float eta = 0.1;
 void main() {
-    vec4 EyePosModel = u_mvMatrix * a_position;
+    v_normal = a_normal;
 
-    mediump vec3 eyeDirModel = normalize(-EyePosModel.xyz);
-
-    mediump vec3 refractDir = refract(eyeDirModel, a_normal, eta);
-
-    refractDir = (u_mvpMatrix * vec4(refractDir, 0.0)).xyw;
-
-    RefractCoord = 0.5 * (refractDir.xy / refractDir.z) + 0.5;
+    vec4 eyePositionModel = u_mvMatrix * a_position;
+    // Eye direction in model space
+    vec3 eyeDirectModel = normalize(- eyePositionModel.xyz);
+    v_eyeDirectModel = eyeDirectModel;
 
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
