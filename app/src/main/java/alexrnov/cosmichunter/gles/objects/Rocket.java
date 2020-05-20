@@ -178,7 +178,7 @@ public class Rocket extends Object3D {
 
     // включить прозрачность
     GLES20.glEnable(GLES20.GL_BLEND);
-    // GLES20.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
+    //GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE);
     GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
 
