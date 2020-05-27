@@ -4,6 +4,7 @@
 precision lowp float; // низкая точность для всех переменных, основанных на типе float
 uniform mat4 u_mvpMatrix; // модельно-видо-проекционная матрица
 uniform mat4 u_mvMatrix; // модельно-видовая матрица
+uniform mat4 u_pointViewMatrix;
 // атрибуты(переменные вершин) принимают значения, задаваемые для выводимых
 // вершин. Обычно атрибуты хранят такие данные, как положение, нормаль,
 // текстурные координаты и цвета. Описатель layout в начале используется
@@ -24,6 +25,7 @@ smooth out vec4 v_commonLight; //интерполятор для общего о
 
 out vec3 v_normal;
 out vec3 v_eyeDirectModel;
+//out lowp float SpecularIntensity;
 
 struct AmbientLight { // структура для внешнего освещения
     vec3 color; // цвет внешнего освещения
@@ -39,8 +41,21 @@ uniform AmbientLight u_ambientLight; // переменная для внешне
 uniform DiffuseLight u_diffuseLight; // переменная для диффузного освещения
 
 const vec3 lightDirection = vec3(0.7, 0.0, -1.0); // вектор направленного освещения
-
+const vec3 lightDirection2 = vec3(20.0, 0.0, -50.0); // вектор направленного освещения
+const vec3 lightPosition = vec3(-5.0, 0.0, 1.0);
 const mediump float eta = 0.1;
+
+/*
+float getSpecularIntensity(vec4 position, vec3 a_normal, vec3 eyeDirectModel) {
+    float shininess = 100.0;
+    vec3 lightPosition = vec3(-20.0, 0.0, 0.0);
+    // We ignore that N dot L could be negative (light coming from behind the surface)
+    mediump vec3 LightDirModel = normalize(lightPosition - position.xyz);
+    mediump vec3 halfVector = normalize(LightDirModel + eyeDirectModel);
+    lowp float NdotH = max(dot(a_normal, halfVector), 0.0);
+    return pow(NdotH, shininess);
+}
+*/
 void main() {
     v_normal = a_normal;
 
@@ -49,11 +64,23 @@ void main() {
     vec3 eyeDirectModel = normalize(- eyePositionModel.xyz);
     v_eyeDirectModel = eyeDirectModel;
 
+    // specular lighting
+    //SpecularIntensity = getSpecularIntensity(a_position, a_normal, eyeDirectModel);
+
+
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
     // преобразовать ориентацию нормали в пространство глаза
     vec3 modelViewNormal = vec3(u_mvMatrix * vec4(a_normal, 0.0));
-    float diffuse = max(-dot(modelViewNormal, lightDirection), 0.0);
+    vec3 modelViewVertex = vec3(u_mvMatrix * a_position); // eye coord
+
+    vec3 lightVector = normalize(lightPosition - modelViewVertex);
+    lightVector = mat3(u_pointViewMatrix) * lightVector;
+    float diffuse = max(dot(modelViewNormal, lightVector), 0.0);
+    //vec3 lightDirection2 = normalize(lightDirection2 - eyePositionModel.xyz);
+
+    //float diffuse = max(-dot(modelViewNormal, lightDirection), 0.0);
+
     // расчитать итоговый цвет для диффузного освещения
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
 

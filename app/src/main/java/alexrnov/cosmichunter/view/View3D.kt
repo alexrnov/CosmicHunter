@@ -18,6 +18,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
   protected val aspect = widthScreen.toFloat() / heightScreen.toFloat()
 
   protected val viewMatrix = FloatArray(16)
+  private val pointViewMatrix = FloatArray(16)
   protected val projectionMatrix = FloatArray(16)
 
   protected val modelMatrix = FloatArray(16)
@@ -36,6 +37,10 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
     Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 0f,
             0f, 0f, -4f, 0f, 1.0f, 0.0f)
     setPerspectiveProjection()
+
+    Matrix.setLookAtM(pointViewMatrix, 0, 3.8f, 0.0f, 2.8f,
+            0.0f, 0f, 0f, 0f, 1.0f, 0.0f)
+
   }
 
   /*
@@ -87,4 +92,7 @@ abstract class View3D(val widthScreen: Int, private val heightScreen: Int) {
   fun getVMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(viewMatrix)
 
   fun getPMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(projectionMatrix)
+
+  fun getPointViewMatrixAsFloatBuffer(): FloatBuffer = Buffers.floatBuffer(pointViewMatrix)
+
 }

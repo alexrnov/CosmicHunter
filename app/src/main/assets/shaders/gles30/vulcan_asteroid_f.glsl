@@ -10,6 +10,7 @@ in mediump vec2 RefractCoord;
 out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
 in vec3 v_eyeDirectModel;
 in vec3 v_normal;
+//in lowp float SpecularIntensity;
 
 uniform samplerCube s_texture;
 
@@ -25,8 +26,9 @@ void main() {
 
 
     vec4 glassColor = texture(s_texture, vec3(refractCoord, 1.0));
+    //outColor = glassColor + SpecularIntensity + v_commonLight;
     outColor = glassColor + v_commonLight;
-    outColor.a = 0.3;
+    outColor.a = 0.8;
     //outColor = vec4(refractColor, 1.0) * v_commonLight;
 
 }

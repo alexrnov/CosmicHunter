@@ -59,7 +59,7 @@ public abstract class Object3D {
     // не выведено в отдельный метод - потому как финальные переменные
     // должны быть проинициализированы в конструкторе
     float[] verticesTemplate = modelData.getVertices();
-    NUMBER_VERTICES = modelData.getVertices().length / VERTEX_COMPONENT;
+    NUMBER_VERTICES = verticesTemplate.length / VERTEX_COMPONENT;
     for (int i = 0; i < verticesTemplate.length; i++) {
       verticesTemplate[i] = verticesTemplate[i] * scale;
     }
@@ -86,7 +86,7 @@ public abstract class Object3D {
     // не выведено в отдельный метод - потому как финальные переменные
     // должны быть проинициализированы в конструкторе
     float[] verticesTemplate = modelData.getVertices();
-    NUMBER_VERTICES = modelData.getVertices().length / VERTEX_COMPONENT;
+    NUMBER_VERTICES = verticesTemplate.length / VERTEX_COMPONENT;
     for (int i = 0; i < verticesTemplate.length; i++) {
       verticesTemplate[i] = verticesTemplate[i] * scale;
     }

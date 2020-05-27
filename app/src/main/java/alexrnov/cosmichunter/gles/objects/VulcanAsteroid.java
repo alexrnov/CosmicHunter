@@ -18,6 +18,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
   private final int mvpMatrixLink;
   // ссылка на переменную вершинного шейдера, содержащую модельно-видовую матрицу
   private final int mvMatrixLink;
+  private final int pointViewMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
   // ссылка на переменную вершинного шейдера, содержащую вектор цвета
@@ -77,6 +78,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
+    pointViewMatrixLink = GLES20.glGetUniformLocation(programObject, "u_pointViewMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
@@ -178,7 +180,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform1f(ambientLightIntensityLink, 0.01f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 0.3f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 2.0f);
 
     GLES20.glEnable(GLES20.GL_BLEND);
 
@@ -202,6 +204,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     // будет использоваться текстурный блок GL_TEXTURE0, к которой
     // привязана текстура textureId
     GLES20.glUniform1i(samplerLink, 0);
+
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
             view.getMVMatrixAsFloatBuffer());
@@ -209,6 +212,9 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,
             view.getMVPMatrixAsFloatBuffer());
+
+    GLES20.glUniformMatrix4fv(pointViewMatrixLink, 1, false,
+            view.getPointViewMatrixAsFloatBuffer());
 
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, VBO[2]);
     // выполнить рендеринг. Первый параметр - тип выводимых примитивов.
