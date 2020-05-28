@@ -5,7 +5,6 @@ precision lowp float;
 uniform mat4 u_mvpMatrix;
 
 smooth in vec4 v_commonLight;
-in mediump vec2 RefractCoord;
 
 out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
 in vec3 v_eyeDirectModel;

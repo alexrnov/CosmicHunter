@@ -19,6 +19,8 @@ public class IceAsteroid extends Object3D implements Asteroid {
   private final int mvpMatrixLink;
   // ссылка на переменную вершинного шейдера, содержащую модельно-видовую матрицу
   private final int mvMatrixLink;
+  // ссылка на переменную вершинного шейдера, содержащую матрицу вида для точки обзора
+  private final int pointViewMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
   // ссылка на переменную вершинного шейдера, содержащую вектор цвета
@@ -81,6 +83,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
     mvpMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvpMatrix");
     // получить индексы для индентификации uniform-переменных в программе
     mvMatrixLink = GLES20.glGetUniformLocation(programObject, "u_mvMatrix");
+    pointViewMatrixLink = GLES20.glGetUniformLocation(programObject, "u_pointViewMatrix");
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     // textureID = loadTextureFromRaw(context, R.raw.ice_texture); //загрузить текстуру
@@ -235,6 +238,9 @@ public class IceAsteroid extends Object3D implements Asteroid {
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
             view.getMVMatrixAsFloatBuffer());
+
+    GLES20.glUniformMatrix4fv(pointViewMatrixLink, 1, false,
+            view.getPointViewMatrixAsFloatBuffer());
 
     // итоговая MVP-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvpMatrixLink, 1, false,

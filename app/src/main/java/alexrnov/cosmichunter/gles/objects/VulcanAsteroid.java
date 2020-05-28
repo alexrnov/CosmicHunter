@@ -18,6 +18,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
   private final int mvpMatrixLink;
   // ссылка на переменную вершинного шейдера, содержащую модельно-видовую матрицу
   private final int mvMatrixLink;
+  // ссылка на переменную вершинного шейдера, содержащую матрицу вида для точки обзора
   private final int pointViewMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
@@ -175,11 +176,11 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
 
     // передать в шейдер трехкомпонентный вектор цвета(белый) для
     // окружающего света
-    GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
+    GLES20.glUniform3f(ambientLightColorLink, 1.0f, 0.5f, 1.0f);
     // передать в шейдер интенсивность окружающего света
     GLES20.glUniform1f(ambientLightIntensityLink, 0.01f);
 
-    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
+    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 0.5f, 0.1f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 2.0f);
 
     GLES20.glEnable(GLES20.GL_BLEND);
