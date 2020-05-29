@@ -49,8 +49,8 @@ public class MetalAsteroid extends Object3D implements Asteroid {
 
   private Explosion explosion;
 
-  public MetalAsteroid(double versionGL, Context context, float scale) { //, TypeAsteroid type) {
-    super(context, scale, "objects/asteroid1.obj");
+  public MetalAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
+    super(context, scale, objectPath);
 
     //загрузка шейдеров из каталога raw
     //LinkedProgram linkedProgramGL = new LinkedProgram(context,

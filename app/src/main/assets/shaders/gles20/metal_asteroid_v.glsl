@@ -59,7 +59,7 @@ void main() {
     vec3 eye = normalize(modelViewVertex);
     vec3 normal = normalize(modelViewNormal);
     vec3 reflection = reflect(lightDirection, normal);
-    lowp float specularFactor = pow(max(0.0, -dot(reflection, eye)), 22.0);
+    lowp float specularFactor = pow(max(0.0, -dot(reflection, eye)), 20.0);
 
     // расчитать итоговый цвет для диффузного освещения
     lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
