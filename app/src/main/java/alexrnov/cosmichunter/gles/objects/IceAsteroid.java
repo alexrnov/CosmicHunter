@@ -199,7 +199,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     //GLES30.glUniform1f(diffuseLightIntensityLink, 500.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 0.8f); // 50
-    GLES20.glUniform1f(alphaLink, 0.85f); // коэффициент прозрачности
+    GLES20.glUniform1f(alphaLink, 0.95f); // коэффициент прозрачности
 
     GLES20.glEnable(GLES20.GL_BLEND);
     //GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
