@@ -172,32 +172,39 @@ fun changeHeaderColorInRecentApps(app:AppCompatActivity) {
   }
 }
 
+/**
+ * Получить текущую громкость для левого-правого динамиков в
+ * зависимости от настроек громкости в системе.
+ */
 fun getVolumeForApplication(activity: AppCompatActivity): FloatArray {
   // текущие настройки громкости в системе
   val audioManager = activity.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+  return getVolume(audioManager)
+}
 
-  val curVolume: Float = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
+/**
+ * Получить текущую громкость для левого-правого динамиков в
+ * зависимости от настроек громкости в системе.
+ * [application] - экземпляр класса, который запускается при
+ * инициализации приложения
+ */
+fun getVolumeForApplication(application: Application): FloatArray {
+  // текущие настройки громкости в системе
+  val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+  return getVolume(audioManager)
+}
+
+fun getVolume(audioManager: AudioManager): FloatArray {
+  val curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
   val maxVolume: Float = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
   var leftVolume = curVolume / maxVolume
   var rightVolume = curVolume / maxVolume
 
+  // прибегнуть к уловке - если в системе нет звука, сделать звук в приложении
+  // очень тихим, так что его не будет слышно. Но вместе с тем, при регулировке
+  // громкости звук станет слышен, чего не произошло бы, если звук был установлен в 0
   if (leftVolume.toDouble() == 0.0) leftVolume = 0.1f
   if (rightVolume.toDouble() == 0.0) rightVolume = 0.1f
-  Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
-  return floatArrayOf(leftVolume, rightVolume)
-}
-
-
-fun getVolumeForApplication(application: Application): FloatArray {
-  // установить громкость приложения в зависимости от текущих настроек громкости в системе
-
-  // установить громкость приложения в зависимости от текущих настроек громкости в системе
-  val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-  val curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
-  val maxVolume: Float = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
-
-  val leftVolume = curVolume / maxVolume
-  val rightVolume = curVolume / maxVolume
   Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
   return floatArrayOf(leftVolume, rightVolume)
 }

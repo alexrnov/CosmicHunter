@@ -29,6 +29,8 @@ public class ShortSounds {
   private static SparseIntArray soundPoolMap = new SparseIntArray();
   private static float[] volume;
 
+  private static float volumeGunLeft;
+  private static float volumeGunRight;
   //private static Application app;
   /**
    * Инициализация и загрузка треков для коротких звуков
@@ -58,6 +60,8 @@ public class ShortSounds {
     soundPoolMap.put(1, explosionSound.load(application, R.raw.explosion_sound, 0));
     soundPoolMap.put(2, gunSound.load(application, R.raw.gun_sound, 0));
     volume = getVolumeForApplication(application);
+    volumeGunLeft = volume[0] / 3; // для пуска ракет громкасть в три раза ниже
+    volumeGunRight = volume[1] / 3; // чтобы эти звуки не раздражали слух
   }
 
   /** воспризвести звук нажатия на кнопку меню */
@@ -86,7 +90,7 @@ public class ShortSounds {
     // проверка включения опции звука проводится при запуске рендера
     // для звуков пуска ракет используется пониженный уровень звука,
     // чтобы сделать его менее явным
-    gunSound.play(soundPoolMap.get(2), volume[0]/5, volume[1]/5, 0, 0, 1f);
+    gunSound.play(soundPoolMap.get(2), volumeGunLeft, volumeGunRight, 0, 0, 1f);
   }
 
   /**
