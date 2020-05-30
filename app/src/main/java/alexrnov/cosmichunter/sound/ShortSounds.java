@@ -12,6 +12,7 @@ import alexrnov.cosmichunter.R;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.sp;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.getVolumeForApplication;
 
 /**
  * Класс для воспроизведения коротких звуков в приложении. Используются статические
@@ -26,6 +27,8 @@ public class ShortSounds {
   // SparseIntArray дает лучшую производительность по сравнению с
   // HashMap<Integer, Integer>()
   private static SparseIntArray soundPoolMap = new SparseIntArray();
+  private static float[] volume;
+
   //private static Application app;
   /**
    * Инициализация и загрузка треков для коротких звуков
@@ -54,6 +57,7 @@ public class ShortSounds {
     soundPoolMap.put(0, clickSound.load(application, R.raw.click_sound, 0));
     soundPoolMap.put(1, explosionSound.load(application, R.raw.explosion_sound, 0));
     soundPoolMap.put(2, gunSound.load(application, R.raw.gun_sound, 0));
+    volume = getVolumeForApplication(application);
   }
 
   /** воспризвести звук нажатия на кнопку меню */
@@ -67,14 +71,14 @@ public class ShortSounds {
        * rate - скорость воспроизведения (1 - нормальная скорость)
        */
       clickSound.play(soundPoolMap.get(0),
-              1.0f, 1.0f, 0, 0, 1f);
+              volume[0], volume[1], 0, 0, 1f);
     }
   }
 
   /** воспроизвести звук взрыва */
   public static void playExplosion() {
     // проверка включения опции звука проводится при запуске рендера
-    explosionSound.play(soundPoolMap.get(1), 1.0f, 1.0f, 0, 0, 1f);
+    explosionSound.play(soundPoolMap.get(1), volume[0], volume[1], 0, 0, 1f);
   }
 
   /** воспроизвести звук пуска ракеты */
@@ -82,7 +86,7 @@ public class ShortSounds {
     // проверка включения опции звука проводится при запуске рендера
     // для звуков пуска ракет используется пониженный уровень звука,
     // чтобы сделать его менее явным
-    gunSound.play(soundPoolMap.get(2), 0.3f, 0.3f, 0, 0, 1f);
+    gunSound.play(soundPoolMap.get(2), volume[0]/5, volume[1]/5, 0, 0, 1f);
   }
 
   /**
@@ -95,14 +99,6 @@ public class ShortSounds {
   }
 
 
-  private static void getVolume(Application app) {
-    // установить громкость приложения в зависимости от текущих настроек громкости в системе
-    AudioManager audioManager = (AudioManager) app.getSystemService(Context.AUDIO_SERVICE);
-    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-    float leftVolume = curVolume/maxVolume;
-    float rightVolume = curVolume/maxVolume;
-    Log.i(TAG, "leftVolume = " + leftVolume + ", rightVolume = " + rightVolume);
-  }
+
 
 }
