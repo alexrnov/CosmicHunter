@@ -5,22 +5,24 @@ import alexrnov.cosmichunter.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
+import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
+import android.media.AudioManager
 import android.os.Build
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import android.view.WindowManager
-import android.content.res.Configuration
-import android.graphics.BitmapFactory
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Получить размеры экрана не учитывая ширину навигационной панели.
@@ -169,3 +171,34 @@ fun changeHeaderColorInRecentApps(app:AppCompatActivity) {
     app.setTaskDescription(taskDescription)
   }
 }
+
+fun getVolumeForApplication(activity: AppCompatActivity): FloatArray {
+  // текущие настройки громкости в системе
+  val audioManager = activity.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+  val curVolume: Float = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
+  val maxVolume: Float = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
+  var leftVolume = curVolume / maxVolume
+  var rightVolume = curVolume / maxVolume
+
+  if (leftVolume.toDouble() == 0.0) leftVolume = 0.1f
+  if (rightVolume.toDouble() == 0.0) rightVolume = 0.1f
+  Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
+  return floatArrayOf(leftVolume, rightVolume)
+}
+
+
+fun getVolumeForApplication(application: Application): FloatArray {
+  // установить громкость приложения в зависимости от текущих настроек громкости в системе
+
+  // установить громкость приложения в зависимости от текущих настроек громкости в системе
+  val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+  val curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
+  val maxVolume: Float = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
+
+  val leftVolume = curVolume / maxVolume
+  val rightVolume = curVolume / maxVolume
+  Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
+  return floatArrayOf(leftVolume, rightVolume)
+}
+

@@ -10,6 +10,7 @@ import android.util.Log;
 import java.io.IOException;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
+import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.getVolumeForApplication;
 import static java.io.File.separator;
 
 /** Класс для фоновой музыки в приложении */
@@ -52,17 +53,12 @@ public class BackgroundMusic {
   }
 
   private static void startPlayer(AppCompatActivity activity, Uri uri) {
-    /*
-    // установить громкость приложения в зависимости от текущих настроек громкости в системе
-    AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-    float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-    float maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-    float leftVolume = curVolume/maxVolume;
-    float rightVolume = curVolume/maxVolume;
-    */
+    // получить настройки громкости в системе
+    float[] volume = getVolumeForApplication(activity);
+
     player = new MediaPlayer();
     player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-    player.setVolume(1, 1);
+    player.setVolume(volume[0], volume[1]);
     player.setLooping(true);
     try {
       player.setDataSource(activity.getApplicationContext(), uri);

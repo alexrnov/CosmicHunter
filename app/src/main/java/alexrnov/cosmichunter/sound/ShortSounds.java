@@ -94,8 +94,8 @@ public class ShortSounds {
     return stateSound.equals("on");
   }
 
-  /*
-  private static void getVolume() {
+
+  private static void getVolume(Application app) {
     // установить громкость приложения в зависимости от текущих настроек громкости в системе
     AudioManager audioManager = (AudioManager) app.getSystemService(Context.AUDIO_SERVICE);
     float curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -104,5 +104,5 @@ public class ShortSounds {
     float rightVolume = curVolume/maxVolume;
     Log.i(TAG, "leftVolume = " + leftVolume + ", rightVolume = " + rightVolume);
   }
-  */
+
 }
