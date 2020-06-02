@@ -32,6 +32,7 @@ smooth out vec4 v_commonLight; //интерполятор для общего о
 
 out float CosViewAngle;
 out float LightIntensity;
+out vec4 v_ResultColor;
 
 struct AmbientLight { // структура для внешнего освещения
     vec3 color; // цвет внешнего освещения
@@ -48,6 +49,15 @@ uniform DiffuseLight u_diffuseLight; // переменная для диффуз
 
 const vec3 lightPosition = vec3(-5.0, 0.0, 1.0); // позиция источника света
 
+
+const mediump float PI = 3.141592654;
+const mediump vec3 rgbK = 2.0 * PI * vec3(1.0/475.0, 1.0/510.0, 1.0/650.0);
+
+const mediump float iridescence = 7.4;
+const mediump float minThickness = 50.0;
+const mediump float maxVariation = 50.0;
+
+
 void main() {
     // расчитать итоговый цвет для внешнего освещение
     lowp vec3 ambientColor = u_ambientLight.color * u_ambientLight.intensity;
@@ -62,6 +72,17 @@ void main() {
 
     LightIntensity = max(dot(lightVector, modelViewNormal), 0.0);
     CosViewAngle = max(dot(eyeDirection, modelViewNormal), 0.1);
+
+
+    mediump float thickness = 0.1 * maxVariation + minThickness;
+    mediump float delta = (thickness / LightIntensity) + (thickness / CosViewAngle);
+    lowp vec3 color = cos(delta * rgbK) * iridescence * LightIntensity;
+    v_ResultColor = vec4(color, 1.0);
+
+
+
+
+
 
     float diffuse = max(dot(modelViewNormal, lightVector), 0.0);
 

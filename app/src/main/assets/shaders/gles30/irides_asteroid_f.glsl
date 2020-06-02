@@ -7,6 +7,7 @@ in vec2 v_textureCoordinates; //in - вместо varying в OpenGL 2.0/GLSL 1.0
 
 in float CosViewAngle;
 in float LightIntensity;
+in vec4 v_ResultColor;
 
 smooth in vec4 v_commonLight;
 out vec4 outColor; // вместо mediump vec4 gl_FragColor в OpenGL 2.0/GLSL 1.00
@@ -27,7 +28,7 @@ const mediump vec3 rgbK = 2.0 * PI * vec3(1.0/475.0, 1.0/510.0, 1.0/650.0);
 //const mediump float minThickness = 80.0;
 //const mediump float maxVariation = 50.0;
 const mediump float iridescence = 7.4;
-const mediump float minThickness = 50.0;
+const mediump float minThickness = 100.0;
 const mediump float maxVariation = 50.0;
 
 void main() {
@@ -44,8 +45,22 @@ void main() {
     lowp vec3 color = cos(delta * rgbK) * iridescence * LightIntensity;
 
     vec4 resultColor = vec4(color, 1.0);
-    if (delta > 1700.0 || delta < 370.0) {
+    //if (delta > 1700.0 || delta < 370.0) {
+       // resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
+    //}
+    //vec4 texturColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
+    //float gray_scale  = (color.r + color.g + color.b) / 3.0;
+    //resultColor = mix(texturColor, vec4(color, 1.0), gray_scale);
+    //resultColor = mix(vec4(color, 1.0), vec4(1.0, 1.0, 1.0, 1.0), 50.0);
+    //outColor = resultColor;
+    //outColor.a = 0.3;
+
+    if (delta > 750.0 || delta < 360.0) {
         resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
+    } else {
+        resultColor = vec4(v_ResultColor.xyz, 0.5);
     }
+
     outColor = resultColor;
+    //outColor.a = 0.3;
 }
