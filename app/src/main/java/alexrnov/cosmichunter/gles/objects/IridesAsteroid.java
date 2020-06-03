@@ -7,12 +7,13 @@ import android.util.Log;
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.AsteroidView3D;
+import alexrnov.cosmichunter.view.PlanetView3D;
 import alexrnov.cosmichunter.view.View3D;
 
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
-public class GasAsteroid extends Object3D implements Asteroid {
+public class IridesAsteroid extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -41,12 +42,12 @@ public class GasAsteroid extends Object3D implements Asteroid {
   private final int textureCoordinatesLink; // индекс переменной атрибута для текстурных координат
   private final int normalLink; // индекс переменной атрибута для нормали
 
-  private AsteroidView3D view;
+  private PlanetView3D view;
   private final int[] VBO = new int[4];
 
   private Explosion explosion;
 
-  public GasAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
+  public IridesAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
     super(context, scale, objectPath);
 
     //загрузка шейдеров из каталога raw
@@ -56,14 +57,13 @@ public class GasAsteroid extends Object3D implements Asteroid {
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles20/gas_asteroid_v.glsl",
-              "shaders/gles20/gas_asteroid_f.glsl");
+              "shaders/gles20/irides_asteroid_v.glsl",
+              "shaders/gles20/irides_asteroid_f.glsl");
     } else if (versionGL == 3.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles30/gas_asteroid_v.glsl",
-              "shaders/gles30/gas_asteroid_f.glsl");
+              "shaders/gles30/irides_asteroid_v.glsl",
+              "shaders/gles30/irides_asteroid_f.glsl");
     }
-
 
     final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
@@ -85,7 +85,7 @@ public class GasAsteroid extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.gas_texture); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, R.raw.irides_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -140,7 +140,7 @@ public class GasAsteroid extends Object3D implements Asteroid {
 
   @Override
   public void setView(View3D view) {
-    if (view instanceof AsteroidView3D) this.view = (AsteroidView3D) view;
+    if (view instanceof PlanetView3D) this.view = (PlanetView3D) view;
   }
 
   @Override
@@ -190,10 +190,10 @@ public class GasAsteroid extends Object3D implements Asteroid {
     // окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.3f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.7f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 1.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 1.5f);
 
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут

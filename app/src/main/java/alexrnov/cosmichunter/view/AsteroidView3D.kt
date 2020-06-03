@@ -11,7 +11,7 @@ import java.util.*
  * Определяет поведение астероида, - такие его характеристики как:
  * скорость и направление движения, вращение
  */
-class AsteroidView3D(widthScreen: Int, heightScreen: Int):
+open class AsteroidView3D(widthScreen: Int, heightScreen: Int):
         View3D(widthScreen, heightScreen) {
 
   private val r = Random()

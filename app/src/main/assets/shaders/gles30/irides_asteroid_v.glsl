@@ -24,6 +24,17 @@ in vec3 a_normal; // сюда загружаются нормали
 // размещения(layout)
 out vec2 v_textureCoordinates; //out - вместо varying в OpenGL 2.0/GLSL 1.00
 
+// smooth - описатель интерполяции. Smooth(линейная интерполяция вдоль примитива)
+// - используется по умолчанию. Другие возможные варианты flat(плоское закрашивние)
+// и centroid(интерполяция внутри примитива)
+smooth out vec4 v_commonLight; //интерполятор для общего освещения(фоновое + диффузное)
+
+
+out float CosViewAngle;
+out float LightIntensity;
+out vec4 v_ResultColor;
+out float v_Intensity;
+
 out lowp float  v_DiffuseIntensity;
 out lowp float  v_SpecularIntensity;
 
@@ -63,6 +74,7 @@ void main() {
     vec3 lightVector = normalize(lightPosition - modelViewVertex);
     lightVector = mat3(u_pointViewMatrix) * lightVector;
 
+
     mediump vec3 normalXgrain = cross(modelViewNormal, cGrainDirection);
     mediump vec3 tangent = normalize(cross(normalXgrain, modelViewNormal));
     mediump float LdotT = dot(tangent, normalize(lightVector));
@@ -73,6 +85,45 @@ void main() {
     v_DiffuseIntensity = max(NdotL * 0.4 + 0.6, 0.0);
     v_SpecularIntensity = max(pow(VdotR, 2.0) * 0.9, 0.0);
 
+
+
+
+
+
+    LightIntensity = max(dot(lightVector, modelViewNormal), 0.0);
+    CosViewAngle = max(dot(eyeDirection, modelViewNormal), 0.1);
+
+    lowp float intensity = 0.0;
+    if (CosViewAngle > 0.33) {
+        intensity = 0.33;
+        if (LightIntensity > 0.76) {
+            intensity = 1.0;
+        } else if (LightIntensity > 0.51) {
+            intensity = 0.84;
+        } else if (LightIntensity > 0.26) {
+            intensity = 0.67;
+        } else if (LightIntensity > 0.1) {
+            intensity = 0.50;
+        }
+    }
+
+    v_Intensity = intensity;
+    mediump float thickness = 0.1 * maxVariation + minThickness;
+    mediump float delta = (thickness / LightIntensity) + (thickness / CosViewAngle);
+    lowp vec3 color = cos(delta * rgbK) * iridescence * LightIntensity;
+    v_ResultColor = vec4(color, 1.0);
+
+
+
+
+
+
+    float diffuse = max(dot(modelViewNormal, lightVector), 0.0);
+
+    // расчитать итоговый цвет для диффузного освещения
+    lowp vec3 diffuseColor = diffuse * u_diffuseLight.color * u_diffuseLight.intensity;
+
+    v_commonLight = vec4((ambientColor + diffuseColor), 1.0);
     v_textureCoordinates = a_textureCoordinates;
     gl_Position = u_mvpMatrix * a_position;
 }
