@@ -54,48 +54,14 @@ void main() {
     mediump float delta = (thickness / LightIntensity) + (thickness / CosViewAngle);
     lowp vec3 color = cos(delta * rgbK) * iridescence * LightIntensity;
 
-    //vec4 resultColor = vec4(color, 1.0);
-    //if (delta > 1700.0 || delta < 370.0) {
-    // resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
-    //}
     vec4 texturColor = texture(s_texture, v_textureCoordinates);
-    //float gray_scale  = (color.r + color.g + color.b) / 3.0;
-    //resultColor = mix(texturColor, vec4(color, 1.0), gray_scale);
-    //resultColor = mix(vec4(color, 1.0), vec4(1.0, 1.0, 1.0, 1.0), 50.0);
-    //outColor = resultColor;
-    //outColor.a = 0.3;
 
     vec4 resultColor = vec4(color, 1.0);
-    //if (delta > 750.0 || delta < 370.0) {
-    //resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
-    //}
+
     if (delta > 1700.0 || delta < 370.0) {
         resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
     }
 
     outColor = resultColor;
-    /*
-    lowp float intensity = 0.0;
-    if (CosViewAngle > 0.33) {
-        intensity = 0.33;
-        if (LightIntensity > 0.76) {
-            intensity = 1.0;
-        } else if (LightIntensity > 0.51) {
-            intensity = 0.84;
-        } else if (LightIntensity > 0.26) {
-            intensity = 0.67;
-        } else if (LightIntensity > 0.1) {
-            intensity = 0.50;
-        }
-    }
-    */
-    //outColor = vec4(defaultColor.xyz * v_Intensity, 1.0) * texturColor;
-
-
-    //lowp vec3 color5 = (defaultColor * v_DiffuseIntensity) + v_SpecularIntensity;
-    //outColor = vec4(color5, 1.0) * texturColor;
-
-
-    //outColor = resultColor;
     outColor.a = 1.0;
 }
