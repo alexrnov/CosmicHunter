@@ -22,18 +22,7 @@ public class GasAsteroid extends Object3D implements Asteroid {
   private final int pointViewMatrixLink;
   // ссылка на переменную вершинного шейдера, которая является семплером
   private final int samplerLink;
-  // ссылка на переменную вершинного шейдера, содержащую вектор цвета
-  // внешнего освещения
-  private final int ambientLightColorLink;
-  // ссылка на переменную вершинного шейдера, содержащую значение
-  // интенсивности внешнего освещения
-  private final int ambientLightIntensityLink;
-  // ссылка на переменную вершинного шейдера, содержащую вектор цвета
-  // диффузного освещения
-  private final int diffuseLightColorLink;
-  // ссылка на переменную вершинного шейдера, содержащую значение
-  // интенсивности диффузного освещения
-  private final int diffuseLightIntensityLink;
+
   // обработчик текстуры
   private final int textureID;
 
@@ -86,14 +75,6 @@ public class GasAsteroid extends Object3D implements Asteroid {
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
     textureID = loadTextureWithMipMapFromRaw(context, R.raw.gas_texture); //загрузить текстуру
-    ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
-            "u_ambientLight.color");
-    ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
-            "u_ambientLight.intensity");
-    diffuseLightColorLink = GLES20.glGetUniformLocation(programObject,
-            "u_diffuseLight.color");
-    diffuseLightIntensityLink = GLES20.glGetUniformLocation(programObject,
-            "u_diffuseLight.intensity");
 
     // получить индексы атрибутов в вершинном шейдере
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
@@ -102,11 +83,7 @@ public class GasAsteroid extends Object3D implements Asteroid {
 
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
-            mvMatrixLink + "; s_texture id: "
-            + samplerLink + "; u_ambientLight.color id: " + ambientLightColorLink +
-            "; u_diffuseLight.color id: " + diffuseLightColorLink +
-            "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
-            "; textureID: " + textureID);
+            mvMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
     createVertexBuffers();
   }
 
@@ -186,15 +163,6 @@ public class GasAsteroid extends Object3D implements Asteroid {
             false, NORMAL_STRIDE, 0);
     GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
-    // передать в шейдер трехкомпонентный вектор цвета(белый) для
-    // окружающего света
-    GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
-    // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.3f);
-
-    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 1.0f);
-
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -206,14 +174,12 @@ public class GasAsteroid extends Object3D implements Asteroid {
     //привязать текстуру к активному текстурному блоку
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
 
-
     // генерировать mipmap
     //GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     // берется результат билинейной интерполяции между четырьмя значениями из ближайшего
     // уровня пирамиды. Для большинства GPU билинейная фильтрация быстрее трилинейной
     GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
             GLES20.GL_LINEAR_MIPMAP_NEAREST);
-
 
     // рисовать с трилинейным фильтрованием
     //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
