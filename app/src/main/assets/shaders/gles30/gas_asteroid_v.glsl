@@ -78,7 +78,7 @@ void main() {
     mediump vec3 normalXgrain = cross(modelViewNormal, cGrainDirection);
     mediump vec3 tangent = normalize(cross(normalXgrain, modelViewNormal));
     mediump float LdotT = dot(tangent, normalize(lightVector));
-    mediump float VdotT = dot(tangent, normalize(mat3(u_mvMatrix) * vec3(0.0, 0.0, 0.0)));
+    mediump float VdotT = dot(tangent, normalize(vec3(0.0, 0.0, 0.0)));
     mediump float NdotL = sqrt(1.0 - pow(LdotT, 2.0));
     mediump float VdotR = NdotL * sqrt(1.0 - pow(VdotT, 2.0)) - VdotT * LdotT;
 

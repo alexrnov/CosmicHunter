@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.view.View3D;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
-public class IridesAsteroid extends Object3D implements Asteroid {
+public class GasAsteroid extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -46,7 +46,7 @@ public class IridesAsteroid extends Object3D implements Asteroid {
 
   private Explosion explosion;
 
-  public IridesAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
+  public GasAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
     super(context, scale, objectPath);
 
     //загрузка шейдеров из каталога raw
@@ -56,12 +56,12 @@ public class IridesAsteroid extends Object3D implements Asteroid {
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles20/irides_asteroid_v.glsl",
-              "shaders/gles20/irides_asteroid_f.glsl");
+              "shaders/gles20/gas_asteroid_v.glsl",
+              "shaders/gles20/gas_asteroid_f.glsl");
     } else if (versionGL == 3.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles30/irides_asteroid_v.glsl",
-              "shaders/gles30/irides_asteroid_f.glsl");
+              "shaders/gles30/gas_asteroid_v.glsl",
+              "shaders/gles30/gas_asteroid_f.glsl");
     }
 
 
@@ -85,7 +85,7 @@ public class IridesAsteroid extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.irides_texture); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, R.raw.gas_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -195,16 +195,6 @@ public class IridesAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
     GLES20.glUniform1f(diffuseLightIntensityLink, 1.5f);
 
-
-
-    GLES20.glEnable(GLES20.GL_BLEND);
-    //GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE);
-
-
-    GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-
-
-
     // привязка к текстурному блоку. Функция задает текущий текстурный
     // блок, так что все дальнейшие вызовы glBindTexture привяжут
     // текстуру к активному текстурному блоку. Номер текстурного блока,
@@ -251,10 +241,6 @@ public class IridesAsteroid extends Object3D implements Asteroid {
     GLES20.glDrawElements(GLES20.GL_TRIANGLES, NUMBER_INDICES, GLES20.GL_UNSIGNED_INT, 0);
     GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     // GLES30.glDisable(GLES30.GL_TEXTURE_2D);
-
-    // отключить прозрачность, чтобы все объекты сцены не были прозрачными
-    GLES20.glDisable(GLES20.GL_BLEND);
-
 
     GLES20.glDisableVertexAttribArray(positionLink); // отключить атрибут вершин куба
     GLES20.glDisableVertexAttribArray(textureCoordinatesLink); // отключить атрибут координат текстуры
