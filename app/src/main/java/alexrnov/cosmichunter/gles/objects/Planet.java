@@ -13,7 +13,7 @@ import alexrnov.cosmichunter.view.View3D;
 import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
-public class IridesAsteroid extends Object3D implements Asteroid {
+public class Planet extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
   private final int mvpMatrixLink;
@@ -47,7 +47,7 @@ public class IridesAsteroid extends Object3D implements Asteroid {
 
   private Explosion explosion;
 
-  public IridesAsteroid(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
+  public Planet(double versionGL, Context context, float scale, String objectPath) { //, TypeAsteroid type) {
     super(context, scale, objectPath);
 
     //загрузка шейдеров из каталога raw
@@ -57,12 +57,12 @@ public class IridesAsteroid extends Object3D implements Asteroid {
     LinkedProgram linkProgram = null;
     if (versionGL == 2.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles20/irides_asteroid_v.glsl",
-              "shaders/gles20/irides_asteroid_f.glsl");
+              "shaders/gles20/planet_v.glsl",
+              "shaders/gles20/planet_f.glsl");
     } else if (versionGL == 3.0) {
       linkProgram = new LinkedProgram(context,
-              "shaders/gles30/irides_asteroid_v.glsl",
-              "shaders/gles30/irides_asteroid_f.glsl");
+              "shaders/gles30/planet_v.glsl",
+              "shaders/gles30/planet_f.glsl");
     }
 
     final String className = this.getClass().getSimpleName() + ".class: ";
