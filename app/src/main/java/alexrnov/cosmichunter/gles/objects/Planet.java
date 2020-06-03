@@ -233,7 +233,7 @@ public class Planet extends Object3D implements Asteroid {
     GLES20.glUniform1i(samplerLink, 0);
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
-            view.getMVMatrixAsFloatBuffer());
+            view.getMV2MatrixAsFloatBuffer());
 
     GLES20.glUniformMatrix4fv(pointViewMatrixLink, 1, false,
             view.getPointViewMatrixAsFloatBuffer());

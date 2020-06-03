@@ -97,5 +97,5 @@ void main() {
 
 
     //outColor = resultColor;
-    outColor.a = 0.3;
+    outColor.a = 1.0;
 }
