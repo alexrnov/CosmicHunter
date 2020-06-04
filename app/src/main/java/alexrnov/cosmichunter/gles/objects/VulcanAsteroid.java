@@ -181,7 +181,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     GLES20.glUniform1f(ambientLightIntensityLink, 0.01f);
 
     GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 0.5f, 0.1f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 2.0f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 1.0f);
 
     GLES20.glEnable(GLES20.GL_BLEND);
 

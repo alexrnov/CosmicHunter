@@ -35,9 +35,9 @@ const mediump vec3 rgbK = 2.0 * PI * vec3(1.0/475.0, 1.0/510.0, 1.0/650.0);
 //const mediump float iridescence = 4.4;
 //const mediump float minThickness = 80.0;
 //const mediump float maxVariation = 50.0;
-const mediump float iridescence = 7.4;
+const mediump float iridescence = 7.0;
 const mediump float minThickness = 50.0;
-const mediump float maxVariation = 50.0;
+const mediump float maxVariation = 34.0;
 
 const lowp vec3 defaultColor = vec3(0.1, 0.7, 0.9);
 const lowp vec3  cBaseColor = vec3(0.9, 0.5, 0.1);
@@ -58,10 +58,10 @@ void main() {
 
     vec4 resultColor = vec4(color, 1.0);
 
-    if (delta > 1700.0 || delta < 370.0) {
+    if (delta > 750.0 || delta < 370.0) {
         resultColor = texture(s_texture, v_textureCoordinates) * v_commonLight;
     }
 
     outColor = resultColor;
-    outColor.a = 1.0;
+    outColor.a = 0.3;
 }

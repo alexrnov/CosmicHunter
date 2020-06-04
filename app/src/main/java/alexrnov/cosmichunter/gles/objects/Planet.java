@@ -85,7 +85,7 @@ public class Planet extends Object3D implements Asteroid {
     //получить местоположение семплера
     samplerLink = GLES20.glGetUniformLocation(programObject, "s_texture");
     //textureID = loadTextureFromRaw(context, R.raw.dolerite_texture);
-    textureID = loadTextureWithMipMapFromRaw(context, R.raw.irides_texture); //загрузить текстуру
+    textureID = loadTextureWithMipMapFromRaw(context, R.raw.planet_texture); //загрузить текстуру
     ambientLightColorLink = GLES20.glGetUniformLocation(programObject,
             "u_ambientLight.color");
     ambientLightIntensityLink = GLES20.glGetUniformLocation(programObject,
@@ -190,10 +190,10 @@ public class Planet extends Object3D implements Asteroid {
     // окружающего света
     GLES20.glUniform3f(ambientLightColorLink, 1.0f, 1.0f, 1.0f);
     // передать в шейдер интенсивность окружающего света
-    GLES20.glUniform1f(ambientLightIntensityLink, 0.7f);
+    GLES20.glUniform1f(ambientLightIntensityLink, 0.4f);
 
-    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 1.0f, 1.0f);
-    GLES20.glUniform1f(diffuseLightIntensityLink, 1.5f);
+    GLES20.glUniform3f(diffuseLightColorLink, 1.0f, 0.5f, 0.1f);
+    GLES20.glUniform1f(diffuseLightIntensityLink, 0.9f);
 
 
     GLES20.glEnable(GLES20.GL_BLEND);
@@ -233,7 +233,7 @@ public class Planet extends Object3D implements Asteroid {
     GLES20.glUniform1i(samplerLink, 0);
     // MV-матрица загружается в соответствующую uniform-переменную
     GLES20.glUniformMatrix4fv(mvMatrixLink, 1, false,
-            view.getMV2MatrixAsFloatBuffer());
+            view.getMVNoScaleMatrixAsFloatBuffer());
 
     GLES20.glUniformMatrix4fv(pointViewMatrixLink, 1, false,
             view.getPointViewMatrixAsFloatBuffer());
