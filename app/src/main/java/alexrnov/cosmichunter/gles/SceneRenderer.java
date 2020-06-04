@@ -12,8 +12,10 @@ import alexrnov.cosmichunter.gles.objects.BasaltAsteroid;
 import alexrnov.cosmichunter.gles.objects.Explosion;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES20;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES30;
+import alexrnov.cosmichunter.gles.objects.GasAsteroid;
 import alexrnov.cosmichunter.gles.objects.IceAsteroid;
 import alexrnov.cosmichunter.gles.objects.MetalAsteroid;
+import alexrnov.cosmichunter.gles.objects.VulcanAsteroid;
 
 public interface SceneRenderer extends GLSurfaceView.Renderer  {
   /** установить ссылку на gameActivity, чтобы связываться с цифровым табло во время игры */
@@ -34,7 +36,7 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
    */
   boolean isLoadGame();
 
-  enum TypeExplosion { ROCK, ICE, METAL, VULCAN }
+  enum TypeExplosion { ROCK, ICE, METAL, VULCAN, GAS }
 
   /* К каждому астероиду привязать взрыв */
   default void bindExplosions(Asteroid asteroid, List<Explosion> activeExplosions,
@@ -45,8 +47,10 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
       asteroid.setExplosion(createExplosion(TypeExplosion.METAL, versionGL, context));
     } else if (asteroid instanceof IceAsteroid) {
       asteroid.setExplosion(createExplosion(TypeExplosion.ICE, versionGL, context));
-    } else {
+    } else if (asteroid instanceof VulcanAsteroid) {
       asteroid.setExplosion(createExplosion(TypeExplosion.VULCAN, versionGL, context));
+    } else {
+      asteroid.setExplosion(createExplosion(TypeExplosion.GAS, versionGL, context));
     }
     asteroid.getExplosion().setExplosions(activeExplosions);
   }
@@ -65,6 +69,9 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
       case VULCAN:
         if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/vulcan.png", new float[] {1.0f, 0.5f, 0.1f, 1.0f});
         else return new ExplosionGLES20(context, "explosion/vulcan.png", new float[] {1.0f, 0.5f, 0.1f, 1.0f});
+      case GAS:
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/ice.png", new float[] {0.5f, 0.7f, 0.9f, 1.0f});
+        else return new ExplosionGLES20(context, "explosion/ice.png", new float[] {0.5f, 0.7f, 0.9f, 1.0f});
       default: return null;
     }
   }
