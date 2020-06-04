@@ -367,7 +367,7 @@ public class GameActivity extends AppCompatActivity {
   private void setNumberRocketsForLevel(TextView rockets, int level) {
     switch(level) {
       case 1:
-        rockets.setText("r:300");
+        rockets.setText("r:500");
         break;
       case 2:
         rockets.setText("r:200");
