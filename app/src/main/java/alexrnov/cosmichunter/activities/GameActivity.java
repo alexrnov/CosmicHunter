@@ -372,10 +372,10 @@ public class GameActivity extends AppCompatActivity {
         rockets.setText("r:150");
         break;
       case 3:
-        rockets.setText("r:100");
+        rockets.setText("r:80");
         break;
       case 4:
-        rockets.setText("r:70");
+        rockets.setText("r:60");
         break;
       case 5:
         rockets.setText("r:55");
