@@ -1,6 +1,6 @@
 package alexrnov.cosmichunter.utils
 
-import alexrnov.cosmichunter.Initialization.TAG
+//import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,7 +14,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.media.AudioManager
 import android.os.Build
-import android.util.Log
+//import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -34,7 +34,7 @@ fun getScreenSizeWithoutNavBar(activity: AppCompatActivity): Pair<Int, Int> {
   return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
     val size = Point()
     display.getSize(size) // was introduced in Level API 13 and height
-    printDensityScreen(activity, size.x, size.y)
+    //printDensityScreen(activity, size.x, size.y)
     Pair(size.x, size.y)
   } else {
     @Suppress("DEPRECATION")
@@ -141,8 +141,8 @@ private fun printDensityScreen(activity: AppCompatActivity, width: Int, height: 
   val density: Float = displayMetrics.density
   val dpWidth: Float = width / density
   val dpHeight: Float = height / density
-  Log.i(TAG, "density = $density, width = $width, height = $height, " +
-          "dpWidth = $dpWidth, dpHeight = $dpHeight")
+  //Log.i(TAG, "density = $density, width = $width, height = $height, " +
+          //"dpWidth = $dpWidth, dpHeight = $dpHeight")
 }
 
 fun backToHome(activity : AppCompatActivity) {
@@ -205,7 +205,7 @@ fun getVolume(audioManager: AudioManager): FloatArray {
   // громкости звук станет слышен, чего не произошло бы, если звук был установлен в 0
   if (leftVolume.toDouble() == 0.0) leftVolume = 0.1f
   if (rightVolume.toDouble() == 0.0) rightVolume = 0.1f
-  Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
+  //Log.i(TAG, "leftVolume = $leftVolume, rightVolume = $rightVolume")
   return floatArrayOf(leftVolume, rightVolume)
 }
 

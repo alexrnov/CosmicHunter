@@ -1,16 +1,16 @@
 package alexrnov.cosmichunter.sound;
 
 import android.app.Application;
-import android.content.Context;
+//import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
-import android.util.Log;
+//import android.util.Log;
 import android.util.SparseIntArray;
 
 import alexrnov.cosmichunter.R;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.getVolumeForApplication;
 

@@ -1,8 +1,6 @@
 package alexrnov.cosmichunter.activities
 
-import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.R
-import android.util.Log
 import android.widget.SeekBar
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -11,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -1,7 +1,7 @@
 package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
-import android.util.Log;
+//import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.utils.loader.ModelData;
 import alexrnov.cosmichunter.utils.loader.OBJFileLoader;
 import alexrnov.cosmichunter.view.View3D;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.intBuffer;
 
@@ -53,7 +53,7 @@ public abstract class Object3D {
       OBJFileLoader loader = new OBJFileLoader();
       modelData = loader.loadOBJ(input);
     } catch (IOException e) {
-      Log.v(TAG, className + "error load object file for asteroid");
+      //Log.v(TAG, className + "error load object file for asteroid");
     }
 
     // не выведено в отдельный метод - потому как финальные переменные

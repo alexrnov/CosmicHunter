@@ -12,7 +12,7 @@ import alexrnov.cosmichunter.concurrent.SurfaceExecutor;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -34,7 +34,7 @@ import static alexrnov.cosmichunter.Initialization.checkMusicForStopGameActivity
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.MESSAGE_CODE;
 import static alexrnov.cosmichunter.concurrent.ViewHandlerKt.TIME_CODE;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
@@ -44,24 +44,21 @@ public class GameActivity extends AppCompatActivity {
   //private SurfaceView surfaceView; // используется в случае полноэкранного режима
   private SurfaceExecutor executor = new SurfaceExecutor();
   private Handler handler;
-  private String className = this.getClass().getSimpleName() + ".class: ";
+  //private String className = this.getClass().getSimpleName() + ".class: ";
   private Timer timer;
-  private int time = 900; // десять минут 600
-  private View decorView;
+  private int time = 420; // десять минут 600
+  //private View decorView;
   private ImageView loadImage;
   private ConstraintLayout loadPanel;
-
-  private int versionGLES;
-  private int levelNumber;
 
   private boolean completeGame = false;
   public volatile boolean timeOver = false; // переменная определяет закончено ли время
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Log.i(TAG, className + "onCreate()");
-    versionGLES = getIntent().getIntExtra("versionGLES", 2);
-    levelNumber = getIntent().getIntExtra("Level", 1);
+    //Log.i(TAG, className + "onCreate()");
+    int versionGLES = getIntent().getIntExtra("versionGLES", 2);
+    int levelNumber = getIntent().getIntExtra("Level", 1);
     super.onCreate(savedInstanceState);
     // необходимо  в случае если приложение будет разрушено и опять будет
     // вызван метод onCreate(). Если флаг не сбрость, то если ранее был открыт
@@ -171,8 +168,8 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onResume() {
-    Log.i(TAG, "GAME ACTIVITY onResume()");
-    Log.i(TAG, className + "onResume()");
+    //Log.i(TAG, "GAME ACTIVITY onResume()");
+    //Log.i(TAG, className + "onResume()");
     super.onResume();
     /*
      * Проверка нужна для того, чтобы при возврате к приложению, когда открыто
@@ -183,9 +180,9 @@ public class GameActivity extends AppCompatActivity {
      * приложению, объекты будут немного смещаться
      */
     boolean dialogWasOpen = sp.getBoolean("dialog_open", false);
-    Log.i(TAG, "dialogWasOpen = " + dialogWasOpen);
+    //Log.i(TAG, "dialogWasOpen = " + dialogWasOpen);
     if (!dialogWasOpen) {
-      Log.i(TAG, className + "threads run");
+      //Log.i(TAG, className + "threads run");
       //SurfaceRunnable sr = new SurfaceRunnable(surfaceView); // используется в случае полноэкранного режима
       SurfaceRunnable sr = new SurfaceRunnable(oglView);
       executor.execute(sr); // загрузить рендером четыре ядра
@@ -221,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onPause() {
-    Log.i(TAG, className + "onPause()");
+    //Log.i(TAG, className + "onPause()");
     super.onPause();
     executor.interrupt(); // остановить рендер
     timer.cancel(); // остановить время
@@ -233,7 +230,7 @@ public class GameActivity extends AppCompatActivity {
   @Override
   protected void onStart() {
 
-    Log.i(TAG, className + "onStart()");
+    //Log.i(TAG, className + "onStart()");
     super.onStart();
 
     int levelNumber = getIntent().getIntExtra("Level", 1);
@@ -245,7 +242,7 @@ public class GameActivity extends AppCompatActivity {
     if (loadPanel.getVisibility() == View.VISIBLE) {
       AnimationDrawable animation = (AnimationDrawable) loadImage.getBackground();
       animation.start(); // выполнить анимацию процесса загрузки
-      Log.i(TAG, "load panel is visible");
+      //Log.i(TAG, "load panel is visible");
     }
 
     if (dialogWasOpen) {
@@ -255,7 +252,7 @@ public class GameActivity extends AppCompatActivity {
 
   @Override
   protected void onStop() {
-    Log.i(TAG, className + "onStop()");
+    //Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopGameActivity();
   }
@@ -263,13 +260,13 @@ public class GameActivity extends AppCompatActivity {
   /* вызов метода не гарантирован */
   @Override
   protected void onDestroy() {
-    Log.i(TAG, className + "onDestroy()");
+    //Log.i(TAG, className + "onDestroy()");
     super.onDestroy();
   }
 
   @Override
   public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-    Log.i(TAG, className + "onSaveInstanceState()");
+    //Log.i(TAG, className + "onSaveInstanceState()");
     super.onSaveInstanceState(savedInstanceState);
   }
 
@@ -277,16 +274,18 @@ public class GameActivity extends AppCompatActivity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
-      Log.i(TAG, className + "onKeyDown()");
+      //Log.i(TAG, className + "onKeyDown()");
       Intent intent = new Intent(this, DialogCancelActivity.class);
       startActivity(intent);
       spotFlagOpenDialogWindow(true);
     }
+    /*
     if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
-      Log.i(TAG, "KEY_VOLUME_DOWN");
+      //Log.i(TAG, "KEY_VOLUME_DOWN");
     } else if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-      Log.i(TAG, "KEY_VOLUME_UP");
+      //Log.i(TAG, "KEY_VOLUME_UP");
     }
+     */
     return super.onKeyDown(keyCode, event);
   }
 
@@ -367,26 +366,26 @@ public class GameActivity extends AppCompatActivity {
   private void setNumberRocketsForLevel(TextView rockets, int level) {
     switch(level) {
       case 1:
-        rockets.setText("r:500");
+        rockets.setText("r:900");
         break;
       case 2:
-        rockets.setText("r:200");
-        break;
-      case 3:
         rockets.setText("r:150");
         break;
-      case 4:
+      case 3:
         rockets.setText("r:100");
         break;
-      case 5:
+      case 4:
         rockets.setText("r:70");
+        break;
+      case 5:
+        rockets.setText("r:55");
         break;
     }
   }
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
-    Log.i("P", "hasFocus = " + hasFocus);
+    //Log.i("P", "hasFocus = " + hasFocus);
     super.onWindowFocusChanged(hasFocus);
   }
 }

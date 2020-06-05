@@ -1,7 +1,6 @@
 package alexrnov.cosmichunter.activities;
 
 import android.content.Context;
-
 import java.util.HashMap;
 
 /**

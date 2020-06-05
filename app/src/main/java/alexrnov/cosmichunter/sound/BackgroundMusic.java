@@ -1,15 +1,14 @@
 package alexrnov.cosmichunter.sound;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 
 import java.io.IOException;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.getVolumeForApplication;
 import static java.io.File.separator;
 
@@ -64,7 +63,7 @@ public class BackgroundMusic {
       player.setDataSource(activity.getApplicationContext(), uri);
       player.prepareAsync();//асинхронная загрузка мелодии
     } catch(IOException e) {
-      Log.e(TAG, "Error load music");
+      //Log.e(TAG, "Error load music");
     }
     //музыка начнется после завершения подготовки mp3 файла
     player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

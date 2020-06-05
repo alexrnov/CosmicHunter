@@ -6,10 +6,7 @@ import android.widget.SeekBar;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.espresso.matcher.ViewMatchers;
 
 public class SeekBarMatcher {
   public static Matcher<View> withProgress(final int expectedProgress) {

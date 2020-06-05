@@ -2,7 +2,7 @@ package alexrnov.cosmichunter.gles;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 
 
 /**
@@ -23,7 +23,7 @@ import static alexrnov.cosmichunter.Initialization.TAG;
  * значение 0.
  */
 public class LinkedProgram {
-  private final String className = this.getClass().getSimpleName() + ".class: ";
+  //private final String className = this.getClass().getSimpleName() + ".class: ";
   private Context context;
   private int programObject;
 
@@ -50,8 +50,8 @@ public class LinkedProgram {
     this.context = context;
     String codeVertexShader = readShaderFileFromFilePath(filePathVertexShader);
     String codeFragmentShader = readShaderFileFromFilePath(filePathFragmentShader);
-    Log.e(TAG, "filePathVertexShader = " + filePathVertexShader);
-    Log.e(TAG, "filePathFragmentShader = " + filePathFragmentShader);
+    //Log.e(TAG, "filePathVertexShader = " + filePathVertexShader);
+    //Log.e(TAG, "filePathFragmentShader = " + filePathFragmentShader);
     programObject = linkProgramAndGetId(codeVertexShader, codeFragmentShader);
   }
 
@@ -95,7 +95,7 @@ public class LinkedProgram {
       }
       s.close();
     } catch(IOException e) {
-      Log.e(TAG, className + "read shader-file from file path");
+      //Log.e(TAG, className + "read shader-file from file path");
     }
     return code;
   }
@@ -109,14 +109,14 @@ public class LinkedProgram {
     vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, v);
     if (vertexShader == 0) {
       GLES20.glDeleteShader(vertexShader);
-      Log.e(TAG, className + "vertex shader is error");
+      //Log.e(TAG, className + "vertex shader is error");
       return 0;
     }
     //загрузить фрагментный шейдер
     fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, f);
     if (fragmentShader == 0) {
       GLES20.glDeleteShader(fragmentShader);
-      Log.e(TAG, className + "fragment shader is error");
+      //Log.e(TAG, className + "fragment shader is error");
       return 0;
     }
     //необязательная инструкция, которую можно вызвать после компиляции
@@ -128,7 +128,7 @@ public class LinkedProgram {
     //к объекту-программе и собраны перед рендерингом
     programId = GLES20.glCreateProgram();
     if (programId == 0) {
-      Log.e(TAG, className + "error programObject: 0");
+      //Log.e(TAG, className + "error programObject: 0");
       return 0;
     }
     //присоединение шейдеров к программе. glDetachShader - отсоединяет шейдер
@@ -141,8 +141,8 @@ public class LinkedProgram {
     int[] linked = new int[1];
     GLES20.glGetProgramiv(programId, GLES20.GL_LINK_STATUS, linked, 0);
     if (linked[0] == 0) {
-      Log.e(TAG, className + "error linking program: " +
-              GLES20.glGetProgramInfoLog(programId));
+      //Log.e(TAG, className + "error linking program: " +
+         //     GLES20.glGetProgramInfoLog(programId));
       GLES20.glDeleteProgram(programId);
       return 0;
     }
@@ -155,13 +155,13 @@ public class LinkedProgram {
     int[] info = new int[1];
     //число активных атрибутов в вершинном шейдере
     GLES20.glGetProgramiv(programId, GLES20.GL_ACTIVE_ATTRIBUTES, info, 0);
-    int activeAttributes = info[0];
+    //int activeAttributes = info[0];
     // число активных uniform-переменных. Uniform-переменная считается активной,
     // если она используется в коде
     GLES20.glGetProgramiv(programId, GLES20.GL_ACTIVE_UNIFORMS, info, 0);
-    int activeUniforms = info[0];
-    Log.v(TAG, className + "active attributes in vertex shader: " +
-    activeAttributes + "; active uniform-variable in program: " + activeUniforms);
+    //int activeUniforms = info[0];
+    //Log.v(TAG, className + "active attributes in vertex shader: " +
+        //activeAttributes + "; active uniform-variable in program: " + activeUniforms);
     //Освободить ресурсы, которые больше не нужные
     GLES20.glDeleteShader(vertexShader);
     GLES20.glDeleteShader(fragmentShader);
@@ -175,7 +175,7 @@ public class LinkedProgram {
     //создать объект шейдера
     shader = GLES20.glCreateShader(type);
     if (shader == 0) {
-      Log.e(TAG, className + "error shader: 0");
+      //Log.e(TAG, className + "error shader: 0");
       return 0;
     }
     //загрузить исходный код шейдера
@@ -188,9 +188,9 @@ public class LinkedProgram {
     GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
 
     if (compiled[0] == 0) {
-      Log.e(TAG, className + "error compiled shader: 0 ");
+      //Log.e(TAG, className + "error compiled shader: 0 ");
       // вывести в лог информацию об ошибке компиляции
-      Log.e(TAG, className + GLES20.glGetShaderInfoLog(shader));
+      //Log.e(TAG, className + GLES20.glGetShaderInfoLog(shader));
       GLES20.glDeleteShader(shader);
       return 0;
     }
@@ -200,8 +200,8 @@ public class LinkedProgram {
     boolean[] runtime = new boolean[1];
     GLES20.glGetBooleanv(GLES20.GL_SHADER_COMPILER, runtime, 0);
     if (!runtime[0]) {
-      Log.e(TAG, className
-              + "OpenGL 3.0 ES not supported runtime compile shader");
+      //Log.e(TAG, className
+              //+ "OpenGL 3.0 ES not supported runtime compile shader");
       return 0;
     }
     return shader;

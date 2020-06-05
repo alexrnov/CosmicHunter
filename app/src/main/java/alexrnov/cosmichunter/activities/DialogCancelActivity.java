@@ -4,25 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
 import alexrnov.cosmichunter.R;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
 import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 
 public class DialogCancelActivity extends Activity {
 
-  private String className = this.getClass().getSimpleName() + ".class: ";
+  //private String className = this.getClass().getSimpleName() + ".class: ";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.i(TAG, "DIALOG onCreate()");
+    //Log.i(TAG, "DIALOG onCreate()");
     setContentView(R.layout.activity_cancel_dialog);
     DisplayMetrics dm = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -52,14 +51,14 @@ public class DialogCancelActivity extends Activity {
 
   @Override
   public void onStop() {
-    Log.i(TAG, className + "onStop()");
+    //Log.i(TAG, className + "onStop()");
     super.onStop();
     finish();
   }
 
   @Override
   public void onDestroy() {
-    Log.i(TAG, className + "onDestroy()");
+    //Log.i(TAG, className + "onDestroy()");
     super.onDestroy();
   }
 
@@ -67,7 +66,7 @@ public class DialogCancelActivity extends Activity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == 0x00000004) { // KeyEvent.FLAG_KEEP_TOUCH_MODE; (API 3)
-      Log.i(TAG, className + "onKeyDown(), keyCode = " + keyCode);
+      //Log.i(TAG, className + "onKeyDown(), keyCode = " + keyCode);
       spotFlagOpenDialogWindow(false);
       //finish();
     }

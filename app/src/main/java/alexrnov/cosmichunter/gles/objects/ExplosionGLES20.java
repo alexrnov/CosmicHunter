@@ -2,7 +2,7 @@ package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Random;
 
 import alexrnov.cosmichunter.gles.LinkedProgram;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.sp;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureNearestFromAsset;
 import static alexrnov.cosmichunter.utils.commonGL.Buffers.floatBuffer;
@@ -74,9 +74,9 @@ public class ExplosionGLES20 implements Explosion {
 
     programObject = linkProgram.get();
 
-    if (programObject == 0) {
-      Log.v(TAG, "error program link explosion_sound: " + programObject);
-    }
+    //if (programObject == 0) {
+      //Log.v(TAG, "error program link explosion_sound: " + programObject);
+    //}
 
     lastTimeExplosionLink = GLES20.glGetUniformLocation(programObject, "u_lastTimeExplosion");
     centerPositionLink = GLES20.glGetUniformLocation(programObject, "u_centerPosition");
@@ -93,11 +93,12 @@ public class ExplosionGLES20 implements Explosion {
     startPositionLink = GLES20.glGetAttribLocation(programObject, "a_startPosition");
     endPositionLink = GLES20.glGetAttribLocation(programObject, "a_endPosition");
 
+    /*
     Log.v(TAG, this.getClass().getSimpleName() + ".class: " +
             "lastTimeExplosionLink: " + lastTimeExplosionLink + "; centerPositionLink: " +
             centerPositionLink + "; sizeSpriteLink: " + sizeSpriteLink + "; colorLink: " +
             colorLink + "; samplerLink: " + samplerLink + "; textureID: " + textureID);
-
+    */
   }
 
   /**

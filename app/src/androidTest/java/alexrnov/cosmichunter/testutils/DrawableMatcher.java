@@ -10,7 +10,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import org.hamcrest.Description;
@@ -18,8 +17,6 @@ import org.hamcrest.TypeSafeMatcher;
 
 import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-
-import static alexrnov.cosmichunter.Initialization.TAG;
 
 /**
  * Позволяет проверять соответствие bitMap and vector drawable для компонентов View.

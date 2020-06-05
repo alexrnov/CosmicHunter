@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +30,7 @@ import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.showSnackbar;
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 /** Активити-класс управляет отображением и поведением меню настроек */
 public class SettingsActivity extends AppCompatActivity
         implements CompoundButton.OnCheckedChangeListener {
@@ -150,7 +149,7 @@ public class SettingsActivity extends AppCompatActivity
       private int currentValue;
       @Override
       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.i(TAG, "progress = " + progress);
+        //Log.i(TAG, "progress = " + progress);
         double d = Math.round(100 + progress * 0.857);
         currentValue = (int) d;
         String s = particlesText + ": " + currentValue;
@@ -159,12 +158,13 @@ public class SettingsActivity extends AppCompatActivity
 
       @Override
       public void onStartTrackingTouch(SeekBar seekBar) {
-        Log.i(TAG, "seekbar is starter");
+
+        //Log.i(TAG, "seekbar is starter");
       }
 
       @Override
       public void onStopTrackingTouch(SeekBar seekBar) {
-        Log.i(TAG, "seekbar is stopped");
+        //Log.i(TAG, "seekbar is stopped");
         //currentValue = Math.round(currentValue);
         //int i = (int) currentValue;
         if (sp != null) {

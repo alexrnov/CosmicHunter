@@ -2,14 +2,14 @@ package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.RocketView3D;
 import alexrnov.cosmichunter.view.View3D;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.Initialization.sp;
 
 public class Rocket extends Object3D {
@@ -42,7 +42,7 @@ public class Rocket extends Object3D {
 
     boolean fog = sp.getBoolean("fog", true);
     if (versionGL == 2.0) {
-      Log.i(TAG, "version = 2");
+      //Log.i(TAG, "version = 2");
       if (fog) {
         linkProgram = new LinkedProgram(context,
                 "shaders/gles20/rocket_fog_v.glsl",
@@ -53,7 +53,7 @@ public class Rocket extends Object3D {
                 "shaders/gles20/rocket_f.glsl");
       }
     } else if (versionGL == 3.0) {
-      Log.i(TAG, "version = 3");
+      //Log.i(TAG, "version = 3");
       if (fog) {
         linkProgram = new LinkedProgram(context,
                 "shaders/gles30/rocket_fog_v.glsl",
@@ -66,11 +66,11 @@ public class Rocket extends Object3D {
 
     }
 
-    final String className = this.getClass().getSimpleName();
+    //final String className = this.getClass().getSimpleName();
     programObject = linkProgram.get();
-    if (programObject == 0) {
-      Log.e(TAG, className + "error program link rocket: " + programObject);
-    }
+    //if (programObject == 0) {
+      //Log.e(TAG, className + "error program link rocket: " + programObject);
+    //}
 
     //Получить ссылку на переменную, содержащую итоговую MPV-матрицу.
     //Эта переменная находится в вершинном шейдере: uniform mat4 u_mvpMatrix;
@@ -90,11 +90,12 @@ public class Rocket extends Object3D {
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
     normalLink = GLES20.glGetAttribLocation(programObject, "a_normal");
 
+    /*
     Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
             mvpMatrixLink + "; u_mvMatrix id: " + mvMatrixLink + "; u_ambientLight.color id: " + ambientLightColorLink +
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink);
-
+    */
     createVertexBuffers();
   }
 

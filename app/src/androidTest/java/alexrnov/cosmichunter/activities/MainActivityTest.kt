@@ -1,59 +1,15 @@
 package alexrnov.cosmichunter.activities
-/*
-import alexrnov.cosmichunter.R
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.matcher.ComponentNameMatchers
-import androidx.test.espresso.intent.matcher.IntentMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
-import org.hamcrest.CoreMatchers
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
-*/
 
 import alexrnov.cosmichunter.R
-import android.app.Activity
-import android.app.Instrumentation
-import android.content.Context
-import android.content.Intent
-import android.provider.ContactsContract
-import android.util.Log
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.Intents.intending
-import androidx.test.espresso.intent.matcher.ComponentNameMatchers
-import androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName
-import androidx.test.espresso.intent.matcher.IntentMatchers
-import androidx.test.espresso.intent.matcher.IntentMatchers.*
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SdkSuppress
-import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import androidx.test.filters.LargeTest
-import androidx.test.filters.RequiresDevice
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import androidx.test.uiautomator.*
-import com.google.common.truth.Truth
-import org.hamcrest.CoreMatchers
 import org.junit.Before
-import org.junit.Ignore
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

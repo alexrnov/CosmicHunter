@@ -9,7 +9,7 @@ import alexrnov.cosmichunter.LoadingPanel;
 import alexrnov.cosmichunter.base.LevelDao;
 import alexrnov.cosmichunter.base.LevelDatabase;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,14 +29,14 @@ import androidx.room.Room;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStartOtherActivity;
 import static alexrnov.cosmichunter.Initialization.checkMusicForStopOtherActivity;
 import static alexrnov.cosmichunter.Initialization.spotFlagOpenDialogWindow;
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.sound.ShortSounds.playClick;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.backToHome;
 import static alexrnov.cosmichunter.utils.ApplicationUtilsKt.changeHeaderColorInRecentApps;
 
 public class LevelsActivity extends AppCompatActivity {
 
-  private String className = this.getClass().getSimpleName() + ".class: ";
+  //private String className = this.getClass().getSimpleName() + ".class: ";
 
   private Toolbar toolbar;
   // окно с черным фоном, в котором отображаются надписи и
@@ -52,7 +52,7 @@ public class LevelsActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Log.i(TAG, className + "onCreate()");
+    //Log.i(TAG, className + "onCreate()");
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_level);
 
@@ -68,17 +68,20 @@ public class LevelsActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     HashMap<String, Boolean> levels =
             (HashMap<String, Boolean>) intent.getSerializableExtra("levels");
+    /*
     Log.i(TAG, "hashMap = "
             + levels.get("level2") + " "
             + levels.get("level3") + " "
             + levels.get("level4") + " "
             + levels.get("level5") + " ");
-
+    */
     buttonLevel2 = findViewById(R.id.button_level2);
     buttonLevel3 = findViewById(R.id.button_level3);
     buttonLevel4 = findViewById(R.id.button_level4);
     buttonLevel5 = findViewById(R.id.button_level5);
-    activateButtonsForOpenedLevels(levels);
+    if (levels != null) {
+      activateButtonsForOpenedLevels(levels);
+    }
   }
 
   public void startLevel1(View view) { startLevel(1); }
@@ -121,7 +124,7 @@ public class LevelsActivity extends AppCompatActivity {
 
   @Override
   protected void onStart() {
-    Log.i(TAG, className + "onStart()");
+    //Log.i(TAG, className + "onStart()");
     super.onStart();
     hideLoadPanel(); // скрыть панель загрузки
     checkMusicForStartOtherActivity(this);
@@ -129,20 +132,20 @@ public class LevelsActivity extends AppCompatActivity {
 
   @Override
   protected void onResume() {
-    Log.i(TAG, className + "onResume()");
+    //Log.i(TAG, className + "onResume()");
     super.onResume();
     changeHeaderColorInRecentApps(this);
   }
 
   @Override
   protected void onPause() {
-    Log.i(TAG, className + "onPause()");
+    //Log.i(TAG, className + "onPause()");
     super.onPause();
   }
 
   @Override
   protected void onStop() {
-    Log.i(TAG, className + "onStop()");
+    //Log.i(TAG, className + "onStop()");
     super.onStop();
     checkMusicForStopOtherActivity();
   }

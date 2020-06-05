@@ -1,6 +1,6 @@
 package alexrnov.cosmichunter.utils.loader;
 
-import android.util.Log;
+//import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class OBJFileLoader {
     try {
       reader = new BufferedReader(new InputStreamReader(input));
     } catch (Exception e) {
-      Log.v("P", "Error readRawFile");
+      //Log.v("P", "Error readRawFile");
       return null;
     }
 

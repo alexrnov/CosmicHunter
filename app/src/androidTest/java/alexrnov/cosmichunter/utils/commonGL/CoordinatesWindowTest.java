@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import alexrnov.cosmichunter.utils.commonGL.CoordinatesWindow;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)

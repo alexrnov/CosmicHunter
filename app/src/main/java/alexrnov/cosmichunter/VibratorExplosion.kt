@@ -1,12 +1,12 @@
 package alexrnov.cosmichunter
 
-import alexrnov.cosmichunter.Initialization.TAG
+//import alexrnov.cosmichunter.Initialization.TAG
 import alexrnov.cosmichunter.Initialization.sp
 import android.content.Context
 import android.os.Build
 import android.os.Vibrator
 import android.os.VibrationEffect
-import android.util.Log
+//import android.util.Log
 
 @Suppress("DEPRECATION")
 class VibratorExplosion(context: Context, var time: Long = 50) {
@@ -18,7 +18,7 @@ class VibratorExplosion(context: Context, var time: Long = 50) {
   init {
     val defaultValue: String = context.resources.getString(R.string.default_vibration)
     val currentVibration = sp.getString("vibration", defaultValue)
-    Log.i(TAG, "${this.javaClass.simpleName + ".class"}: vibration = $currentVibration")
+    //Log.i(TAG, "${this.javaClass.simpleName + ".class"}: vibration = $currentVibration")
 
     if (currentVibration == defaultValue) { // если вибрация включена
       // если текущая версия - 26 (VERSION_CODES.O) или более поздняя

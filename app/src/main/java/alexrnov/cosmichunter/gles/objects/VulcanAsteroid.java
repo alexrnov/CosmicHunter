@@ -2,14 +2,14 @@ package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.createCubemapTexture;
 
 public class VulcanAsteroid extends Object3D implements Asteroid {
@@ -63,11 +63,11 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
               "shaders/gles30/vulcan_asteroid_f.glsl");
     }
 
-    final String className = this.getClass().getSimpleName() + ".class: ";
+    //final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
-    if (programObject == 0) {
-      Log.v(TAG, className + "error program link asteroid: " + programObject);
-    }
+    //if (programObject == 0) {
+      //Log.v(TAG, className + "error program link asteroid: " + programObject);
+    //}
 
     //связать a_position с атрибутом 0 в шейдере
     //(необязательно, т.к. a_position связывается со значением через location)
@@ -100,7 +100,7 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
 
     normalLink = GLES20.glGetAttribLocation(programObject, "a_normal");
-
+    /*
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
             mvMatrixLink + "; s_texture id: "
@@ -108,6 +108,8 @@ public class VulcanAsteroid extends Object3D implements Asteroid {
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; textureID: " + textureID);
+
+     */
     createVertexBuffers();
   }
 

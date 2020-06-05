@@ -13,14 +13,14 @@ import alexrnov.cosmichunter.gles.SceneRenderer;
 import androidx.core.view.GestureDetectorCompat;
 
 import android.util.AttributeSet;
-import android.util.Log;
+//import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import alexrnov.cosmichunter.activities.GameActivity;
 import alexrnov.cosmichunter.utils.commonGL.CoordinatesOpenGL;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 
 /**
  * Используется при выводе рендера openGL в отдельный компонент интерфейса
@@ -62,7 +62,7 @@ public class OGLView extends GLSurfaceView implements GestureDetector.OnGestureL
     // Сообщить контейнеру OGLView, что мы хотим создать OpenGL ES 2.0 (или 3.0)-совместимый
     // контекст, и установить OpenGL ES 2.0 (или 3.0)-совместимый рендер
     setEGLContextClientVersion(versionGLES);
-    Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
+    //Log.i(TAG, this.getClass().getSimpleName() + ": version GLES = " + versionGLES);
 
     switch (level) {
       case 1: return new Level1((double) versionGLES, context);

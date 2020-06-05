@@ -9,16 +9,10 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import alexrnov.cosmichunter.utils.getScreenSizeWithoutNavBar
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
-import android.text.Html
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.appcompat.widget.PopupMenu
 
 class AboutGameActivity: AppCompatActivity() {
   private var musicText: TextView? = null

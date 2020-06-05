@@ -1,14 +1,9 @@
 package alexrnov.cosmichunter;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.util.Log;
-import android.util.SparseIntArray;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -36,7 +31,6 @@ public class Initialization extends Application {
   private static final String GAME_ACTIVITY = "game_activity";
 
   private static String defaultStateMusic;
-  private static String defaultVibration;
   private LevelDatabase dbLevels;
 
   @Override
@@ -49,7 +43,7 @@ public class Initialization extends Application {
     sp = this.getSharedPreferences(packageName, MODE_PRIVATE);
 
     defaultStateMusic = getResources().getString(R.string.default_music);
-    defaultVibration = getResources().getString(R.string.default_vibration);
+    //String defaultVibration = getResources().getString(R.string.default_vibration);
     //сбросить логические переменные для управления музыкой при
     //навигации по активити в исходное положение. Это необходимо,
     //поскольку с прошлого запуска значения переменных могут остаться
@@ -70,9 +64,10 @@ public class Initialization extends Application {
 
       if (size != 0) {
         List<Level> levels = dao.getAll();
-        for (Level level: levels) Log.i(TAG, "id = " + level.id + ", number = " + level.number + ", levelName = "
-                + level.levelName + ", isOpen = " + level.isOpen + ";");
+        //for (Level level: levels) Log.i(TAG, "id = " + level.id + ", number = " + level.number + ", levelName = "
+           //     + level.levelName + ", isOpen = " + level.isOpen + ";");
       }
+
     });
   }
 
@@ -294,7 +289,7 @@ public class Initialization extends Application {
     /** метод вызывается при создании базы данных */
     public void onCreate(@NonNull SupportSQLiteDatabase db) {
       Executors.newSingleThreadScheduledExecutor().execute(() -> {
-        Log.i(TAG, "CREATE DATABASE LEVELS");
+        //Log.i(TAG, "CREATE DATABASE LEVELS");
         Level level1 = new Level(0, 1, "level1", true);
         Level level2 = new Level(1, 2, "level2", false);
         Level level3 = new Level(2, 3, "level3", false);

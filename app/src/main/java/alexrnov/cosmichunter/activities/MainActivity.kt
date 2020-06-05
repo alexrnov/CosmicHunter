@@ -1,6 +1,5 @@
 package alexrnov.cosmichunter.activities
 
-import alexrnov.cosmichunter.Class23
 import alexrnov.cosmichunter.DefineOpenLevels
 import alexrnov.cosmichunter.Initialization.*
 import alexrnov.cosmichunter.LoadingPanel
@@ -15,7 +14,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+//import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,7 +26,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 
 class MainActivity: AppCompatActivity(), AsyncResponse {
-  private val className = this.javaClass.simpleName + ".class: "
+  //private val className = this.javaClass.simpleName + ".class: "
   private var toolbar: Toolbar? = null
 
   // окно с черным фоном, в котором отображаются надписи и
@@ -61,12 +60,9 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     // повторной перезагрузки активити. Кроме того, не нужно создавать лэйаут для портретной
     // ориентации, поскольку в начале будет загружаться именно он
     super.onCreate(savedInstanceState)
-    Log.i(TAG, className + "onCreate()")
+    //Log.i(TAG, className + "onCreate()")
 
     setContentView(R.layout.activity_main)
-
-    val class23 = Class23()
-    class23.f()
 
     loadPanel = findViewById(R.id.load_panel_main)
     toolbar = findViewById(R.id.toolbar_main_menu)
@@ -93,20 +89,22 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     super.onStart()
     hideLoadPanel() // скрыть панель загрузки
 
-    Log.i(TAG, className + "onStart()")
+    //Log.i(TAG, className + "onStart()")
     checkMusicForStartMainActivity(this)
   }
 
   override fun onStop() { // состояние "остановлено"
     super.onStop()
-    Log.i(TAG, className + "onStop()")
+    //Log.i(TAG, className + "onStop()")
     checkMusicForStopMainActivity()
   }
 
+  /*
   override fun onPause() {
     super.onPause()
-    Log.i(TAG, className + "onPause()")
+    //Log.i(TAG, className + "onPause()")
   }
+  */
 
   fun startGame(view: View) {
     playClick()
@@ -116,7 +114,7 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
       // выполнять пока не завершилось выполнение асинхронной
       // задачи доступа к базе данных
       while (defineOpenLevels.status != AsyncTask.Status.FINISHED) {
-        Log.i(TAG, "defineOpenLevels AsyncTask no finish")
+        //Log.i(TAG, "defineOpenLevels AsyncTask no finish")
       }
       val intent = Intent(this, GameActivity::class.java)
       intent.putExtra("versionGLES", supportOpenGLES)
@@ -136,7 +134,7 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
       // выполнять пока не завершилось выполнение асинхронной
       // задачи доступа к базе данных
       while (defineOpenLevels.status != AsyncTask.Status.FINISHED) {
-        Log.i(TAG, "defineOpenLevels AsyncTask no finish")
+        //Log.i(TAG, "defineOpenLevels AsyncTask no finish")
       }
 
       val intent = Intent(this, LevelsActivity::class.java)
@@ -224,7 +222,7 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     // для ранних версий панель загрузки отображается в GameActivity
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return
     // при старте активити сделать окно загрузки невидимым
-    loadPanel?.setVisibility(View.INVISIBLE)
+    loadPanel?.visibility = View.INVISIBLE
     // сделать тулбар видимым
     toolbar?.visibility = View.VISIBLE
     // сделать видимой панель статуса
@@ -284,6 +282,6 @@ class MainActivity: AppCompatActivity(), AsyncResponse {
     if (s != null && s == "yes") {
       fromGame = true
     } else fromGame = false
-    Log.i(TAG, "fromGame = $fromGame")
+    //Log.i(TAG, "fromGame = $fromGame")
   }
 }

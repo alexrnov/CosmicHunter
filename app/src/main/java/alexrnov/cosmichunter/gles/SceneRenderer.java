@@ -12,7 +12,6 @@ import alexrnov.cosmichunter.gles.objects.BasaltAsteroid;
 import alexrnov.cosmichunter.gles.objects.Explosion;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES20;
 import alexrnov.cosmichunter.gles.objects.ExplosionGLES30;
-import alexrnov.cosmichunter.gles.objects.GasAsteroid;
 import alexrnov.cosmichunter.gles.objects.IceAsteroid;
 import alexrnov.cosmichunter.gles.objects.MetalAsteroid;
 import alexrnov.cosmichunter.gles.objects.VulcanAsteroid;
@@ -70,8 +69,8 @@ public interface SceneRenderer extends GLSurfaceView.Renderer  {
         if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/vulcan.png", new float[] {1.0f, 0.5f, 0.1f, 1.0f});
         else return new ExplosionGLES20(context, "explosion/vulcan.png", new float[] {1.0f, 0.5f, 0.1f, 1.0f});
       case GAS:
-        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/ice.png", new float[] {0.5f, 0.7f, 0.9f, 1.0f});
-        else return new ExplosionGLES20(context, "explosion/ice.png", new float[] {0.5f, 0.7f, 0.9f, 1.0f});
+        if (versionGL == 3.0) return new ExplosionGLES30(context, "explosion/ice.png", new float[] {0.1f, 0.7f, 0.9f, 1.0f});
+        else return new ExplosionGLES20(context, "explosion/ice.png", new float[] {0.1f, 0.7f, 0.9f, 1.0f});
       default: return null;
     }
   }

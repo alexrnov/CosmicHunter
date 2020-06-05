@@ -1,30 +1,23 @@
 package alexrnov.cosmichunter
 
-import alexrnov.cosmichunter.Initialization.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.UiObject
 import com.google.common.truth.Truth.assertThat
-
 
 private const val LAUNCH_TIMEOUT = 3000L
 private const val BASIC_SAMPLE_PACKAGE = "alexrnov.cosmichunter"

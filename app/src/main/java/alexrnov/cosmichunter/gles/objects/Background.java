@@ -2,15 +2,14 @@ package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
-import alexrnov.cosmichunter.gles.Textures;
 import alexrnov.cosmichunter.view.BackgroundView3D;
 import alexrnov.cosmichunter.view.View3D;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class Background extends Object3D {
@@ -43,10 +42,10 @@ public class Background extends Object3D {
 
 
     programObject = linkProgram.get();
-    final String className = this.getClass().getSimpleName() + ".class: ";
-    if (programObject == 0) {
-      Log.e(TAG, className + "error program link background: " + programObject);
-    }
+    //final String className = this.getClass().getSimpleName() + ".class: ";
+    //if (programObject == 0) {
+      //Log.e(TAG, className + "error program link background: " + programObject);
+    //}
 
     //Получить ссылку на переменную, содержащую итоговую MPV-матрицу.
     //Эта переменная находится в вершинном шейдере: uniform mat4 u_mvpMatrix;
@@ -62,8 +61,8 @@ public class Background extends Object3D {
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
     textureCoordinatesLink = GLES20.glGetAttribLocation(programObject, "a_textureCoordinates");
 
-    Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
-            mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
+    //Log.v(TAG, this.getClass().getSimpleName() + ".class: u_mvpMatrix id: " +
+           // mvpMatrixLink + "; s_texture id: " + samplerLink + "; textureID: " + textureID);
     createVertexBuffers();
   }
 

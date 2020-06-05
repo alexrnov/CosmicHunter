@@ -1,9 +1,9 @@
 package alexrnov.cosmichunter.concurrent;
 
 import android.opengl.GLSurfaceView;
-import android.util.Log;
+//import android.util.Log;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 
 public class SurfaceRunnable implements Runnable {
 
@@ -19,7 +19,7 @@ public class SurfaceRunnable implements Runnable {
       //Log.i(TAG, "run = " + Thread.currentThread().getName());
       surfaceView.requestRender();
       if (Thread.currentThread().isInterrupted()) {
-        Log.v("P", "Thread stop = " + Thread.currentThread().getName());
+        //Log.v(TAG, "Thread stop = " + Thread.currentThread().getName());
         break;
       }
     }

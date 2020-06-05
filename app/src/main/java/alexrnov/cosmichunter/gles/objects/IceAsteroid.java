@@ -2,7 +2,7 @@ package alexrnov.cosmichunter.gles.objects;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+//import android.util.Log;
 
 import alexrnov.cosmichunter.R;
 import alexrnov.cosmichunter.gles.LinkedProgram;
@@ -10,7 +10,7 @@ import alexrnov.cosmichunter.gles.LinkedProgram;
 import alexrnov.cosmichunter.view.AsteroidView3D;
 import alexrnov.cosmichunter.view.View3D;
 
-import static alexrnov.cosmichunter.Initialization.TAG;
+//import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
 public class IceAsteroid extends Object3D implements Asteroid {
@@ -67,11 +67,11 @@ public class IceAsteroid extends Object3D implements Asteroid {
               "shaders/gles30/ice_asteroid_f.glsl");
     }
 
-    final String className = this.getClass().getSimpleName() + ".class: ";
+    //final String className = this.getClass().getSimpleName() + ".class: ";
     programObject = linkProgram.get();
-    if (programObject == 0) {
-      Log.v(TAG, className + "error program link asteroid: " + programObject);
-    }
+    //if (programObject == 0) {
+      //Log.v(TAG, className + "error program link asteroid: " + programObject);
+    //}
 
     //связать a_position с атрибутом 0 в шейдере
     //(необязательно, т.к. a_position связывается со значением через location)
@@ -103,7 +103,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
     positionLink = GLES20.glGetAttribLocation(programObject, "a_position");
     textureCoordinatesLink = GLES20.glGetAttribLocation(programObject, "a_textureCoordinates");
     normalLink = GLES20.glGetAttribLocation(programObject, "a_normal");
-
+    /*
     Log.v(TAG, className +
             ": u_mvpMatrix id: " + mvpMatrixLink + "; u_mvMatrix id: " +
             mvMatrixLink + "; s_texture id: " + samplerLink +
@@ -111,6 +111,7 @@ public class IceAsteroid extends Object3D implements Asteroid {
             "; u_diffuseLight.color id: " + diffuseLightColorLink +
             "; u_diffuseLight.intensity id: " + diffuseLightIntensityLink +
             "; u_alpha: " + alphaLink + "; textureID: " + textureID);
+    */
     createVertexBuffers();
   }
 
