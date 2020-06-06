@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Cosmic hunter</string>
+    <string name="app_name" translatable="false">Cosmic hunter 3D</string>
     <string name="default_vibration" translatable="false">on</string>
     <string name="default_music" translatable="false">on</string>
     <string name="default_sound" translatable="false">on</string>
