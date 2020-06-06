@@ -21,6 +21,8 @@
     <string name="level3">Niveau 3</string>
     <string name="level4">Niveau 4</string>
     <string name="level5">Niveau 5</string>
+    <string name="level_passed">Level bestanden</string>
+    <string name="level_not_passed">Level nicht bestanden</string>
 
     <string name="pause">PAUSE</string>
     <string name="dialog_text">Zurück zum Hauptmenü?</string>

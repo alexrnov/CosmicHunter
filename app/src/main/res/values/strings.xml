@@ -39,6 +39,8 @@
     <string name="level3">Level 3</string>
     <string name="level4">Level 4</string>
     <string name="level5">Level 5</string>
+    <string name="level_passed">Level passed</string>
+    <string name="level_not_passed">Level not passed</string>
 
     <string name="pause">PAUSE</string>
     <string name="dialog_text">Return to main menu?</string>

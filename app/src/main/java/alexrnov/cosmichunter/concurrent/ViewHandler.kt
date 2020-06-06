@@ -1,6 +1,8 @@
 package alexrnov.cosmichunter.concurrent
 
+import alexrnov.cosmichunter.R
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -22,6 +24,7 @@ const val LOAD_GAME_CODE = 4
 
 class ViewHandler(
         looper: Looper,
+        private val context: Context,
         private val loadPanel: ConstraintLayout,
         private val hits: TextView,
         private val rockets: TextView,
@@ -42,9 +45,14 @@ class ViewHandler(
       HITS_CODE -> hits.text = "h:$text/50" // обновить количество попаданий
       ROCKETS_CODE -> rockets.text = "r:$text" // обновить количество оставшихся ракет
       MESSAGE_CODE -> {
-        message.text = text // текст - уровень пройден или уровень не пройден
-        if (text == "уровень пройден") message.setTextColor(Color.parseColor("#00a8f3")) // синий цвет
-        else message.setTextColor(Color.parseColor("#f37500")) // если уровень не пройден - выделить текст красным цветом
+        if (text == "level passed") { // уровень пройден
+          message.text = context.getString(R.string.level_passed)
+          message.setTextColor(Color.parseColor("#00a8f3")) // синий цвет
+        } else { // уровень не пройден
+          message.text = context.getString(R.string.level_not_passed)
+          // если уровень не пройден - выделить текст красным цветом
+          message.setTextColor(Color.parseColor("#f37500"))
+        }
       }
       TIME_CODE -> time.text = text // обновить показатели времени
       LOAD_GAME_CODE -> {

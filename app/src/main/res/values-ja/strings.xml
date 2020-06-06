@@ -22,6 +22,8 @@
     <string name="level3">レベル3</string>
     <string name="level4">レベル4</string>
     <string name="level5">レベル5</string>
+    <string name="level_passed">合格レベル</string>
+    <string name="level_not_passed">合格しなかったレベル</string>
 
     <string name="pause">一時停止</string>
     <string name="dialog_text">メニューに戻りますか？</string>

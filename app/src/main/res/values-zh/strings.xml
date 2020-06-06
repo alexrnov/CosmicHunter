@@ -21,6 +21,8 @@
     <string name="level3">3级</string>
     <string name="level4">4级</string>
     <string name="level5">5级</string>
+    <string name="level_passed">等级通过</string>
+    <string name="level_not_passed">等级未通过</string>
 
     <string name="pause">暂停</string>
     <string name="dialog_text">返回主菜单？</string>

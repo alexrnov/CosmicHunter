@@ -119,7 +119,8 @@ public class GameActivity extends AppCompatActivity {
     loadLevelText.setText(currentLevel); // вывести на экран загрузки название текущего уровня
 
     // определяет объект handler, присоединенный к потоку пользовательского интерфейса
-    handler = new ViewHandler(Looper.getMainLooper(), loadPanel, hits, rockets, message, time);
+    handler = new ViewHandler(Looper.getMainLooper(),
+            this.getApplicationContext(), loadPanel, hits, rockets, message, time);
 
 
     oglView = findViewById(R.id.oglView);
@@ -297,7 +298,7 @@ public class GameActivity extends AppCompatActivity {
       // если к моменту окончания времени игра не была пройдена вывести
       // сообщение о том, что игра не была выполнена
       if (!completeGame) {
-        Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "уровень не пройден");
+        Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "level not passed");
         completeMessage.sendToTarget();
       }
     }
@@ -322,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
   public synchronized void handleStateCompleteLevel() {
     completeGame = true;
     if (!timeOver) {
-      Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "уровень пройден");
+      Message completeMessage = handler.obtainMessage(MESSAGE_CODE, "level passed");
       completeMessage.sendToTarget();
     }
   }

@@ -21,6 +21,8 @@
     <string name="level3">المستوى 3</string>
     <string name="level4">المستوى 4</string>
     <string name="level5">المستوى 5</string>
+    <string name="level_passed">مرت المستوى</string>
+    <string name="level_not_passed">لم يمر المستوى</string>
 
     <string name="pause">وقفة</string>
     <string name="dialog_text">العودة إلى القائمة؟</string>

@@ -21,6 +21,8 @@
     <string name="level3">Tahap 3</string>
     <string name="level4">Tahap 4</string>
     <string name="level5">Tahap 5</string>
+    <string name="level_passed">Tahap berlalu</string>
+    <string name="level_not_passed">Tahap tidak lulus</string>
 
     <string name="pause">PAUSE</string>
     <string name="dialog_text">Kembali ke menu utama?</string>
