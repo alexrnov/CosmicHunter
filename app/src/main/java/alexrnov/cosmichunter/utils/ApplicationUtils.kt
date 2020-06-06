@@ -87,6 +87,7 @@ fun showToast(context: Context, message: CharSequence) {
  * [activity] - действие, в котором был вызван метод;
  * [message] - текст сообщения
  */
+/*
 fun showCustomToast(activity: Activity, message: CharSequence) {
   val inflater = activity.layoutInflater
   //первый параметр - xml-файл с представлением, второй параметр
@@ -101,6 +102,7 @@ fun showCustomToast(activity: Activity, message: CharSequence) {
   toast.view = layout
   toast.show()
 }
+*/
 
 /** Получить размеры экрана с навигационной панелью */
 /* solution offer by EC84B4: https://stackoverflow.com/questions/26674378/android-get-screen-size-including-the-size-of-status-bar-and-software-navigation */
