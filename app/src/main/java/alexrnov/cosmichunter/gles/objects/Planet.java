@@ -13,6 +13,9 @@ import alexrnov.cosmichunter.view.View3D;
 //import static alexrnov.cosmichunter.Initialization.TAG;
 import static alexrnov.cosmichunter.gles.Textures.loadTextureWithMipMapFromRaw;
 
+/**
+ * Класс для планеты, которая используется в четвертом уровне
+ */
 public class Planet extends Object3D implements Asteroid {
   private final int programObject;
   // ссылка на переменную вершинного шейдера, содержащую итоговую MVP-матрицу
