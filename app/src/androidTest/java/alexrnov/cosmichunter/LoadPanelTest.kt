@@ -115,14 +115,17 @@ class LoadPanelTest {
     device.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
             LAUNCH_TIMEOUT) // Wait
     val backButton: UiObject = device.findObject(UiSelector()
-            .resourceId("${BASIC_SAMPLE_PACKAGE}:id/button_exit_to_menu"))
+            .resourceId("${BASIC_SAMPLE_PACKAGE}:id/button_back_to_main_menu"))
     backButton.clickAndWaitForNewWindow()
     // возврат в главное меню и проверить видимость компонентов
+
     onView(withId(R.id.toolbar_main_menu)).check(matches(isDisplayed()))
     onView(withId(R.id.startGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.levelGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.settingsButton)).check(matches(isDisplayed()))
     onView(withId(R.id.aboutGameButton)).check(matches(isDisplayed()))
     onView(withId(R.id.exitButton)).check(matches(isDisplayed()))
+
+
   }
 }
