@@ -27,7 +27,7 @@ Level4 (Refraction):
 Level5 (Anisotropic lighting):
 
 <p align="center">
-  <img src="https://github.com/alexrnov/Files/blob/master/CosmicHunter7.png" width="350" title="Level5">
+  <img src="https://github.com/alexrnov/Files/blob/master/CosmicHunter8.png" width="350" title="Level5">
 </p>
 
 Preferences:
