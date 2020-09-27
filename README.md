@@ -18,6 +18,18 @@ Level3:
   <img src="https://github.com/alexrnov/Files/blob/master/CosmicHunter3.jpg" width="350" title="Level3">
 </p>
 
+Level4:
+
+<p align="center">
+  <img src="https://github.com/alexrnov/Files/blob/master/CosmicHunter6.jpg" width="350" title="Level4">
+</p>
+
+Level5:
+
+<p align="center">
+  <img src="https://github.com/alexrnov/Files/blob/master/CosmicHunter7.jpg" width="350" title="Level5">
+</p>
+
 Preferences:
 
 <p align="center">
